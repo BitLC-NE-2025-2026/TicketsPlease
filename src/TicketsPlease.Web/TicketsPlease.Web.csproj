@@ -6,7 +6,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="tailwindcss.msbuild" Version="0.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,5 +20,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <Target Name="TailwindBuild" BeforeTargets="Build">
+    <Exec Command="dotnet tailwind build" />
+  </Target>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿@using TicketsPlease.Application.Common.Interfaces
+@using TicketsPlease.Application.Common.Interfaces
 @inject ICorporateSkinProvider SkinProvider
 
 <!DOCTYPE html>
@@ -9,6 +9,7 @@
     <title>@ViewData["Title"] - TicketsPlease</title>
 
     @* Tailwind CSS Output & Site Specific Styles *@
+    <link rel="stylesheet" href="~/css/app.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TicketsPlease.Web.styles.css" asp-append-version="true" />
 
