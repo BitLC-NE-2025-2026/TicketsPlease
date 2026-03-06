@@ -1,6 +1,9 @@
-Die Datenbankstruktur (Entity Framework Core - Code First) ist streng relational, befindet sich in der **3. Normalform (3NF)** und folgt dem Enterprise-Grade Design. 
+Die Datenbankstruktur (Entity Framework Core - Code First) ist streng relational, befindet sich in der **3. Normalform (3NF)** und folgt dem Enterprise-Grade Design.
 
 > [!NOTE]
+> **Warum 3NF und nicht BCNF (Boyce-Codd)?**
+> Wir haben uns bewusst für die 3. Normalform entschieden, da sie in einem Ticketsystem die optimale Balance zwischen Datenintegrität und Abfrage-Performance (weniger Joins als in BCNF) bietet. BCNF würde bei überlappenden zusammengesetzten Schlüsseln (die hier kaum vorkommen) zu einer unnötigen Fragmentierung der Tabellen führen, was das EF Core Mapping verkompliziert.
+>
 > Das untenstehende ERD repräsentiert die **Ziel-Architektur (Phase 5)**. Für den aktuellen Fortschritt siehe [Aktueller Stand (MVP)](#aktueller-stand-mvp).
 
 ### Entity Relationship Diagram (3NF Enterprise Schema)
@@ -253,9 +256,136 @@ erDiagram
     TICKET_PRIORITY ||--o| SLA_POLICY : defines
     TICKET_TEMPLATE ||--o{ TICKET : spawns
 ```
+
+### 📋 Tabellarische Feld-Übersicht (Enterprise Schema)
+
+| Tabelle | Feld | Typ | Constraint | Beschreibung |
+|:---|:---|:---|:---|:---|
+| **ROLE** | Id | Guid | PK | Eindeutige ID der Rolle |
+| | Name | string | | z.B. Owner, Admin, Mod, User |
+| | Description | string | | Optionale Beschreibung |
+| **USER** | Id | Guid | PK | Eindeutige User ID |
+| | RoleId | Guid | FK | Verweis auf ROLE.Id |
+| | Username | string | NOT NULL | Eindeutiger Login-Name |
+| | Email | string | NOT NULL | Eindeutige E-Mail Adresse |
+| | PasswordHash | string | | Sicher verschlüsseltes Passwort |
+| | CreatedAt | datetime | | Erstellungszeitpunkt |
+| | LastLoginAt | datetime | | Letzter Login-Zeitstempel |
+| | IsOnline | boolean | | Aktueller Presence-Status |
+| | RowVersion | byte[] | Timestamp | Optimistic Concurrency Token |
+| **USER_PROFILE**| UserId | Guid | PK, FK | 1:1 zu USER.Id |
+| | FirstName | string | NOT NULL | Vorname |
+| | LastName | string | | Nachname |
+| | PhoneNumber | string | | Telefonnummer |
+| | AvatarImageId | Guid | FK | Verweis auf FILE_ASSET.Id |
+| | UpdatedAt | datetime | | Letzte Profilaktualisierung |
+| **FILE_ASSET** | Id | Guid | PK | Eindeutige Asset ID |
+| | FileName | string | | Ursprünglicher Dateiname |
+| | ContentType | string | | MIME-Type (image/png etc.) |
+| | BlobPath | string | | Pfad im Storage (S3/Azure/Local) |
+| | SizeBytes | long | | Dateigröße in Byte |
+| | UploadedAt | datetime | | Zeitstempel des Uploads |
+| | UploadedByUserId| Guid | FK | Verweis auf USER.Id |
+| **TICKET** | Id | Guid | PK | Eindeutige Ticket ID |
+| | Sha1Hash | string | Unique | Identifier für Referenzen |
+| | Title | string | | Kurzer Betreff |
+| | DescriptionMarkdown| string | | Ausführliche Beschreibung (MD) |
+| | PriorityId | Guid | FK | Verweis auf TICKET_PRIORITY.Id |
+| | ChilliesDifficulty| int | | Schwierigkeit (1-5 🌶️) |
+| | GeoIpTimestamp | string | | Audit-Information (Standort/Zeit) |
+| | StartDate | datetime | | Geplanter Start |
+| | Deadline | datetime | | Abgabetermin |
+| | WorkflowStateId | Guid | FK | Verweis auf WORKFLOW_STATE.Id |
+| | CreatorId | Guid | FK | Verweis auf USER.Id |
+| | CreatedAt | datetime | | Erstellungszeitraum |
+| | UpdatedAt | datetime | | Letzte Änderung |
+| | RowVersion | byte[] | Timestamp | Optimistic Concurrency Token |
+| **MESSAGE** | Id | Guid | PK | Eindeutige Nachrichten ID |
+| | SenderUserId | Guid | FK | Verweis auf USER.Id |
+| | TicketId | Guid | FK (Null) | Kontext: Ticket-Kommentar |
+| | TeamId | Guid | FK (Null) | Kontext: Team-Broadcast |
+| | ReceiverUserId | Guid | FK (Null) | Kontext: 1:1 Nachricht |
+| | BodyMarkdown | string | | Inhalt der Nachricht (MD) |
+| | SentAt | datetime | | Sendezeitpunkt |
+| | IsEdited | boolean | | Wurde die Nachricht geändert? |
+| **USER_ADDR** | UserId | Guid | PK, FK | 1:1 zu USER.Id |
+| | Street | string | | Straße |
+| | City | string | | Stadt |
+| | ZipCode | string | | Postleitzahl |
+| | Country | string | | Land |
+| **SUBTICKET** | Id | Guid | PK | Eindeutige Subticket ID |
+| | ParentTicketId| Guid | FK | Verweis auf TICKET.Id |
+| | Title | string | | Titel des Subtasks |
+| | IsCompleted | boolean | | Erledigt-Status |
+| | CreatedAt | datetime | | Erstellungszeitraum |
+| **T_TEMPLATE** | Id | Guid | PK | Eindeutige Template ID |
+| | Name | string | | z.B. Bug Report |
+| | DescriptionTemplate | string | | Markdown Template |
+| **SLA_POLICY** | Id | Guid | PK | Eindeutige Policy ID |
+| | PriorityId | Guid | FK | Verweis auf TICKET_PRIO.Id |
+| | ResponseTime | int | | Reaktionszeit in Std |
+| | ResolutionTime| int | | Lösungszeit in Std |
+| **MSG_RECEIPT** | MessageId | Guid | PK, FK | Verweis auf MESSAGE.Id |
+| | UserId | Guid | PK, FK | Verweis auf USER.Id |
+| | ReadAt | datetime | | Gelesen am |
+| **NOTIFICATION**| Id | Guid | PK | Eindeutige ID |
+| | UserId | Guid | FK | Empfänger (USER.Id) |
+| | Title | string | | Betreff |
+| | Message | string | | Inhalt der Benachrichtigung |
+| | TargetUrl | string | | Deep-Link zum Ticket/Kommentar |
+| | IsRead | boolean | | Gelesen-Status |
+| | CreatedAt | datetime | | Zeitstempel |
+| **TEAM** | Id | Guid | PK | Eindeutige Team ID |
+| | Name | string | | Name des Teams |
+| | Description | string | | Optionale Beschreibung |
+| | ColorCode | string | | Hex-Code für die UI |
+| | CreatedAt | datetime | | Erstellungszeitpunkt |
+| | CreatedByUserId | Guid | FK | Verweis auf USER.Id |
+| **TEAM_MEMBER** | TeamId | Guid | PK, FK | Verweis auf TEAM.Id |
+| | UserId | Guid | PK, FK | Verweis auf USER.Id |
+| | JoinedAt | datetime | | Beitrittsdatum |
+| | IsTeamLead | boolean | | Hat der User Leitungsrechte? |
+| **TICKET_ASSIGN** | TicketId | Guid | PK, FK | Verweis auf TICKET.Id |
+| | UserId | Guid | FK (Null) | Zuweisung an User |
+| | TeamId | Guid | FK (Null) | Zuweisung an Team |
+| | AssignedAt | datetime | | Zeitstempel der Zuweisung |
+| **TICKET_PRIO** | Id | Guid | PK | Eindeutige ID |
+| | Name | string | | z.B. High, Medium, Low |
+| | LevelWeight | int | | Sortier-Gewichtung |
+| | ColorHex | string | | Hex-Code für die UI |
+| **TAG** | Id | Guid | PK | Eindeutige Tag ID |
+| | Name | string | | z.B. #bug, #frontend |
+| | ColorHex | string | | Hex-Code |
+| **TICKET_TAG** | TicketId | Guid | PK, FK | Verweis auf TICKET.Id |
+| | TagId | Guid | PK, FK | Verweis auf TAG.Id |
+| **TIME_LOG** | Id | Guid | PK | Eindeutige Log ID |
+| | TicketId | Guid | FK | Verweis auf TICKET.Id |
+| | UserId | Guid | FK | Verweis auf USER.Id |
+| | StartedAt | datetime | | Beginn der Arbeit |
+| | StoppedAt | datetime | | Ende (Null wenn aktiv) |
+| | HoursLogged | decimal | Computed | Dauer in Stunden |
+| **TICKET_UPVOTE**| TicketId | Guid | PK, FK | Verweis auf TICKET.Id |
+| | UserId | Guid | PK, FK | Verweis auf USER.Id |
+| | VotedAt | datetime | | Zeitstempel |
+| **TICKET_HIST** | Id | Guid | PK | Eindeutige History ID |
+| | TicketId | Guid | FK | Verweis auf TICKET.Id |
+| | ActorUserId | Guid | FK | Wer hat geändert? |
+| | FieldName | string | | Geändertes Feld |
+| | OldValue | string | | Wert vor Änderung |
+| | NewValue | string | | Wert nach Änderung |
+| | ChangedAt | datetime | | Zeitpunkt der Änderung |
+| **WF_STATE** | Id | Guid | PK | Eindeutige Status ID |
+| | Name | string | | z.B. Todo, In Progress |
+| | OrderIndex | int | | Reihenfolge im Board |
+| | ColorHex | string | | UI Farbe |
+| | IsTerminalState | boolean | | Beendet das Ticket? (Done) |
+
+---
+
 ### Detaillierte Entity Beschreibung (3NF & Enterprise Design)
 
 #### 1. Identity & Profile Context (Strikte 3NF)
+
 Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu halten (sowie DSGVO-Löschkonzepte zu vereinfachen), wurde die gigantische `USER`-Tabelle aufgespalten:
 *   **User:** Enthält *ausschließlich* Kern-Authentifizierungsdaten (Ids, Hashes, Logins) sowie einen `IsOnline` Indikator für systemweite Presence-Features.
 *   **UserProfile:** Eine 1:1 Erweiterung, welche die persönlichen (nicht-Login-relevanten) Daten hält. Inklusive Referenz auf einen `FILE_ASSET` Datensatz für Profilbilder.
@@ -263,13 +393,16 @@ Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu 
 *   **Role:** Echte 1:n Rechteverwaltung für das erweiterte RBAC (Owner, Admin, Mod, Teamlead, User). Wird über die "Gruppen- & Rechteverwaltung" im Admin-Settings-Menü konfiguriert.
 
 #### 2. Media & Asset Management
+
 *   **FileAsset:** Eine zentrale Tabelle für alle unstrukturierten Dateien im System. Egal ob Profilbilder (Avatare), Ticket-Anhänge oder in Markdown-Chats eingebettete Bilder – alles verweist auf diesen Blob-Storage-Proxy.
 
 #### 3. Team Collaboration Context
+
 *   **Team:** Metadaten des Teams.
 *   **TeamMember:** Die n:m Auflösungstabelle. *Enterprise Feature:* Enthält nun das Flag `IsTeamLead`, um Teamleiter-Rechte direkt an die Knotenpunkte zu heften (wichtig für Broadcast-Nachrichten).
 
 #### 4. Ticket Management Context
+
 *   **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich `DescriptionMarkdown`. Jedes Ticket wird primär durch einen `Sha1Hash` referenziert, der ein einfaches Kopieren und systemweites Tracking erlaubt. Außerdem ist für die Revisionssicherheit ein `GeoIpTimestamp` verankert.
 *   **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene Entität ausgelagert (3NF), um Level und Farben dynamisch durch Admins definierbar zu machen.
 *   **TicketAssignment:** Eine eigene Tabelle (statt statischen FKs im Ticket-Table). Dies ermöglicht es, Historien zu pflegen ("Wer hatte das Ticket vorher?") und es simultan an User *und* Teams zu hängen.
@@ -278,6 +411,7 @@ Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu 
 *   **RowVersion (Concurrency):** Alle Domain-Entities verfügen über ein `byte[] RowVersion` (Timestamp) Feld zur Vermeidung von Lost-Update-Szenarien via EF Core Optimistic Concurrency.
 
 #### 5. Communication & Messaging Engine (Neu 🚀)
+
 Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
 *   **Message:** Ein polymorphes Nachrichten-Objekt. Es versteht volles Markdown (und damit Mermaid-Diagramme). Je nachdem, welche Foreign-Keys gesetzt sind, agiert die Entität als:
     1.  Ticket-Kommentar (`TicketId` != Null)
@@ -286,6 +420,7 @@ Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
 *   **MessageReadReceipt:** Echte n:m "Gelesen"-Indikatoren, damit Absender (wie bei WhatsApp) sehen, wer die Nachricht bereits konsumiert hat.
 
 #### 6. Audit & Compliance Context
+
 *   **TicketHistory:** Append-only Tabelle für den unmanipulierbaren Audit Trail (Wer hat wann was geändert?). Dieses Log wird global im Admin-Bereich unter "Audit Log" visualisiert.
 ---
 
@@ -294,6 +429,7 @@ Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
 Vom oben geplanten Schema sind im aktuellen MVP-Kern folgende Entitäten physisch implementiert:
 
 ### 1. Ticket Entity
+
 ```csharp
 public class Ticket : BaseEntity
 {
@@ -307,6 +443,7 @@ public class Ticket : BaseEntity
 ```
 
 ### 2. User Entity
+
 ```csharp
 public class User : BaseEntity
 {
@@ -317,6 +454,7 @@ public class User : BaseEntity
 ```
 
 ### 3. Base Entity (Common)
+
 Alle Entitäten erben von `BaseEntity` (Domain Layer):
-- `Guid Id` (Primary Key)
-- `byte[] RowVersion` (Concurrency Token)
+*   `Guid Id` (Primary Key)
+*   `byte[] RowVersion` (Concurrency Token)
