@@ -1,6 +1,10 @@
 # TicketsPlease 🎫
 
-Ein hochmodernes, skalierbares Ticket- und Kanban-System. Entwickelt mit modernsten Architektur-Prinzipien, kompromissloser Code-Qualität und einer exzellenten Developer Experience.
+Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
+
+> 💡 **Hintergrund & Entstehung:** Dieses Abschlussprojekt ("Einfaches Ticketsystem") basiert auf fundierten Vorarbeiten und Erfahrungswerten aus den Repositories [C-Sharp-OOP-Fundamentals](https://github.com/T-Boyke/C-Sharp-OOP-Fundamentals) und [C-Sharp-ASP-Fundamentals](https://github.com/T-Boyke/C-Sharp-ASP-Fundamentals). Es transformiert diese theoretischen Grundlagen nun in ein vollwertiges, cloud-ready Enterprise-Produkt.
+
+> 👉 **Projektphasen:** Da der Auftrag "Einfaches Ticketsystem" lautet, trennen wir strikt zwischen dem **[IHK MVP-Kern](docs/MVP_Roadmap.md)** und der späteren Enterprise-Ausbaustufe!
 
 ---
 
@@ -120,9 +124,10 @@ Unser Code unterliegt höchsten Qualitätsstandards:
 
 Das Frontend muss blitzschnell laden, responsiv sein und eine herausragende Developer Experience (DX) bieten. Besonderer Wert liegt auf einer **aufgeräumten und extrem lesbaren CSHTML-Struktur**.
 
-### Single File Components (SFC) im ASP.NET Core
+### Single File Components (SFC) & Razor Partials (DRY)
 Wir nutzen eine streng modulare UI-Architektur. Mittels ASP.NET Core Razor CSS-Isolation und dedizierten `ViewComponents` bündeln wir Template (HTML), Logik (C#) und domänenspezifisches Styling (CSS) konsequent. Jede UI-Komponente (Button, Card, Modal) ist völlig autark und kann ohne Nebenwirkungen ausgetauscht oder verschoben werden.
 Ziel ist es, den CSHTML-Code frei von C#-Business-Logik und ausufernden CSS-Klassen zu halten (Trennung von Markup und Styling). Wir nutzen ein zentrales **Barrel-File**-Konzept für das Frontend-Routing und den Component-Export, um Import-Pfade sauber zu halten.
+**Wichtige DRY-Regel:** Sobald sich ein kleines HTML-Konstrukt mehr als einmal wiederholt (z.B. Ticket-Tags, User-Avatare), lagern wir es zwingend in wiederverwendbare `<partial name="_Avatar" />` Views oder TagHelpers (wie einen Custom `<icon />` Tag) aus!
 
 ### Lokale Assets (No CDN Policy)
 Aus Gründen der Ausfallsicherheit, Performance und des Datenschutzes (DSGVO) verwenden wir **keine Content Delivery Networks (CDNs)**. Sämtliche Libraries (Tailwind, FontAwesome) werden vollständig lokal über den Microsoft Library Manager (`libman.json`) in das Projektverzeichnis (`wwwroot/lib`) integriert.

@@ -107,6 +107,27 @@ erDiagram
         Guid CreatorId FK
     }
 
+    TAG {
+        Guid Id PK
+        string Name "e.g. #frontend, #bug"
+        string ColorHex
+    }
+
+    TICKET_TAG {
+        Guid TicketId PK, FK
+        Guid TagId PK, FK
+    }
+
+    TIME_LOG {
+        Guid Id PK
+        Guid TicketId FK
+        Guid UserId FK
+        datetime StartedAt
+        datetime StoppedAt "Nullable (If running)"
+        decimal HoursLogged "Computed"
+        string Description "Nullable"
+    }
+
     TICKET_UPVOTE {
         Guid TicketId PK, FK
         Guid UserId PK, FK
@@ -166,6 +187,14 @@ erDiagram
     USER |o--o{ TICKET_ASSIGNMENT : receives
     TEAM |o--o{ TICKET_ASSIGNMENT : receives
 
+    %% Tags
+    TICKET ||--o{ TICKET_TAG : matches
+    TAG ||--o{ TICKET_TAG : categorizes
+
+    %% Time Logging
+    TICKET ||--o{ TIME_LOG : tracks
+    USER ||--o{ TIME_LOG : books
+
     %% Upvoting
     TICKET ||--o{ TICKET_UPVOTE : receives
     USER ||--o{ TICKET_UPVOTE : casts
@@ -198,6 +227,8 @@ Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu 
 *   **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene Entität ausgelagert (3NF), um Level und Farben dynamisch durch Admins definierbar zu machen.
 *   **TicketAssignment:** Eine eigene Tabelle (statt statischen FKs im Ticket-Table). Dies ermöglicht es, Historien zu pflegen ("Wer hatte das Ticket vorher?") und es simultan an User *und* Teams zu hängen.
 *   **TicketUpvote:** Community-Voting-System. Eine klassische n:m Tabelle, die regelt, dass ein User pro Ticket maximal einmal abstimmen (upvoten) darf.
+*   **TimeLog:** Extrem wichtig für B2B (Abrechnung/Controlling). Erfasst Start, Stop, und kalkulierte Stunden pro Benutzer auf ein Ticket.
+*   **Tag / TicketTag:** Globale Label-Verwaltung (`#bug`, `#frontend`). Beliebig viele Tags pro Ticket möglich (klassische n:m Beziehung).
 
 #### 5. Communication & Messaging Engine (Neu 🚀)
 Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.

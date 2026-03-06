@@ -16,13 +16,15 @@ Eine vollständige Ausbaustufe eines Tickets umfasst:
     *   `Done`
 *   **Priority:** `TicketPriority` Enum (`Low`, `Medium`, `High`, `Critical/Blocker`)
 *   **Complexity / Difficulty (Chillischoten 🌶️):** `byte` (1 bis 5). Dies soll rein visuell die Komplexität abbilden, ohne klassische "Story Points" zu nutzen.
-*   **Timeframes:**
     *   `CreatedAt`: `DateTimeOffset` (Systemgesteuert)
     *   `UpdatedAt`: `DateTimeOffset?` (Bei Modifikation)
     *   `StartDate`: `DateTimeOffset?` (Optional, wann die Arbeit beginnt)
     *   `Deadline`: `DateTimeOffset?` (Optional, wann die Arbeit beendet sein muss)
     *   `EstimatedHours`: `decimal?` (Geschätzter Aufwand)
-    *   `LoggedHours`: `decimal` (Tatsächlich erfasste Zeit)
+*   **Time Tracking & Logs:** 
+    *   Im Gegensatz zu einem simplen `LoggedHours` Feld, besitzt das Ticket eine Collection von `TimeLog` Objekten (`IReadOnlyList<TimeLog>`). Dies erfasst exakt, *welcher* User *wann* *wie lange* an dem Ticket gearbeitet hat.
+*   **Tags & Labels:**
+    *   Eine Collection an Metadaten (`IReadOnlyList<Tag>`), um Tickets projektübergreifend zu filtern (z.B. `#frontend`, `#bug`).
 *   **Assignees:**
     *   `AssignedUserId`: `Guid?` (Referenz zum bearbeitenden Nutzer)
     *   Fazit: Kann an eine Person oder ein ganzes `Team` delegiert werden (via Join-Table oder eigener Property).
@@ -34,5 +36,8 @@ Eine vollständige Ausbaustufe eines Tickets umfasst:
 
 Wir nutzen im Domain Layer **Rich Models** anstelle von anämischen (datengetriebenen) Modellen. Dies bedeutet:
 1.  **Properties besitzen `private set`:** Sie können nicht einfach von außen manipuliert werden (`ticket.Status = TicketStatus.Done;` ist verboten!).
-2.  **Verhaltens-Methoden:** Zustandsänderungen geschehen ausschließlich über definierte Methoden der Klasse (z.B. `ticket.MoveToReview(Guid userId)`), die intern sicherstellen, dass alle Business-Regeln eingehalten werden (z.B. dass beim Verschieben auf `Review` ein Assignee vorhanden ist).
-3.  **Konstruktoren:** Es gibt keinen leeren Parameterlosen Konstruktor für die Erstellung. Ein Ticket **muss** immer mit den minimalen Pflichtfeldern (Title, Context) initialisiert werden.
+2.  **Verhaltens-Methoden:** Zustandsänderungen geschehen ausschließlich über definierte Methoden der Klasse (z.B. `ticket.MoveToReview(Guid userId)`), die intern sicherstellen, dass alle Business-Regeln eingehalten werden.
+3.  **Strict Close Rules (Ticket-Schließung):** 
+    *   Ein Ticket darf nur manuell über die Methode `ticket.Close(User actor)` geschlossen werden. Diese Methode prüft zwingend, ob der `actor` entweder der Ersteller (`CreatorId`), ein `Admin` oder ein `Teamlead` ist. Normale Bearbeiter dürfen Tickets nur auf "Done" verschieben, aber nicht wegschließen.
+    *   *Auto-Close:* Ein geplanter Background-Task (Cronjob) darf Tickets, die länger als X Tage auf "Done" stehen, automatisiert ins Archiv/Closed verschieben.
+4.  **Konstruktoren:** Es gibt keinen leeren Parameterlosen Konstruktor für die Erstellung. Ein Ticket **muss** immer mit den minimalen Pflichtfeldern (Title, Context) initialisiert werden.
