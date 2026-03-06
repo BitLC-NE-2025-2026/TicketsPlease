@@ -22,3 +22,16 @@ Wir nutzen den in Visual Studio integrierten **Library Manager (LibMan)** (`libm
 ## Negative Konsequenzen
 - Unser Repository wird geringfügig größer, da Assets mit verwaltet werden.
 - Die Ladezeiten beim initialen Seitenaufruf können um Bruchteile von Millisekunden höher sein als bei verteilten, extrem optimierten globalen CDNs. Für unsere Enterprise-Kanban-Lösung ist dies jedoch ein akzeptabler Trade-off zugunsten des Datenschutzes.
+
+## Benötigte Lokale Assets (LibMan Stack)
+
+Um unsere hochgesteckten Feature-Ziele (Markdown, Kanban, Realtime, A11y) vollumfänglich und CDN-frei bereitzustellen, benötigen wir folgende Libraries lokal in `wwwroot/lib`:
+
+1.  **TailwindCSS (CLI & Output):** Unser Core-Styling Framework.
+2.  **FontAwesome Free (Webfonts/CSS):** Für alle UI-Icons.
+3.  **Google Fonts (z.B. Inter oder Roboto):** Lokal gehostete WOFF2-Dateien, um IP-Leaks zu Google-Servern zu verhindern.
+4.  **@microsoft/signalr:** Der offizielle JavaScript-Client für WebSockets und Core-Bestandteil unserer Realtime-Messaging und Online-Presence-Engine.
+5.  **marked.js (oder markdown-it):** Ein robuster, extrem schneller Parser, um das Markdown aus den C#-Modellen im Frontend in HTML umzuwandeln.
+6.  **DOMPurify:** **ABSOLUT KRITISCH!** Sobald wir User-generiertes Markdown (via `marked.js`) in echten HTML-Code umwandeln und ins DOM injizieren, *müssen* wir ihn vorher mit DOMPurify reinigen, um Cross-Site-Scripting (XSS) Attacken abzuwehren.
+7.  **mermaid.js:** Für das Rendern von komplexen Diagrammen und Architektur-Skizzen direkt in den Ticket-Beschreibungen.
+8.  *(Optional aber Empfohlen)* **SortableJS:** Zwar ist HTML5 Drag&Drop nativ vorhanden, aber für komplexe Kanban-Boards (übergreifende Listen, Ghost-Elemente, smoothe Animationen) liefert SortableJS die perfekte UX-Abrundung, ohne so schwergewichtig wie komplette React/Vue Drag-Frameworks zu sein.

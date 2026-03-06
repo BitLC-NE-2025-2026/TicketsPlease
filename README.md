@@ -124,12 +124,16 @@ Wir verfolgen strikt den Utility-First Ansatz, aber kapseln diesen sauber:
     *   `/css/components/cards.css` (Struktur für Kanban-Cards)
     *   `/css/components/form.css` (Inputs, Selects, Validation States)
 
-### ♿ Barrierefreiheit (a11y) & DSGVO Compliance
-Die Applikation wird von Grund auf nach dem **Barrierefreiheitsstärkungsgesetz (BFSG)** sowie der **DSGVO** entwickelt:
-*   Vollständige Tastaturnavigation im Kanban-Board.
-*   Korrekte ARIA-Labels und semantisches HTML5 für Screenreader.
-*   Hohe Kontrastwerte im UI-Design (Theme-System).
-*   Datensparsamkeit und strikte "Privacy by Design" Architektur in der Datenbank.
+### ♿ Barrierefreiheit (a11y) & UX Standards
+Wir entwickeln kompromisslos nach dem **Barrierefreiheitsstärkungsgesetz (BFSG)** und den strengen Richtlinien der [W3C ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/).
+*   **Keyboard-First Navigation:** Das gesamte Kanban-Board, alle Modals und Dropdowns müssen vollständig (und logisch) per `Tab`-Taste bedienbar sein. Focus-Traps in Modals sind Pflicht.
+*   **Semantik & ARIA:** Wir nutzen primär natives HTML5 (z.B. `<dialog>`, `<nav>`, `<main>`). Wo dies nicht ausreicht, setzen wir exakte `aria-`-Attribute ein (z.B. `aria-expanded`, `aria-describedby`), um Screenreadern den visuellen Kontext zu übersetzen.
+*   **Datensparsamkeit (DSGVO):** Strikte "Privacy by Design" Architektur in der Datenbank und im Session-Handling.
+
+### 🌗 Theme-Switching & Dark Mode (UX)
+Ein flüssiger Wechsel zwischen Dark-, Light- und System-Mode ist natives Projekt-Feature.
+*   **CSS-Variablen (`theme.css`):** Anstatt Farben hart in Tailwind-Klassen zu kodieren (z.B. `bg-gray-800`), definieren wir in der `theme.css` CSS-Custom-Properties (z.B. `--color-surface`, `--color-primary`).
+*   **Tailwind-Integration:** Tailwind wird so konfiguriert, dass es diese CSS-Variablen konsumiert. Dies ermöglicht einen instantanen Theme-Wechsel (durch Tausch eines data-Attributes auf dem `<html>`-Tag), ganz ohne Page-Reload.
 
 </details>
 
