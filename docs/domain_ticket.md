@@ -7,6 +7,7 @@ Die `Ticket`-Entität ist das absolut zentrale Objekt dieser Applikation. Sie un
 Eine vollständige Ausbaustufe eines Tickets umfasst:
 
 *   **Id:** `Guid` (Global Unique Identifier)
+*   **Sha1Hash:** `string` (Ein Hash zur globalen, systemweiten Identifikation eines Tickets. Erlaubt es, das Ticket zu kopieren und überall im System per Hash zu referenzieren).
 *   **Title/Name:** `string` (Max. 150 Zeichen)
 *   **Description:** `string` (Markdown wird unterstützt)
 *   **State / Status:** `TicketStatus` Enum
@@ -18,6 +19,7 @@ Eine vollständige Ausbaustufe eines Tickets umfasst:
 *   **Complexity / Difficulty (Chillischoten 🌶️):** `byte` (1 bis 5). Dies soll rein visuell die Komplexität abbilden, ohne klassische "Story Points" zu nutzen.
     *   `CreatedAt`: `DateTimeOffset` (Systemgesteuert)
     *   `UpdatedAt`: `DateTimeOffset?` (Bei Modifikation)
+    *   `GeoIpTimestamp`: `string` (Kombination aus IP-Adresse/Geo-Location und exaktem Zeitstempel der Erstellung oder Modifikation aus Audit-Gründen).
     *   `StartDate`: `DateTimeOffset?` (Optional, wann die Arbeit beginnt)
     *   `Deadline`: `DateTimeOffset?` (Optional, wann die Arbeit beendet sein muss)
     *   `EstimatedHours`: `decimal?` (Geschätzter Aufwand)
@@ -44,4 +46,4 @@ Wir nutzen im Domain Layer **Rich Models** anstelle von anämischen (datengetrie
 3.  **Strict Close Rules (Ticket-Schließung):** 
     *   Ein Ticket darf nur manuell über die Methode `ticket.Close(User actor)` geschlossen werden. Diese Methode prüft zwingend, ob der `actor` entweder der Ersteller (`CreatorId`), ein `Admin` oder ein `Teamlead` ist. Normale Bearbeiter dürfen Tickets nur auf "Done" verschieben, aber nicht wegschließen.
     *   *Auto-Close:* Ein geplanter Background-Task (Cronjob) darf Tickets, die länger als X Tage auf "Done" stehen, automatisiert ins Archiv/Closed verschieben.
-4.  **Konstruktoren:** Es gibt keinen leeren Parameterlosen Konstruktor für die Erstellung. Ein Ticket **muss** immer mit den minimalen Pflichtfeldern (Title, Context) initialisiert werden.
+4.  **Konstruktoren:** Es gibt keinen leeren Parameterlosen Konstruktor für die Erstellung. Ein Ticket **muss** immer mit den minimalen Pflichtfeldern (Title, Context, GeoIpTimestamp) initialisiert werden und generiert bei Erstellung zwingend seinen `Sha1Hash`.

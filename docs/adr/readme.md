@@ -21,6 +21,7 @@ Dieses Verzeichnis enthält die Aufzeichnungen aller wesentlichen architektonisc
 | [0013](0013-realtime-signalr.md) | Real-Time Communication (SignalR) | Accepted | 2026-03-06 |
 | [0014](0014-background-jobs-hangfire.md) | Background Scheduling (Hangfire) | Accepted | 2026-03-06 |
 | [0015](0015-api-documentation-scalar.md) | API Documentation (Scalar) | Accepted | 2026-03-06 |
+| [0016](0016-ticket-identification-audit.md) | Ticket Identification & Audit Trail | Accepted | 2026-03-06 |
 
 ---
 *Hinweis: Neue ADRs sollten basierend auf der [Template-Datei](template.md) erstellt werden.*

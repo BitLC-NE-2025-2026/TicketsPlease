@@ -16,8 +16,8 @@ erDiagram
     USER {
         Guid Id PK
         Guid RoleId FK
-        string Username
-        string Email
+        string Username "NOT NULL (Mandatory)"
+        string Email "NOT NULL (Mandatory)"
         string PasswordHash
         datetime CreatedAt
         datetime LastLoginAt
@@ -26,7 +26,7 @@ erDiagram
 
     USER_PROFILE {
         Guid UserId PK, FK
-        string FirstName
+        string FirstName "NOT NULL (Mandatory)"
         string LastName
         string PhoneNumber
         Guid AvatarImageId FK "Nullable"
@@ -72,10 +72,12 @@ erDiagram
     %% --- Ticket Core Domain ---
     TICKET {
         Guid Id PK
+        string Sha1Hash "Unique Identifier / Copy-Ref"
         string Title
         string DescriptionMarkdown
         Guid PriorityId FK
         int ChilliesDifficulty "1-5 🌶️"
+        string GeoIpTimestamp "Audit Trail"
         datetime StartDate
         datetime Deadline
         Guid WorkflowStateId FK
@@ -255,7 +257,7 @@ Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu 
 *   **User:** Enthält *ausschließlich* Kern-Authentifizierungsdaten (Ids, Hashes, Logins) sowie einen `IsOnline` Indikator für systemweite Presence-Features.
 *   **UserProfile:** Eine 1:1 Erweiterung, welche die persönlichen (nicht-Login-relevanten) Daten hält. Inklusive Referenz auf einen `FILE_ASSET` Datensatz für Profilbilder.
 *   **UserAddress:** Eine eigene 1:1 Tabelle, um Kontaktdaten sauber zu trennen (hilft immens beim DSGVO-Export oder Löschen spezifischer Adressdaten).
-*   **Role:** Echte 1:n Rechteverwaltung für das erweiterte RBAC (Owner, Admin, Mod, Teamlead, User).
+*   **Role:** Echte 1:n Rechteverwaltung für das erweiterte RBAC (Owner, Admin, Mod, Teamlead, User). Wird über die "Gruppen- & Rechteverwaltung" im Admin-Settings-Menü konfiguriert.
 
 #### 2. Media & Asset Management
 *   **FileAsset:** Eine zentrale Tabelle für alle unstrukturierten Dateien im System. Egal ob Profilbilder (Avatare), Ticket-Anhänge oder in Markdown-Chats eingebettete Bilder – alles verweist auf diesen Blob-Storage-Proxy.
@@ -265,7 +267,7 @@ Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu 
 *   **TeamMember:** Die n:m Auflösungstabelle. *Enterprise Feature:* Enthält nun das Flag `IsTeamLead`, um Teamleiter-Rechte direkt an die Knotenpunkte zu heften (wichtig für Broadcast-Nachrichten).
 
 #### 4. Ticket Management Context
-*   **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich `DescriptionMarkdown`.
+*   **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich `DescriptionMarkdown`. Jedes Ticket wird primär durch einen `Sha1Hash` referenziert, der ein einfaches Kopieren und systemweites Tracking erlaubt. Außerdem ist für die Revisionssicherheit ein `GeoIpTimestamp` verankert.
 *   **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene Entität ausgelagert (3NF), um Level und Farben dynamisch durch Admins definierbar zu machen.
 *   **TicketAssignment:** Eine eigene Tabelle (statt statischen FKs im Ticket-Table). Dies ermöglicht es, Historien zu pflegen ("Wer hatte das Ticket vorher?") und es simultan an User *und* Teams zu hängen.
 *   **TicketUpvote:** Community-Voting-System. Eine klassische n:m Tabelle, die regelt, dass ein User pro Ticket maximal einmal abstimmen (upvoten) darf.
@@ -279,3 +281,7 @@ Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
     2.  Direct Message (DM) an Kollegen (`ReceiverUserId` != Null)
     3.  Team-Broadcast durch Teamleads (`TeamId` != Null).
 *   **MessageReadReceipt:** Echte n:m "Gelesen"-Indikatoren, damit Absender (wie bei WhatsApp) sehen, wer die Nachricht bereits konsumiert hat.
+
+#### 6. Audit & Compliance Context
+*   **TicketHistory:** Append-only Tabelle für den unmanipulierbaren Audit Trail (Wer hat wann was geändert?). Dieses Log wird global im Admin-Bereich unter "Audit Log" visualisiert.
+*   **SlaPolicy:** Definiert Reaktions- und Lösungszeiten basierend auf der Ticket-Priorität, administrierbar über die SLA-Richtlinien in den Settings.

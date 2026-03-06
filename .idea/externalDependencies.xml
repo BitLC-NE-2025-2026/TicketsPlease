@@ -30,5 +30,14 @@
     
     <!-- WakaTime (for time tracking / journaling) -->
     <plugin id="WakaTime" />
+
+    <!-- QoL Web/HTML Tools for SFC CSHTML -->
+    <plugin id="com.intellij.plugins.html.instantActions" />
+    
+    <!-- Rainbow Brackets for deep tag nesting readability -->
+    <plugin id="izhangzhihao.rainbow.brackets" />
+    
+    <!-- Key Promoter X to learn shortcuts -->
+    <plugin id="Key Promoter X" />
   </component>
 </project>

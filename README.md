@@ -141,6 +141,12 @@ Aus Gründen der Ausfallsicherheit, Performance und des Datenschutzes (DSGVO) ve
 
 👉 **Mehr dazu in unserer [Asset Management Strategie](docs/frontend_assets.md).**
 
+### 🧭 Navigation & Settings-Menü
+*   **Dynamische Navbar:** Nach erfolgreichem Login wird in der Haupt-Navigation ein dediziertes "Settings" (Einstellungen) Menü sichtbar.
+*   **Rollenbasierte Ansichten:** Die Unterpunkte dieses Settings-Menüs filtern sich streng nach den Claims/Rollen des Nutzers.
+    *   **Benutzer (User / Teamlead):** Zugriff auf **"Mein Profil"** (Avatar-Upload, persönliche Daten), **"Sicherheit"** (Passwort ändern), **"Benachrichtigungen"** (E-Mail/App-Präferenzen) und **"Darstellung"** (Dark/Light Theme, Sprache/I18N, Zeitzone). *Teamleads* sehen zusätzlich die **"Team-Verwaltung"** für ihre zugewiesenen Squads.
+    *   **Administratoren (Admin / Owner):** Sehen zusätzlich zu den User-Settings die globale **"Benutzerverwaltung"** (Passwörter zurücksetzen), die **"Gruppen- & Rechteverwaltung"** (Rollen und Berechtigungen vergeben), **"Workflow-Konfiguration"** (Kanban-Spalten anpassen), **"SLA-Richtlinien"**, zentrales **"Tag-Management"**, globale **"System-Einstellungen"** (z.B. SMTP, Plugin-Verwaltung) und das systemweite **"Audit Log"** (Historie & Security Events).
+
 ### Atomic CSS & Utility First
 Wir verfolgen strikt den Utility-First Ansatz, aber kapseln diesen sauber:
 *   **TailwindCSS 4.2:** Wir nutzen den JIT (Just-in-Time) Compiler von Tailwind für pfeilschnelles, utility-basiertes Design. [Offizielle Dokumentation](https://tailwindcss.com/docs).
@@ -199,7 +205,8 @@ Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche Zug
 *   **Teamlead "Broadcast" Mails:** Teamleiter können offizielle Ankündigungen und Rundmails (formatiert in Markdown) direkt aus der Applikation an alle ihre Squad-Mitglieder senden.
 *   **Live Online-Status (Presence):** Grüne Indikatoren neben Profilbildern signalisieren in Echtzeit, ob ein Entwickler oder Ticket-Besitzer gerade in der Applikation aktiv ist.
 
-### 👤 Erweiterte Benutzerprofile
+### 👤 Erweiterte Benutzerprofile (IAM & Registrierung)
+*   **Zwingende Registrierungsdaten:** Bei der Kontoerstellung ist die Angabe von `Username`, `Vorname` (`FirstName`) und einer gültigen `Email` zwingend erforderlich (Hard Constraints in der Domain).
 *   Ausführliche Profile inklusive **Profilbild-Upload** (Avatar-Crop-Funktion), Kontaktdaten, Arbeitszeiten und abteilungsspezifischen Eigenschaften.
 *   Personalisierte Dashboards pro User (Was sind *meine* assigned Tickets?).
 
@@ -210,7 +217,8 @@ Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche Zug
 
 ### 🎫 Das Ticket-Core-Domain
 Das Herzstück der Applikation. Ein Ticket ist ein hochkomplexes Objekt mit folgenden Eigenschaften:
-*   **Stammdaten:** Eindeutige ID, Titel, ausführliche **Markdown-gestützte Beschreibung** (inkl. Mermaid-Graphen).
+*   **Stammdaten:** Eindeutige ID, referenzierbarer **SHA1-Hash** (zur systemweiten Identifizierung und Kopieren), Titel, ausführliche **Markdown-gestützte Beschreibung** (inkl. Mermaid-Graphen).
+*   **Audit & Tracking:** Jedes Ticket erfasst neben dem Zeitstempel auch zwingend einen **Geo/IP Timestamp** bei Erstellung und Bearbeitung aus Revisionsgründen.
 *   **Community Voting (Upvotes):** Entwickler und Teams können über Tickets abstimmen (Upvoting). Dies hilft Produktmanagern automatisiert zu erkennen, welche Features oder Bugs der Community aktuell am wichtigsten sind.
 *   **Zeitmanagement:** Startdatum, Deadline, geschätzter Aufwand und geloggte Arbeitszeit.
 *   **Priorisierung:** Skala (z.B. Low, Medium, High, Blocker) mit entsprechenden farblichen Indikatoren.

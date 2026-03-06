@@ -16,12 +16,13 @@ Alle Features hier müssen 100% bugfrei sein und durch Unit/Integration-Tests (T
 **Identity & Setup:**
 *   [x] Clean Architecture .NET 10 Solution Struktur steht.
 *   [x] Entity Framework Code-First DB mit MS SQL (Docker Testcontainers).
-*   [ ] User-Registrierung & Login (ASP.NET Core Identity).
+*   [ ] User-Registrierung & Login (ASP.NET Core Identity). Registrierung erfordert zwingend **Username, Vorname und E-Mail**.
+*   [ ] Dynamische Navbar mit kontext-sensitivem "Settings"-Menü (Profile für User; Gruppen- & Rechteverwaltung für Admins).
 *   [ ] *Einfache* Rollen (Admin, User).
 
 **Ticket Management (Core Funktionalität):**
 *   [ ] Kanban Dashboard (To Do, In Progress, Review, Done) mit Vanilla HTML5 Drag & Drop.
-*   [ ] Tickets erstellen (Titel, Beschreibung, Priorität).
+*   [ ] Tickets erstellen (Titel, Beschreibung, Priorität). Inkl. automatischer SHA1-Hash Generierung (Referenzierbarkeit) und Geo/IP-Timestamp Erfassung pro Ticket.
 *   [ ] Chillischoten-Schwierigkeits-Metrik (1-5 🌶️).
 *   [ ] Einem User ein Ticket zuweisen.
 *   [ ] **Close-Regeln:** Ein Ticket kann manuell nur von seinem *Ersteller* oder einem *Admin* geschlossen/gelöscht werden.
@@ -61,7 +62,7 @@ Sobald das MVP steht, der Build (CI/CD) dauerhaft grün ist und die IHK-Doku wä
 Diese Module katapultieren das System auf das Level von Branchenriesen wie Jira oder Linear. Sie erfordern tiefe architektonische Planung.
 
 **1. Audit & Compliance:**
-*   **Ticket History (Audit-Log):** Lückenlose Historisierung. Jeder Statuswechsel, jede Prioritätsänderung und Neuzuweisung wird mit Timestamp und Actor (User) in einer Append-Only-Tabelle (`TICKET_HISTORY`) mitgeschrieben.
+*   **Ticket History (Audit-Log):** Lückenlose Historisierung. Jeder Statuswechsel, jede Prioritätsänderung und Neuzuweisung wird mit Timestamp und Actor (User) in einer Append-Only-Tabelle (`TICKET_HISTORY`) mitgeschrieben. Einsehbar für Administratoren über das "Audit Log" im Settings-Menü.
 
 **2. Benachrichtigungen & Alerts:**
 *   **In-App Notification Center:** Eine "Glocke" in der UI. Benachrichtigt User bei Zuweisungen, Erwähnungen (@User) oder SLA-Verletzungen.
