@@ -197,12 +197,17 @@ Das visuelle Zentrum der Produktivität.
 
 Wir betrachten Code nicht als bloßen Text, sondern als beständiges Handwerk.
 
-### Test-Driven Development (TDD)
+### Test-Driven Development (TDD) & Quality Assurance
 Tests sind in diesem Projekt kein Nachgedanke, sondern treiben das Design. Wir verfolgen den konsequenten **Red-Green-Refactor**-Zyklus. 
 *   **100% Test Coverage-Ziel für die Domain:** Die Domain-Logik (Kern) duldet Zero Compromise. Jede Regel muss getestet sein.
 *   **Unit Tests:** Fokussiert auf Systemdienste, Helferklassen und die reinen Domain-Entities (geschrieben mit xUnit und Moq).
 *   **Integration Tests:** Validieren das Zusammenspiel mit der Datenbank (EF Core In-Memory oder Testcontainers) und testen komplette API-Routen/Controller.
 *   **E2E (End-to-End) Tests:** Mittels Playwright und Vitest automatisieren wir Browser-Klicks, um kritische User-Journeys (z.B. "Neues Ticket anlegen und auf Done schieben") abzusichern.
+
+### 💯 Google Lighthouse Tests (Performance & SEO)
+Als echtes Enterprise-Produkt muss das Frontend kompromisslos performen und zugänglich sein.
+*   Die CI/CD-Pipeline (GitHub Actions) bricht ab, wenn der automatische **Google Lighthouse Score** in den Kategorien Performance, Accessibility, Best Practices und SEO unter **100/100** fällt.
+*   **Mobile & Desktop First:** Die Audits werden isoliert für *Desktop* (Breitbild Kanban) und stark optimiertem *Mobile* Viewport (Responsive Listen/Karten) durchlaufen.
 
 ### Continuous Integration / Continuous Deployment (CI/CD)
 Wir verwenden **GitHub Actions**, um jegliche menschliche Fehler beim Deployment auszuschließen.
