@@ -1,0 +1,48 @@
+# Default ignored files
+/bin/
+/obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio 2026
+#.vs/
+#*.vsix
+
+# Rider 3.2026
+#.idea/
+#*.sln.iml
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Nuget packages
+*.nupkg
+packages/
+
+# libman
+libman.json
+lib/
+wwwroot/lib/
