@@ -36,24 +36,26 @@
         // ═══════════════════════════════════════════════════════════
         // 🌐 Fetch – URL Content Reader (Docs, APIs, NuGet)
         // Für das Lesen von Microsoft Docs, NuGet-Paketen, etc.
+        // Docs: https://www.npmjs.com/package/@modelcontextprotocol/server-fetch
         // ═══════════════════════════════════════════════════════════
         "fetch": {
             "command": "npx",
             "args": [
                 "-y",
-                "@anthropic-ai/fetch-mcp-server@latest"
+                "@modelcontextprotocol/server-fetch@latest"
             ]
         },
 
         // ═══════════════════════════════════════════════════════════
         // 📁 Filesystem – Erweiterter Dateizugriff
         // Für Lesen/Schreiben von Dateien außerhalb des Workspaces
+        // Docs: https://www.npmjs.com/package/@modelcontextprotocol/server-filesystem
         // ═══════════════════════════════════════════════════════════
         "filesystem": {
             "command": "npx",
             "args": [
                 "-y",
-                "@anthropic-ai/filesystem-mcp-server@latest",
+                "@modelcontextprotocol/server-filesystem@latest",
                 "d:/DEV/Tickets"
             ]
         },
@@ -61,37 +63,39 @@
         // ═══════════════════════════════════════════════════════════
         // 🧠 Memory – Persistent Knowledge Graph
         // Für projektübergreifendes Wissen und Kontext-Speicherung
+        // Docs: https://www.npmjs.com/package/@modelcontextprotocol/server-memory
         // ═══════════════════════════════════════════════════════════
         "memory": {
             "command": "npx",
             "args": [
                 "-y",
-                "@anthropic-ai/memory-mcp-server@latest"
+                "@modelcontextprotocol/server-memory@latest"
             ]
         },
 
         // ═══════════════════════════════════════════════════════════
         // 🔍 Sequential Thinking – Komplexe Problemlösung
         // Für strukturiertes Denken bei Architektur-Entscheidungen
+        // Docs: https://www.npmjs.com/package/@modelcontextprotocol/server-sequential-thinking
         // ═══════════════════════════════════════════════════════════
         "sequential-thinking": {
             "command": "npx",
             "args": [
                 "-y",
-                "@anthropic-ai/sequential-thinking-mcp-server@latest"
+                "@modelcontextprotocol/server-sequential-thinking@latest"
             ]
         },
 
         // ═══════════════════════════════════════════════════════════
         // 🗄️ MSSQL – SQL Server Datenbankzugriff
         // Für direkte SQL-Abfragen, Schema-Inspektion, Migration-Tests
-        // Docs: https://github.com/microsoft/mssql-mcp-server
+        // Docs: https://www.npmjs.com/package/@connorbritain/mssql-mcp-server
         // ═══════════════════════════════════════════════════════════
         "mssql": {
             "command": "npx",
             "args": [
                 "-y",
-                "@anthropic-ai/mssql-mcp-server@latest"
+                "@connorbritain/mssql-mcp-server@latest"
             ],
             "env": {
                 "MSSQL_CONNECTION_STRING": "Server=localhost;Database=TicketsPlease;Trusted_Connection=True;TrustServerCertificate=True;"
@@ -124,35 +128,6 @@
                 "-y",
                 "flowbite-mcp@latest"
             ]
-        },
-
-        // ═══════════════════════════════════════════════════════════
-        // 💻 PowerShell – Command Execution & System Automation
-        // Für PowerShell-Befehle, Skripte und Systemoperationen
-        // Behält Modul- und Variablen-State zwischen Aufrufen
-        // ═══════════════════════════════════════════════════════════
-        "powershell": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@anthropic-ai/powershell-mcp-server@latest"
-            ]
-        },
-
-        // ═══════════════════════════════════════════════════════════
-        // ⚡ .NET / C# – dotnet CLI Integration
-        // Für dotnet build, test, ef migrations, NuGet-Management
-        // Docs: https://devblogs.microsoft.com/dotnet/build-mcp-servers-with-dotnet/
-        // ═══════════════════════════════════════════════════════════
-        "dotnet": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@anthropic-ai/dotnet-mcp-server@latest"
-            ],
-            "env": {
-                "DOTNET_SOLUTION_PATH": "d:/DEV/Tickets/TicketsPlease.sln"
-            }
         }
     }
 }
