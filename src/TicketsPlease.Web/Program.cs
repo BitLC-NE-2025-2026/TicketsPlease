@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Infrastructure.Persistence;
+using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);

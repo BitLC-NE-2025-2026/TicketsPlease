@@ -43,6 +43,6 @@ bld/
 packages/
 
 # libman
-libman.json
+# libman.json is tracked, but restored assets are ignored
 lib/
 wwwroot/lib/
