@@ -56,9 +56,11 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
     *   [Visual Studio 2026](https://visualstudio.microsoft.com/) 
     *   [JetBrains Rider 3.2026](https://www.jetbrains.com/rider/) 
     *   *(Exklusiver Support mit maßgeschneiderten `.editorconfig` und Plugin-Configs).*
-*   **Backend & Core:** 
-    *   [C# 14](https://learn.microsoft.com/en-us/dotnet/csharp/)
-    *   [ASP.NET Core 10.3](https://learn.microsoft.com/en-us/aspnet/core/)
+*   **Backend & Core (ASP.NET Core 10.3 / C# 14):** 
+    *   [Offizielle C# Docs](https://learn.microsoft.com/en-us/dotnet/csharp/) | [ASP.NET Core Docs](https://learn.microsoft.com/en-us/aspnet/core/)
+    *   CQRS & Validation (MediatR, FluentValidation)
+    *   Resilience & Logging (Polly, Serilog)
+    *   👉 **[Detaillierte Backend-Library & NuGet Strategie](docs/nuget_stack.md)**
 *   **Datenbank & ORM:** 
     *   [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) (Code-First Approach)
     *   [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
