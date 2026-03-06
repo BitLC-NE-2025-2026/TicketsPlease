@@ -80,4 +80,19 @@ Diese Module katapultieren das System auf das Level von Branchenriesen wie Jira 
 **6. Ticket Templates:**
 *   **Vorlagen-System:** Admins können Templates (z.B. "Bug Report", "Feature Request") definieren. Beim Anlegen eines Tickets wird die Markdown-Description automatisch strukturiert vorausgefüllt.
 
-> **Fazit:** Wir bauen das Datenbankschema und die Ordnerstruktur heute schon für **Phase 2 und 3**, aber die initialen C# Feature-Sprints fokussieren sich eisern auf **Phase 1**!
+---
+
+## 🔌 Phase 4: Das Plugin Ecosystem
+
+Der finale Schritt zur Marktführerschaft. Das System öffnet sich für Erweiterungen von Drittanbietern oder isolierte Kunden-Lösungen.
+
+**1. Plugin Loader Architecture:**
+*   Das System scant zur Laufzeit ein `/plugins/` Verzeichnis.
+*   Gefundene `.dll` Dateien, die das `ITicketsPleasePlugin` Interface implementieren, werden dynamisch per Dependency Injection in den Core-Lifecycle eingehängt.
+
+**2. Offizielle Erweiterungen (Beispiele):**
+*   **TogglSync:** Ein Plugin, welches die internen `TIME_LOG` Einträge automatisch per API an Toggl Track sendet.
+*   **AI-Summarizer:** Ein Plugin, das bei jedem Statuswechsel auf "Review" die Ticket-Description an OpenAI schickt und einen Zusammenfassungs-Kommentar generiert.
+*   **SAML / SSO Authenticator:** Ein Plugin, welches den Standard-Login durch einen Enterprise Single-Sign-On (z.B. Entra ID) ersetzt.
+
+> **Fazit:** Wir bauen das Datenbankschema und die Ordnerstruktur heute schon für **Phase 2, 3 und 4**, aber die initialen C# Feature-Sprints fokussieren sich eisern auf **Phase 1**!

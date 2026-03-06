@@ -113,6 +113,12 @@ Unser Code unterliegt höchsten Qualitätsstandards:
 *   **DRY (Don't Repeat Yourself):** Logik wird abstrahiert und wiederverwendet. Code-Duplikate werden im Code-Review rigoros abgelehnt.
 *   **KISS (Keep It Simple, Stupid) & YAGNI (You Aren't Gonna Need It):** Wir bauen keine komplexen Abstraktionen "für die Zukunft". Wir lösen das aktuelle Problem mit dem einfachsten, lesbarsten und verständlichsten Code.
 
+### 🧩 Enterprise Plugin Architektur (Extensibility)
+Das System ist zukunftssicher darauf ausgelegt, Features aus verschiedenen (auch externen) Quellen nachzuladen, ohne den Core-Code anfassen zu müssen (Offen-Geschlossen-Prinzip).
+*   **Abstrakte Plugin-Schnittstellen:** Im Core-Domain definieren wir Interfaces (z.B. `ITicketActionPlugin`, `INotificationProvider`), die von externen Modulen implementiert werden können.
+*   **Dynamisches Nachladen:** Geplant ist ein Architektur-Design, welches via Reflection (`Assembly.Load`) oder das C# `ManagedLoadContext` zur Laufzeit kompilierte `.dll`-Dateien (Plugins) aus einem definierten Verzeichnis lädt und über Dependency Injection in die Applikation einklinkt.
+*   *Beispiele für spätere Plugins:* Externe Time-Tracking-Tools (Toggl Integration), Custom-Auth-Provider (SAML/SSO), oder KI-gestützte Ticket-Zusammenfassungen.
+
 </details>
 
 ---
