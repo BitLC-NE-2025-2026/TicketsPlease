@@ -1,6 +1,6 @@
 # 🚀 Minimum Viable Product (MVP) vs. Enterprise Roadmap
 
-Unser Projektauftrag der IHK lautet: **"Ein einfaches Ticketsystem realisieren."** 
+Unser Projektauftrag der IHK lautet: **"Ein einfaches Ticketsystem realisieren."**
 
 Um sich in den 80 Projektstunden nicht in Architekturen zu verrennen, definieren wir hier eine strikte Abgrenzung zwischen dem **Kern-MVP (Minimum Viable Product)**, mit dem wir zwingend in die IHK Prüfung gehen, und den **Enterprise Add-Ons**, die wir erst anflanschen, wenn die Basis grundsolide steht.
 
@@ -16,6 +16,7 @@ Alle Features hier müssen 100% bugfrei sein und durch Unit/Integration-Tests (T
 **Identity & Setup:**
 *   [x] Clean Architecture .NET 10 Solution Struktur steht.
 *   [x] Entity Framework Code-First DB mit MS SQL (Docker Testcontainers).
+*   [x] **Antigravity AI Integration:** Vollautomatisierung via AI Skills (Scaffold, review, ADR).
 *   [ ] User-Registrierung & Login (ASP.NET Core Identity). Registrierung erfordert zwingend **Username, Vorname und E-Mail**.
 *   [ ] Dynamische Navbar mit kontext-sensitivem "Settings"-Menü (Profile für User; Gruppen- & Rechteverwaltung für Admins).
 *   [ ] *Einfache* Rollen (Admin, User).
@@ -29,7 +30,8 @@ Alle Features hier müssen 100% bugfrei sein und durch Unit/Integration-Tests (T
 
 **Data & UI:**
 *   [ ] Razor Views & ViewComponents (strikte Nutzung von Partials zur Vermeidung von Code-Duplikation `DRY`).
-*   [ ] Styling via lokaler TailwindCSS/FontAwesome Stack (`libman.json`).
+*   [x] **Tailwind CSS v4 Stack:** Vollständige Integration via `tailwindcss-dotnet` (Node-free).
+*   [x] **Client-Side Asset Management:** `libman.json` für Markdig, SortableJS, FA7.
 
 ---
 

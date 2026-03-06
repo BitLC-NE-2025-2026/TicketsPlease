@@ -1,6 +1,7 @@
-## 🗄️ Datenbankschema & Entities (ERD)
+Die Datenbankstruktur (Entity Framework Core - Code First) ist streng relational, befindet sich in der **3. Normalform (3NF)** und folgt dem Enterprise-Grade Design. 
 
-Die Datenbankstruktur (Entity Framework Core - Code First) ist streng relational, befindet sich in der **3. Normalform (3NF)** und ist zukunftssicher (Enterprise-Grade) für hohe Datenmengen und schnelle Abfragen ausgelegt.
+> [!NOTE]
+> Das untenstehende ERD repräsentiert die **Ziel-Architektur (Phase 5)**. Für den aktuellen Fortschritt siehe [Aktueller Stand (MVP)](#aktueller-stand-mvp).
 
 ### Entity Relationship Diagram (3NF Enterprise Schema)
 
@@ -286,4 +287,36 @@ Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
 
 #### 6. Audit & Compliance Context
 *   **TicketHistory:** Append-only Tabelle für den unmanipulierbaren Audit Trail (Wer hat wann was geändert?). Dieses Log wird global im Admin-Bereich unter "Audit Log" visualisiert.
-*   **SlaPolicy:** Definiert Reaktions- und Lösungszeiten basierend auf der Ticket-Priorität, administrierbar über die SLA-Richtlinien in den Settings.
+---
+
+## Aktueller Stand (MVP)
+
+Vom oben geplanten Schema sind im aktuellen MVP-Kern folgende Entitäten physisch implementiert:
+
+### 1. Ticket Entity
+```csharp
+public class Ticket : BaseEntity
+{
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public string Status { get; set; }
+    public int Priority { get; set; }
+    public Guid? AssignedUserId { get; set; }
+    public User? AssignedUser { get; set; }
+}
+```
+
+### 2. User Entity
+```csharp
+public class User : BaseEntity
+{
+    public string DisplayName { get; set; }
+    public string Email { get; set; }
+    public bool IsActive { get; set; }
+}
+```
+
+### 3. Base Entity (Common)
+Alle Entitäten erben von `BaseEntity` (Domain Layer):
+- `Guid Id` (Primary Key)
+- `byte[] RowVersion` (Concurrency Token)

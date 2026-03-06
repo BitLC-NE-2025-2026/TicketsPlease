@@ -13,12 +13,18 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 ## [Unreleased]
 
 ### Added
-- **Agent Governance v3.1:** Vollständige Agent-Konfiguration mit 6 Rule-Dateien in `.agent/rules/`, 8 Workflows in `.agent/workflows/` und `instructions.md` (16 Sektionen)
-- **CHANGELOG.md:** Automatisch aktualisiertes Änderungsprotokoll nach Keep-a-Changelog Standard
+
+- **Antigravity AI Skills:** 6 automatisierte Skills für Scaffolding, Code-Review, EF-Debugging und ADR-Erstellung (#64)
+- **Client-side Libraries:** Integration von Markdig, SortableJS, FontAwesome 7.2 und DOMPurify (#160)
+- **Tailwind CSS v4:** Vollständige Migration auf die node-freie `tailwindcss-dotnet` Integration (#051)
+- **Agent Governance v3.1:** Erweiterte Konfiguration für konsistente Clean Architecture Entwicklung (#aa3)
 
 ### Changed
-- `.agent/instructions.md` auf Hub-Format umgestellt (verweist auf Rules, Workflows, Projekt-Docs)
-- Alle 5 bestehenden Workflows massiv erweitert (CQRS, EF Core, Testing, UI, Commits)
+
+- **README Hub:** Umgestaltung der README zur zentralen Dokumentations-Drehscheibe mit Fokus auf MVP vs. Enterprise Fortschritt.
+- **Gitignore:** Optimierung für Tailwind v4 build artifacts und libman assets.
+- **Agent Hub Configuration:** `.agent/instructions.md` auf Hub-Format umgestellt (verweist auf Rules, Workflows, Projekt-Docs).
+- **Workflow Expansion:** Alle 5 bestehenden Workflows massiv erweitert (CQRS, EF Core, Testing, UI, Commits).
 
 ---
 

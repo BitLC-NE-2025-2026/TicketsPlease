@@ -7,6 +7,8 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
 > 👉 **Projektphasen:** Da der Auftrag "Einfaches Ticketsystem" lautet, trennen wir strikt zwischen dem **[IHK MVP-Kern](docs/MVP_Roadmap.md)** und der späteren Enterprise-Ausbaustufe!
 
 > 🛠️ **Schnellstart:** Neu im Projekt? Folge der **[Einrichtungsanleitung für Dummies](docs/dev_setup_guide.md)**!
+>
+> 🤖 **AI-gestützte Entwicklung:** Dieses Projekt nutzt **Antigravity AI Skills** zur Automatisierung von Scaffolding, Reviews und Debugging. Siehe **[Antigravity Guide](docs/antigravity-guide.md)**.
 
 ---
 
@@ -36,6 +38,21 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
 - [8. 🗺️ Implementierungs Roadmap (IHK)](#8-️-implementierungs-roadmap-ihk)
 
 </details>
+
+---
+
+## 📊 Implementierungs-Status (MVP vs. Enterprise)
+
+| Feature | Status | Beschreibung | Scope |
+|---|---|---|---|
+| **Core Entities** | ✅ Aktiv | `Ticket` & `User` Domain-Modelle implementiert | MVP |
+| **IAM** | 🏗️ In Arbeit | Basis Identity & Access Management | MVP |
+| **Kanban Board** | 🗓️ Geplant | Interaktives Board mit Drag & Drop | MVP |
+| **Tailwind CSS v4** | ✅ Aktiv | Modernes Styling via `tailwindcss-dotnet` | MVP |
+| **AI Skills** | ✅ Aktiv | Automatisierung via Antigravity (ADR, Scaffold) | MVP |
+| **Team Support** | 🗺️ Roadmap | Enterprise Kollaborations-Module | Enterprise |
+| **SLA Policies** | 🗺️ Roadmap | Revisionssichere Reaktionszeiten | Enterprise |
+| **Plugin System** | 🗺️ Roadmap | Externe Module via Dynamic Loading | Enterprise |
 
 ---
 
@@ -77,10 +94,10 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
     *   *Siehe detailliertes [Datenbankschema (ERD)](docs/database_schema.md)*
 *   **Frontend & User Interface (UI):**
     *   **No-Bootstrap Policy:** Das Projekt ist vollständig Bootstrap-frei für maximalen Control-Flow.
-    *   **TailwindCSS 4.2:** Integration via `TailwindCSS.MSBuild` (Zero-Node Dependency).
+    *   **TailwindCSS v4:** Neueste Evolution via `tailwindcss-dotnet` (Kein Node.js nötig!).
+    *   **Client-Side Libs:** Markdig (Markdown), SortableJS (Drag & Drop), FontAwesome 7.2.
     *   **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider` und CSS-Variablen.
-    *   Lokales **[FontAwesome 7.2](https://fontawesome.com/)** für skalierbare Vektor-Icons.
-    *   Paketverwaltung via **[LibMan](https://learn.microsoft.com/en-us/aspnet/core/client-side/libman/libman-vs)** (`libman.json`), komplett ohne externe CDNs.
+    *   Paketverwaltung via **[LibMan](https://learn.microsoft.com/en-us/aspnet/core/client-side/libman/libman-vs)** (`libman.json`).
 *   **Architektur-Pattern:** 
     *   [Clean Architecture (Onion)](https://learn.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture)
     *   [Domain-Driven Design (DDD)](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/)
