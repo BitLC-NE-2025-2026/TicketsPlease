@@ -247,13 +247,22 @@ Wir verlassen uns nicht auf guten Willen, sondern auf harte Werkzeuge. Die in Ri
 *   Regeln wie `IDE0005` (Unused Imports) sind auf `Error` oder `Warning` gestellt. Warnungen im Build werden im PR Review wie Fehler behandelt.
 *   Code-Smells werden von der IDE rot unterstrichen und in der CI-Pipeline geblockt.
 
+### 🛡️ Enterprise Security & Trust (Defense in Depth)
+Wir sichern die Applikation nach dem "Defense in Depth" (Zwiebelschalen) Prinzip ab. Wenn eine Schicht kompromittiert wird, hält die Nächste dem Angriff stand.
+*   **Secret Management:** Sensible Daten (Connection Strings, JWT-Keys, API-Tokens) werden **niemals** im Git-Repository via `appsettings.json` committet. 
+    *   *Lokale Entwicklung:* Wir nutzen strikt den [ASP.NET Core Secret Manager `dotnet user-secrets`](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets).
+    *   *Produktion:* Integration von Systemen wie Azure Key Vault oder AWS Secrets Manager.
+*   **Data Protection & Hashing:** Passwörter werden mittels ASP.NET Core Identity (Pbkdf2/Argon2Id) gehasht. Cookies zwingend mit `HttpOnly` und `Secure` Flag versehen.
+*   **Input-Validation:** Kein User-Input erreicht die Business-Logik ungeprüft. FluentValidation und Anti-Forgery Tokens (XSRF/CSRF) sind in jedem Post-Request aktiv (und DOMPurify im Frontend, siehe Assets).
+
 ### Extensive Dokumentation & Architektur-Diagramme
 Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandteil des Workflows ist.
 *   **Architektur-Graphen & Diagramme:** Wir nutzen Mermaid-Diagramme für alle komplexen Systeme. Diese finden sich gesammelt unter:
     *   👉 **[System Architecture & Data-Flows (Big 5 UML)](docs/architecture_diagrams.md)**
     *   👉 **[Datenbankschema & Entities (ERD 3NF)](docs/database_schema.md)**
     *   👉 **[Projekt Gantt-Chart (IHK Roadmap)](docs/gantt_roadmap.md)**
-*   **Grafiken & Assets:** Wenn im Rahmen der Dokumentation oder des UI-Mockups echte Platzhalter-Bilder benötigt werden, nutzen wir vorerst [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter). Physisch benötigte Dokumentations-Grafiken werden im Ordner `/docs/assets/` versioniert abgelegt.
+*   **Mockups & Screenshots:** Initiale Planungs-Mockups, UI-Entwürfe und finale Screenshots (z.B. für die IHK Präsentation) werden versioniert im Ordner **`/docs/mockups/`** abgelegt.
+*   **Grafiken & Assets:** Wenn im Rahmen der Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir vorerst [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter). Echte, physisch benötigte Dokumentations-Grafiken kommen in den Ordner **`/docs/assets/`**.
 *   **Architectural Decision Records (ADR):** Wir nutzen den Ordner `/docs/adr/`, um gravierende Architektur-Entscheidungen (Warum EF Core? Warum Tailwind?) historisch logisch festzuhalten.
 
 </details>
