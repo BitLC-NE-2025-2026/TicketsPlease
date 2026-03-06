@@ -7,30 +7,38 @@ body:
   - type: markdown
     attributes:
       value: |
-        We love new ideas! Please provide as much details as possible about your feature request so we can better understand your vision.
+        We prioritize features that provide high Enterprise value and follow our Clean Architecture standards.
   - type: textarea
-    id: problem
+    id: user_story
     attributes:
-      label: 🎯 Is your feature request related to a problem?
-      description: Please describe the problem or friction point you are experiencing.
-      placeholder: I'm always frustrated when...
+      label: 👤 User Story
+      description: Please provide a description in the "User Story" format.
+      placeholder: As a [role], I want [action] so that [benefit].
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: 💰 Enterprise / Business Value
+      description: Why is this feature important? Does it affect Multi-tenancy or SLAs?
+      placeholder: This feature helps enterprise customers to...
     validations:
       required: true
   - type: textarea
     id: solution
     attributes:
-      label: 💡 Describe the solution you'd like
+      label: 💡 Describe the solution
       description: A clear and concise description of what you want to happen.
-      placeholder: I would love to see a feature that...
     validations:
       required: true
   - type: textarea
-    id: alternatives
+    id: architectural_impact
     attributes:
-      label: 🔄 Describe alternatives you've considered
-      description: A clear and concise description of any alternative solutions or features you've considered.
+      label: 📐 Architectural Impact
+      description: Which components or ADRs need updating?
+      placeholder: e.g. New Domain Entity, CQRS Command, update to ADR-0003
   - type: textarea
     id: context
     attributes:
       label: 📎 Additional context
-      description: Add any other context, designs, or screenshots about the feature request here.
+      description: Add any other context, designs, or screenshots.

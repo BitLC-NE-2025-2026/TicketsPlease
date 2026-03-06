@@ -7,18 +7,43 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report! 
-        Please provide as much information as possible to help us investigate.
+        Thanks for taking the time to fill out this bug report!
+        As an Enterprise-grade system, accuracy and detail are paramount.
   - type: checkboxes
     id: checklist
     attributes:
       label: ✅ Prerequisites
-      description: Please check the following items before submitting your bug report.
+      description: Please check the following items before submitting.
       options:
-        - label: I have searched for existing issues to avoid duplicates.
+        - label: I have searched for existing issues and ADRs.
           required: true
-        - label: I am using the latest version of the application.
+        - label: I am using the latest version (checking `CHANGELOG.md`).
           required: true
+        - label: This bug affects a core Enterprise/SaaS feature.
+          required: false
+  - type: dropdown
+    id: impact
+    attributes:
+      label: ⚡ Business Impact / Severity
+      description: How critical is this bug for the operation?
+      options:
+        - Critical (Production Blocker / Data Loss)
+        - Major (Core feature broken, no workaround)
+        - Moderate (Feature partially broken, has workaround)
+        - Minor (UI/UX polish, non-critical)
+    validations:
+      required: true
+  - type: dropdown
+    id: layers
+    attributes:
+      label: 🏗️ Architectural Layer
+      description: Which part of the Clean Architecture is affected?
+      options:
+        - Domain (Core entities, logic)
+        - Application (CQRS, Use Cases)
+        - Infrastructure (EF Core, Persistence)
+        - Web / UI (Frontend, API Controllers)
+        - Cross-Cutting (Logging, Resilience)
   - type: textarea
     id: description
     attributes:
@@ -50,22 +75,12 @@ body:
     id: environment_dotnet
     attributes:
       label: 🖥️ .NET & Environment
-      description: What version of .NET or Visual Studio are you using?
-      placeholder: e.g., ASP.NET Core 10.3, C# 14, Visual Studio 2026 / Rider 2026.x
+      description: Versions? (e.g., .NET 10.3, Tailwind 4.2)
+      placeholder: e.g., ASP.NET Core 10.x, EF Core 10.x, Rider 2026.x
     validations:
       required: true
-  - type: dropdown
-    id: os
-    attributes:
-      label: 💻 Operating System
-      description: What operating system are you running on?
-      options:
-        - Windows
-        - macOS
-        - Linux
-        - Other (please specify in additional context)
   - type: textarea
     id: additional_context
     attributes:
-      label: 📎 Screenshots & Additional Context
-      description: Add any other context about the problem here, such as screenshots or log outputs.
+      label: 📎 Screenshots & Logs
+      description: Add any other context, such as full stack traces or logs.

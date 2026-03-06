@@ -1,0 +1,50 @@
+name: 🛠️ Task Proposal
+description: Propose a specific technical task or internal improvement
+title: "[Task]: "
+labels: ["task"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for internal technical tasks, refactoring, or maintenance that doesn't directly qualify as a bug or user feature.
+  - type: textarea
+    id: objective
+    attributes:
+      label: 🎯 Objective
+      description: What is the goal of this task?
+      placeholder: e.g. "Refactor the persistence layer for better performance"
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: 📝 Technical Plan
+      description: List the planned changes in high-level steps.
+      placeholder: |
+        - [ ] Step 1
+        - [ ] Step 2
+    validations:
+      required: true
+  - type: textarea
+    id: dod
+    attributes:
+      label: ✅ Definition of Done
+      description: What criteria must be met to consider this task finished?
+      value: |
+        - [ ] Code follows Clean Architecture
+        - [ ] Tests updated or added
+        - [ ] Documentation updated
+        - [ ] AI Skills updated (if applicable)
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: ⚡ Priority
+      options:
+        - High (Immediate update required)
+        - Medium (Next sprint)
+        - Low (Backlog / Cleanup)
+    validations:
+      required: true
