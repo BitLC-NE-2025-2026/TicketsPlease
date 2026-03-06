@@ -25,6 +25,7 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
     - [Teams](#-teams)
     - [Tickets & Subtickets](#-tickets--subtickets)
     - [Kanban Dashboard](#-kanban-dashboard)
+    - [Enterprise Add-Ons (Phase 2-5)](#enterprise-add-ons-phase-2-5)
 - [6. 🛡️ Code-Qualität & Workflows](#6-️-code-qualität--workflows)
     - [Test-Driven Development (TDD)](#test-driven-development-tdd)
     - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
@@ -224,6 +225,16 @@ Das visuelle Zentrum der Produktivität.
 *   **Echtzeit-Board:** Interaktives Board, welches den Status (To Do, In Progress, Review, Done) visuell darstellt.
 *   **Custom Workflows:** Administratoren können die Spalten (Status-Stadien) des Boards pro Projekt anpassen.
 *   **Drag & Drop Matrix:** Native Drag & Drop-Funktionalität im Browser, mit der Tickets reibungslos durch die Workflow-Stadien gezogen werden können.
+
+### Enterprise Add-Ons (Phase 2-5) 🚀
+Unser System ist für den skalierten Betrieb konzipiert. Folgende Säulen stützen die stabilen Phasen:
+*   **Observability & Monitoring:** Integrierte Endpunkte (`/health`) zur Echtzeit-Überwachung von DB, File-Storage und Mail-Server.
+*   **Infrastructure Excellence:**
+    *   **Hangfire / Quartz:** Persistentes Background-Processing für SLAs und Auto-Close.
+    *   **Redis Caching:** Distributed In-Memory Cache zur Minimierung von DB-Latenzen.
+*   **API Mastery:**
+    *   **Scalar Interactive Docs:** Eine interaktive API-Dokumentation für Drittanbieter.
+    *   **Semantic Versioning:** Versionierte API-Endpunkte für langfristige Stabilität.
 
 </details>
 

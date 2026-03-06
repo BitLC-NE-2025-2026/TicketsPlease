@@ -21,10 +21,15 @@ Diese Schicht kümmert sich um die "Außenwelt" (Datenbanken, Dateisysteme, Mail
 *   **`Microsoft.AspNetCore.Identity.EntityFrameworkCore`**: Bindet das Rollen/User-System direkt in EF Core ein.
 *   **`MailKit` / `MimeKit`**: Der Industrie-Standard für das Versenden von E-Mails via SMTP (Zwingend benötigt für die **Teamlead-Broadcast-Mails** aus den Features).
 *   **`Polly`**: Eine Resilience und Transient-Fault-Handling Library. Falls die Datenbank kurz weg ist oder der Mail-Server stockt, kümmert sich Polly um automatisierte Retries (z.B. Exponential Backoff) und Circuit Breaking. Das ist Enterprise-Standard!
+*   **`Hangfire.AspNetCore`** & **`Hangfire.SqlServer`**: Für robuste, persistente Hintergrundaufgaben (wie das Auto-Archivieren von Tickets). Enthält ein eigenes Dashboard zur Überwachung der Jobs.
+*   **`Microsoft.Extensions.Caching.StackExchangeRedis`**: Ermöglicht High-Performance Distributed Caching via Redis.
+*   **`AspNetCore.HealthChecks.SqlServer`** & **`AspNetCore.HealthChecks.UI`**: Überwacht die Vitalwerte der Applikation und stellt sie unter `/health` bereit.
 
 ## 4. 🔵 Presentation / Web Layer (MVC & API)
 Die Eintrittspforte des Nutzers.
 *   **`Serilog.AspNetCore`**: Ersetzt den Standard-Microsoft-Logger durch **Structured Logging**. Logs (Fehler, Warnings) werden sauber im JSON Format weggeschrieben (perfekt für externe Tools wie Seq, Datadog oder ElasticSearch).
+*   **`Scalar.AspNetCore`**: Die modernere Alternative zu Swagger/NSwag. Bietet eine wunderschöne, interaktive API-Dokumentation.
+*   **`Asp.Versioning.Mvc.ApiExplorer`**: Ermöglicht eine saubere Versionierung der REST-Endpunkte (`/v1/`, `/v2/`).
 *   **`Microsoft.EntityFrameworkCore.Design`**: Wird für Code-First EF Migrations (`dotnet ef migrations add`) benötigt.
 
 ## 5. 🧪 Testing Projects

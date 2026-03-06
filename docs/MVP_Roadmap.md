@@ -96,3 +96,24 @@ Der finale Schritt zur Marktführerschaft. Das System öffnet sich für Erweiter
 *   **SAML / SSO Authenticator:** Ein Plugin, welches den Standard-Login durch einen Enterprise Single-Sign-On (z.B. Entra ID) ersetzt.
 
 > **Fazit:** Wir bauen das Datenbankschema und die Ordnerstruktur heute schon für **Phase 2, 3 und 4**, aber die initialen C# Feature-Sprints fokussieren sich eisern auf **Phase 1**!
+
+---
+
+## 📈 Phase 5: Final Polish & Observability
+
+Die Vorbereitung auf den skalierten Live-Betrieb (Operations).
+
+**1. Monitoring & Health:**
+*   **ASP.NET Core Health Checks:** Endpunkte (`/health`), die den Status der Datenbank, des Filesystems und externer APIs (Mail, Toggl) in Echtzeit überwachen.
+
+**2. Distributed Caching:**
+*   **Redis-Integration:** Häufig angefragte Daten (z.B. User-Profile, Team-Listen) werden im Redis zwischengespeichert (Cache-Aside Pattern), um die SQL-Datenbank zu entlasten.
+
+**3. Robust Background Tasks:**
+*   **Hangfire / Quartz.NET:** Ein persistenter Job-Scheduler mit eigenem Dashboard. Garantiert, dass Auto-Close Jobs oder SLA-Mails auch dann ausgeführt werden, wenn der Server kurz neu startet.
+
+**4. API Excellence:**
+*   **Scalar / OpenAPI:** Automatische Dokumentation aller API-Endpunkte für Plugin-Entwickler.
+*   **Versioning:** Versionierte API-Routen (`/api/v1/tickets`), um Breaking-Changes sicher zu managen.
+
+> **Finales Fazit:** Das System ist nun von den IHK-Grundlagen bis zur High-End Enterprise-Cloud-Architektur vollständig durchgeplant. Jedes C# Projekt und jedes NuGet-Paket hat seinen festen Platz.
