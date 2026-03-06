@@ -10,6 +10,15 @@ Die Datenbankstruktur (Entity Framework Core - Code First) ist streng relational
 
 ```mermaid
 erDiagram
+    %% --- Organizations & Multi-Tenancy ---
+    ORGANIZATION {
+        Guid Id PK
+        string Name
+        string SubscriptionLevel "Trial, Basic, Enterprise"
+        datetime JoinedAt
+        boolean IsActive
+    }
+
     %% --- Identity & Access Management (IAM) ---
     ROLE {
         Guid Id PK
@@ -169,6 +178,26 @@ erDiagram
         boolean IsTerminalState
     }
 
+    WORKFLOW_TRANSITION {
+        Guid FromStateId FK
+        Guid ToStateId FK
+        Guid AllowedRoleId FK "Nullable (All roles if null)"
+    }
+
+    CUSTOM_FIELD_DEFINITION {
+        Guid Id PK
+        Guid TenantId FK
+        string Name "e.g. Software Version"
+        string FieldType "Text, Number, Date, List"
+        string ConfigurationJson "List options, Validation"
+    }
+
+    TICKET_CUSTOM_VALUE {
+        Guid TicketId PK, FK
+        Guid FieldDefinitionId PK, FK
+        string Value "Serialized value"
+    }
+
     SLA_POLICY {
         Guid Id PK
         Guid PriorityId FK
@@ -252,9 +281,18 @@ erDiagram
     USER ||--o{ NOTIFICATION : receives
 
     %% Audit & SLAs
-    TICKET ||--o{ TICKET_HISTORY : generates
+    TICKET_HISTORY ||--o{ TICKET : generates
     TICKET_PRIORITY ||--o| SLA_POLICY : defines
     TICKET_TEMPLATE ||--o{ TICKET : spawns
+    
+    %% Future-Proofing
+    ORGANIZATION ||--o{ USER : contains
+    ORGANIZATION ||--o{ TICKET : owns
+    WORKFLOW_STATE ||--o{ WORKFLOW_TRANSITION : originates
+    WORKFLOW_STATE ||--o{ WORKFLOW_TRANSITION : targets
+    ORGANIZATION ||--o{ CUSTOM_FIELD_DEFINITION : defines
+    TICKET ||--o{ TICKET_CUSTOM_VALUE : has_meta
+    CUSTOM_FIELD_DEFINITION ||--o{ TICKET_CUSTOM_VALUE : values_for
 ```
 
 ### 📋 Tabellarische Feld-Übersicht (Enterprise Schema)
@@ -335,6 +373,19 @@ erDiagram
 | | TargetUrl | string | | Deep-Link zum Ticket/Kommentar |
 | | IsRead | boolean | | Gelesen-Status |
 | | CreatedAt | datetime | | Zeitstempel |
+| **ORGANIZATION** | Id | Guid | PK | Eindeutige Mandanten ID |
+| | Name | string | | Firmenname |
+| | SubscriptionLevel| string | | z.B. Enterprise, Basic |
+| **WF_TRANSITION** | FromStateId | Guid | FK | Von Status |
+| | ToStateId | Guid | FK | Zu Status |
+| | AllowedRoleId | Guid | FK | Berechtigte Rolle |
+| **C_FIELD_DEF** | Id | Guid | PK | Eindeutige Feld-Definition |
+| | TenantId | Guid | FK | Gehört zu Mandant |
+| | Name | string | | Feldbezeichnung |
+| | FieldType | string | | Typ (Text, List, etc.) |
+| **T_CUSTOM_VAL** | TicketId | Guid | PK, FK | Verweis auf TICKET.Id |
+| | FieldDefinitionId| PK, FK | Guid | Verweis auf C_FIELD_DEF.Id |
+| | Value | string | | Tatsächlicher Wert |
 | **TEAM** | Id | Guid | PK | Eindeutige Team ID |
 | | Name | string | | Name des Teams |
 | | Description | string | | Optionale Beschreibung |
