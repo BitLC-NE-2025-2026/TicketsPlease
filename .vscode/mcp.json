@@ -34,19 +34,6 @@
         },
 
         // ═══════════════════════════════════════════════════════════
-        // 🌐 Fetch – URL Content Reader (Docs, APIs, NuGet)
-        // Für das Lesen von Microsoft Docs, NuGet-Paketen, etc.
-        // Docs: https://www.npmjs.com/package/@modelcontextprotocol/server-fetch
-        // ═══════════════════════════════════════════════════════════
-        "fetch": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@modelcontextprotocol/server-fetch@latest"
-            ]
-        },
-
-        // ═══════════════════════════════════════════════════════════
         // 📁 Filesystem – Erweiterter Dateizugriff
         // Für Lesen/Schreiben von Dateien außerhalb des Workspaces
         // Docs: https://www.npmjs.com/package/@modelcontextprotocol/server-filesystem
@@ -98,22 +85,9 @@
                 "@connorbritain/mssql-mcp-server@latest"
             ],
             "env": {
-                "MSSQL_CONNECTION_STRING": "Server=localhost;Database=TicketsPlease;Trusted_Connection=True;TrustServerCertificate=True;"
+                "SERVER_NAME": "localhost",
+                "DATABASE_NAME": "TicketsPlease"
             }
-        },
-
-        // ═══════════════════════════════════════════════════════════
-        // 🎨 TailwindCSS – Utility Classes, Docs & CSS Conversion
-        // Für Tailwind-Klassen-Lookup, CSS→Tailwind Konvertierung,
-        // Konfigurationshilfe und Docs-Suche
-        // Docs: https://www.npmjs.com/package/tailwindcss-mcp-server
-        // ═══════════════════════════════════════════════════════════
-        "tailwindcss": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "tailwindcss-mcp-server@latest"
-            ]
         },
 
         // ═══════════════════════════════════════════════════════════
