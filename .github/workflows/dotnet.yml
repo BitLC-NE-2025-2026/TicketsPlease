@@ -45,8 +45,7 @@ jobs:
         thresholds: '60 80'
 
     - name: Add Coverage PR Comment
-      uses: marooned-mariner/comment-on-pr@v1.0.1
+      uses: thollander/actions-comment-pull-request@v3
       if: github.event_name == 'pull_request'
       with:
-        msg: ./code-coverage-results.md
-        check_for_duplicate_msg: true
+        file-path: ./code-coverage-results.md
