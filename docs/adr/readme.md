@@ -14,6 +14,13 @@ Dieses Verzeichnis enthält die Aufzeichnungen aller wesentlichen architektonisc
 | [0006](0006-testing-strategy.md) | Testing Strategy (TDD & Testcontainers) | Accepted | 2026-03-06 |
 | [0007](0007-mvp-scope-phasing.md) | MVP Scope & Phasing Logic | Accepted | 2026-03-06 |
 | [0008](0008-plugin-architecture.md) | Enterprise Plugin Architecture | Accepted | 2026-03-06 |
+| [0009](0009-cqrs-mediatr.md) | CQRS Strategy (MediatR) | Accepted | 2026-03-06 |
+| [0010](0010-validation-fluentvalidation.md) | Validation (FluentValidation) | Accepted | 2026-03-06 |
+| [0011](0011-structured-logging-serilog.md) | Structured Logging (Serilog) | Accepted | 2026-03-06 |
+| [0012](0012-resilience-polly.md) | Resilience & Fault Handling (Polly) | Accepted | 2026-03-06 |
+| [0013](0013-realtime-signalr.md) | Real-Time Communication (SignalR) | Accepted | 2026-03-06 |
+| [0014](0014-background-jobs-hangfire.md) | Background Scheduling (Hangfire) | Accepted | 2026-03-06 |
+| [0015](0015-api-documentation-scalar.md) | API Documentation (Scalar) | Accepted | 2026-03-06 |
 
 ---
 *Hinweis: Neue ADRs sollten basierend auf der [Template-Datei](template.md) erstellt werden.*
