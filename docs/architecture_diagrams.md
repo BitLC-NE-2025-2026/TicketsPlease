@@ -7,26 +7,30 @@ Dieses Dokument visualisiert unsere High-Level Architektur (Clean Architecture),
 Das folgende Diagramm zeigt die strikte Abhängigkeitsrichtung (Dependency Rule) unserer ASP.NET Core Solution. Abhängigkeiten dürfen **immer nur nach innen** (in Richtung der Domain) zeigen.
 
 ```mermaid
-architecture-beta
-    group api(cloud)[Presentation / UI Layer]
-    group app(cloud)[Application Layer]
-    group infra(cloud)[Infrastructure Layer]
-    group domain(cloud)[Domain Layer (Core)]
+flowchart TD
+    subgraph Presentation ["1. Presentation / UI Layer"]
+        MVC["ASP.NET Core MVC & API"]
+    end
 
-    service mvc(internet)[ASP.NET Core MVC & API] in api
-    service cqrs(server)[CQRS Handlers & Services] in app
-    service efcore(database)[EF Core Repositories] in infra
-    service signalr(server)[SignalR Hubs] in infra
-    
-    service entities(server)[Entities, VOs, Interfaces] in domain
+    subgraph Application ["2. Application Layer"]
+        CQRS["CQRS Handlers & Services"]
+        Interfaces["Application Interfaces"]
+    end
 
-    mvc:B --> T:cqrs
-    cqrs:B --> T:entities
-    
-    efcore:T --> B:cqrs
-    efcore:R --> L:entities
-    
-    signalr:L --> R:cqrs
+    subgraph Infrastructure ["3. Infrastructure Layer"]
+        Repo["EF Core Repositories"]
+        SignalR["SignalR Hubs"]
+    end
+
+    subgraph Domain ["4. Domain Layer (Core)"]
+        Entities["Entities & Value Objects"]
+        DomainEvents["Domain Events"]
+    end
+
+    %% Dependency Rule: Arrows point INWARDS (towards Domain)
+    MVC -->|"Uses"| Application
+    Infrastructure -->|"Implements"| Application
+    Application -->|"Uses"| Domain
 ```
 
 ## 2. Infrastructure & Deployment Architektur
