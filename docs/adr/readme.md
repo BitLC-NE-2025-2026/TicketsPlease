@@ -26,6 +26,7 @@ Dieses Verzeichnis enthält die Aufzeichnungen aller wesentlichen architektonisc
 | [0018](0018-tailwind-msbuild-integration.md) | Tailwind CSS via MSBuild (Node-free) | Accepted | 2026-03-06 |
 | [0019](0019-ef-core-resilience-concurrency.md) | EF Core Resilience & Concurrency | Accepted | 2026-03-06 |
 | [0020](0020-corporate-skinning-provider.md) | Corporate Skinning Architecture | Accepted | 2026-03-06 |
+| [0021](0021-database-future-proofing.md) | Database Future-Proofing (Enterprise Extensions) | Accepted | 2026-03-06 |
 
 ---
 *Hinweis: Neue ADRs sollten basierend auf der [Template-Datei](template.md) erstellt werden.*
