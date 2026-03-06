@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <!-- Tailwind CSS Support -->
+    <plugin id="com.intellij.tailwindcss" />
+    
+    <!-- Better log viewing -->
+    <plugin id="com.intellij.ideolog" />
+    
+    <!-- GitIgnore support -->
+    <plugin id="mobi.hsz.idea.gitignore" />
+    
+    <!-- String Manipulation (useful for C# strings/naming conventions) -->
+    <plugin id="String Manipulation" />
+    
+    <!-- CSV Plugin (useful if you ever import ticket data) -->
+    <plugin id="net.seesharpsoft.intellij.plugins.csv" />
+
+    <!-- Database Tools / DataGrip features within Rider -->
+    <plugin id="com.intellij.database" />
+
+    <!-- Mermaid Markdown Support -->
+    <plugin id="org.intellij.plugins.markdown" />
+    
+    <!-- Sublime Text Keymap -->
+    <plugin id="com.intellij.plugins.sublimekeymap" />
+
+    <!-- JetBrains AI Assistant (Excellent for code journaling and docs) -->
+    <plugin id="com.intellij.ml.llm" />
+    
+    <!-- WakaTime (for time tracking / journaling) -->
+    <plugin id="WakaTime" />
+  </component>
+</project>

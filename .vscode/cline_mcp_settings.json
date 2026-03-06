@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "everything": {
+            "command": "node",
+            "args": [
+                "C:/path/to/your/everything/mcp/server/build/index.js"
+            ],
+            "env": {}
+        }
+    }
+}
