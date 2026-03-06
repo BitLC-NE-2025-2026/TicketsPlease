@@ -108,3 +108,31 @@ sequenceDiagram
     Mediator->>Controller: Result (TicketId)
     Controller-->>User: HTTP 201 Created (Redirect to Board)
 ```
+
+## 4. Enterprise Plugin Loader Flow (Runtime Extensibility)
+
+Dieses Diagramm zeigt, wie das System zur Laufzeit externe Module (.dll) lädt, ohne dass der Kern-Code neu kompiliert werden muss.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Host as TicketsPlease.Web (Host)
+    participant Folder as /plugins/ Verzeichnis
+    participant Loader as AssemblyLoadContext
+    participant DI as ServiceCollection (DI Container)
+    participant Core as System Core Features
+
+    Host->>Folder: Scanne Verzeichnis nach *.dll
+    Folder-->>Host: Liste der Plugin-Assemblies
+    
+    loop Pro Plugin
+        Host->>Loader: Lade Assembly in isolierten Kontext
+        Loader-->>Host: Assembly geladen
+        Host->>Host: Suche Klassen mit ITicketsPleasePlugin
+        Host->>DI: Registriere Plugin-Services & UI-Hooks
+    end
+
+    Core->>DI: Fordere alle IPlugin-Instanzen an
+    DI-->>Core: Liste der aktiven Plugins
+    Core->>Core: Integriere Plugin-Features in UI & Logik
+```
