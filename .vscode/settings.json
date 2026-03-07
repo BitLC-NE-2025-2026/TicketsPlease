@@ -1,0 +1,33 @@
+{
+    "dotnet.server.useOmnisharp": false,
+    "csharp.format.enable": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "tailwindCSS.experimental.classRegex": [
+        "class: \"([^\"]*)\""
+    ],
+    "cSpell.words": [
+        "antigravity",
+        "cshtml",
+        "fluentvalidation",
+        "hangfire",
+        "ideolog",
+        "ihk",
+        "mediatr",
+        "sarif",
+        "serilog",
+        "signalr",
+        "slnx",
+        "testcontainers",
+        "ticketsplease",
+        "zockerbot"
+    ],
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "markdownlint.config": {
+        "MD033": false,
+        "MD041": false
+    }
+}
