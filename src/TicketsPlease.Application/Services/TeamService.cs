@@ -18,7 +18,6 @@ using TicketsPlease.Domain.Entities;
 /// </summary>
 public class TeamService(ITeamRepository teamRepository) : ITeamService
 {
-
   /// <inheritdoc/>
   public async Task<IEnumerable<TeamDto>> GetUserTeamsAsync(Guid userId, CancellationToken cancellationToken = default)
   {

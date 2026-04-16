@@ -27,7 +27,6 @@ public class DashboardService(
   RoleManager<Role> roleManager,
   IHttpContextAccessor httpContextAccessor) : IDashboardService
 {
-
   /// <inheritdoc />
   public async Task<DashboardStatsDto> GetDashboardStatsAsync()
   {

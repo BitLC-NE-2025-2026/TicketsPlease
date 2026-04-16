@@ -11,36 +11,20 @@ using TicketsPlease.Domain.Entities;
 /// <summary>
 /// Implementiert die Logik für das Organisations-Management.
 /// </summary>
-public class OrganizationService : IOrganizationService
+/// <param name="repository">Das injizierte Repository.</param>
+/// <param name="inviteService">Der Einladungs-Service.</param>
+/// <param name="auditLogService">Der Audit-Log-Service.</param>
+/// <param name="ticketRepository">Das Ticket-Repository.</param>
+public class OrganizationService(
+    IOrganizationRepository repository,
+    IOrganizationInviteService inviteService,
+    IAuditLogService auditLogService,
+    ITicketRepository ticketRepository) : IOrganizationService
 {
-    private readonly IOrganizationRepository repository;
-    private readonly IOrganizationInviteService inviteService;
-    private readonly IAuditLogService auditLogService;
-    private readonly ITicketRepository ticketRepository;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="OrganizationService"/> class.
-    /// </summary>
-    /// <param name="repository">Das injizierte Repository.</param>
-    /// <param name="inviteService">Der Einladungs-Service.</param>
-    /// <param name="auditLogService">Der Audit-Log-Service.</param>
-    /// <param name="ticketRepository">Das Ticket-Repository.</param>
-    public OrganizationService(
-        IOrganizationRepository repository,
-        IOrganizationInviteService inviteService,
-        IAuditLogService auditLogService,
-        ITicketRepository ticketRepository)
-    {
-        this.repository = repository;
-        this.inviteService = inviteService;
-        this.auditLogService = auditLogService;
-        this.ticketRepository = ticketRepository;
-    }
-
     /// <inheritdoc/>
     public async Task<List<OrganizationDto>> GetOrganizationsAsync(CancellationToken ct = default)
     {
-        var orgs = await this.repository.GetAllAsync(ct).ConfigureAwait(false);
+        var orgs = await repository.GetAllAsync(ct).ConfigureAwait(false);
         return orgs.Select(o => new OrganizationDto(
             o.Id,
             o.Name,
@@ -59,7 +43,7 @@ public class OrganizationService : IOrganizationService
     /// <inheritdoc/>
     public async Task<OrganizationDto?> GetOrganizationByIdAsync(Guid id, CancellationToken ct = default)
     {
-        var o = await this.repository.GetByIdAsync(id, ct).ConfigureAwait(false);
+        var o = await repository.GetByIdAsync(id, ct).ConfigureAwait(false);
         return o == null ? null : new OrganizationDto(
             o.Id,
             o.Name,
@@ -96,30 +80,30 @@ public class OrganizationService : IOrganizationService
             NotifyOnBlocker = dto.NotifyOnBlocker,
         };
 
-        await this.repository.AddAsync(org, ct).ConfigureAwait(false);
-        
+        await repository.AddAsync(org, ct).ConfigureAwait(false);
+
         // Seed default transitions
-        var todo = await this.ticketRepository.GetWorkflowStateByNameAsync("Todo", ct).ConfigureAwait(false);
-        var inProgress = await this.ticketRepository.GetWorkflowStateByNameAsync("In Progress", ct).ConfigureAwait(false);
-        var done = await this.ticketRepository.GetWorkflowStateByNameAsync("Done", ct).ConfigureAwait(false);
+        var todo = await ticketRepository.GetWorkflowStateByNameAsync("Todo", ct).ConfigureAwait(false);
+        var inProgress = await ticketRepository.GetWorkflowStateByNameAsync("In Progress", ct).ConfigureAwait(false);
+        var done = await ticketRepository.GetWorkflowStateByNameAsync("Done", ct).ConfigureAwait(false);
 
         if (todo != null && inProgress != null)
         {
-            await this.ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = inProgress.Id, TenantId = org.Id }).ConfigureAwait(false);
-            await this.ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = todo.Id, TenantId = org.Id }).ConfigureAwait(false);
+            await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = inProgress.Id, TenantId = org.Id }).ConfigureAwait(false);
+            await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = todo.Id, TenantId = org.Id }).ConfigureAwait(false);
         }
 
         if (inProgress != null && done != null)
         {
-            await this.ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
+            await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
         }
 
         if (todo != null && done != null)
         {
-            await this.ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
+            await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
         }
 
-        await this.repository.SaveChangesAsync(ct).ConfigureAwait(false);
+        await repository.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return new OrganizationDto(
             org.Id,
@@ -141,7 +125,7 @@ public class OrganizationService : IOrganizationService
     {
         ArgumentNullException.ThrowIfNull(dto);
 
-        var org = await this.repository.GetByIdAsync(id, ct).ConfigureAwait(false);
+        var org = await repository.GetByIdAsync(id, ct).ConfigureAwait(false);
         if (org != null)
         {
             var changes = $"Name: {org.Name}->{dto.Name}, Active: {org.IsActive}->{dto.IsActive}, SLA Interval: {org.SlaCheckIntervalMinutes}->{dto.SlaCheckIntervalMinutes}";
@@ -158,29 +142,28 @@ public class OrganizationService : IOrganizationService
             org.NotifyOnHigh = dto.NotifyOnHigh;
             org.NotifyOnBlocker = dto.NotifyOnBlocker;
 
-            await this.repository.SaveChangesAsync(ct).ConfigureAwait(false);
+            await repository.SaveChangesAsync(ct).ConfigureAwait(false);
 
             // Log governance action
-            await this.auditLogService.LogActionAsync(id, Guid.Empty, "UpdateSettings", changes).ConfigureAwait(false);
+            await auditLogService.LogActionAsync(id, Guid.Empty, "UpdateSettings", changes).ConfigureAwait(false);
         }
     }
 
-    /// <inheritdoc/>
     public async Task<OrganizationInviteDto?> ValidateInviteTokenAsync(Guid token)
     {
-        return await this.inviteService.ValidateTokenAsync(token).ConfigureAwait(false);
+        return await inviteService.ValidateTokenAsync(token).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
     public async Task MarkInviteAsUsedAsync(Guid token, Guid userId)
     {
-        await this.inviteService.MarkAsUsedAsync(token, userId).ConfigureAwait(false);
+        await inviteService.MarkAsUsedAsync(token, userId).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
     public async Task<List<AuditLogDto>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default)
     {
-        var logs = await this.repository.GetAuditLogsAsync(organizationId, ct).ConfigureAwait(false);
+        var logs = await repository.GetAuditLogsAsync(organizationId, ct).ConfigureAwait(false);
         return logs.Select(l => new AuditLogDto(
             l.Timestamp,
             l.ActorName ?? "System",

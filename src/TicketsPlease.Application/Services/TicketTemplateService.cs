@@ -11,23 +11,13 @@ using TicketsPlease.Domain.Entities;
 /// <summary>
 /// Implementiert die Geschäftslogik für Ticket-Vorlagen.
 /// </summary>
-public class TicketTemplateService : ITicketTemplateService
+/// <param name="repository">Das injizierte Repository.</param>
+public class TicketTemplateService(ITicketTemplateRepository repository) : ITicketTemplateService
 {
-    private readonly ITicketTemplateRepository repository;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="TicketTemplateService"/> class.
-    /// </summary>
-    /// <param name="repository">Das injizierte Repository.</param>
-    public TicketTemplateService(ITicketTemplateRepository repository)
-    {
-        this.repository = repository;
-    }
-
     /// <inheritdoc/>
     public async Task<List<TicketTemplateDto>> GetAllTemplatesAsync(CancellationToken ct = default)
     {
-        var templates = await this.repository.GetAllAsync(ct).ConfigureAwait(false);
+        var templates = await repository.GetAllAsync(ct).ConfigureAwait(false);
         return templates.Select(t => new TicketTemplateDto(
             t.Id,
             t.Name,
@@ -50,11 +40,11 @@ public class TicketTemplateService : ITicketTemplateService
             CreatorId = creatorId,
         };
 
-        await this.repository.AddAsync(template, ct).ConfigureAwait(false);
-        await this.repository.SaveChangesAsync(ct).ConfigureAwait(false);
+        await repository.AddAsync(template, ct).ConfigureAwait(false);
+        await repository.SaveChangesAsync(ct).ConfigureAwait(false);
 
         // Fetch again to get priority name if any
-        var saved = await this.repository.GetByIdAsync(template.Id, ct).ConfigureAwait(false);
+        var saved = await repository.GetByIdAsync(template.Id, ct).ConfigureAwait(false);
         
         return new TicketTemplateDto(
             saved!.Id,
@@ -67,11 +57,11 @@ public class TicketTemplateService : ITicketTemplateService
     /// <inheritdoc/>
     public async Task DeleteTemplateAsync(Guid id, CancellationToken ct = default)
     {
-        var template = await this.repository.GetByIdAsync(id, ct).ConfigureAwait(false);
+        var template = await repository.GetByIdAsync(id, ct).ConfigureAwait(false);
         if (template != null)
         {
-            await this.repository.DeleteAsync(template, ct).ConfigureAwait(false);
-            await this.repository.SaveChangesAsync(ct).ConfigureAwait(false);
+            await repository.DeleteAsync(template, ct).ConfigureAwait(false);
+            await repository.SaveChangesAsync(ct).ConfigureAwait(false);
         }
     }
 }

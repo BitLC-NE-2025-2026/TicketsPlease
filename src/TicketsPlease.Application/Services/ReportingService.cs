@@ -15,34 +15,23 @@ using TicketsPlease.Application.Common.Interfaces;
 /// <summary>
 /// Implementierung des ReportingService für Stakeholder-Auswertungen.
 /// </summary>
-public class ReportingService : IReportingService
+/// <param name="projectRepository">Das Repository für Projekte.</param>
+/// <param name="ticketRepository">Das Repository für Tickets.</param>
+/// <param name="teamRepository">Das Repository für Teams.</param>
+/// <param name="userRepository">Das Repository für Benutzer.</param>
+public class ReportingService(
+  IProjectRepository projectRepository,
+  ITicketRepository ticketRepository,
+  ITeamRepository teamRepository,
+  IUserRepository userRepository) : IReportingService
 {
-  private readonly IProjectRepository projectRepository;
-  private readonly ITicketRepository ticketRepository;
-  private readonly ITeamRepository teamRepository;
-  private readonly IUserRepository userRepository;
-
-  /// <summary>
-  /// Initializes a new instance of the <see cref="ReportingService"/> class.
-  /// </summary>
-  public ReportingService(
-      IProjectRepository projectRepository,
-      ITicketRepository ticketRepository,
-      ITeamRepository teamRepository,
-      IUserRepository userRepository)
-  {
-    this.projectRepository = projectRepository;
-    this.ticketRepository = ticketRepository;
-    this.teamRepository = teamRepository;
-    this.userRepository = userRepository;
-  }
-
   /// <inheritdoc />
   public async Task<StakeholderDashboardDto> GetStakeholderDashboardAsync(Guid tenantId)
   {
-    // 1. SLA Compliance pro Projekt
-    var projects = (await this.projectRepository.GetAllAsync(tenantId).ConfigureAwait(false)).ToList();
-    var allTickets = await this.ticketRepository.GetByTenantAsync(tenantId).ConfigureAwait(false);
+    var projects = (await projectRepository.GetAllAsync(tenantId).ConfigureAwait(false)).ToList();
+    var allTickets = await ticketRepository.GetByTenantAsync(tenantId).ConfigureAwait(false);
+    var teams = await teamRepository.GetTeamsByTenantAsync(tenantId).ConfigureAwait(false);
+    var userCount = await userRepository.GetActiveUserCountAsync(tenantId).ConfigureAwait(false);
 
     var slaCompliance = projects.Select(p =>
     {
@@ -54,7 +43,6 @@ public class ReportingService : IReportingService
     }).ToList();
 
     // 2. Team Durchsatz
-    var teams = await this.teamRepository.GetTeamsByTenantAsync(tenantId).ConfigureAwait(false);
     var doneTickets = allTickets.Where(t => t.Status == "Done").ToList();
 
     var teamThroughput = teams.Select(team =>
@@ -82,9 +70,6 @@ public class ReportingService : IReportingService
 
       return new ProjectHealthDto(p.Title, open, urgent, status);
     }).ToList();
-
-    // 4. Aktive User
-    var userCount = await this.userRepository.GetActiveUserCountAsync(tenantId).ConfigureAwait(false);
 
     return new StakeholderDashboardDto(
         new Collection<SlaComplianceDto>(slaCompliance),
