@@ -1,4 +1,4 @@
-﻿// <copyright file="NotificationDto.cs" company="BitLC-NE-2025-2026">
+// <copyright file="NotificationDto.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -29,7 +29,7 @@ public class NotificationDto
     /// <summary>
     /// Gets or sets die Ziel-URL.
     /// </summary>
-    public string? TargetUrl { get; set; }
+    public Uri? TargetUrl { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether die Benachrichtigung gelesen wurde.

@@ -16,44 +16,34 @@ using TicketsPlease.Domain.Entities;
 /// <summary>
 /// Service-Implementierung für das Management von Teams.
 /// </summary>
-public class TeamService : ITeamService
+public class TeamService(ITeamRepository teamRepository) : ITeamService
 {
-  private readonly ITeamRepository teamRepository;
-
-  /// <summary>
-  /// Initializes a new instance of the <see cref="TeamService"/> class.
-  /// </summary>
-  /// <param name="teamRepository">Das Repository für Teams.</param>
-  public TeamService(ITeamRepository teamRepository)
-  {
-    this.teamRepository = teamRepository;
-  }
 
   /// <inheritdoc/>
   public async Task<IEnumerable<TeamDto>> GetUserTeamsAsync(Guid userId, CancellationToken cancellationToken = default)
   {
-    var teams = await this.teamRepository.GetTeamsByUserIdAsync(userId, cancellationToken).ConfigureAwait(false);
+    var teams = await teamRepository.GetTeamsByUserIdAsync(userId, cancellationToken).ConfigureAwait(false);
     return teams.Select(MapToDto);
   }
 
   /// <inheritdoc/>
   public async Task<TeamDto?> GetTeamDetailsAsync(Guid teamId, CancellationToken cancellationToken = default)
   {
-    var team = await this.teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+    var team = await teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
     return team != null ? MapToDto(team) : null;
   }
 
   /// <inheritdoc/>
   public async Task<IEnumerable<TeamDto>> GetAllTeamsAsync(Guid? currentUserId = null, CancellationToken cancellationToken = default)
   {
-    var teams = await this.teamRepository.GetAllTeamsAsync(cancellationToken).ConfigureAwait(false);
+    var teams = await teamRepository.GetAllTeamsAsync(cancellationToken).ConfigureAwait(false);
     return teams.Select(t => MapToDto(t, currentUserId));
   }
 
   /// <inheritdoc/>
   public async Task<IEnumerable<TeamDto>> GetTenantTeamsAsync(Guid tenantId, Guid? currentUserId = null)
   {
-    var teams = await this.teamRepository.GetTeamsByTenantAsync(tenantId).ConfigureAwait(false);
+    var teams = await teamRepository.GetTeamsByTenantAsync(tenantId).ConfigureAwait(false);
     return teams.Select(t => MapToDto(t, currentUserId));
   }
 
@@ -70,8 +60,8 @@ public class TeamService : ITeamService
       CreatedByUserId = creatorUserId,
     };
 
-    await this.teamRepository.AddAsync(team, cancellationToken).ConfigureAwait(false);
-    await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    await teamRepository.AddAsync(team, cancellationToken).ConfigureAwait(false);
+    await teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     return team.Id;
   }
@@ -79,7 +69,7 @@ public class TeamService : ITeamService
   /// <inheritdoc/>
   public async Task AddMemberAsync(Guid teamId, Guid userId, bool isTeamLead = false, bool saveChanges = true, CancellationToken cancellationToken = default)
   {
-    var team = await this.teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+    var team = await teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
     if (team == null)
     {
       throw new ArgumentException("Team not found", nameof(teamId));
@@ -99,17 +89,17 @@ public class TeamService : ITeamService
       IsTeamLead = isTeamLead,
     });
 
-    await this.teamRepository.UpdateAsync(team, cancellationToken).ConfigureAwait(false);
+    await teamRepository.UpdateAsync(team, cancellationToken).ConfigureAwait(false);
     if (saveChanges)
     {
-      await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+      await teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
   }
 
   /// <inheritdoc/>
   public async Task RemoveMemberAsync(Guid teamId, Guid userId, CancellationToken cancellationToken = default)
   {
-    var team = await this.teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+    var team = await teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
     if (team == null)
     {
       throw new ArgumentException("Team not found", nameof(teamId));
@@ -119,19 +109,19 @@ public class TeamService : ITeamService
     if (member != null)
     {
       team.Members.Remove(member);
-      await this.teamRepository.UpdateAsync(team, cancellationToken).ConfigureAwait(false);
-      await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+      await teamRepository.UpdateAsync(team, cancellationToken).ConfigureAwait(false);
+      await teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
   }
 
   /// <inheritdoc/>
   public async Task DeleteTeamAsync(Guid teamId)
   {
-    var team = await this.teamRepository.GetByIdAsync(teamId).ConfigureAwait(false);
+    var team = await teamRepository.GetByIdAsync(teamId).ConfigureAwait(false);
     if (team != null)
     {
-      await this.teamRepository.DeleteAsync(team).ConfigureAwait(false);
-      await this.teamRepository.SaveChangesAsync().ConfigureAwait(false);
+      await teamRepository.DeleteAsync(team).ConfigureAwait(false);
+      await teamRepository.SaveChangesAsync().ConfigureAwait(false);
     }
   }
 
@@ -157,14 +147,14 @@ public class TeamService : ITeamService
   /// <inheritdoc/>
   public async Task<Guid> RequestJoinAsync(Guid teamId, Guid userId, CancellationToken cancellationToken = default)
   {
-    var existingRequests = await this.teamRepository.GetJoinRequestsByTeamIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+    var existingRequests = await teamRepository.GetJoinRequestsByTeamIdAsync(teamId, cancellationToken).ConfigureAwait(false);
     if (existingRequests.Any(r => r.UserId == userId && r.Status == Domain.Enums.JoinRequestStatus.Pending))
     {
         return existingRequests.First(r => r.UserId == userId && r.Status == Domain.Enums.JoinRequestStatus.Pending).Id;
     }
 
-    var team = await this.teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
-    
+    var team = await teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+
     var request = new TeamJoinRequest
     {
       Id = Guid.NewGuid(),
@@ -172,11 +162,11 @@ public class TeamService : ITeamService
       UserId = userId,
       TenantId = team?.TenantId ?? Guid.Empty,
       RequestedAt = DateTime.UtcNow,
-      Status = Domain.Enums.JoinRequestStatus.Pending
+      Status = Domain.Enums.JoinRequestStatus.Pending,
     };
 
-    await this.teamRepository.AddJoinRequestAsync(request, cancellationToken).ConfigureAwait(false);
-    await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    await teamRepository.AddJoinRequestAsync(request, cancellationToken).ConfigureAwait(false);
+    await teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     return request.Id;
   }
@@ -184,7 +174,7 @@ public class TeamService : ITeamService
   /// <inheritdoc/>
   public async Task DecideJoinRequestAsync(Guid requestId, Guid decidedByUserId, bool approve, CancellationToken cancellationToken = default)
   {
-    var request = await this.teamRepository.GetJoinRequestByIdAsync(requestId, cancellationToken).ConfigureAwait(false);
+    var request = await teamRepository.GetJoinRequestByIdAsync(requestId, cancellationToken).ConfigureAwait(false);
     if (request == null || request.Status != Domain.Enums.JoinRequestStatus.Pending)
     {
       return;
@@ -196,7 +186,7 @@ public class TeamService : ITeamService
 
     if (approve)
     {
-      var team = await this.teamRepository.GetByIdAsync(request.TeamId, cancellationToken).ConfigureAwait(false);
+      var team = await teamRepository.GetByIdAsync(request.TeamId, cancellationToken).ConfigureAwait(false);
       if (team != null && !team.Members.Any(m => m.UserId == request.UserId))
       {
         team.Members.Add(new TeamMember
@@ -211,14 +201,14 @@ public class TeamService : ITeamService
       }
     }
 
-    await this.teamRepository.UpdateJoinRequestAsync(request, cancellationToken).ConfigureAwait(false);
-    await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    await teamRepository.UpdateJoinRequestAsync(request, cancellationToken).ConfigureAwait(false);
+    await teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
   public async Task<IEnumerable<TeamJoinRequestDto>> GetJoinRequestsAsync(Guid teamId, CancellationToken cancellationToken = default)
   {
-    var requests = await this.teamRepository.GetJoinRequestsByTeamIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+    var requests = await teamRepository.GetJoinRequestsByTeamIdAsync(teamId, cancellationToken).ConfigureAwait(false);
     return requests.Select(r => new TeamJoinRequestDto(
         r.Id,
         r.TeamId,

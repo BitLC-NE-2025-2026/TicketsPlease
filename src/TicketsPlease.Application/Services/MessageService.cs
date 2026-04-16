@@ -170,10 +170,10 @@ public class MessageService : IMessageService
         m.Id,
         m.SenderUserId,
         m.SenderUser?.UserName ?? "Unknown",
-        m.SenderUser?.Profile?.AvatarUrl?.ToString(),
+        m.SenderUser?.Profile?.AvatarUrl,
         m.ReceiverUserId,
         m.ReceiverUser?.UserName,
-        m.ReceiverUser?.Profile?.AvatarUrl?.ToString(),
+        m.ReceiverUser?.Profile?.AvatarUrl,
         m.BodyMarkdown,
         m.SentAt,
         attachments);

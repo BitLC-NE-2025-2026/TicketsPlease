@@ -17,25 +17,25 @@ using TicketsPlease.Domain.Entities;
 /// <summary>
 /// Implementierung des Ticket-Services zur Steuerung des Kanban-Boards.
 /// </summary>
-/// <param name="_ticketRepository">Das Repository für Tickets.</param>
-/// <param name="_userManager">Die Benutzerverwaltung.</param>
-/// <param name="_roleManager">Die Rollenverwaltung.</param>
-/// <param name="_httpContextAccessor">Zugriff auf den HTTP-Kontext.</param>
-/// <param name="_fileAssetRepository">Das Repository für Datei-Metadaten.</param>
-/// <param name="_fileStorageService">Der Dienst zur Dateispeicherung.</param>
-/// <param name="_timeTrackingService">Der Dienst für Zeiterfassung.</param>
-/// <param name="_subTicketService">Der Dienst für Untertickets.</param>
-/// <param name="_notificationService">Der Dienst für Benachrichtigungen.</param>
+/// <param name="ticketRepository">Das Repository für Tickets.</param>
+/// <param name="userManager">Die Benutzerverwaltung.</param>
+/// <param name="roleManager">Die Rollenverwaltung.</param>
+/// <param name="httpContextAccessor">Zugriff auf den HTTP-Kontext.</param>
+/// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
+/// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
+/// <param name="timeTrackingService">Der Dienst für Zeiterfassung.</param>
+/// <param name="subTicketService">Der Dienst für Untertickets.</param>
+/// <param name="notificationService">Der Dienst für Benachrichtigungen.</param>
 public class TicketService(
-    ITicketRepository _ticketRepository,
-    UserManager<User> _userManager,
-    RoleManager<Role> _roleManager,
-    IHttpContextAccessor _httpContextAccessor,
-    IFileAssetRepository _fileAssetRepository,
-    IFileStorageService _fileStorageService,
-    ITimeTrackingService _timeTrackingService,
-    ISubTicketService _subTicketService,
-    INotificationService _notificationService) : ITicketService
+    ITicketRepository ticketRepository,
+    UserManager<User> userManager,
+    RoleManager<Role> roleManager,
+    IHttpContextAccessor httpContextAccessor,
+    IFileAssetRepository fileAssetRepository,
+    IFileStorageService fileStorageService,
+    ITimeTrackingService timeTrackingService,
+    ISubTicketService subTicketService,
+    INotificationService notificationService) : ITicketService
 {
   private const string TicketNotFoundMessage = "Ticket nicht gefunden.";
   private const string UnknownLiteral = "Unbekannt";
@@ -43,7 +43,7 @@ public class TicketService(
   /// <inheritdoc/>
   public async Task<IEnumerable<TicketDto>> GetActiveTicketsAsync()
   {
-    var tickets = await _ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
+    var tickets = await ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
     var dtos = new List<TicketDto>();
     foreach (var ticket in tickets)
     {
@@ -65,7 +65,7 @@ public class TicketService(
       string? searchString = null,
       Guid? tagId = null)
   {
-    var tickets = await _ticketRepository.GetFilteredAsync(
+    var tickets = await ticketRepository.GetFilteredAsync(
         projectId,
         assignedUserId,
         creatorId,
@@ -88,7 +88,7 @@ public class TicketService(
   /// <inheritdoc/>
   public async Task<TicketDto?> GetTicketAsync(Guid id)
   {
-    var ticket = await _ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
+    var ticket = await ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
     return ticket != null ? await this.MapToDtoAsync(ticket).ConfigureAwait(false) : null;
   }
 
@@ -99,7 +99,7 @@ public class TicketService(
 
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false) ?? throw new UnauthorizedAccessException();
 
-    var defaultState = await _ticketRepository.GetDefaultWorkflowStateAsync().ConfigureAwait(false);
+    var defaultState = await ticketRepository.GetDefaultWorkflowStateAsync().ConfigureAwait(false);
     var defaultStateId = defaultState?.Id ?? Guid.Empty;
     var defaultStateName = defaultState?.Name ?? "Todo";
 
@@ -113,15 +113,15 @@ public class TicketService(
 
     // Auto-SLA Assignment (Stage 3)
     ticket.SetSLA(TimeSpan.FromHours(4), TimeSpan.FromHours(48));
-    await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "SLA", OldValue = "None", NewValue = "Assigned (4h/48h)", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+    await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "SLA", OldValue = "None", NewValue = "Assigned (4h/48h)", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
 
     if (dto.TagIds is { Count: > 0 })
     {
       ticket.SyncTags(dto.TagIds);
     }
 
-    await _ticketRepository.AddAsync(ticket).ConfigureAwait(false);
-    _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    await ticketRepository.AddAsync(ticket).ConfigureAwait(false);
+    _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
@@ -129,48 +129,48 @@ public class TicketService(
   {
     ArgumentNullException.ThrowIfNull(dto);
 
-    var ticket = await _ticketRepository.GetByIdAsync(dto.Id).ConfigureAwait(false) ?? throw new KeyNotFoundException(TicketNotFoundMessage);
+    var ticket = await ticketRepository.GetByIdAsync(dto.Id).ConfigureAwait(false) ?? throw new KeyNotFoundException(TicketNotFoundMessage);
 
     // --- Concurrency Check (Optimistic Locking) ---
     if (dto.RowVersion != null)
     {
-      _ticketRepository.SetOriginalRowVersion(ticket, dto.RowVersion);
+      ticketRepository.SetOriginalRowVersion(ticket, dto.RowVersion);
     }
 
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false) ?? throw new UnauthorizedAccessException();
     if (ticket.Title != dto.Title)
     {
-      await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Title", OldValue = ticket.Title, NewValue = dto.Title, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Title", OldValue = ticket.Title, NewValue = dto.Title, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.UpdateTitle(dto.Title);
     }
 
     if (ticket.Description != dto.Description)
     {
-      await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Description", OldValue = "---", NewValue = "Updated", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Description", OldValue = "---", NewValue = "Updated", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.UpdateDescription(dto.Description, dto.Description);
     }
 
     if (ticket.AssignedUserId != dto.AssignedUserId)
     {
-      await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Assignee", OldValue = ticket.AssignedUserId?.ToString() ?? "None", NewValue = dto.AssignedUserId?.ToString() ?? "None", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Assignee", OldValue = ticket.AssignedUserId?.ToString() ?? "None", NewValue = dto.AssignedUserId?.ToString() ?? "None", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.AssignUser(dto.AssignedUserId);
     }
 
     if (ticket.PriorityId != dto.PriorityId)
     {
-      await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Priority", OldValue = ticket.Priority?.Name ?? ticket.PriorityId.ToString(), NewValue = dto.PriorityId.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Priority", OldValue = ticket.Priority?.Name ?? ticket.PriorityId.ToString(), NewValue = dto.PriorityId.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.SetPriority(dto.PriorityId);
     }
 
     if (ticket.EstimatePoints != dto.EstimatePoints)
     {
-      await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Estimate", OldValue = ticket.EstimatePoints?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "None", NewValue = dto.EstimatePoints?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "None", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Estimate", OldValue = ticket.EstimatePoints?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "None", NewValue = dto.EstimatePoints?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "None", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.SetEstimatePoints(dto.EstimatePoints);
     }
 
     if (ticket.ChilliesDifficulty != dto.ChilliesDifficulty)
     {
-      await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Difficulty", OldValue = ticket.ChilliesDifficulty.ToString(System.Globalization.CultureInfo.InvariantCulture), NewValue = dto.ChilliesDifficulty.ToString(System.Globalization.CultureInfo.InvariantCulture), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Difficulty", OldValue = ticket.ChilliesDifficulty.ToString(System.Globalization.CultureInfo.InvariantCulture), NewValue = dto.ChilliesDifficulty.ToString(System.Globalization.CultureInfo.InvariantCulture), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.SetDifficulty(dto.ChilliesDifficulty);
     }
 
@@ -179,29 +179,29 @@ public class TicketService(
       ticket.SyncTags(dto.TagIds);
     }
 
-    _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
-    await _notificationService.NotifyTicketUpdateAsync(ticket.Id, "Ticket updated").ConfigureAwait(false);
+    _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    await notificationService.NotifyTicketUpdateAsync(ticket.Id, "Ticket updated").ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
   public async Task MoveTicketAsync(Guid id, string newStatus)
   {
-    var ticket = await _ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
+    var ticket = await ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
     if (ticket == null || user == null)
     {
       throw new KeyNotFoundException(TicketNotFoundMessage);
     }
 
-    var targetState = await _ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false) ?? throw new ArgumentException($"Ungültiger Status: {newStatus}");
+    var targetState = await ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false) ?? throw new ArgumentException($"Ungültiger Status: {newStatus}");
 
     // Übergangsregel prüfen (F8)
-    var transition = await _ticketRepository.GetTransitionAsync(ticket.WorkflowStateId, targetState.Id).ConfigureAwait(false) ?? throw new InvalidOperationException($"Der Übergang von '{ticket.Status}' nach '{newStatus}' ist nicht erlaubt.");
+    var transition = await ticketRepository.GetTransitionAsync(ticket.WorkflowStateId, targetState.Id).ConfigureAwait(false) ?? throw new InvalidOperationException($"Der Übergang von '{ticket.Status}' nach '{newStatus}' ist nicht erlaubt.");
 
     // Rollenprüfung falls eingeschränkt
     if (transition.AllowedRoleId.HasValue)
     {
-      var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+      var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
 
       // Wir gehen davon aus, dass wir die Rollen-Namen prüfen oder die ID vergleichen müssen.
       // Da wir in der Transition die RoleId haben, prüfen wir ob der User diese Rolle hat.
@@ -210,7 +210,7 @@ public class TicketService(
       // Da wir statische IDs haben, können wir es hardcoden oder sauber auflösen.
 
       // Suche Rolle Name für ID
-      var role = await _roleManager.FindByIdAsync(transition.AllowedRoleId.Value.ToString()).ConfigureAwait(false);
+      var role = await roleManager.FindByIdAsync(transition.AllowedRoleId.Value.ToString()).ConfigureAwait(false);
       if (role != null && !roles.Contains(role.Name!))
       {
         throw new UnauthorizedAccessException($"Dieser Übergang ist nur für die Rolle '{role.Name}' erlaubt.");
@@ -219,22 +219,22 @@ public class TicketService(
 
     if (newStatus == "Done" || targetState.IsTerminalState)
     {
-      await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Status", OldValue = ticket.Status, NewValue = newStatus, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
-      await this.CloseTicketAsync(id).ConfigureAwait(false);
+      await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Status", OldValue = ticket.Status, NewValue = newStatus, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await CloseTicketAsync(id).ConfigureAwait(false);
     }
     else
     {
-      await _ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Status", OldValue = ticket.Status, NewValue = newStatus, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Status", OldValue = ticket.Status, NewValue = newStatus, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.MoveToState(targetState.Id, newStatus);
-      _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
-      await _notificationService.NotifyTicketUpdateAsync(ticket.Id, $"Status updated to {newStatus}").ConfigureAwait(false);
+      _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+      await notificationService.NotifyTicketUpdateAsync(ticket.Id, $"Status updated to {newStatus}").ConfigureAwait(false);
     }
   }
 
   /// <inheritdoc/>
   public async Task CloseTicketAsync(Guid id)
   {
-    var ticket = await _ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
+    var ticket = await ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
     if (ticket == null || user == null)
     {
@@ -246,11 +246,11 @@ public class TicketService(
       throw new InvalidOperationException("Das Ticket kann nicht geschlossen werden, da es noch offene Abhängigkeiten (Vorgänger) hat.");
     }
 
-    var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
-    var doneState = await _ticketRepository.GetWorkflowStateByNameAsync("Done").ConfigureAwait(false);
+    var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
+    var doneState = await ticketRepository.GetWorkflowStateByNameAsync("Done").ConfigureAwait(false);
     ticket.Close(user.Id, roles.Contains("Admin"), doneState?.Id);
-    _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
-    await _notificationService.NotifyTicketUpdateAsync(ticket.Id, "Ticket closed").ConfigureAwait(false);
+    _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    await notificationService.NotifyTicketUpdateAsync(ticket.Id, "Ticket closed").ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
@@ -261,8 +261,8 @@ public class TicketService(
       throw new InvalidOperationException("Ein Ticket kann nicht von sich selbst abhängig sein.");
     }
 
-    var ticket = await _ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Ticket {ticketId} nicht gefunden.");
-    var blocker = await _ticketRepository.GetByIdAsync(blockerId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Blocker-Ticket {blockerId} nicht gefunden.");
+    _ = await ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Ticket {ticketId} nicht gefunden.");
+    var blocker = await ticketRepository.GetByIdAsync(blockerId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Blocker-Ticket {blockerId} nicht gefunden.");
 
     // Zirkuläre Abhängigkeit prüfen: Kann das aktuelle Ticket (ticketId) den potenziellen Blocker (blockerId) bereits blockieren?
     if (await this.IsBlockedByRecursiveAsync(blockerId, ticketId).ConfigureAwait(false))
@@ -282,23 +282,37 @@ public class TicketService(
     var newLink = blocker.Blocking.Last();
     newLink.TenantId = blocker.TenantId;
 
-    _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
   }
 
   private async Task<bool> IsBlockedByRecursiveAsync(Guid currentTicketId, Guid targetBlockerId, HashSet<Guid>? visited = null)
   {
     visited ??= new HashSet<Guid>();
-    if (visited.Contains(currentTicketId)) return false;
+    if (visited.Contains(currentTicketId))
+    {
+      return false;
+    }
+
     visited.Add(currentTicketId);
 
-    var ticket = await _ticketRepository.GetByIdAsync(currentTicketId).ConfigureAwait(false);
-    if (ticket == null) return false;
+    var ticket = await ticketRepository.GetByIdAsync(currentTicketId).ConfigureAwait(false);
+    if (ticket == null)
+    {
+      return false;
+    }
 
     // Prüfen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
     foreach (var link in ticket.BlockedBy.Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks))
     {
-      if (link.SourceTicketId == targetBlockerId) return true;
-      if (await this.IsBlockedByRecursiveAsync(link.SourceTicketId, targetBlockerId, visited).ConfigureAwait(false)) return true;
+      if (link.SourceTicketId == targetBlockerId)
+      {
+        return true;
+      }
+
+      if (await this.IsBlockedByRecursiveAsync(link.SourceTicketId, targetBlockerId, visited).ConfigureAwait(false))
+      {
+        return true;
+      }
     }
 
     return false;
@@ -307,13 +321,13 @@ public class TicketService(
   /// <inheritdoc/>
   public async Task RemoveDependencyAsync(Guid sourceId, Guid targetId)
   {
-    var ticket = await _ticketRepository.GetByIdAsync(sourceId).ConfigureAwait(false) ?? throw new KeyNotFoundException(TicketNotFoundMessage);
+    var ticket = await ticketRepository.GetByIdAsync(sourceId).ConfigureAwait(false) ?? throw new KeyNotFoundException(TicketNotFoundMessage);
 
     var link = ticket.BlockedBy.Union(ticket.Blocking).FirstOrDefault(l => l.Id == targetId);
     if (link != null)
     {
-      await _ticketRepository.RemoveLinkAsync(link.Id).ConfigureAwait(false);
-      _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+      await ticketRepository.RemoveLinkAsync(link.Id).ConfigureAwait(false);
+      _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
   }
 
@@ -324,10 +338,10 @@ public class TicketService(
 
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false) ?? throw new UnauthorizedAccessException();
 
-    var ticket = await _ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false) ?? throw new KeyNotFoundException(TicketNotFoundMessage);
+    _ = await ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false) ?? throw new KeyNotFoundException(TicketNotFoundMessage);
 
     using var stream = file.OpenReadStream();
-    var blobPath = await _fileStorageService.SaveFileAsync(stream, file.FileName).ConfigureAwait(false);
+    var blobPath = await fileStorageService.SaveFileAsync(stream, file.FileName).ConfigureAwait(false);
 
     var asset = new FileAsset
     {
@@ -341,14 +355,14 @@ public class TicketService(
       UploadedAt = DateTime.UtcNow,
     };
 
-    await _fileAssetRepository.AddAsync(asset).ConfigureAwait(false);
-    await _fileAssetRepository.SaveChangesAsync().ConfigureAwait(false);
+    await fileAssetRepository.AddAsync(asset).ConfigureAwait(false);
+    await fileAssetRepository.SaveChangesAsync().ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
   public async Task<IEnumerable<TagDto>> GetAllTagsAsync()
   {
-    var tags = await _ticketRepository.GetAllTagsAsync().ConfigureAwait(false);
+    var tags = await ticketRepository.GetAllTagsAsync().ConfigureAwait(false);
     return tags.Select(t => new TagDto(t.Id, t.Name, t.ColorHex));
   }
 
@@ -356,10 +370,10 @@ public class TicketService(
   public async Task UpvoteAsync(Guid id)
   {
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
-    if (user != null && !await _ticketRepository.UserHasUpvotedAsync(id, user.Id).ConfigureAwait(false))
+    if (user != null && !await ticketRepository.UserHasUpvotedAsync(id, user.Id).ConfigureAwait(false))
     {
-      await _ticketRepository.AddUpvoteAsync(new TicketUpvote { TicketId = id, UserId = user.Id }).ConfigureAwait(false);
-      _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+      await ticketRepository.AddUpvoteAsync(new TicketUpvote { TicketId = id, UserId = user.Id }).ConfigureAwait(false);
+      _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
   }
 
@@ -369,8 +383,8 @@ public class TicketService(
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
     if (user != null)
     {
-      await _ticketRepository.RemoveUpvoteAsync(id, user.Id).ConfigureAwait(false);
-      _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+      await ticketRepository.RemoveUpvoteAsync(id, user.Id).ConfigureAwait(false);
+      _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
   }
 
@@ -411,10 +425,10 @@ public class TicketService(
 
     var tags = t.Tags?.Select(tt => new TagDto(tt.TagId, tt.Tag?.Name ?? UnknownLiteral, tt.Tag?.ColorHex ?? "#ccc")).ToList() ?? [];
 
-    var timeLogs = (await _timeTrackingService.GetTimeLogsAsync(t.Id).ConfigureAwait(false)).ToList();
-    var subTickets = (await _subTicketService.GetSubTicketsAsync(t.Id).ConfigureAwait(false)).ToList();
+    var timeLogs = (await timeTrackingService.GetTimeLogsAsync(t.Id).ConfigureAwait(false)).ToList();
+    var subTickets = (await subTicketService.GetSubTicketsAsync(t.Id).ConfigureAwait(false)).ToList();
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
-    bool isTimerRunning = user != null && await _timeTrackingService.IsTimerRunningAsync(t.Id, user.Id).ConfigureAwait(false);
+    bool isTimerRunning = user != null && await timeTrackingService.IsTimerRunningAsync(t.Id, user.Id).ConfigureAwait(false);
 
     var history = t.History?.OrderByDescending(h => h.ChangedAt).Select(h => new TicketHistoryDto(
           h.Id,
@@ -463,6 +477,6 @@ public class TicketService(
 
   private async Task<User?> GetCurrentUserAsync()
   {
-    return await _userManager.GetUserAsync(_httpContextAccessor.HttpContext!.User).ConfigureAwait(false);
+    return await userManager.GetUserAsync(httpContextAccessor.HttpContext!.User).ConfigureAwait(false);
   }
 }

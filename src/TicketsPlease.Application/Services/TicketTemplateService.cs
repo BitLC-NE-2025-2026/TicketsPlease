@@ -39,13 +39,15 @@ public class TicketTemplateService : ITicketTemplateService
     /// <inheritdoc/>
     public async Task<TicketTemplateDto> CreateTemplateAsync(Guid creatorId, CreateTicketTemplateDto dto, CancellationToken ct = default)
     {
+        ArgumentNullException.ThrowIfNull(dto);
+
         var template = new TicketTemplate
         {
             Id = Guid.NewGuid(),
             Name = dto.Name,
             DescriptionMarkdownTemplate = dto.DescriptionMarkdownTemplate,
             DefaultPriorityId = dto.DefaultPriorityId,
-            CreatorId = creatorId
+            CreatorId = creatorId,
         };
 
         await this.repository.AddAsync(template, ct).ConfigureAwait(false);

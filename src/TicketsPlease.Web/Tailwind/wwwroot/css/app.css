@@ -501,9 +501,6 @@
   .end {
     inset-inline-end: var(--spacing);
   }
-  .-top-1 {
-    top: calc(var(--spacing) * -1);
-  }
   .-top-8 {
     top: calc(var(--spacing) * -8);
   }
@@ -2547,9 +2544,6 @@
   .bg-indigo-100 {
     background-color: var(--color-indigo-100);
   }
-  .bg-indigo-400 {
-    background-color: var(--color-indigo-400);
-  }
   .bg-indigo-500 {
     background-color: var(--color-indigo-500);
   }
@@ -3002,9 +2996,6 @@
   .pb-20 {
     padding-bottom: calc(var(--spacing) * 20);
   }
-  .\!pl-12 {
-    padding-left: calc(var(--spacing) * 12) !important;
-  }
   .pl-3 {
     padding-left: calc(var(--spacing) * 3);
   }
@@ -3016,9 +3007,6 @@
   }
   .pl-11 {
     padding-left: calc(var(--spacing) * 11);
-  }
-  .pl-12 {
-    padding-left: calc(var(--spacing) * 12);
   }
   .text-center {
     text-align: center;
@@ -3207,9 +3195,6 @@
   }
   .whitespace-nowrap {
     white-space: nowrap;
-  }
-  .\!text-white {
-    color: var(--color-white) !important;
   }
   .text-amber-400 {
     color: var(--color-amber-400);
@@ -3433,12 +3418,6 @@
       color: color-mix(in oklab, var(--color-white) 5%, transparent);
     }
   }
-  .text-white\/40 {
-    color: color-mix(in srgb, #fff 40%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-white) 40%, transparent);
-    }
-  }
   .text-white\/60 {
     color: color-mix(in srgb, #fff 60%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -3512,9 +3491,6 @@
   }
   .opacity-30 {
     opacity: 30%;
-  }
-  .opacity-40 {
-    opacity: 40%;
   }
   .opacity-50 {
     opacity: 50%;
@@ -4585,13 +4561,6 @@
       }
     }
   }
-  .hover\:border-indigo-100 {
-    &:hover {
-      @media (hover: hover) {
-        border-color: var(--color-indigo-100);
-      }
-    }
-  }
   .hover\:border-rose-100 {
     &:hover {
       @media (hover: hover) {
@@ -5565,11 +5534,6 @@
   .lg\:mr-0 {
     @media (width >= 64rem) {
       margin-right: calc(var(--spacing) * 0);
-    }
-  }
-  .lg\:block {
-    @media (width >= 64rem) {
-      display: block;
     }
   }
   .lg\:max-w-4xl {

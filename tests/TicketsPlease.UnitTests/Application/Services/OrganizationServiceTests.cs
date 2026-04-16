@@ -13,6 +13,7 @@ public class OrganizationServiceTests
     private readonly Mock<IOrganizationRepository> _repositoryMock;
     private readonly Mock<IOrganizationInviteService> _inviteServiceMock;
     private readonly Mock<IAuditLogService> _auditLogMock;
+    private readonly Mock<ITicketRepository> _ticketRepositoryMock;
     private readonly OrganizationService _service;
 
     public OrganizationServiceTests()
@@ -20,7 +21,12 @@ public class OrganizationServiceTests
         _repositoryMock = new Mock<IOrganizationRepository>();
         _inviteServiceMock = new Mock<IOrganizationInviteService>();
         _auditLogMock = new Mock<IAuditLogService>();
-        _service = new OrganizationService(_repositoryMock.Object, _inviteServiceMock.Object, _auditLogMock.Object);
+        _ticketRepositoryMock = new Mock<ITicketRepository>();
+        _service = new OrganizationService(
+            _repositoryMock.Object,
+            _inviteServiceMock.Object,
+            _auditLogMock.Object,
+            _ticketRepositoryMock.Object);
     }
 
     [Fact]

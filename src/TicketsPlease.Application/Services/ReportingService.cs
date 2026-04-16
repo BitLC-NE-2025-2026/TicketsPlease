@@ -6,6 +6,7 @@ namespace TicketsPlease.Application.Services;
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using TicketsPlease.Application.Common.Dtos;
@@ -69,13 +70,26 @@ public class ReportingService : IReportingService
       var projectTickets = allTickets.Where(t => t.ProjectId == p.Id).ToList();
       var open = projectTickets.Count(t => t.Status != "Done");
       var urgent = projectTickets.Count(t => t.Priority != null && t.Priority.Name == "Blocker");
-      var status = urgent > 2 ? "At Risk" : (open > 10 ? "Warning" : "Healthy");
+      string status = "Healthy";
+      if (urgent > 2)
+      {
+          status = "At Risk";
+      }
+      else if (open > 10)
+      {
+          status = "Warning";
+      }
+
       return new ProjectHealthDto(p.Title, open, urgent, status);
     }).ToList();
 
     // 4. Aktive User
     var userCount = await this.userRepository.GetActiveUserCountAsync(tenantId).ConfigureAwait(false);
 
-    return new StakeholderDashboardDto(slaCompliance, teamThroughput, projectHealth, userCount);
+    return new StakeholderDashboardDto(
+        new Collection<SlaComplianceDto>(slaCompliance),
+        new Collection<TeamThroughputDto>(teamThroughput),
+        new Collection<ProjectHealthDto>(projectHealth),
+        userCount);
   }
 }

@@ -20,14 +20,3 @@ public record TicketTemplateDto(
     string DescriptionMarkdownTemplate,
     Guid? DefaultPriorityId,
     string? DefaultPriorityName);
-
-/// <summary>
-/// DTO zum Erstellen einer neuen Ticket-Vorlage.
-/// </summary>
-/// <param name="Name">Name der Vorlage.</param>
-/// <param name="DescriptionMarkdownTemplate">Der Markdown-Body.</param>
-/// <param name="DefaultPriorityId">Optionale Priorität.</param>
-public record CreateTicketTemplateDto(
-    string Name,
-    string DescriptionMarkdownTemplate,
-    Guid? DefaultPriorityId);

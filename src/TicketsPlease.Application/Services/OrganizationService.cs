@@ -78,6 +78,8 @@ public class OrganizationService : IOrganizationService
     /// <inheritdoc/>
     public async Task<OrganizationDto> CreateOrganizationAsync(UpsertOrganizationDto dto, CancellationToken ct = default)
     {
+        ArgumentNullException.ThrowIfNull(dto);
+
         var org = new Organization
         {
             Id = Guid.NewGuid(),
@@ -91,7 +93,7 @@ public class OrganizationService : IOrganizationService
             NotifyOnLow = dto.NotifyOnLow,
             NotifyOnMedium = dto.NotifyOnMedium,
             NotifyOnHigh = dto.NotifyOnHigh,
-            NotifyOnBlocker = dto.NotifyOnBlocker
+            NotifyOnBlocker = dto.NotifyOnBlocker,
         };
 
         await this.repository.AddAsync(org, ct).ConfigureAwait(false);
@@ -137,6 +139,8 @@ public class OrganizationService : IOrganizationService
     /// <inheritdoc/>
     public async Task UpdateOrganizationAsync(Guid id, UpsertOrganizationDto dto, CancellationToken ct = default)
     {
+        ArgumentNullException.ThrowIfNull(dto);
+
         var org = await this.repository.GetByIdAsync(id, ct).ConfigureAwait(false);
         if (org != null)
         {

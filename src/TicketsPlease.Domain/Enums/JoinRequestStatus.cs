@@ -22,5 +22,5 @@ public enum JoinRequestStatus
     /// <summary>
     /// Die Anfrage wurde abgelehnt.
     /// </summary>
-    Rejected
+    Rejected,
 }
