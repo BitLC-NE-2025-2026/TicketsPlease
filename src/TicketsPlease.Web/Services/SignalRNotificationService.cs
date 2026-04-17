@@ -88,7 +88,7 @@ public class SignalRNotificationService : INotificationService
       Id = n.Id,
       Title = n.Title,
       Content = n.Content,
-      TargetUrl = n.TargetUrl,
+      TargetUrl = n.TargetUrl != null ? new Uri(n.TargetUrl, UriKind.RelativeOrAbsolute) : null,
       IsRead = n.IsRead,
       CreatedAt = n.CreatedAt,
     }).ToList();

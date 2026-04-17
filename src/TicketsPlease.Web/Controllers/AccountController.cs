@@ -193,7 +193,8 @@ public sealed class AccountController : Controller
   /// Meldet den Benutzer ab.
   /// </summary>
   /// <returns>Ein Task mit dem Aktionsergebnis.</returns>
-  [HttpGet, HttpPost]
+  [HttpPost]
+  [ValidateAntiForgeryToken]
   [AllowAnonymous]
   public async Task<IActionResult> Logout()
   {

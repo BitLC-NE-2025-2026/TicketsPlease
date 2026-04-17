@@ -34,6 +34,7 @@ public class AuditLog : BaseEntity
         this.Description = description;
         this.Timestamp = DateTime.UtcNow;
     }
+
     /// <summary>
     /// Gets or sets die ID der Organisation, zu der dieser Log gehört.
     /// </summary>

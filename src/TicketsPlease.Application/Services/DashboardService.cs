@@ -18,75 +18,46 @@ using TicketsPlease.Domain.Entities;
 /// Implementierung des IDashboardService zur Aggregation von System-Statistiken.
 /// Adheres to Clean Architecture by using repositories instead of DbContext.
 /// </summary>
-public class DashboardService : IDashboardService
+public class DashboardService(
+  ITicketRepository ticketRepository,
+  IProjectRepository projectRepository,
+  ITeamRepository teamRepository,
+  ITimeLogRepository timeLogRepository,
+  UserManager<User> userManager,
+  RoleManager<Role> roleManager,
+  IHttpContextAccessor httpContextAccessor) : IDashboardService
 {
-  private readonly ITicketRepository ticketRepository;
-  private readonly IProjectRepository projectRepository;
-  private readonly UserManager<User> userManager;
-  private readonly RoleManager<Role> roleManager;
-  private readonly ITeamRepository teamRepository;
-  private readonly ITimeLogRepository timeLogRepository;
-  private readonly IHttpContextAccessor httpContextAccessor;
-
-  /// <summary>
-  /// Initializes a new instance of the <see cref="DashboardService"/> class.
-  /// </summary>
-  /// <param name="ticketRepository">The ticket repository.</param>
-  /// <param name="projectRepository">The project repository.</param>
-  /// <param name="teamRepository">The team repository.</param>
-  /// <param name="timeLogRepository">The time log repository.</param>
-  /// <param name="userManager">The user manager.</param>
-  /// <param name="roleManager">The role manager.</param>
-  /// <param name="httpContextAccessor">The HTTP context accessor.</param>
-  public DashboardService(
-      ITicketRepository ticketRepository,
-      IProjectRepository projectRepository,
-      ITeamRepository teamRepository,
-      ITimeLogRepository timeLogRepository,
-      UserManager<User> userManager,
-      RoleManager<Role> roleManager,
-      IHttpContextAccessor httpContextAccessor)
-  {
-    this.ticketRepository = ticketRepository;
-    this.projectRepository = projectRepository;
-    this.teamRepository = teamRepository;
-    this.timeLogRepository = timeLogRepository;
-    this.userManager = userManager;
-    this.roleManager = roleManager;
-    this.httpContextAccessor = httpContextAccessor;
-  }
-
   /// <inheritdoc />
   public async Task<DashboardStatsDto> GetDashboardStatsAsync()
   {
-    var userClaims = this.httpContextAccessor.HttpContext?.User;
+    var userClaims = httpContextAccessor.HttpContext?.User;
     User? currentUser = null;
     if (userClaims != null)
     {
-      currentUser = await this.userManager.GetUserAsync(userClaims).ConfigureAwait(false);
+      currentUser = await userManager.GetUserAsync(userClaims).ConfigureAwait(false);
     }
 
     Guid tenantId = currentUser?.TenantId ?? Guid.Empty;
 
     // Filter nach TenantId (verhindert Probleme, falls Global Query Filter nicht greift)
-    var tickets = await this.ticketRepository.GetByTenantAsync(tenantId).ConfigureAwait(false);
+    var tickets = await ticketRepository.GetByTenantAsync(tenantId).ConfigureAwait(false);
 
     // Filter nach TenantId
-    var projects = await this.projectRepository.GetAllAsync(tenantId).ConfigureAwait(false);
+    var projects = await projectRepository.GetAllAsync(tenantId).ConfigureAwait(false);
     var activeProjects = projects.Count(p => !p.EndDate.HasValue || p.EndDate > DateTime.UtcNow);
-    var users = this.userManager.Users.Where(u => u.TenantId == tenantId).ToList();
-    var roles = this.roleManager.Roles.ToList();
+    var users = userManager.Users.Where(u => u.TenantId == tenantId).ToList();
+    var roles = roleManager.Roles.ToList();
 
     var usersByRole = new Dictionary<string, int>();
     foreach (var roleName in roles.Select(r => r.Name!))
     {
-      var usersInRole = await this.userManager.GetUsersInRoleAsync(roleName).ConfigureAwait(false);
+      var usersInRole = await userManager.GetUsersInRoleAsync(roleName).ConfigureAwait(false);
       usersByRole.Add(roleName, usersInRole.Count(u => u.TenantId == tenantId));
     }
 
     // Highscore Berechnung
-    var allTimeLogs = await this.timeLogRepository.GetByTenantAsync(tenantId).ConfigureAwait(false);
-    var allTeams = await this.teamRepository.GetTeamsByTenantAsync(tenantId).ConfigureAwait(false);
+    var allTimeLogs = await timeLogRepository.GetByTenantAsync(tenantId).ConfigureAwait(false);
+    var allTeams = await teamRepository.GetTeamsByTenantAsync(tenantId).ConfigureAwait(false);
 
     var individualHighscores = users.Select(u =>
     {
@@ -139,17 +110,17 @@ public class DashboardService : IDashboardService
   /// <inheritdoc />
   public async Task<PerformanceDetailDto> GetUserPerformanceDetailAsync(Guid userId)
   {
-    var user = await this.userManager.FindByIdAsync(userId.ToString()).ConfigureAwait(false);
+    var user = await userManager.FindByIdAsync(userId.ToString()).ConfigureAwait(false);
     if (user == null)
     {
       throw new KeyNotFoundException("User not found");
     }
 
-    var tickets = await this.ticketRepository.GetFilteredAsync(assignedUserId: userId).ConfigureAwait(false);
-    var logs = await this.timeLogRepository.GetByUserIdAsync(userId).ConfigureAwait(false);
+    var tickets = await ticketRepository.GetFilteredAsync(assignedUserId: userId).ConfigureAwait(false);
+    var logs = await timeLogRepository.GetByUserIdAsync(userId).ConfigureAwait(false);
 
     var closedTickets = tickets.Where(t => t.ClosedAt.HasValue).ToList();
-    var avgResolutionTime = closedTickets.Any()
+    var avgResolutionTime = closedTickets.Count > 0
         ? closedTickets.Average(t => (t.ClosedAt!.Value - t.CreatedAt).TotalHours)
         : (double?)null;
 
@@ -168,21 +139,21 @@ public class DashboardService : IDashboardService
   /// <inheritdoc />
   public async Task<PerformanceDetailDto> GetTeamPerformanceDetailAsync(Guid teamId)
   {
-    var team = await this.teamRepository.GetByIdAsync(teamId).ConfigureAwait(false);
+    var team = await teamRepository.GetByIdAsync(teamId).ConfigureAwait(false);
     if (team == null)
     {
       throw new KeyNotFoundException("Team not found");
     }
 
     var memberIds = team.Members.Select(m => m.UserId).ToList();
-    var allTickets = await this.ticketRepository.GetByTenantAsync(team.TenantId).ConfigureAwait(false);
+    var allTickets = await ticketRepository.GetByTenantAsync(team.TenantId).ConfigureAwait(false);
     var teamTickets = allTickets.Where(t => t.AssignedUserId.HasValue && memberIds.Contains(t.AssignedUserId.Value)).ToList();
 
-    var allLogs = await this.timeLogRepository.GetByTenantAsync(team.TenantId).ConfigureAwait(false);
+    var allLogs = await timeLogRepository.GetByTenantAsync(team.TenantId).ConfigureAwait(false);
     var teamLogs = allLogs.Where(l => memberIds.Contains(l.UserId)).ToList();
 
     var teamClosedTickets = teamTickets.Where(t => t.ClosedAt.HasValue).ToList();
-    var teamAvgResolutionTime = teamClosedTickets.Any()
+    var teamAvgResolutionTime = teamClosedTickets.Count > 0
         ? teamClosedTickets.Average(t => (t.ClosedAt!.Value - t.CreatedAt).TotalHours)
         : (double?)null;
 

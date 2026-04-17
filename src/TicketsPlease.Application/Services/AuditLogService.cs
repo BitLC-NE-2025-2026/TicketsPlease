@@ -12,24 +12,14 @@ using TicketsPlease.Domain.Entities;
 /// <summary>
 /// Implementierung des Audit-Log-Dienstes zur Erfassung von Governance-Aktionen.
 /// </summary>
-public class AuditLogService : IAuditLogService
+/// <param name="organizationRepository">Das Organisations-Repository.</param>
+public class AuditLogService(IOrganizationRepository organizationRepository) : IAuditLogService
 {
-    private readonly IOrganizationRepository organizationRepository;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AuditLogService"/> class.
-    /// </summary>
-    /// <param name="organizationRepository">Das Organisations-Repository.</param>
-    public AuditLogService(IOrganizationRepository organizationRepository)
-    {
-        this.organizationRepository = organizationRepository;
-    }
-
-    /// <inheritdoc/>
-    public async Task LogActionAsync(Guid organizationId, Guid actorUserId, string actionType, string description)
-    {
-        var log = new AuditLog(organizationId, actorUserId, actionType, description);
-        await this.organizationRepository.AddAuditLogAsync(log).ConfigureAwait(false);
-        await this.organizationRepository.SaveChangesAsync().ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task LogActionAsync(Guid organizationId, Guid actorUserId, string actionType, string description)
+  {
+    var log = new AuditLog(organizationId, actorUserId, actionType, description);
+    await organizationRepository.AddAuditLogAsync(log).ConfigureAwait(false);
+    await organizationRepository.SaveChangesAsync().ConfigureAwait(false);
+  }
 }

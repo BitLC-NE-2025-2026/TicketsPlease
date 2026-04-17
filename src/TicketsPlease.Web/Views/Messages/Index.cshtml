@@ -57,7 +57,7 @@
                                 @{
                                     var partnerAvatarUrl = latestMessage.SenderUserId == currentUserId ? latestMessage.ReceiverAvatarUrl : latestMessage.SenderAvatarUrl;
                                 }
-                                @if (!string.IsNullOrEmpty(partnerAvatarUrl))
+                                @if (partnerAvatarUrl != null)
                                 {
                                     <img src="@partnerAvatarUrl" alt="@partnerName" class="h-full w-full object-cover" />
                                 }
