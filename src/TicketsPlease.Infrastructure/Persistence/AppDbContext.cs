@@ -117,6 +117,9 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Lesebestätigungen für Nachrichten.</summary>
   public DbSet<MessageReadReceipt> MessageReadReceipts => this.Set<MessageReadReceipt>();
 
+  /// <summary>Gets die Social Feed Messages.</summary>
+  public DbSet<SocialMessage> SocialMessages => this.Set<SocialMessage>();
+
   /// <summary>Gets die Benachrichtigungen.</summary>
   public DbSet<Notification> Notifications => this.Set<Notification>();
 
@@ -329,6 +332,14 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
             .WithOne(a => a.Message)
             .HasForeignKey(a => a.MessageId)
             .OnDelete(DeleteBehavior.Cascade);
+    });
+
+    builder.Entity<SocialMessage>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+      entity.HasOne(e => e.Author).WithMany().HasForeignKey(e => e.AuthorId).OnDelete(DeleteBehavior.Restrict);
+      // Let SocialMessage be cross-tenant
+      entity.HasQueryFilter(e => !e.IsDeleted);
     });
 
     builder.Entity<FileAsset>(entity =>

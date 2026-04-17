@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Entities;
+using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
 /// Controller für die Benutzerverwaltung im Administrationsbereich (F2).
@@ -23,6 +24,7 @@ internal class AdminUsersController : Controller
   private readonly UserManager<User> userManager;
   private readonly RoleManager<Role> roleManager;
   private readonly TicketsPlease.Application.Common.Interfaces.IUserRepository userRepository;
+  private readonly AppDbContext dbContext;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="AdminUsersController"/> class.
@@ -30,11 +32,17 @@ internal class AdminUsersController : Controller
   /// <param name="userManager">Die Benutzerverwaltung.</param>
   /// <param name="roleManager">Die Rollenverwaltung.</param>
   /// <param name="userRepository">Das Benutzer-Repository.</param>
-    public AdminUsersController(UserManager<User> userManager, RoleManager<Role> roleManager, TicketsPlease.Application.Common.Interfaces.IUserRepository userRepository)
+  /// <param name="dbContext">Der Datenbankkontext.</param>
+  public AdminUsersController(
+      UserManager<User> userManager,
+      RoleManager<Role> roleManager,
+      TicketsPlease.Application.Common.Interfaces.IUserRepository userRepository,
+      AppDbContext dbContext)
   {
     this.userManager = userManager;
     this.roleManager = roleManager;
     this.userRepository = userRepository;
+    this.dbContext = dbContext;
   }
 
   /// <summary>
@@ -44,7 +52,8 @@ internal class AdminUsersController : Controller
   [HttpGet]
   public async Task<IActionResult> Index()
   {
-    var users = await this.userManager.Users.ToListAsync().ConfigureAwait(false);
+    // Ignore query filters to include soft-deleted users
+    var users = await this.userManager.Users.IgnoreQueryFilters().ToListAsync().ConfigureAwait(false);
     var userViewModels = new List<UserListViewModel>();
 
     foreach (var user in users)
@@ -56,11 +65,55 @@ internal class AdminUsersController : Controller
         UserName = user.UserName ?? "Unknown",
         Email = user.Email ?? "Unknown",
         Roles = roles.ToList(),
-        IsActive = !user.LockoutEnabled || user.LockoutEnd == null || user.LockoutEnd < DateTimeOffset.UtcNow,
+        IsActive = user.IsActive,
+        IsDeleted = user.IsDeleted,
+        IsLockedOut = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.UtcNow,
+        TenantId = user.TenantId,
       });
     }
 
     return this.View(userViewModels);
+  }
+
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> ToggleDelete(Guid id)
+  {
+      var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
+      if (user != null)
+      {
+          user.IsDeleted = !user.IsDeleted;
+          user.DeletedAt = user.IsDeleted ? DateTime.UtcNow : null;
+          await this.userManager.UpdateAsync(user).ConfigureAwait(false);
+      }
+      return this.RedirectToAction(nameof(this.Index));
+  }
+
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> ToggleLock(Guid id)
+  {
+      var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
+      if (user != null)
+      {
+          bool isCurrentlyLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.UtcNow;
+          user.LockoutEnd = isCurrentlyLocked ? null : DateTimeOffset.UtcNow.AddYears(100);
+          await this.userManager.UpdateAsync(user).ConfigureAwait(false);
+      }
+      return this.RedirectToAction(nameof(this.Index));
+  }
+  
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> ToggleActive(Guid id)
+  {
+      var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
+      if (user != null)
+      {
+          user.IsActive = !user.IsActive;
+          await this.userManager.UpdateAsync(user).ConfigureAwait(false);
+      }
+      return this.RedirectToAction(nameof(this.Index));
   }
 
   /// <summary>
@@ -78,6 +131,11 @@ internal class AdminUsersController : Controller
 
     var userRoles = await this.userManager.GetRolesAsync(user).ConfigureAwait(false);
     var allRoles = await this.roleManager.Roles.Select(r => r.Name!).ToListAsync().ConfigureAwait(false);
+    var profile = await this.userRepository.GetOrCreateProfileAsync(user.Id).ConfigureAwait(false);
+
+    var allTenants = await this.dbContext.Organizations.ToDictionaryAsync(o => o.Id, o => o.Name).ConfigureAwait(false);
+    var allTeams = await this.dbContext.Teams.ToDictionaryAsync(t => t.Id, t => t.Name).ConfigureAwait(false);
+    var userTeamIds = await this.dbContext.TeamMembers.Where(tm => tm.UserId == user.Id).Select(tm => tm.TeamId).ToListAsync().ConfigureAwait(false);
 
     var model = new EditUserViewModel
     {
@@ -86,6 +144,16 @@ internal class AdminUsersController : Controller
       Email = user.Email ?? string.Empty,
       UserRoles = userRoles.ToList(),
       AllRoles = allRoles,
+      Position = profile.Position,
+      TechStack = profile.TechStack,
+      Street = profile.Street,
+      HouseNumber = profile.HouseNumber,
+      City = profile.City,
+      Country = profile.Country,
+      TenantId = user.TenantId,
+      SelectedTeamIds = userTeamIds,
+      AvailableTenants = allTenants,
+      AvailableTeams = allTeams,
     };
 
     return this.View(model);
@@ -146,6 +214,24 @@ internal class AdminUsersController : Controller
     {
       await this.userManager.AddToRolesAsync(user, rolesToAdd).ConfigureAwait(false);
     }
+
+    // Update Tenant
+    user.TenantId = model.TenantId;
+    await this.userManager.UpdateAsync(user).ConfigureAwait(false);
+
+    // Update Teams
+    var currentTeamMemberships = await this.dbContext.TeamMembers.Where(tm => tm.UserId == user.Id).ToListAsync().ConfigureAwait(false);
+    this.dbContext.TeamMembers.RemoveRange(currentTeamMemberships.Where(tm => !model.SelectedTeamIds.Contains(tm.TeamId)));
+    
+    var existingTeamIds = currentTeamMemberships.Select(tm => tm.TeamId).ToList();
+    foreach (var teamId in model.SelectedTeamIds)
+    {
+        if (!existingTeamIds.Contains(teamId))
+        {
+            this.dbContext.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), TeamId = teamId, UserId = user.Id, IsTeamLead = false });
+        }
+    }
+    await this.dbContext.SaveChangesAsync().ConfigureAwait(false);
 
     return this.RedirectToAction(nameof(this.Index));
   }

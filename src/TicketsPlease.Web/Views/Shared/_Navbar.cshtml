@@ -67,6 +67,11 @@
                             <i class="fa-solid fa-gauge-high mr-2 @(currentController == "Home" ? "text-brand-primary" : "text-slate-400")"></i>
                             @L["Übersicht"]
                         </a>
+                        <a asp-controller="Social" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Social") text-sm font-medium transition-colors duration-200" aria-label="@L["Social"]">
+                            <i class="fa-solid fa-earth-europe mr-2 @(currentController == "Social" ? "text-brand-primary" : "text-slate-400")"></i>
+                            @L["Social"]
+                        </a>
                         <a asp-controller="Project" asp-action="Index"
                            class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Project") text-sm font-medium transition-colors duration-200">
                             <i class="fa-solid fa-diagram-project mr-2 @(currentController == "Project" ? "text-brand-primary" : "text-slate-400")"></i>

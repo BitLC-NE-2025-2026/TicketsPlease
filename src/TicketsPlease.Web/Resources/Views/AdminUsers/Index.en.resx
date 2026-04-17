@@ -57,66 +57,56 @@
   </resheader>
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Street" xml:space="preserve">
-    <value>StraÃŸe</value>
+  </resheader><data name="User Management" xml:space="preserve">
+    <value>User Management</value>
   </data>
-  <data name="Country" xml:space="preserve">
-    <value>Land</value>
+  <data name="Manage system users, roles, and access permissions." xml:space="preserve">
+    <value>Manage system users, roles, and access permissions.</value>
   </data>
-  <data name="Tech Stack" xml:space="preserve">
-    <value>Technologie-Stack</value>
+  <data name="Avatar" xml:space="preserve">
+    <value>Avatar</value>
   </data>
-  <data name="Last Name" xml:space="preserve">
-    <value>Nachname</value>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
-  <data name="Biography" xml:space="preserve">
-    <value>Biography</value>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
   </data>
-  <data name="Change Password" xml:space="preserve">
-    <value>Passwort Ã¤ndern</value>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Abbrechen</value>
+  <data name="Deleted" xml:space="preserve">
+    <value>Deleted</value>
   </data>
-  <data name="New Password" xml:space="preserve">
-    <value>Neues Passwort</value>
+  <data name="Locked" xml:space="preserve">
+    <value>Locked</value>
   </data>
-  <data name="Position" xml:space="preserve">
-    <value>Position</value>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
   </data>
-  <data name="Profile Picture" xml:space="preserve">
-    <value>Profilbild</value>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactive</value>
   </data>
-  <data name="Address Details" xml:space="preserve">
-    <value>Adressdetails</value>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Deactivate</value>
   </data>
-  <data name="No." xml:space="preserve">
-    <value>Nr.</value>
+  <data name="Activate" xml:space="preserve">
+    <value>Activate</value>
   </data>
-  <data name="Edit Profile" xml:space="preserve">
-    <value>Profil bearbeiten</value>
+  <data name="Unlock" xml:space="preserve">
+    <value>Unlock</value>
   </data>
-  <data name="Username" xml:space="preserve">
-    <value>Benutzername</value>
+  <data name="Lock" xml:space="preserve">
+    <value>Lock</value>
   </data>
-  <data name="Phone Number" xml:space="preserve">
-    <value>Telefonnummer</value>
+  <data name="Restore" xml:space="preserve">
+    <value>Restore</value>
   </data>
-  <data name="Save Changes" xml:space="preserve">
-    <value>Ã„nderungen speichern</value>
+  <data name="Delete (Soft)" xml:space="preserve">
+    <value>Delete (Soft)</value>
   </data>
-  <data name="First Name" xml:space="preserve">
-    <value>Vorname</value>
-  </data>
-  <data name="City" xml:space="preserve">
-    <value>Stadt</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>E-Mail</value>
-  </data>
-  <data name="Confirm Password" xml:space="preserve">
-    <value>Passwort bestÃ¤tigen</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
 </root>
 

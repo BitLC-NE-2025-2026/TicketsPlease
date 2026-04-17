@@ -1,13 +1,15 @@
 @using TicketsPlease.Web.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
 @model EditUserViewModel
 @{
-    ViewData["Title"] = "Benutzer bearbeiten";
+    ViewData["Title"] = L["Edit User"];
 }
 
 <div class="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <div class="mb-8 flex items-center justify-between">
         <a asp-action="Index" class="text-slate-400 hover:text-brand-primary font-bold transition-colors flex items-center">
-            <i class="fa-solid fa-arrow-left mr-2"></i> Zurück zur Liste
+            <i class="fa-solid fa-arrow-left mr-2"></i> @L["Back to List"]
         </a>
         <div class="p-3 bg-brand-primary/10 rounded-2xl text-brand-primary">
             <i class="fa-solid fa-user-pen text-2xl"></i>
@@ -17,8 +19,8 @@
     <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 p-10 mt-6 relative overflow-hidden">
         <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-brand-primary/5 rounded-full blur-3xl"></div>
         <div class="relative z-10">
-            <h1 class="text-3xl font-black text-slate-900 mb-2">Profil bearbeiten</h1>
-            <p class="text-slate-500 mb-10 font-medium">Aktualisieren Sie die Benutzerdaten und verwalten Sie die Rollenzugehörigkeit.</p>
+            <h1 class="text-3xl font-black text-slate-900 mb-2">@L["Edit Profile"]</h1>
+            <p class="text-slate-500 mb-10 font-medium">@L["Update user details and manage role assignments."]</p>
 
             <form asp-action="Edit" method="post" class="space-y-8">
                 @Html.AntiForgeryToken()
@@ -26,30 +28,30 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label asp-for="UserName" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">Benutzername</label>
+                        <label asp-for="UserName" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">@L["Username"]</label>
                         <div class="relative group">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-300 group-focus-within:text-brand-primary transition-colors">
                                 <i class="fa-solid fa-user"></i>
                             </div>
-                            <input asp-for="UserName" class="w-full pl-11 pr-4 py-4 rounded-2xl border border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all font-bold text-slate-700" placeholder="Benutzername" />
+                            <input asp-for="UserName" class="w-full pl-11 pr-4 py-4 rounded-2xl border border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all font-bold text-slate-700" placeholder="@L["Username"]" />
                         </div>
                         <span asp-validation-for="UserName" class="text-xs text-rose-500 font-bold mt-1 px-1"></span>
                     </div>
 
                     <div>
-                        <label asp-for="Email" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">Email Adresse</label>
+                        <label asp-for="Email" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">@L["Email Address"]</label>
                         <div class="relative group">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-300 group-focus-within:text-brand-primary transition-colors">
                                 <i class="fa-solid fa-envelope"></i>
                             </div>
-                            <input asp-for="Email" class="w-full pl-11 pr-4 py-4 rounded-2xl border border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all font-bold text-slate-700" placeholder="email@beispiel.de" />
+                            <input asp-for="Email" class="w-full pl-11 pr-4 py-4 rounded-2xl border border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all font-bold text-slate-700" placeholder="email@example.com" />
                         </div>
                         <span asp-validation-for="Email" class="text-xs text-rose-500 font-bold mt-1 px-1"></span>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 px-1">Rollenberechtigungen</label>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 px-1">@L["Role Permissions"]</label>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         @foreach (var role in Model.AllRoles)
                         {
@@ -62,12 +64,44 @@
                     </div>
                 </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="TenantId" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">@L["Tenant"]</label>
+                        <div class="relative group">
+                            <select asp-for="TenantId" class="w-full pl-4 pr-10 py-4 rounded-2xl border border-slate-100 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary outline-none transition-all font-bold text-slate-700 appearance-none">
+                                <option value="@Guid.Empty">@L["No Tenant / Global"]</option>
+                                @foreach (var tenant in Model.AvailableTenants)
+                                {
+                                    <option value="@tenant.Key">@tenant.Value</option>
+                                }
+                            </select>
+                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 px-1">@L["Team Assignment"]</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        @foreach (var team in Model.AvailableTeams)
+                        {
+                            <label class="relative flex items-center p-4 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-teal-50 hover:border-teal-500/30 transition-all cursor-pointer group">
+                                <input type="checkbox" name="SelectedTeamIds" value="@team.Key" @(Model.SelectedTeamIds.Contains(team.Key) ? "checked" : "") 
+                                       class="h-5 w-5 rounded-lg border-slate-200 text-teal-500 focus:ring-teal-500/20 transition-all" />
+                                <span class="ml-3 text-sm font-bold text-slate-600 group-hover:text-teal-900 transition-colors"><i class="fa-solid fa-users mr-2 text-slate-400"></i>@team.Value</span>
+                            </label>
+                        }
+                    </div>
+                </div>
+
                 <div class="pt-6 border-t border-slate-50 flex items-center justify-end space-x-4">
                     <a asp-action="Index" class="px-8 py-4 rounded-full font-bold text-slate-400 hover:text-slate-600 transition-colors">
-                        Abbrechen
+                        @L["Cancel"]
                     </a>
                     <button type="submit" class="px-10 py-4 bg-slate-900 hover:bg-brand-primary text-white rounded-full font-black shadow-xl shadow-slate-900/10 hover:shadow-brand-primary/20 transition-all transform hover:-translate-y-1 active:scale-95">
-                        Änderungen speichern
+                        @L["Save Changes"]
                     </button>
                 </div>
             </form>

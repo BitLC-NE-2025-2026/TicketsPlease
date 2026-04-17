@@ -1,14 +1,16 @@
 @using TicketsPlease.Web.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
 @model IEnumerable<UserListViewModel>
 @{
-    ViewData["Title"] = "Benutzerverwaltung";
+    ViewData["Title"] = L["User Management"];
 }
 
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between mb-8">
         <div>
-            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Benutzerverwaltung</h1>
-            <p class="mt-2 text-slate-500">Verwalten Sie Systembenutzer, Rollen und Zugriffsberechtigungen.</p>
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">@L["User Management"]</h1>
+            <p class="mt-2 text-slate-500">@L["Manage system users, roles, and access permissions."]</p>
         </div>
         <div class="p-3 bg-rose-500/10 rounded-2xl text-rose-500">
             <i class="fa-solid fa-users-gear text-2xl"></i>
@@ -20,10 +22,10 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-slate-50/50 border-b border-slate-100">
-                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center w-20">Avatar</th>
-                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Benutzer</th>
-                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Status</th>
-                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Aktionen</th>
+                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center w-20">@L["Avatar"]</th>
+                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["User"]</th>
+                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">@L["Status"]</th>
+                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">@L["Actions"]</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-50">
@@ -51,25 +53,60 @@
                                 </div>
                             </td>
                             <td class="px-8 py-6 text-center">
-                                @if (user.IsActive)
+                                @if (user.IsDeleted)
                                 {
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-widest">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-widest mb-1 shadow-sm">
+                                        <i class="fa-solid fa-trash-can mr-2"></i> @L["Deleted"]
+                                    </span>
+                                }
+                                else if (user.IsLockedOut)
+                                {
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-[10px] font-bold uppercase tracking-widest mb-1 shadow-sm">
+                                        <i class="fa-solid fa-lock mr-2"></i> @L["Locked"]
+                                    </span>
+                                }
+                                else if (user.IsActive)
+                                {
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-widest shadow-sm">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
-                                        Aktiv
+                                        @L["Active"]
                                     </span>
                                 }
                                 else
                                 {
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-rose-50 text-rose-600 text-[10px] font-bold uppercase tracking-widest">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-rose-50 text-rose-600 text-[10px] font-bold uppercase tracking-widest shadow-sm">
                                         <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2"></span>
-                                        Inaktiv
+                                        @L["Inactive"]
                                     </span>
                                 }
                             </td>
                             <td class="px-8 py-6 text-center">
-                                <a asp-action="Edit" asp-route-id="@user.Id" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-400 hover:bg-brand-primary/10 hover:text-brand-primary transition-all">
-                                    <i class="fa-solid fa-user-pen"></i>
-                                </a>
+                                <div class="flex items-center justify-center gap-2">
+                                    <form asp-action="ToggleActive" asp-route-id="@user.Id" method="post" class="inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-400 hover:bg-emerald-100 hover:text-emerald-600 transition-all shadow-sm" title="@(user.IsActive ? L["Deactivate"] : L["Activate"])">
+                                            <i class="fa-solid @(user.IsActive ? "fa-toggle-on" : "fa-toggle-off")"></i>
+                                        </button>
+                                    </form>
+
+                                    <form asp-action="ToggleLock" asp-route-id="@user.Id" method="post" class="inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-400 hover:bg-amber-100 hover:text-amber-600 transition-all shadow-sm" title="@(user.IsLockedOut ? L["Unlock"] : L["Lock"])">
+                                            <i class="fa-solid @(user.IsLockedOut ? "fa-unlock" : "fa-lock")"></i>
+                                        </button>
+                                    </form>
+
+                                    <form asp-action="ToggleDelete" asp-route-id="@user.Id" method="post" class="inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-400 hover:bg-red-100 hover:text-red-600 transition-all shadow-sm" title="@(user.IsDeleted ? L["Restore"] : L["Delete (Soft)"])">
+                                            <i class="fa-solid @(user.IsDeleted ? "fa-trash-arrow-up" : "fa-trash-can")"></i>
+                                        </button>
+                                    </form>
+
+                                    <a asp-action="Edit" asp-route-id="@user.Id" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-400 hover:bg-brand-primary/10 hover:text-brand-primary transition-all shadow-sm" title="@L["Edit"]">
+                                        <i class="fa-solid fa-user-pen"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     }

@@ -36,4 +36,19 @@ internal class UserListViewModel
   /// Gets or sets a value indicating whether der Benutzer aktiv ist.
   /// </summary>
   public bool IsActive { get; set; }
+
+  /// <summary>
+  /// Gets or sets a value indicating whether der Benutzer gelöscht wurde.
+  /// </summary>
+  public bool IsDeleted { get; set; }
+
+  /// <summary>
+  /// Gets or sets a value indicating whether der Benutzer blockiert wurde.
+  /// </summary>
+  public bool IsLockedOut { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Tenant-ID.
+  /// </summary>
+  public Guid TenantId { get; set; }
 }

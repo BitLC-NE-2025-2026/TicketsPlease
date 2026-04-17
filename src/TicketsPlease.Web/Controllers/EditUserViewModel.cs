@@ -48,4 +48,24 @@ internal class EditUserViewModel
   public string? HouseNumber { get; set; }
   public string? City { get; set; }
   public string? Country { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Tenant-ID.
+  /// </summary>
+  public Guid TenantId { get; set; }
+
+  /// <summary>
+  /// Gets or sets die zugewiesenen Teams.
+  /// </summary>
+  public List<Guid> SelectedTeamIds { get; set; } = new();
+
+  /// <summary>
+  /// Gets or sets die verfügbaren Tenants.
+  /// </summary>
+  public Dictionary<Guid, string> AvailableTenants { get; set; } = new();
+
+  /// <summary>
+  /// Gets or sets die verfügbaren Teams.
+  /// </summary>
+  public Dictionary<Guid, string> AvailableTeams { get; set; } = new();
 }
