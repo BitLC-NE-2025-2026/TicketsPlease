@@ -1,0 +1,168 @@
+@using TicketsPlease.Web.Controllers
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+@model IEnumerable<RoleListViewModel>
+@{
+    ViewData["Title"] = L["Role Management"];
+}
+
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">@L["Role Management"]</h1>
+            <p class="mt-2 text-slate-500">@L["Manage roles, permissions, and access control policies."]</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <a asp-action="Create" class="inline-flex items-center px-6 py-3 bg-slate-900 hover:bg-brand-primary text-white rounded-full font-bold shadow-xl shadow-slate-900/10 hover:shadow-brand-primary/20 transition-all transform hover:-translate-y-0.5 active:scale-95">
+                <i class="fa-solid fa-plus mr-2"></i> @L["New Role"]
+            </a>
+            <div class="p-3 bg-violet-500/10 rounded-2xl text-violet-500">
+                <i class="fa-solid fa-shield-halved text-2xl"></i>
+            </div>
+        </div>
+    </div>
+
+    @* Stats Overview *@
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex items-center gap-4">
+            <div class="h-12 w-12 rounded-2xl bg-violet-500/10 flex items-center justify-center text-violet-500">
+                <i class="fa-solid fa-shield-halved text-xl"></i>
+            </div>
+            <div>
+                <p class="text-2xl font-black text-slate-900">@Model.Count()</p>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["Total Roles"]</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex items-center gap-4">
+            <div class="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                <i class="fa-solid fa-key text-xl"></i>
+            </div>
+            <div>
+                <p class="text-2xl font-black text-slate-900">@Model.Sum(r => r.Permissions.Count)</p>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["Active Permissions"]</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex items-center gap-4">
+            <div class="h-12 w-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500">
+                <i class="fa-solid fa-users text-xl"></i>
+            </div>
+            <div>
+                <p class="text-2xl font-black text-slate-900">@Model.Sum(r => r.UserCount)</p>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["Role Assignments"]</p>
+            </div>
+        </div>
+    </div>
+
+    @* Role Cards *@
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        @foreach (var role in Model)
+        {
+            <div class="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden group hover:shadow-2xl hover:shadow-violet-200/30 transition-all duration-300 hover:border-violet-200/50 relative">
+                @if (role.IsSystemRole)
+                {
+                    <div class="absolute top-4 right-4 z-10">
+                        <span class="text-[8px] font-black uppercase tracking-tighter px-2 py-1 bg-amber-100 text-amber-600 rounded-lg">
+                            <i class="fa-solid fa-lock mr-1"></i> @L["System"]
+                        </span>
+                    </div>
+                }
+
+                <div class="p-8">
+                    @* Role Header *@
+                    <div class="flex items-start gap-4 mb-6">
+                        @{
+                            var iconColor = role.Name switch {
+                                "Admin" => "bg-rose-500/10 text-rose-500",
+                                "ProductOwner" => "bg-blue-500/10 text-blue-500",
+                                "Developer" => "bg-emerald-500/10 text-emerald-500",
+                                "Tester" => "bg-amber-500/10 text-amber-500",
+                                "Stakeholder" => "bg-violet-500/10 text-violet-500",
+                                _ => "bg-slate-500/10 text-slate-500"
+                            };
+                            var icon = role.Name switch {
+                                "Admin" => "fa-solid fa-crown",
+                                "ProductOwner" => "fa-solid fa-star",
+                                "Developer" => "fa-solid fa-code",
+                                "Tester" => "fa-solid fa-bug",
+                                "Stakeholder" => "fa-solid fa-chart-pie",
+                                _ => "fa-solid fa-shield-halved"
+                            };
+                        }
+                        <div class="h-14 w-14 rounded-2xl @iconColor flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <i class="@icon text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-xl font-black text-slate-900 group-hover:text-brand-primary transition-colors truncate">@role.Name</h3>
+                            <p class="text-xs text-slate-400 mt-0.5 line-clamp-2">@role.Description</p>
+                        </div>
+                    </div>
+
+                    @* Permission Tags *@
+                    <div class="mb-6">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
+                            <i class="fa-solid fa-key mr-1"></i> @L["Permissions"] (@role.Permissions.Count)
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            @if (role.Permissions.Count == 0)
+                            {
+                                <span class="text-[10px] text-slate-300 italic">@L["No permissions assigned"]</span>
+                            }
+                            @foreach (var perm in role.Permissions.Take(6))
+                            {
+                                <span class="text-[8px] font-bold uppercase tracking-tighter px-2 py-0.5 bg-violet-50 text-violet-500 rounded-lg">
+                                    @perm.Split('.').Last()
+                                </span>
+                            }
+                            @if (role.Permissions.Count > 6)
+                            {
+                                <span class="text-[8px] font-bold uppercase tracking-tighter px-2 py-0.5 bg-slate-100 text-slate-500 rounded-lg">
+                                    +@(role.Permissions.Count - 6) @L["more"]
+                                </span>
+                            }
+                        </div>
+                    </div>
+
+                    @* User Count *@
+                    <div class="flex items-center justify-between mb-6 py-3 border-t border-slate-50">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-users text-slate-300 text-sm"></i>
+                            <span class="text-sm font-bold text-slate-600">@role.UserCount</span>
+                            <span class="text-xs text-slate-400">@L["users assigned"]</span>
+                        </div>
+                        @if (role.Name == "Admin")
+                        {
+                            <span class="text-[8px] font-black uppercase tracking-tighter px-2 py-0.5 bg-rose-50 text-rose-500 rounded-lg">
+                                @L["Full Access"]
+                            </span>
+                        }
+                    </div>
+
+                    @* Actions *@
+                    <div class="flex items-center gap-2">
+                        <a asp-action="Edit" asp-route-id="@role.Id" class="flex-1 inline-flex items-center justify-center px-4 py-3 bg-slate-100 hover:bg-brand-primary/10 text-slate-600 hover:text-brand-primary rounded-xl font-bold text-sm transition-all">
+                            <i class="fa-solid fa-pen-to-square mr-2"></i> @L["Edit"]
+                        </a>
+
+                        <form asp-action="Duplicate" asp-route-id="@role.Id" method="post" class="inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="inline-flex items-center justify-center h-12 w-12 bg-slate-100 hover:bg-blue-100 text-slate-400 hover:text-blue-600 rounded-xl transition-all" title="@L["Duplicate"]">
+                                <i class="fa-solid fa-clone"></i>
+                            </button>
+                        </form>
+
+                        @if (!role.IsSystemRole)
+                        {
+                            <form asp-action="Delete" asp-route-id="@role.Id" method="post" class="inline"
+                                  onsubmit="return confirm('@L["Are you sure you want to delete this role?"]');">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="inline-flex items-center justify-center h-12 w-12 bg-slate-100 hover:bg-red-100 text-slate-400 hover:text-red-600 rounded-xl transition-all" title="@L["Delete"]" @(role.UserCount > 0 ? "disabled" : "")>
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

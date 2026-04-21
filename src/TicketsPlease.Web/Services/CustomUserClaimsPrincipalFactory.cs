@@ -38,7 +38,25 @@ public class CustomUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<User,
         {
             identity.AddClaim(new Claim("TenantId", user.TenantId.ToString()));
         }
-        
+
+        // Inject Permission claims from all assigned roles
+        var roles = await this.UserManager.GetRolesAsync(user).ConfigureAwait(false);
+        foreach (var roleName in roles)
+        {
+            var role = await this.RoleManager.FindByNameAsync(roleName).ConfigureAwait(false);
+            if (role != null)
+            {
+                var roleClaims = await this.RoleManager.GetClaimsAsync(role).ConfigureAwait(false);
+                foreach (var claim in roleClaims)
+                {
+                    if (!identity.HasClaim(claim.Type, claim.Value))
+                    {
+                        identity.AddClaim(claim);
+                    }
+                }
+            }
+        }
+
         return identity;
     }
 }

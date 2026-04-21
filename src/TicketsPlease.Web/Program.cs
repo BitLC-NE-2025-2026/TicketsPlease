@@ -15,6 +15,7 @@ using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
 using TicketsPlease.Web.BackgroundServices;
+using TicketsPlease.Web.Controllers;
 using TicketsPlease.Web.Hubs;
 using TicketsPlease.Web.Services;
 
@@ -68,6 +69,21 @@ builder.Services.ConfigureApplicationCookie(options =>
   options.LoginPath = "/Account/Login";
   options.LogoutPath = "/Account/Logout";
   options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
+// Permission-based Authorization (RBAC)
+builder.Services.AddSingleton<Microsoft.AspNetCore.Authorization.IAuthorizationHandler, PermissionAuthorizationHandler>();
+builder.Services.AddAuthorization(options =>
+{
+  // Register a policy for each permission in the registry
+  foreach (var group in PermissionRegistry.AllPermissions)
+  {
+    foreach (var perm in group.Value)
+    {
+      options.AddPolicy($"Permission.{perm.Key}", policy =>
+          policy.Requirements.Add(new PermissionRequirement(perm.Key)));
+    }
+  }
 });
 
 // Enterprise Skinning / Theming
