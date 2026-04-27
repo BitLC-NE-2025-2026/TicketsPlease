@@ -39,14 +39,6 @@ public class CommentServiceTests
         _notificationServiceMock.Object);
   }
 
-  private void SetupCurrentUser(User user)
-  {
-    var httpContext = new DefaultHttpContext();
-    httpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
-    _httpContextAccessorMock.Setup(a => a.HttpContext).Returns(httpContext);
-    _userManagerMock.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
-  }
-
   [Fact]
   public async Task GetCommentsForTicketAsync_ShouldReturnMappedDtos()
   {
@@ -82,5 +74,13 @@ public class CommentServiceTests
     _commentRepoMock.Verify(r => r.AddAsync(It.Is<Comment>(c => c.Content == "New Comment" && c.TicketId == ticketId)), Times.Once);
     _commentRepoMock.Verify(r => r.SaveChangesAsync(default), Times.Once);
     _notificationServiceMock.Verify(n => n.NotifyNewCommentAsync(ticketId, It.IsAny<CommentDto>()), Times.Once);
+  }
+
+  private void SetupCurrentUser(User user)
+  {
+    var httpContext = new DefaultHttpContext();
+    httpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
+    _httpContextAccessorMock.Setup(a => a.HttpContext).Returns(httpContext);
+    _userManagerMock.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
   }
 }

@@ -50,11 +50,6 @@ public class DashboardServiceTests
     _httpContextAccessorMock.Setup(a => a.HttpContext).Returns(httpContext);
   }
 
-  private void SetupCurrentUser(User user)
-  {
-    _userManagerMock.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
-  }
-
   [Fact]
   public async Task GetDashboardStatsAsync_ShouldReturnValidStatsDto()
   {
@@ -109,5 +104,10 @@ public class DashboardServiceTests
     result.Should().NotBeNull();
     result.TotalTickets.Should().Be(1);
     result.CompletedTickets.Should().Be(1);
+  }
+
+  private void SetupCurrentUser(User user)
+  {
+    _userManagerMock.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
   }
 }

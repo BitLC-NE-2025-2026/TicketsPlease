@@ -61,14 +61,6 @@ public class TicketServiceTests
     _httpContextAccessorMock.Setup(a => a.HttpContext).Returns(httpContext);
   }
 
-  private void SetupCurrentUser(User user)
-  {
-    var httpContext = new DefaultHttpContext();
-    httpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
-    _httpContextAccessorMock.Setup(a => a.HttpContext).Returns(httpContext);
-    _userManagerMock.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
-  }
-
   [Fact]
   public async Task GetTicketAsync_WhenExists_ShouldReturnMappedDto()
   {
@@ -189,5 +181,13 @@ public class TicketServiceTests
     // Assert
     _ticketRepoMock.Verify(r => r.AddUpvoteAsync(It.Is<TicketUpvote>(u => u.TicketId == id && u.UserId == user.Id)), Times.Once);
     _ticketRepoMock.Verify(r => r.SaveChangesAsync(default), Times.Once);
+  }
+
+  private void SetupCurrentUser(User user)
+  {
+    var httpContext = new DefaultHttpContext();
+    httpContext.User = new ClaimsPrincipal(new ClaimsIdentity());
+    _httpContextAccessorMock.Setup(a => a.HttpContext).Returns(httpContext);
+    _userManagerMock.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
   }
 }

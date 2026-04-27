@@ -1,4 +1,4 @@
-﻿namespace TicketsPlease.UnitTests.Web.BackgroundServices;
+namespace TicketsPlease.UnitTests.Web.BackgroundServices;
 
 using TicketsPlease.Web.BackgroundServices;
 
@@ -38,25 +38,6 @@ public class SLABackgroundServiceTests
     _serviceProviderMock.Setup(x => x.GetService(typeof(IOrganizationRepository))).Returns(_orgRepositoryMock.Object);
     _serviceProviderMock.Setup(x => x.GetService(typeof(ITicketRepository))).Returns(_ticketRepositoryMock.Object);
     _serviceProviderMock.Setup(x => x.GetService(typeof(INotificationService))).Returns(_notificationServiceMock.Object);
-  }
-
-  private static void SetPrivateProperty<T>(T instance, string propertyName, object? value)
-  {
-    var prop = typeof(T).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-    if (prop != null && prop.CanWrite)
-    {
-      prop.SetValue(instance, value);
-      return;
-    }
-
-    var field = typeof(T).GetField($"<{propertyName}>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance);
-    if (field == null)
-      field = typeof(T).GetField($"_{char.ToLower(propertyName[0])}{propertyName.Substring(1)}", BindingFlags.NonPublic | BindingFlags.Instance);
-
-    if (field != null)
-      field.SetValue(instance, value);
-    else
-      throw new Exception($"Could not set property or field for {propertyName}");
   }
 
   [Fact]
@@ -149,5 +130,24 @@ public class SLABackgroundServiceTests
       x =>
         x.SendNotificationToAllAsync(It.IsAny<string>(), It.IsAny<string>()),
       Times.Never);
+  }
+
+  private static void SetPrivateProperty<T>(T instance, string propertyName, object? value)
+  {
+    var prop = typeof(T).GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+    if (prop != null && prop.CanWrite)
+    {
+      prop.SetValue(instance, value);
+      return;
+    }
+
+    var field = typeof(T).GetField($"<{propertyName}>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance);
+    if (field == null)
+      field = typeof(T).GetField($"_{char.ToLower(propertyName[0])}{propertyName.Substring(1)}", BindingFlags.NonPublic | BindingFlags.Instance);
+
+    if (field != null)
+      field.SetValue(instance, value);
+    else
+      throw new Exception($"Could not set property or field for {propertyName}");
   }
 }

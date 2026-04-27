@@ -33,12 +33,6 @@ public class ProjectServiceTests
     _service = new ProjectService(_projectRepoMock.Object, _userManagerMock.Object, _httpContextAccessorMock.Object);
   }
 
-  private void SetupCurrentUser(Guid tenantId)
-  {
-    var user = new User { Id = Guid.NewGuid(), TenantId = tenantId };
-    _userManagerMock.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
-  }
-
   [Fact]
   public async Task GetProjectsAsync_ShouldReturnMappedDtosForTenant()
   {
@@ -133,5 +127,11 @@ public class ProjectServiceTests
 
     // Assert
     _projectRepoMock.Verify(r => r.DeleteAsync(project), Times.Once);
+  }
+
+  private void SetupCurrentUser(Guid tenantId)
+  {
+    var user = new User { Id = Guid.NewGuid(), TenantId = tenantId };
+    _userManagerMock.Setup(m => m.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
   }
 }
