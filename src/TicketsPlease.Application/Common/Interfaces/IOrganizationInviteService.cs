@@ -20,14 +20,14 @@ public interface IOrganizationInviteService
   /// <param name="targetedEmail">Die optionale Ziel-E-Mail.</param>
   /// <param name="expiryDays">Gültigkeitsdauer in Tagen.</param>
   /// <returns>Das DTO der erstellten Einladung.</returns>
-  Task<OrganizationInviteDto> CreateInviteAsync(Guid organizationId, string? targetedEmail = null, int expiryDays = 7);
+  public Task<OrganizationInviteDto> CreateInviteAsync(Guid organizationId, string? targetedEmail = null, int expiryDays = 7);
 
   /// <summary>
   /// Validiert einen Einladungs-Token.
   /// </summary>
   /// <param name="token">Der Token GUID.</param>
   /// <returns>Das DTO, falls gültig, sonst null.</returns>
-  Task<OrganizationInviteDto?> ValidateTokenAsync(Guid token);
+  public Task<OrganizationInviteDto?> ValidateTokenAsync(Guid token);
 
   /// <summary>
   /// Markiert einen Token als verwendet.
@@ -35,5 +35,5 @@ public interface IOrganizationInviteService
   /// <param name="token">Der Token GUID.</param>
   /// <param name="userId">Der Benutzer, der den Token verwendet hat.</param>
   /// <returns>Ein Task.</returns>
-  Task MarkAsUsedAsync(Guid token, Guid userId);
+  public Task MarkAsUsedAsync(Guid token, Guid userId);
 }

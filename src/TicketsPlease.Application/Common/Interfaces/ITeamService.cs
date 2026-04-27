@@ -36,6 +36,7 @@ public interface ITeamService
   /// </summary>
   /// <param name="currentUserId">Optionale ID des aktuellen Benutzers zur Markierung der Mitgliedschaft.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
   public Task<IEnumerable<TeamDto>> GetAllTeamsAsync(Guid? currentUserId = null, CancellationToken cancellationToken = default);
 
   /// <summary>

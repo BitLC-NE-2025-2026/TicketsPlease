@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 /// <summary>
 /// Das ViewModel für die Registrierung.
 /// </summary>
-public class RegisterViewModel
+internal class RegisterViewModel
 {
   /// <summary>
   /// Gets or sets den Benutzernamen.
@@ -42,7 +42,7 @@ public class RegisterViewModel
   [Display(Name = "Confirm password")]
   [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
   public string ConfirmPassword { get; set; } = string.Empty;
-  
+
   /// <summary>
   /// Gets or sets die Organisation.
   /// </summary>

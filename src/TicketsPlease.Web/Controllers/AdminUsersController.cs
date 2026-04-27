@@ -79,41 +79,44 @@ internal class AdminUsersController : Controller
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> ToggleDelete(Guid id)
   {
-      var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
-      if (user != null)
-      {
-          user.IsDeleted = !user.IsDeleted;
-          user.DeletedAt = user.IsDeleted ? DateTime.UtcNow : null;
-          await this.userManager.UpdateAsync(user).ConfigureAwait(false);
-      }
-      return this.RedirectToAction(nameof(this.Index));
+    var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
+    if (user != null)
+    {
+      user.IsDeleted = !user.IsDeleted;
+      user.DeletedAt = user.IsDeleted ? DateTime.UtcNow : null;
+      await this.userManager.UpdateAsync(user).ConfigureAwait(false);
+    }
+
+    return this.RedirectToAction(nameof(this.Index));
   }
 
   [HttpPost]
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> ToggleLock(Guid id)
   {
-      var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
-      if (user != null)
-      {
-          bool isCurrentlyLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.UtcNow;
-          user.LockoutEnd = isCurrentlyLocked ? null : DateTimeOffset.UtcNow.AddYears(100);
-          await this.userManager.UpdateAsync(user).ConfigureAwait(false);
-      }
-      return this.RedirectToAction(nameof(this.Index));
+    var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
+    if (user != null)
+    {
+      bool isCurrentlyLocked = user.LockoutEnd != null && user.LockoutEnd > DateTimeOffset.UtcNow;
+      user.LockoutEnd = isCurrentlyLocked ? null : DateTimeOffset.UtcNow.AddYears(100);
+      await this.userManager.UpdateAsync(user).ConfigureAwait(false);
+    }
+
+    return this.RedirectToAction(nameof(this.Index));
   }
-  
+
   [HttpPost]
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> ToggleActive(Guid id)
   {
-      var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
-      if (user != null)
-      {
-          user.IsActive = !user.IsActive;
-          await this.userManager.UpdateAsync(user).ConfigureAwait(false);
-      }
-      return this.RedirectToAction(nameof(this.Index));
+    var user = await this.userManager.Users.IgnoreQueryFilters().FirstOrDefaultAsync(u => u.Id == id).ConfigureAwait(false);
+    if (user != null)
+    {
+      user.IsActive = !user.IsActive;
+      await this.userManager.UpdateAsync(user).ConfigureAwait(false);
+    }
+
+    return this.RedirectToAction(nameof(this.Index));
   }
 
   /// <summary>
@@ -222,15 +225,16 @@ internal class AdminUsersController : Controller
     // Update Teams
     var currentTeamMemberships = await this.dbContext.TeamMembers.Where(tm => tm.UserId == user.Id).ToListAsync().ConfigureAwait(false);
     this.dbContext.TeamMembers.RemoveRange(currentTeamMemberships.Where(tm => !model.SelectedTeamIds.Contains(tm.TeamId)));
-    
+
     var existingTeamIds = currentTeamMemberships.Select(tm => tm.TeamId).ToList();
     foreach (var teamId in model.SelectedTeamIds)
     {
-        if (!existingTeamIds.Contains(teamId))
-        {
-            this.dbContext.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), TeamId = teamId, UserId = user.Id, IsTeamLead = false });
-        }
+      if (!existingTeamIds.Contains(teamId))
+      {
+        this.dbContext.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), TeamId = teamId, UserId = user.Id, IsTeamLead = false });
+      }
     }
+
     await this.dbContext.SaveChangesAsync().ConfigureAwait(false);
 
     return this.RedirectToAction(nameof(this.Index));

@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Entities;
 /// Controller für die Chat-Funktionalität (HQ &amp; Team).
 /// </summary>
 [Authorize]
-public class ChatController : Controller
+internal class ChatController : Controller
 {
   private readonly IMessageService messageService;
   private readonly UserManager<User> userManager;

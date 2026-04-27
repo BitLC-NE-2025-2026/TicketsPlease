@@ -11,33 +11,33 @@ using System;
 /// </summary>
 public class NotificationDto
 {
-    /// <summary>
-    /// Gets or sets die ID der Benachrichtigung.
-    /// </summary>
-    public Guid Id { get; set; }
+  /// <summary>
+  /// Gets or sets die ID der Benachrichtigung.
+  /// </summary>
+  public Guid Id { get; set; }
 
-    /// <summary>
-    /// Gets or sets den Titel.
-    /// </summary>
-    public string Title { get; set; } = string.Empty;
+  /// <summary>
+  /// Gets or sets den Titel.
+  /// </summary>
+  public string Title { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets den Inhalt.
-    /// </summary>
-    public string Content { get; set; } = string.Empty;
+  /// <summary>
+  /// Gets or sets den Inhalt.
+  /// </summary>
+  public string Content { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets die Ziel-URL.
-    /// </summary>
-    public Uri? TargetUrl { get; set; }
+  /// <summary>
+  /// Gets or sets die Ziel-URL.
+  /// </summary>
+  public Uri? TargetUrl { get; set; }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether die Benachrichtigung gelesen wurde.
-    /// </summary>
-    public bool IsRead { get; set; }
+  /// <summary>
+  /// Gets or sets a value indicating whether die Benachrichtigung gelesen wurde.
+  /// </summary>
+  public bool IsRead { get; set; }
 
-    /// <summary>
-    /// Gets or sets den Erstellungszeitpunkt.
-    /// </summary>
-    public DateTime CreatedAt { get; set; }
+  /// <summary>
+  /// Gets or sets den Erstellungszeitpunkt.
+  /// </summary>
+  public DateTime CreatedAt { get; set; }
 }

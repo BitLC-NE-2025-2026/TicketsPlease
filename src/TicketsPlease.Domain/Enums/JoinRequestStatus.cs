@@ -9,18 +9,18 @@ namespace TicketsPlease.Domain.Enums;
 /// </summary>
 public enum JoinRequestStatus
 {
-    /// <summary>
-    /// Die Anfrage ist noch offen.
-    /// </summary>
-    Pending,
+  /// <summary>
+  /// Die Anfrage ist noch offen.
+  /// </summary>
+  Pending,
 
-    /// <summary>
-    /// Die Anfrage wurde akzeptiert.
-    /// </summary>
-    Approved,
+  /// <summary>
+  /// Die Anfrage wurde akzeptiert.
+  /// </summary>
+  Approved,
 
-    /// <summary>
-    /// Die Anfrage wurde abgelehnt.
-    /// </summary>
-    Rejected,
+  /// <summary>
+  /// Die Anfrage wurde abgelehnt.
+  /// </summary>
+  Rejected,
 }

@@ -5,7 +5,6 @@
 namespace TicketsPlease.Application.Services;
 
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;

@@ -5,7 +5,6 @@
 namespace TicketsPlease.Application.Services;
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,11 +60,11 @@ public class ReportingService(
       string status = "Healthy";
       if (urgent > 2)
       {
-          status = "At Risk";
+        status = "At Risk";
       }
       else if (open > 10)
       {
-          status = "Warning";
+        status = "Warning";
       }
 
       return new ProjectHealthDto(p.Title, open, urgent, status);

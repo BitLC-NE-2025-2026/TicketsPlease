@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 /// </summary>
 public interface IAuditLogService
 {
-    /// <summary>
-    /// Erfasst eine Governance-Aktion im Audit-Log.
-    /// </summary>
-    /// <param name="organizationId">ID der Organisation.</param>
-    /// <param name="actorUserId">ID des ausführenden Benutzers.</param>
-    /// <param name="actionType">Typ der Aktion.</param>
-    /// <param name="description">Beschreibung der Änderungen.</param>
-    /// <returns>Task.</returns>
-    Task LogActionAsync(Guid organizationId, Guid actorUserId, string actionType, string description);
+  /// <summary>
+  /// Erfasst eine Governance-Aktion im Audit-Log.
+  /// </summary>
+  /// <param name="organizationId">ID der Organisation.</param>
+  /// <param name="actorUserId">ID des ausführenden Benutzers.</param>
+  /// <param name="actionType">Typ der Aktion.</param>
+  /// <param name="description">Beschreibung der Änderungen.</param>
+  /// <returns>Task.</returns>
+  public Task LogActionAsync(Guid organizationId, Guid actorUserId, string actionType, string description);
 }

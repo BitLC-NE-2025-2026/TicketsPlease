@@ -22,7 +22,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller für das Ticket-Handling und das Kanban-Board.
 /// </summary>
 [Authorize]
-public sealed class TicketsController : Controller
+internal sealed class TicketsController : Controller
 {
   private readonly ITicketService ticketService;
   private readonly IProjectService projectService;
@@ -257,6 +257,7 @@ public sealed class TicketsController : Controller
       this.TempData["ErrorMessage"] = this.l["Please select a valid ticket."].Value;
       return this.RedirectToAction(nameof(this.Details), new { id });
     }
+
     try
     {
       await this.ticketService.AddDependencyAsync(id, blockerId).ConfigureAwait(false);
@@ -448,38 +449,38 @@ public sealed class TicketsController : Controller
   [Authorize]
   public async Task<IActionResult> CreateTag([FromBody] CreateTagRequest request)
   {
-      if (request == null || string.IsNullOrWhiteSpace(request.Name))
-      {
-          return this.BadRequest("Name is required");
-      }
+    if (request == null || string.IsNullOrWhiteSpace(request.Name))
+    {
+      return this.BadRequest("Name is required");
+    }
 
-      var tag = new Tag
-      {
-          Id = Guid.NewGuid(),
-          Name = request.Name,
-          ColorHex = request.Color ?? "#64748b",
-          Icon = request.Icon ?? "fa-tag"
-      };
+    var tag = new Tag
+    {
+      Id = Guid.NewGuid(),
+      Name = request.Name,
+      ColorHex = request.Color ?? "#64748b",
+      Icon = request.Icon ?? "fa-tag",
+    };
 
-      this.context.Tags.Add(tag);
-      await this.context.SaveChangesAsync().ConfigureAwait(false);
+    this.context.Tags.Add(tag);
+    await this.context.SaveChangesAsync().ConfigureAwait(false);
 
-      return this.Json(new { id = tag.Id, name = tag.Name, color = tag.ColorHex, icon = tag.Icon });
+    return this.Json(new { id = tag.Id, name = tag.Name, color = tag.ColorHex, icon = tag.Icon });
   }
 
   /// <summary>
   /// Request DTO für Tag-Erstellung.
   /// </summary>
-  public class CreateTagRequest
+  internal class CreateTagRequest
   {
-      /// <summary>Gets or sets Name.</summary>
-      public string Name { get; set; } = string.Empty;
+    /// <summary>Gets or sets Name.</summary>
+    public string Name { get; set; } = string.Empty;
 
-      /// <summary>Gets or sets Color.</summary>
-      public string? Color { get; set; }
+    /// <summary>Gets or sets Color.</summary>
+    public string? Color { get; set; }
 
-      /// <summary>Gets or sets Icon.</summary>
-      public string? Icon { get; set; }
+    /// <summary>Gets or sets Icon.</summary>
+    public string? Icon { get; set; }
   }
 
   /// <summary>
@@ -500,7 +501,7 @@ public sealed class TicketsController : Controller
     var allTicketsQuery = this.context.Tickets.Where(t => !t.IsDeleted);
     if (excludeTicketId.HasValue)
     {
-        allTicketsQuery = allTicketsQuery.Where(t => t.Id != excludeTicketId.Value);
+      allTicketsQuery = allTicketsQuery.Where(t => t.Id != excludeTicketId.Value);
     }
 
     var allTickets = await allTicketsQuery.OrderBy(t => t.Title).ToListAsync().ConfigureAwait(false);

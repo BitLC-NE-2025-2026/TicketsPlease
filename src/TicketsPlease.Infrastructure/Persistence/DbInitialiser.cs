@@ -72,14 +72,14 @@ public static class DbInitialiser
           { TodoStateId, "Todo" },
           { InProgressStateId, "In Progress" },
           { InReviewStateId, "In Review" },
-          { DoneStateId, "Done" }
+          { DoneStateId, "Done" },
       };
 
       // 1. Organizations (Workspaces) - Genau 2
       var orgs = new List<Organization>
       {
           new Organization { Name = "Global Solutions AG", SubscriptionLevel = "Enterprise", IsActive = true, CreatedAt = DateTime.UtcNow.AddMonths(-6) },
-          new Organization { Name = "Digital Innovators GmbH", SubscriptionLevel = "Basic", IsActive = true, CreatedAt = DateTime.UtcNow.AddMonths(-3) }
+          new Organization { Name = "Digital Innovators GmbH", SubscriptionLevel = "Basic", IsActive = true, CreatedAt = DateTime.UtcNow.AddMonths(-3) },
       };
 
       await context.Organizations.AddRangeAsync(orgs).ConfigureAwait(false);
@@ -117,6 +117,7 @@ public static class DbInitialiser
         p2.SetTenantId(org.Id);
         projects.Add(p2);
       }
+
       await context.Projects.AddRangeAsync(projects).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
@@ -173,6 +174,7 @@ public static class DbInitialiser
       {
         context.UserRoles.Add(new IdentityUserRole<Guid> { UserId = user.Id, RoleId = user.RoleId });
       }
+
       await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 5. Profiles & Addresses (Vollständig)
@@ -196,7 +198,7 @@ public static class DbInitialiser
           City = faker.Address.City(),
           Country = "Deutschland",
           TenantId = user.TenantId,
-          CreatedAt = DateTime.UtcNow.AddMonths(-2)
+          CreatedAt = DateTime.UtcNow.AddMonths(-2),
         };
         await context.UserProfiles.AddAsync(profile).ConfigureAwait(false);
 
@@ -208,10 +210,11 @@ public static class DbInitialiser
           ZipCode = faker.Address.ZipCode(),
           Country = profile.Country,
           TenantId = user.TenantId,
-          CreatedAt = DateTime.UtcNow.AddMonths(-2)
+          CreatedAt = DateTime.UtcNow.AddMonths(-2),
         };
         await context.UserAddresses.AddAsync(address).ConfigureAwait(false);
       }
+
       await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 6. Teams (Genau 5)
@@ -221,7 +224,10 @@ public static class DbInitialiser
       {
         var org = i < 3 ? orgs[0] : orgs[1]; // 3 Teams in Org1, 2 Teams in Org2
         var orgUsers = users.Where(u => u.TenantId == org.Id).ToList();
-        if (orgUsers.Count == 0) continue;
+        if (orgUsers.Count == 0)
+        {
+          continue;
+        }
 
         var creator = orgUsers.FirstOrDefault(u => u.RoleId != UserRoleId) ?? orgUsers.First();
         var team = new Team
@@ -231,19 +237,20 @@ public static class DbInitialiser
           ColorCode = faker.Internet.Color(),
           CreatedByUserId = creator.Id,
           TenantId = org.Id,
-          CreatedAt = DateTime.UtcNow.AddMonths(-1)
+          CreatedAt = DateTime.UtcNow.AddMonths(-1),
         };
         teams.Add(team);
       }
+
       if (teams.Count > 0)
       {
-          logger.LogInformation("Teams erstellt. Starte Team-Mitglieder-Zuweisung...");
-          await context.Teams.AddRangeAsync(teams).ConfigureAwait(false);
-          await context.SaveChangesAsync().ConfigureAwait(false);
+        logger.LogInformation("Teams erstellt. Starte Team-Mitglieder-Zuweisung...");
+        await context.Teams.AddRangeAsync(teams).ConfigureAwait(false);
+        await context.SaveChangesAsync().ConfigureAwait(false);
       }
       else
       {
-          logger.LogWarning("Keine Teams erstellt, da keine Benutzer für die Organisationen gefunden wurden.");
+        logger.LogWarning("Keine Teams erstellt, da keine Benutzer für die Organisationen gefunden wurden.");
       }
 
       // Team Members
@@ -251,25 +258,27 @@ public static class DbInitialiser
       {
         // Alle Teamleads der Org ins Team (als Leads)
         var leadUsers = users.Where(u => u.TenantId == team.TenantId && u.RoleId == TeamleadRoleId).Take(1).ToList();
+
         // Einige normale User dazu
         var memberUsers = users.Where(u => u.TenantId == team.TenantId && u.RoleId == UserRoleId).Take(3).ToList();
 
         if (leadUsers.Count > 0)
         {
-            foreach (var lu in leadUsers)
-            {
-                context.TeamMembers.Add(new TeamMember { TeamId = team.Id, UserId = lu.Id, IsTeamLead = true, TenantId = team.TenantId, JoinedAt = DateTime.UtcNow.AddDays(-20) });
-            }
+          foreach (var lu in leadUsers)
+          {
+            context.TeamMembers.Add(new TeamMember { TeamId = team.Id, UserId = lu.Id, IsTeamLead = true, TenantId = team.TenantId, JoinedAt = DateTime.UtcNow.AddDays(-20) });
+          }
         }
 
         if (memberUsers.Count > 0)
         {
-            foreach (var mu in memberUsers)
-            {
-                context.TeamMembers.Add(new TeamMember { TeamId = team.Id, UserId = mu.Id, IsTeamLead = false, TenantId = team.TenantId, JoinedAt = DateTime.UtcNow.AddDays(-15) });
-            }
+          foreach (var mu in memberUsers)
+          {
+            context.TeamMembers.Add(new TeamMember { TeamId = team.Id, UserId = mu.Id, IsTeamLead = false, TenantId = team.TenantId, JoinedAt = DateTime.UtcNow.AddDays(-15) });
+          }
         }
       }
+
       logger.LogInformation("Team-Mitglieder zugewiesen. Starte Ticket-Seeding...");
       await context.SaveChangesAsync().ConfigureAwait(false);
 
@@ -279,7 +288,10 @@ public static class DbInitialiser
       {
         var project = faker.PickRandom(projects);
         var orgUsers = users.Where(u => u.TenantId == project.TenantId).ToList();
-        if (orgUsers.Count == 0) continue;
+        if (orgUsers.Count == 0)
+        {
+          continue;
+        }
 
         var creator = faker.PickRandom(orgUsers);
         var stateId = faker.PickRandom(stateIds);
@@ -292,8 +304,8 @@ public static class DbInitialiser
             stateNames[stateId],
             faker.Internet.Ip())
         {
-            TenantId = project.TenantId,
-            CreatedAt = DateTime.UtcNow.AddDays(-faker.Random.Int(1, 30))
+          TenantId = project.TenantId,
+          CreatedAt = DateTime.UtcNow.AddDays(-faker.Random.Int(1, 30)),
         };
 
         ticket.UpdateDescription(faker.Lorem.Sentence(), $"# {ticket.Title}\n\n{faker.Lorem.Paragraphs(2)}");
@@ -304,11 +316,12 @@ public static class DbInitialiser
         // Zuweisung
         if (faker.Random.Bool(0.8f))
         {
-           ticket.AssignUser(faker.PickRandom(orgUsers).Id);
+          ticket.AssignUser(faker.PickRandom(orgUsers).Id);
         }
 
         tickets.Add(ticket);
       }
+
       logger.LogInformation("Tickets erstellt. Starte Ticket-Team-Zuweisung...");
       await context.Tickets.AddRangeAsync(tickets).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
@@ -319,15 +332,16 @@ public static class DbInitialiser
         var team = teams.FirstOrDefault(t => t.TenantId == ticket.TenantId);
         if (team != null)
         {
-            context.TicketAssignments.Add(new TicketAssignment
-            {
-                TicketId = ticket.Id,
-                TeamId = team.Id,
-                TenantId = ticket.TenantId,
-                AssignedAt = DateTime.UtcNow
-            });
+          context.TicketAssignments.Add(new TicketAssignment
+          {
+            TicketId = ticket.Id,
+            TeamId = team.Id,
+            TenantId = ticket.TenantId,
+            AssignedAt = DateTime.UtcNow,
+          });
         }
       }
+
       logger.LogInformation("Ticket-Team-Zuweisungen abgeschlossen. Starte Benachrichtigungen...");
       await context.SaveChangesAsync().ConfigureAwait(false);
 
@@ -347,10 +361,11 @@ public static class DbInitialiser
             IsRead = i > 2,
             CreatedAt = DateTime.UtcNow.AddMinutes(-faker.Random.Int(10, 5000)),
             TenantId = user.TenantId,
-            TargetUrl = targetTicket != null ? $"/Tickets/Details/{targetTicket.Id}" : "/Tickets"
+            TargetUrl = targetTicket != null ? $"/Tickets/Details/{targetTicket.Id}" : "/Tickets",
           });
         }
       }
+
       logger.LogInformation("Benachrichtigungen erstellt. Starte Chat-Nachrichten...");
       await context.Notifications.AddRangeAsync(notifications).ConfigureAwait(false);
 
@@ -377,13 +392,14 @@ public static class DbInitialiser
           ("Sales", "#f97316", "fa-cart-shopping"),
           ("Internal", "#6d28d9", "fa-briefcase"),
           ("Urgent", "#dc2626", "fa-circle-exclamation"),
-          ("Legacy", "#78350f", "fa-clock-rotate-left")
+          ("Legacy", "#78350f", "fa-clock-rotate-left"),
       };
 
       foreach (var (name, color, icon) in tagDefinitions)
       {
-          tags.Add(new Tag { Name = name, ColorHex = color, Icon = icon });
+        tags.Add(new Tag { Name = name, ColorHex = color, Icon = icon });
       }
+
       await context.Tags.AddRangeAsync(tags).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
@@ -391,54 +407,61 @@ public static class DbInitialiser
       var messages = new List<Message>();
       foreach (var org in orgs)
       {
-          var orgUsers = users.Where(u => u.TenantId == org.Id).ToList();
-          if (orgUsers.Count < 2) continue; // Brauchen mindestens 2 User für Chat
+        var orgUsers = users.Where(u => u.TenantId == org.Id).ToList();
+        if (orgUsers.Count < 2)
+        {
+          continue; // Brauchen mindestens 2 User für Chat
+        }
 
-          for (int i = 0; i < 40; i++)
+        for (int i = 0; i < 40; i++)
+        {
+          var sender = faker.PickRandom(orgUsers);
+          var receiver = faker.PickRandom(orgUsers.Where(u => u.Id != sender.Id).ToList());
+          messages.Add(new Message
           {
-              var sender = faker.PickRandom(orgUsers);
-              var receiver = faker.PickRandom(orgUsers.Where(u => u.Id != sender.Id).ToList());
-              messages.Add(new Message
-              {
-                  SenderUserId = sender.Id,
-                  ReceiverUserId = receiver.Id,
-                  BodyMarkdown = faker.Lorem.Sentence(),
-                  SentAt = DateTime.UtcNow.AddMinutes(-faker.Random.Int(1, 10000)),
-                  TenantId = org.Id
-              });
-          }
+            SenderUserId = sender.Id,
+            ReceiverUserId = receiver.Id,
+            BodyMarkdown = faker.Lorem.Sentence(),
+            SentAt = DateTime.UtcNow.AddMinutes(-faker.Random.Int(1, 10000)),
+            TenantId = org.Id,
+          });
+        }
       }
+
       logger.LogInformation("Chat-Nachrichten erstellt. Starte SubTickets und Kommentare...");
       await context.Messages.AddRangeAsync(messages).ConfigureAwait(false);
 
       // 10. SubTickets & Comments
       foreach (var ticket in tickets.Take(15))
       {
-          var orgUsers = users.Where(u => u.TenantId == ticket.TenantId).ToList();
-          if (orgUsers.Count == 0) continue;
+        var orgUsers = users.Where(u => u.TenantId == ticket.TenantId).ToList();
+        if (orgUsers.Count == 0)
+        {
+          continue;
+        }
 
-          for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
+        {
+          context.SubTickets.Add(new SubTicket
           {
-              context.SubTickets.Add(new SubTicket
-              {
-                  TicketId = ticket.Id,
-                  Title = faker.Lorem.Sentence(3),
-                  IsCompleted = faker.Random.Bool(),
-                  CreatorId = ticket.CreatorId,
-                  TenantId = ticket.TenantId,
-                  CreatedAt = DateTime.UtcNow.AddDays(-1)
-              });
+            TicketId = ticket.Id,
+            Title = faker.Lorem.Sentence(3),
+            IsCompleted = faker.Random.Bool(),
+            CreatorId = ticket.CreatorId,
+            TenantId = ticket.TenantId,
+            CreatedAt = DateTime.UtcNow.AddDays(-1),
+          });
 
-              var commentContent = faker.Lorem.Sentence();
-              var randomAuthor = faker.PickRandom(orgUsers);
-              if (randomAuthor != null)
-              {
-                  var comment = new Comment(commentContent, ticket.Id, randomAuthor.Id);
-                  comment.SetTenantId(ticket.TenantId);
-                  comment.CreatedAt = DateTime.UtcNow.AddHours(-i);
-                  context.Comments.Add(comment);
-              }
+          var commentContent = faker.Lorem.Sentence();
+          var randomAuthor = faker.PickRandom(orgUsers);
+          if (randomAuthor != null)
+          {
+            var comment = new Comment(commentContent, ticket.Id, randomAuthor.Id);
+            comment.SetTenantId(ticket.TenantId);
+            comment.CreatedAt = DateTime.UtcNow.AddHours(-i);
+            context.Comments.Add(comment);
           }
+        }
       }
 
       await context.SaveChangesAsync().ConfigureAwait(false);

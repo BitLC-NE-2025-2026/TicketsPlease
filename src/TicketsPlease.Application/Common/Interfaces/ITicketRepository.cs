@@ -165,6 +165,7 @@ public interface ITicketRepository
   /// Fügt einen Workflow-Übergang hinzu.
   /// </summary>
   /// <param name="transition">Der Übergang.</param>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
   public Task AddWorkflowTransitionAsync(WorkflowTransition transition);
 
   /// <summary>

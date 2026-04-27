@@ -11,64 +11,64 @@ using TicketsPlease.Domain.Entities;
 /// </summary>
 public interface IOrganizationRepository
 {
-    /// <summary>
-    /// Ruft alle Organisationen ab.
-    /// </summary>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Liste der Organisationen.</returns>
-    Task<List<Organization>> GetAllAsync(CancellationToken ct = default);
+  /// <summary>
+  /// Ruft alle Organisationen ab.
+  /// </summary>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Liste der Organisationen.</returns>
+  public Task<List<Organization>> GetAllAsync(CancellationToken ct = default);
 
-    /// <summary>
-    /// Ruft eine Organisation nach ID ab.
-    /// </summary>
-    /// <param name="id">Die ID.</param>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Die Organisation oder null.</returns>
-    Task<Organization?> GetByIdAsync(Guid id, CancellationToken ct = default);
+  /// <summary>
+  /// Ruft eine Organisation nach ID ab.
+  /// </summary>
+  /// <param name="id">Die ID.</param>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Die Organisation oder null.</returns>
+  public Task<Organization?> GetByIdAsync(Guid id, CancellationToken ct = default);
 
-    /// <summary>
-    /// Fügt eine Organisation hinzu.
-    /// </summary>
-    /// <param name="organization">Die Organisation.</param>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Task.</returns>
-    Task AddAsync(Organization organization, CancellationToken ct = default);
+  /// <summary>
+  /// Fügt eine Organisation hinzu.
+  /// </summary>
+  /// <param name="organization">Die Organisation.</param>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Task.</returns>
+  public Task AddAsync(Organization organization, CancellationToken ct = default);
 
-    /// <summary>
-    /// Speichert Änderungen.
-    /// </summary>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Task.</returns>
-    Task SaveChangesAsync(CancellationToken ct = default);
+  /// <summary>
+  /// Speichert Änderungen.
+  /// </summary>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Task.</returns>
+  public Task SaveChangesAsync(CancellationToken ct = default);
 
-    /// <summary>
-    /// Fügt ein Audit-Log hinzu.
-    /// </summary>
-    /// <param name="log">Das Log-Objekt.</param>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Task.</returns>
-    Task AddAuditLogAsync(AuditLog log, CancellationToken ct = default);
+  /// <summary>
+  /// Fügt ein Audit-Log hinzu.
+  /// </summary>
+  /// <param name="log">Das Log-Objekt.</param>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Task.</returns>
+  public Task AddAuditLogAsync(AuditLog log, CancellationToken ct = default);
 
-    /// <summary>
-    /// Ruft Audit-Logs für eine Organisation ab.
-    /// </summary>
-    /// <param name="organizationId">ID der Organisation.</param>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Liste der Logs.</returns>
-    Task<List<AuditLog>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default);
+  /// <summary>
+  /// Ruft Audit-Logs für eine Organisation ab.
+  /// </summary>
+  /// <param name="organizationId">ID der Organisation.</param>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Liste der Logs.</returns>
+  public Task<List<AuditLog>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default);
 
-    /// <summary>
-    /// Fügt eine Einladung hinzu.
-    /// </summary>
-    /// <param name="invite">Die Einladung.</param>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Task.</returns>
-    Task AddInviteAsync(OrganizationInvite invite, CancellationToken ct = default);
+  /// <summary>
+  /// Fügt eine Einladung hinzu.
+  /// </summary>
+  /// <param name="invite">Die Einladung.</param>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Task.</returns>
+  public Task AddInviteAsync(OrganizationInvite invite, CancellationToken ct = default);
 
-    /// <summary>
-    /// Ruft eine Einladung per Token ab.
-    /// </summary>
-    /// <param name="token">Der Token.</param>
-    /// <returns>Die Einladung.</returns>
-    Task<OrganizationInvite?> GetInviteByTokenAsync(Guid token);
+  /// <summary>
+  /// Ruft eine Einladung per Token ab.
+  /// </summary>
+  /// <param name="token">Der Token.</param>
+  /// <returns>Die Einladung.</returns>
+  public Task<OrganizationInvite?> GetInviteByTokenAsync(Guid token);
 }

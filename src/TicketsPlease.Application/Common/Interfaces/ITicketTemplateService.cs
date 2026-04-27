@@ -11,27 +11,27 @@ using TicketsPlease.Application.Common.Dtos;
 /// </summary>
 public interface ITicketTemplateService
 {
-    /// <summary>
-    /// Ruft alle verfügbaren Vorlagen ab.
-    /// </summary>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Liste von DTOs.</returns>
-    Task<List<TicketTemplateDto>> GetAllTemplatesAsync(CancellationToken ct = default);
+  /// <summary>
+  /// Ruft alle verfügbaren Vorlagen ab.
+  /// </summary>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Liste von DTOs.</returns>
+  public Task<List<TicketTemplateDto>> GetAllTemplatesAsync(CancellationToken ct = default);
 
-    /// <summary>
-    /// Erstellt eine neue Vorlage.
-    /// </summary>
-    /// <param name="creatorId">ID des Erstellers.</param>
-    /// <param name="dto">Die Daten.</param>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Das erstellte DTO.</returns>
-    Task<TicketTemplateDto> CreateTemplateAsync(Guid creatorId, CreateTicketTemplateDto dto, CancellationToken ct = default);
+  /// <summary>
+  /// Erstellt eine neue Vorlage.
+  /// </summary>
+  /// <param name="creatorId">ID des Erstellers.</param>
+  /// <param name="dto">Die Daten.</param>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Das erstellte DTO.</returns>
+  public Task<TicketTemplateDto> CreateTemplateAsync(Guid creatorId, CreateTicketTemplateDto dto, CancellationToken ct = default);
 
-    /// <summary>
-    /// Löscht eine Vorlage.
-    /// </summary>
-    /// <param name="id">Die ID.</param>
-    /// <param name="ct">Abbruchsignal.</param>
-    /// <returns>Task.</returns>
-    Task DeleteTemplateAsync(Guid id, CancellationToken ct = default);
+  /// <summary>
+  /// Löscht eine Vorlage.
+  /// </summary>
+  /// <param name="id">Die ID.</param>
+  /// <param name="ct">Abbruchsignal.</param>
+  /// <returns>Task.</returns>
+  public Task DeleteTemplateAsync(Guid id, CancellationToken ct = default);
 }

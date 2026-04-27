@@ -21,7 +21,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller für das Messaging-System (F9).
 /// </summary>
 [Authorize]
-public sealed class MessagesController : Controller
+internal sealed class MessagesController : Controller
 {
   private readonly IMessageService messageService;
   private readonly UserManager<User> userManager;
@@ -115,7 +115,7 @@ public sealed class MessagesController : Controller
 
     if (!userId.HasValue || userId.Value == Guid.Empty)
     {
-        return this.RedirectToAction(nameof(this.Index));
+      return this.RedirectToAction(nameof(this.Index));
     }
 
     var messages = await this.messageService.GetConversationAsync(currentUser.Id, userId.Value).ConfigureAwait(false);

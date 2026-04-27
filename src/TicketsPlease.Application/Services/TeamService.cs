@@ -149,7 +149,7 @@ public class TeamService(ITeamRepository teamRepository) : ITeamService
     var existingRequests = await teamRepository.GetJoinRequestsByTeamIdAsync(teamId, cancellationToken).ConfigureAwait(false);
     if (existingRequests.Any(r => r.UserId == userId && r.Status == Domain.Enums.JoinRequestStatus.Pending))
     {
-        return existingRequests.First(r => r.UserId == userId && r.Status == Domain.Enums.JoinRequestStatus.Pending).Id;
+      return existingRequests.First(r => r.UserId == userId && r.Status == Domain.Enums.JoinRequestStatus.Pending).Id;
     }
 
     var team = await teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);

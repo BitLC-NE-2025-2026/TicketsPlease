@@ -19,59 +19,59 @@ using Microsoft.AspNetCore.Mvc.Filters;
 ///   public IActionResult Index() { ... }
 ///
 ///   [RequirePermission(PermissionRegistry.TicketsDelete, "You need ticket deletion permission.")]
-///   public IActionResult Delete() { ... }
+///   public IActionResult Delete() { ... }.
 /// </remarks>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-public class RequirePermissionAttribute : Attribute, IAuthorizationFilter
+internal sealed class RequirePermissionAttribute : Attribute, IAuthorizationFilter
 {
-    /// <summary>
-    /// Gets die erforderliche Berechtigung.
-    /// </summary>
-    public string Permission { get; }
+  /// <summary>
+  /// Gets die erforderliche Berechtigung.
+  /// </summary>
+  public string Permission { get; }
 
-    /// <summary>
-    /// Gets die benutzerdefinierte Fehlermeldung.
-    /// </summary>
-    public string? ErrorMessage { get; }
+  /// <summary>
+  /// Gets die benutzerdefinierte Fehlermeldung.
+  /// </summary>
+  public string? ErrorMessage { get; }
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RequirePermissionAttribute"/> class.
-    /// </summary>
-    /// <param name="permission">Die erforderliche Berechtigung (z.B. PermissionRegistry.PageTickets).</param>
-    /// <param name="errorMessage">Optionale Fehlermeldung.</param>
-    public RequirePermissionAttribute(string permission, string? errorMessage = null)
+  /// <summary>
+  /// Initializes a new instance of the <see cref="RequirePermissionAttribute"/> class.
+  /// </summary>
+  /// <param name="permission">Die erforderliche Berechtigung (z.B. PermissionRegistry.PageTickets).</param>
+  /// <param name="errorMessage">Optionale Fehlermeldung.</param>
+  public RequirePermissionAttribute(string permission, string? errorMessage = null)
+  {
+    this.Permission = permission;
+    this.ErrorMessage = errorMessage;
+  }
+
+  /// <inheritdoc/>
+  public void OnAuthorization(AuthorizationFilterContext context)
+  {
+    ArgumentNullException.ThrowIfNull(context);
+
+    var user = context.HttpContext.User;
+
+    // Nicht authentifizierte Benutzer zur Login-Seite
+    if (user.Identity?.IsAuthenticated != true)
     {
-        this.Permission = permission;
-        this.ErrorMessage = errorMessage;
+      context.Result = new ChallengeResult();
+      return;
     }
 
-    /// <inheritdoc/>
-    public void OnAuthorization(AuthorizationFilterContext context)
+    // Admins haben implizit alle Berechtigungen
+    if (user.IsInRole("Admin"))
     {
-        ArgumentNullException.ThrowIfNull(context);
-
-        var user = context.HttpContext.User;
-
-        // Nicht authentifizierte Benutzer zur Login-Seite
-        if (user.Identity?.IsAuthenticated != true)
-        {
-            context.Result = new ChallengeResult();
-            return;
-        }
-
-        // Admins haben implizit alle Berechtigungen
-        if (user.IsInRole("Admin"))
-        {
-            return;
-        }
-
-        // Prüfe ob der Benutzer die Permission besitzt
-        if (!user.HasClaim("Permission", this.Permission))
-        {
-            var returnUrl = context.HttpContext.Request.Path + context.HttpContext.Request.QueryString;
-            var accessDeniedUrl = $"/Account/AccessDenied?ReturnUrl={Uri.EscapeDataString(returnUrl)}&permission={Uri.EscapeDataString(this.Permission)}";
-
-            context.Result = new RedirectResult(accessDeniedUrl);
-        }
+      return;
     }
+
+    // Prüfe ob der Benutzer die Permission besitzt
+    if (!user.HasClaim("Permission", this.Permission))
+    {
+      var returnUrl = context.HttpContext.Request.Path + context.HttpContext.Request.QueryString;
+      var accessDeniedUrl = $"/Account/AccessDenied?ReturnUrl={Uri.EscapeDataString(returnUrl)}&permission={Uri.EscapeDataString(this.Permission)}";
+
+      context.Result = new RedirectResult(accessDeniedUrl);
+    }
+  }
 }

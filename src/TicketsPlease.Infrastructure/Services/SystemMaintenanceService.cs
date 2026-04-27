@@ -37,12 +37,12 @@ public class SystemMaintenanceService
   public async Task TruncateTableAsync(string tableName)
   {
     this.logger.LogWarning("Manuelle Tabellenlöschung angefordert: {TableName}", tableName);
-    
+
     // Einfache SQL-Safe-Prüfung (nur bekannte Tabellennamen erlauben)
     var allowedTables = new[] { "Tickets", "Tasks", "Comments", "TimeLogs", "Notifications", "Messages", "Teams", "TeamMembers", "SubTickets" };
     if (!System.Linq.Enumerable.Contains(allowedTables, tableName))
     {
-        throw new InvalidOperationException($"Tabelle '{tableName}' ist nicht für automatisierte Löschung freigegeben.");
+      throw new InvalidOperationException($"Tabelle '{tableName}' ist nicht für automatisierte Löschung freigegeben.");
     }
 
     var sql = $"DELETE FROM [{tableName}]";
@@ -57,10 +57,10 @@ public class SystemMaintenanceService
   public async Task WipeDatabaseAsync()
   {
     this.logger.LogCritical("KOMPLETTER DATENBANK-WIPE ANGEFORDERT!");
-    
+
     await this.context.Database.EnsureDeletedAsync().ConfigureAwait(false);
     await this.context.Database.EnsureCreatedAsync().ConfigureAwait(false);
-    
+
     this.logger.LogInformation("Datenbank wurde erfolgreich gewiped und neu erstellt.");
   }
 }

@@ -4,7 +4,6 @@
 
 namespace TicketsPlease.Web.Controllers;
 
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -42,7 +41,7 @@ internal sealed class StakeholderController : Controller
     var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
     if (user == null)
     {
-       return this.Challenge();
+      return this.Challenge();
     }
 
     var dashboardData = await this.reportingService.GetStakeholderDashboardAsync(user.TenantId).ConfigureAwait(false);

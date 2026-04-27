@@ -19,54 +19,54 @@ using TicketsPlease.Application.Common.Interfaces;
 [Route("api/dashboard")]
 internal sealed class DashboardApiController : ControllerBase
 {
-    private readonly IDashboardService dashboardService;
+  private readonly IDashboardService dashboardService;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DashboardApiController"/> class.
-    /// </summary>
-    /// <param name="dashboardService">Der Dashboard-Service.</param>
-    public DashboardApiController(IDashboardService dashboardService)
-    {
-        this.dashboardService = dashboardService;
-    }
+  /// <summary>
+  /// Initializes a new instance of the <see cref="DashboardApiController"/> class.
+  /// </summary>
+  /// <param name="dashboardService">Der Dashboard-Service.</param>
+  public DashboardApiController(IDashboardService dashboardService)
+  {
+    this.dashboardService = dashboardService;
+  }
 
-    /// <summary>
-    /// Ruft Performance-Details für einen Benutzer ab.
-    /// </summary>
-    /// <param name="id">Die Benutzer-ID.</param>
-    /// <returns>Detaillierte Statistiken.</returns>
-    [HttpGet("user/{id}")]
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Catching all exceptions is intentional at the API boundary to return a proper error response.")]
-    public async Task<IActionResult> GetUserDetail(Guid id)
+  /// <summary>
+  /// Ruft Performance-Details für einen Benutzer ab.
+  /// </summary>
+  /// <param name="id">Die Benutzer-ID.</param>
+  /// <returns>Detaillierte Statistiken.</returns>
+  [HttpGet("user/{id}")]
+  [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Catching all exceptions is intentional at the API boundary to return a proper error response.")]
+  public async Task<IActionResult> GetUserDetail(Guid id)
+  {
+    try
     {
-        try
-        {
-            var detail = await this.dashboardService.GetUserPerformanceDetailAsync(id).ConfigureAwait(false);
-            return this.Ok(detail);
-        }
-        catch (Exception ex)
-        {
-            return this.NotFound(new { message = ex.Message });
-        }
+      var detail = await this.dashboardService.GetUserPerformanceDetailAsync(id).ConfigureAwait(false);
+      return this.Ok(detail);
     }
+    catch (Exception ex)
+    {
+      return this.NotFound(new { message = ex.Message });
+    }
+  }
 
-    /// <summary>
-    /// Ruft Performance-Details für ein Team ab.
-    /// </summary>
-    /// <param name="id">Die Team-ID.</param>
-    /// <returns>Detaillierte Statistiken.</returns>
-    [HttpGet("team/{id}")]
-    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Catching all exceptions is intentional at the API boundary to return a proper error response.")]
-    public async Task<IActionResult> GetTeamDetail(Guid id)
+  /// <summary>
+  /// Ruft Performance-Details für ein Team ab.
+  /// </summary>
+  /// <param name="id">Die Team-ID.</param>
+  /// <returns>Detaillierte Statistiken.</returns>
+  [HttpGet("team/{id}")]
+  [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Catching all exceptions is intentional at the API boundary to return a proper error response.")]
+  public async Task<IActionResult> GetTeamDetail(Guid id)
+  {
+    try
     {
-        try
-        {
-            var detail = await this.dashboardService.GetTeamPerformanceDetailAsync(id).ConfigureAwait(false);
-            return this.Ok(detail);
-        }
-        catch (Exception ex)
-        {
-            return this.NotFound(new { message = ex.Message });
-        }
+      var detail = await this.dashboardService.GetTeamPerformanceDetailAsync(id).ConfigureAwait(false);
+      return this.Ok(detail);
     }
+    catch (Exception ex)
+    {
+      return this.NotFound(new { message = ex.Message });
+    }
+  }
 }

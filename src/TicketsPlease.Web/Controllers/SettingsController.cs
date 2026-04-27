@@ -4,15 +4,13 @@
 
 namespace TicketsPlease.Web.Controllers;
 
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
-
-using Microsoft.Extensions.Localization;
 
 /// <summary>
 /// Controller für die persönlichen Benutzereinstellungen (Performance, Töne).
@@ -31,7 +29,7 @@ internal sealed class SettingsController : Controller
   /// <param name="userRepository">Das User-Repository.</param>
   /// <param name="localizer">Der Lokalisierer.</param>
   public SettingsController(
-    UserManager<User> userManager, 
+    UserManager<User> userManager,
     IUserRepository userRepository,
     IStringLocalizer<SettingsController> localizer)
   {
@@ -61,9 +59,9 @@ internal sealed class SettingsController : Controller
   /// Speichert die persönlichen Einstellungen.
   /// </summary>
   /// <param name="kanbanUpdateIntervalMs">Das Intervall.</param>
-  /// <param name="reduceAnimations">Animationen reduzieren?</param>
+  /// <param name="reduceAnimations">Animationen reduzieren?.</param>
   /// <param name="notificationSound">Soundname.</param>
-  /// <param name="emailNotificationsEnabled">E-Mails an?</param>
+  /// <param name="emailNotificationsEnabled">E-Mails an?.</param>
   /// <returns>Ein Redirect.</returns>
   [HttpPost]
   [ValidateAntiForgeryToken]
@@ -83,7 +81,7 @@ internal sealed class SettingsController : Controller
 
     await this.userRepository.UpdateProfileAsync(profile).ConfigureAwait(false);
     this.TempData["StatusMessage"] = this.localizer["SaveSuccess"].Value;
-    
+
     return this.RedirectToAction(nameof(this.Index));
   }
 }

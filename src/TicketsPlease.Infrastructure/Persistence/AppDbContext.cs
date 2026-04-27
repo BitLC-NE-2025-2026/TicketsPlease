@@ -4,8 +4,8 @@
 
 namespace TicketsPlease.Infrastructure.Persistence;
 
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;
@@ -338,6 +338,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     {
       entity.HasKey(e => e.Id);
       entity.HasOne(e => e.Author).WithMany().HasForeignKey(e => e.AuthorId).OnDelete(DeleteBehavior.Restrict);
+
       // Let SocialMessage be cross-tenant
       entity.HasQueryFilter(e => !e.IsDeleted);
     });

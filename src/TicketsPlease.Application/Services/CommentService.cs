@@ -29,7 +29,6 @@ public class CommentService(
   IHttpContextAccessor httpContextAccessor,
   INotificationService notificationService) : ICommentService
 {
-
   /// <inheritdoc/>
   public async Task<IEnumerable<CommentDto>> GetCommentsForTicketAsync(Guid ticketId)
   {

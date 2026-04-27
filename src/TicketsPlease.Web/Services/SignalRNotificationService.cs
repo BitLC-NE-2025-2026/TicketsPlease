@@ -17,7 +17,7 @@ using TicketsPlease.Web.Hubs;
 /// <summary>
 /// Implementierung des Benachrichtigungs-Dienstes via SignalR Hub.
 /// </summary>
-public class SignalRNotificationService : INotificationService
+internal class SignalRNotificationService : INotificationService
 {
   private readonly IHubContext<NotificationHub> hubContext;
   private readonly INotificationRepository repository;

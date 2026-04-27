@@ -18,5 +18,5 @@ public interface IReportingService
   /// </summary>
   /// <param name="tenantId">Die ID der Organisation.</param>
   /// <returns>Das Dashboard DTO.</returns>
-  Task<StakeholderDashboardDto> GetStakeholderDashboardAsync(Guid tenantId);
+  public Task<StakeholderDashboardDto> GetStakeholderDashboardAsync(Guid tenantId);
 }

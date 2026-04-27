@@ -18,7 +18,7 @@ using TicketsPlease.Domain.Entities;
 /// Background service for enterprise SLA automation.
 /// Checks active organizations for SLA breaches and triggers notifications.
 /// </summary>
-public sealed partial class SLABackgroundService : BackgroundService
+internal sealed partial class SLABackgroundService : BackgroundService
 {
   private readonly IServiceProvider serviceProvider;
   private readonly ILogger<SLABackgroundService> logger;
@@ -97,10 +97,9 @@ public sealed partial class SLABackgroundService : BackgroundService
       return;
     }
 
-    // Logic for interval can be implemented by storing "LastCheckedAt" or similar, 
+    // Logic for interval can be implemented by storing "LastCheckedAt" or similar,
     // but for this version we run every time the loop hits them.
     // In a more complex version, we would check if (DateTime.UtcNow - org.LastSlaCheck) > org.SlaCheckInterval.
-
     var tickets = await ticketRepository.GetAllActiveAsync(ct).ConfigureAwait(false);
     var orgTickets = tickets.Where(t => t.TenantId == org.Id && t.Status != "Done").ToList();
 
@@ -157,13 +156,13 @@ public sealed partial class SLABackgroundService : BackgroundService
     // Response SLA
     if (ticket.LastRespondedAt == null && ticket.ResponseDeadline.HasValue && now > ticket.ResponseDeadline.Value)
     {
-        await this.NotifySlaBreachAsync(org, ticket, "Response", notificationService).ConfigureAwait(false);
+      await this.NotifySlaBreachAsync(org, ticket, "Response", notificationService).ConfigureAwait(false);
     }
 
     // Resolution SLA
     if (ticket.ClosedAt == null && ticket.ResolutionDeadline.HasValue && now > ticket.ResolutionDeadline.Value)
     {
-        await this.NotifySlaBreachAsync(org, ticket, "Resolution", notificationService).ConfigureAwait(false);
+      await this.NotifySlaBreachAsync(org, ticket, "Resolution", notificationService).ConfigureAwait(false);
     }
   }
 
@@ -172,16 +171,16 @@ public sealed partial class SLABackgroundService : BackgroundService
     // Check if notifications are enabled for this priority
     bool shouldNotify = ticket.Priority?.Name switch
     {
-        "Low" => org.NotifyOnLow,
-        "Medium" => org.NotifyOnMedium,
-        "High" => org.NotifyOnHigh,
-        "Blocker" => org.NotifyOnBlocker,
-        _ => true // Default to true for unknown or unassigned priority
+      "Low" => org.NotifyOnLow,
+      "Medium" => org.NotifyOnMedium,
+      "High" => org.NotifyOnHigh,
+      "Blocker" => org.NotifyOnBlocker,
+      _ => true, // Default to true for unknown or unassigned priority
     };
 
     if (!shouldNotify)
     {
-        return;
+      return;
     }
 
     var message = $"SLA Breach ({type}): Ticket '{ticket.Title}' (ID: {ticket.Id}) has exceeded its deadline.";

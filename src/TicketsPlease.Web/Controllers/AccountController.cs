@@ -16,7 +16,7 @@ using TicketsPlease.Web.Models.Account;
 /// <summary>
 /// Controller für die Benutzerverwaltung (Login, Registrierung, Profil).
 /// </summary>
-public sealed class AccountController : Controller
+internal sealed class AccountController : Controller
 {
   private readonly SignInManager<User> signInManager;
   private readonly UserManager<User> userManager;
@@ -36,14 +36,14 @@ public sealed class AccountController : Controller
   /// <param name="organizationService">Der Organisations-Service.</param>
   /// <param name="dashboardService">Der Dashboard-Service.</param>
   /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
-    public AccountController(
-    SignInManager<User> signInManager,
-    UserManager<User> userManager,
-    RoleManager<Role> roleManager,
-    IUserRepository userRepository,
-    IOrganizationService organizationService,
-    IDashboardService dashboardService,
-    IFileStorageService fileStorageService)
+  public AccountController(
+  SignInManager<User> signInManager,
+  UserManager<User> userManager,
+  RoleManager<Role> roleManager,
+  IUserRepository userRepository,
+  IOrganizationService organizationService,
+  IDashboardService dashboardService,
+  IFileStorageService fileStorageService)
   {
     this.signInManager = signInManager;
     this.userManager = userManager;
@@ -121,12 +121,12 @@ public sealed class AccountController : Controller
     var model = new RegisterViewModel
     {
       OrganizationId = invite.OrganizationId,
-      InviteToken = token
+      InviteToken = token,
     };
 
-    ViewBag.IsInvite = true;
-    ViewBag.OrganizationName = invite.OrganizationName;
-    
+    this.ViewBag.IsInvite = true;
+    this.ViewBag.OrganizationName = invite.OrganizationName;
+
     return this.View("Register", model);
   }
 
@@ -147,19 +147,19 @@ public sealed class AccountController : Controller
       var defaultRole = await this.roleManager.FindByNameAsync("User").ConfigureAwait(false);
       var defaultRoleId = defaultRole?.Id ?? Guid.Empty;
 
-      var user = new User 
-      { 
-          UserName = model.Username, 
-          Email = model.Email, 
-          RoleId = defaultRoleId,
-          TenantId = model.OrganizationId
+      var user = new User
+      {
+        UserName = model.Username,
+        Email = model.Email,
+        RoleId = defaultRoleId,
+        TenantId = model.OrganizationId,
       };
-      
+
       var result = await this.userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
       if (result.Succeeded)
       {
         await this.userManager.AddToRoleAsync(user, "User").ConfigureAwait(false);
-        
+
         // Create Profile & Address
         var profile = await this.userRepository.GetOrCreateProfileAsync(user.Id).ConfigureAwait(false);
         profile.Position = model.Position;
@@ -168,7 +168,7 @@ public sealed class AccountController : Controller
         profile.HouseNumber = model.HouseNumber;
         profile.City = model.City;
         profile.Country = model.Country;
-        
+
         await this.userRepository.UpdateProfileAsync(profile).ConfigureAwait(false);
 
         if (model.InviteToken.HasValue)

@@ -21,153 +21,154 @@ public class OrganizationService(
     IAuditLogService auditLogService,
     ITicketRepository ticketRepository) : IOrganizationService
 {
-    /// <inheritdoc/>
-    public async Task<List<OrganizationDto>> GetOrganizationsAsync(CancellationToken ct = default)
+  /// <inheritdoc/>
+  public async Task<List<OrganizationDto>> GetOrganizationsAsync(CancellationToken ct = default)
+  {
+    var orgs = await repository.GetAllAsync(ct).ConfigureAwait(false);
+    return orgs.Select(o => new OrganizationDto(
+        o.Id,
+        o.Name,
+        o.SubscriptionLevel,
+        o.IsActive,
+        o.SlaCheckIntervalMinutes,
+        o.QuietHoursStart,
+        o.QuietHoursEnd,
+        o.TimeZoneId,
+        o.NotifyOnLow,
+        o.NotifyOnMedium,
+        o.NotifyOnHigh,
+        o.NotifyOnBlocker)).ToList();
+  }
+
+  /// <inheritdoc/>
+  public async Task<OrganizationDto?> GetOrganizationByIdAsync(Guid id, CancellationToken ct = default)
+  {
+    var o = await repository.GetByIdAsync(id, ct).ConfigureAwait(false);
+    return o == null ? null : new OrganizationDto(
+        o.Id,
+        o.Name,
+        o.SubscriptionLevel,
+        o.IsActive,
+        o.SlaCheckIntervalMinutes,
+        o.QuietHoursStart,
+        o.QuietHoursEnd,
+        o.TimeZoneId,
+        o.NotifyOnLow,
+        o.NotifyOnMedium,
+        o.NotifyOnHigh,
+        o.NotifyOnBlocker);
+  }
+
+  /// <inheritdoc/>
+  public async Task<OrganizationDto> CreateOrganizationAsync(UpsertOrganizationDto dto, CancellationToken ct = default)
+  {
+    ArgumentNullException.ThrowIfNull(dto);
+
+    var org = new Organization
     {
-        var orgs = await repository.GetAllAsync(ct).ConfigureAwait(false);
-        return orgs.Select(o => new OrganizationDto(
-            o.Id,
-            o.Name,
-            o.SubscriptionLevel,
-            o.IsActive,
-            o.SlaCheckIntervalMinutes,
-            o.QuietHoursStart,
-            o.QuietHoursEnd,
-            o.TimeZoneId,
-            o.NotifyOnLow,
-            o.NotifyOnMedium,
-            o.NotifyOnHigh,
-            o.NotifyOnBlocker)).ToList();
+      Id = Guid.NewGuid(),
+      Name = dto.Name,
+      SubscriptionLevel = dto.SubscriptionLevel,
+      IsActive = dto.IsActive,
+      SlaCheckIntervalMinutes = dto.SlaCheckIntervalMinutes,
+      QuietHoursStart = dto.QuietHoursStart,
+      QuietHoursEnd = dto.QuietHoursEnd,
+      TimeZoneId = dto.TimeZoneId,
+      NotifyOnLow = dto.NotifyOnLow,
+      NotifyOnMedium = dto.NotifyOnMedium,
+      NotifyOnHigh = dto.NotifyOnHigh,
+      NotifyOnBlocker = dto.NotifyOnBlocker,
+    };
+
+    await repository.AddAsync(org, ct).ConfigureAwait(false);
+
+    // Seed default transitions
+    var todo = await ticketRepository.GetWorkflowStateByNameAsync("Todo", ct).ConfigureAwait(false);
+    var inProgress = await ticketRepository.GetWorkflowStateByNameAsync("In Progress", ct).ConfigureAwait(false);
+    var done = await ticketRepository.GetWorkflowStateByNameAsync("Done", ct).ConfigureAwait(false);
+
+    if (todo != null && inProgress != null)
+    {
+      await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = inProgress.Id, TenantId = org.Id }).ConfigureAwait(false);
+      await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = todo.Id, TenantId = org.Id }).ConfigureAwait(false);
     }
 
-    /// <inheritdoc/>
-    public async Task<OrganizationDto?> GetOrganizationByIdAsync(Guid id, CancellationToken ct = default)
+    if (inProgress != null && done != null)
     {
-        var o = await repository.GetByIdAsync(id, ct).ConfigureAwait(false);
-        return o == null ? null : new OrganizationDto(
-            o.Id,
-            o.Name,
-            o.SubscriptionLevel,
-            o.IsActive,
-            o.SlaCheckIntervalMinutes,
-            o.QuietHoursStart,
-            o.QuietHoursEnd,
-            o.TimeZoneId,
-            o.NotifyOnLow,
-            o.NotifyOnMedium,
-            o.NotifyOnHigh,
-            o.NotifyOnBlocker);
+      await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
     }
 
-    /// <inheritdoc/>
-    public async Task<OrganizationDto> CreateOrganizationAsync(UpsertOrganizationDto dto, CancellationToken ct = default)
+    if (todo != null && done != null)
     {
-        ArgumentNullException.ThrowIfNull(dto);
-
-        var org = new Organization
-        {
-            Id = Guid.NewGuid(),
-            Name = dto.Name,
-            SubscriptionLevel = dto.SubscriptionLevel,
-            IsActive = dto.IsActive,
-            SlaCheckIntervalMinutes = dto.SlaCheckIntervalMinutes,
-            QuietHoursStart = dto.QuietHoursStart,
-            QuietHoursEnd = dto.QuietHoursEnd,
-            TimeZoneId = dto.TimeZoneId,
-            NotifyOnLow = dto.NotifyOnLow,
-            NotifyOnMedium = dto.NotifyOnMedium,
-            NotifyOnHigh = dto.NotifyOnHigh,
-            NotifyOnBlocker = dto.NotifyOnBlocker,
-        };
-
-        await repository.AddAsync(org, ct).ConfigureAwait(false);
-
-        // Seed default transitions
-        var todo = await ticketRepository.GetWorkflowStateByNameAsync("Todo", ct).ConfigureAwait(false);
-        var inProgress = await ticketRepository.GetWorkflowStateByNameAsync("In Progress", ct).ConfigureAwait(false);
-        var done = await ticketRepository.GetWorkflowStateByNameAsync("Done", ct).ConfigureAwait(false);
-
-        if (todo != null && inProgress != null)
-        {
-            await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = inProgress.Id, TenantId = org.Id }).ConfigureAwait(false);
-            await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = todo.Id, TenantId = org.Id }).ConfigureAwait(false);
-        }
-
-        if (inProgress != null && done != null)
-        {
-            await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
-        }
-
-        if (todo != null && done != null)
-        {
-            await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
-        }
-
-        await repository.SaveChangesAsync(ct).ConfigureAwait(false);
-
-        return new OrganizationDto(
-            org.Id,
-            org.Name,
-            org.SubscriptionLevel,
-            org.IsActive,
-            org.SlaCheckIntervalMinutes,
-            org.QuietHoursStart,
-            org.QuietHoursEnd,
-            org.TimeZoneId,
-            org.NotifyOnLow,
-            org.NotifyOnMedium,
-            org.NotifyOnHigh,
-            org.NotifyOnBlocker);
+      await ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
     }
 
-    /// <inheritdoc/>
-    public async Task UpdateOrganizationAsync(Guid id, UpsertOrganizationDto dto, CancellationToken ct = default)
+    await repository.SaveChangesAsync(ct).ConfigureAwait(false);
+
+    return new OrganizationDto(
+        org.Id,
+        org.Name,
+        org.SubscriptionLevel,
+        org.IsActive,
+        org.SlaCheckIntervalMinutes,
+        org.QuietHoursStart,
+        org.QuietHoursEnd,
+        org.TimeZoneId,
+        org.NotifyOnLow,
+        org.NotifyOnMedium,
+        org.NotifyOnHigh,
+        org.NotifyOnBlocker);
+  }
+
+  /// <inheritdoc/>
+  public async Task UpdateOrganizationAsync(Guid id, UpsertOrganizationDto dto, CancellationToken ct = default)
+  {
+    ArgumentNullException.ThrowIfNull(dto);
+
+    var org = await repository.GetByIdAsync(id, ct).ConfigureAwait(false);
+    if (org != null)
     {
-        ArgumentNullException.ThrowIfNull(dto);
+      var changes = $"Name: {org.Name}->{dto.Name}, Active: {org.IsActive}->{dto.IsActive}, SLA Interval: {org.SlaCheckIntervalMinutes}->{dto.SlaCheckIntervalMinutes}";
 
-        var org = await repository.GetByIdAsync(id, ct).ConfigureAwait(false);
-        if (org != null)
-        {
-            var changes = $"Name: {org.Name}->{dto.Name}, Active: {org.IsActive}->{dto.IsActive}, SLA Interval: {org.SlaCheckIntervalMinutes}->{dto.SlaCheckIntervalMinutes}";
+      org.Name = dto.Name;
+      org.SubscriptionLevel = dto.SubscriptionLevel;
+      org.IsActive = dto.IsActive;
+      org.SlaCheckIntervalMinutes = dto.SlaCheckIntervalMinutes;
+      org.QuietHoursStart = dto.QuietHoursStart;
+      org.QuietHoursEnd = dto.QuietHoursEnd;
+      org.TimeZoneId = dto.TimeZoneId;
+      org.NotifyOnLow = dto.NotifyOnLow;
+      org.NotifyOnMedium = dto.NotifyOnMedium;
+      org.NotifyOnHigh = dto.NotifyOnHigh;
+      org.NotifyOnBlocker = dto.NotifyOnBlocker;
 
-            org.Name = dto.Name;
-            org.SubscriptionLevel = dto.SubscriptionLevel;
-            org.IsActive = dto.IsActive;
-            org.SlaCheckIntervalMinutes = dto.SlaCheckIntervalMinutes;
-            org.QuietHoursStart = dto.QuietHoursStart;
-            org.QuietHoursEnd = dto.QuietHoursEnd;
-            org.TimeZoneId = dto.TimeZoneId;
-            org.NotifyOnLow = dto.NotifyOnLow;
-            org.NotifyOnMedium = dto.NotifyOnMedium;
-            org.NotifyOnHigh = dto.NotifyOnHigh;
-            org.NotifyOnBlocker = dto.NotifyOnBlocker;
+      await repository.SaveChangesAsync(ct).ConfigureAwait(false);
 
-            await repository.SaveChangesAsync(ct).ConfigureAwait(false);
-
-            // Log governance action
-            await auditLogService.LogActionAsync(id, Guid.Empty, "UpdateSettings", changes).ConfigureAwait(false);
-        }
+      // Log governance action
+      await auditLogService.LogActionAsync(id, Guid.Empty, "UpdateSettings", changes).ConfigureAwait(false);
     }
+  }
 
-    public async Task<OrganizationInviteDto?> ValidateInviteTokenAsync(Guid token)
-    {
-        return await inviteService.ValidateTokenAsync(token).ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task<OrganizationInviteDto?> ValidateInviteTokenAsync(Guid token)
+  {
+    return await inviteService.ValidateTokenAsync(token).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task MarkInviteAsUsedAsync(Guid token, Guid userId)
-    {
-        await inviteService.MarkAsUsedAsync(token, userId).ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task MarkInviteAsUsedAsync(Guid token, Guid userId)
+  {
+    await inviteService.MarkAsUsedAsync(token, userId).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task<List<AuditLogDto>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default)
-    {
-        var logs = await repository.GetAuditLogsAsync(organizationId, ct).ConfigureAwait(false);
-        return logs.Select(l => new AuditLogDto(
-            l.Timestamp,
-            l.ActorName ?? "System",
-            l.ActionType,
-            l.Description)).ToList();
-    }
+  /// <inheritdoc/>
+  public async Task<List<AuditLogDto>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default)
+  {
+    var logs = await repository.GetAuditLogsAsync(organizationId, ct).ConfigureAwait(false);
+    return logs.Select(l => new AuditLogDto(
+        l.Timestamp,
+        l.ActorName ?? "System",
+        l.ActionType,
+        l.Description)).ToList();
+  }
 }

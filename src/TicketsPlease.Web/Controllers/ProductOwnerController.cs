@@ -4,7 +4,6 @@
 
 namespace TicketsPlease.Web.Controllers;
 
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -43,10 +42,16 @@ internal sealed class ProductOwnerController : Controller
   public async Task<IActionResult> Settings()
   {
     var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
-    if (user == null) return this.Challenge();
+    if (user == null)
+    {
+      return this.Challenge();
+    }
 
     var organization = await this.organizationService.GetOrganizationByIdAsync(user.TenantId).ConfigureAwait(false);
-    if (organization == null) return this.NotFound();
+    if (organization == null)
+    {
+      return this.NotFound();
+    }
 
     return this.View(organization);
   }
@@ -60,26 +65,29 @@ internal sealed class ProductOwnerController : Controller
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> SaveGovernanceSettings(OrganizationDto dto)
   {
-      var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
-      if (user == null) return this.Challenge();
+    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (user == null)
+    {
+      return this.Challenge();
+    }
 
-      var upsertDto = new UpsertOrganizationDto(
-          dto.Name,
-          dto.SubscriptionLevel,
-          dto.IsActive,
-          dto.SlaCheckIntervalMinutes,
-          dto.QuietHoursStart,
-          dto.QuietHoursEnd,
-          dto.TimeZoneId,
-          dto.NotifyOnLow,
-          dto.NotifyOnMedium,
-          dto.NotifyOnHigh,
-          dto.NotifyOnBlocker);
+    var upsertDto = new UpsertOrganizationDto(
+        dto.Name,
+        dto.SubscriptionLevel,
+        dto.IsActive,
+        dto.SlaCheckIntervalMinutes,
+        dto.QuietHoursStart,
+        dto.QuietHoursEnd,
+        dto.TimeZoneId,
+        dto.NotifyOnLow,
+        dto.NotifyOnMedium,
+        dto.NotifyOnHigh,
+        dto.NotifyOnBlocker);
 
-      await this.organizationService.UpdateOrganizationAsync(user.TenantId, upsertDto).ConfigureAwait(false);
-      this.TempData["StatusMessage"] = "Governance-Einstellungen erfolgreich gespeichert.";
+    await this.organizationService.UpdateOrganizationAsync(user.TenantId, upsertDto).ConfigureAwait(false);
+    this.TempData["StatusMessage"] = "Governance-Einstellungen erfolgreich gespeichert.";
 
-      return this.RedirectToAction(nameof(this.Settings));
+    return this.RedirectToAction(nameof(this.Settings));
   }
 
   /// <summary>
@@ -89,11 +97,14 @@ internal sealed class ProductOwnerController : Controller
   [HttpGet]
   public async Task<IActionResult> GovernanceLog()
   {
-      var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
-      if (user == null) return this.Challenge();
+    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (user == null)
+    {
+      return this.Challenge();
+    }
 
-      var logs = await this.organizationService.GetAuditLogsAsync(user.TenantId).ConfigureAwait(false);
-      return this.View(logs);
+    var logs = await this.organizationService.GetAuditLogsAsync(user.TenantId).ConfigureAwait(false);
+    return this.View(logs);
   }
 
   /// <summary>
@@ -106,11 +117,14 @@ internal sealed class ProductOwnerController : Controller
   public async Task<IActionResult> CreateInvite(string? targetedEmail)
   {
     var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
-    if (user == null) return this.Challenge();
+    if (user == null)
+    {
+      return this.Challenge();
+    }
 
     await this.inviteService.CreateInviteAsync(user.TenantId, targetedEmail).ConfigureAwait(false);
     this.TempData["StatusMessage"] = "Einladungs-Link erfolgreich generiert.";
-    
+
     return this.RedirectToAction(nameof(this.Settings));
   }
 
@@ -122,7 +136,7 @@ internal sealed class ProductOwnerController : Controller
   [ValidateAntiForgeryToken]
   public IActionResult UpdateSlaThreshold()
   {
-      // Legacy support removal - we use Organization settings now
-      return this.RedirectToAction(nameof(this.Settings));
+    // Legacy support removal - we use Organization settings now
+    return this.RedirectToAction(nameof(this.Settings));
   }
 }

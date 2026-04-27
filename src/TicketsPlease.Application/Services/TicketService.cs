@@ -47,7 +47,7 @@ public class TicketService(
     var dtos = new List<TicketDto>();
     foreach (var ticket in tickets)
     {
-      dtos.Add(await MapToDtoAsync(ticket).ConfigureAwait(false));
+      dtos.Add(await this.MapToDtoAsync(ticket).ConfigureAwait(false));
     }
 
     return dtos;
@@ -79,7 +79,7 @@ public class TicketService(
     var dtos = new List<TicketDto>();
     foreach (var ticket in tickets)
     {
-      dtos.Add(await MapToDtoAsync(ticket).ConfigureAwait(false));
+      dtos.Add(await this.MapToDtoAsync(ticket).ConfigureAwait(false));
     }
 
     return dtos;
@@ -89,7 +89,7 @@ public class TicketService(
   public async Task<TicketDto?> GetTicketAsync(Guid id)
   {
     var ticket = await ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
-    return ticket != null ? await MapToDtoAsync(ticket).ConfigureAwait(false) : null;
+    return ticket != null ? await this.MapToDtoAsync(ticket).ConfigureAwait(false) : null;
   }
 
   /// <inheritdoc/>
@@ -97,7 +97,7 @@ public class TicketService(
   {
     ArgumentNullException.ThrowIfNull(dto);
 
-    var user = await GetCurrentUserAsync().ConfigureAwait(false) ?? throw new UnauthorizedAccessException();
+    var user = await this.GetCurrentUserAsync().ConfigureAwait(false) ?? throw new UnauthorizedAccessException();
 
     var defaultState = await ticketRepository.GetDefaultWorkflowStateAsync().ConfigureAwait(false);
     var defaultStateId = defaultState?.Id ?? Guid.Empty;
@@ -220,7 +220,7 @@ public class TicketService(
     if (newStatus == "Done" || targetState.IsTerminalState)
     {
       await ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Status", OldValue = ticket.Status, NewValue = newStatus, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
-      await CloseTicketAsync(id).ConfigureAwait(false);
+      await this.CloseTicketAsync(id).ConfigureAwait(false);
     }
     else
     {
@@ -265,7 +265,7 @@ public class TicketService(
     var blocker = await ticketRepository.GetByIdAsync(blockerId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Blocker-Ticket {blockerId} nicht gefunden.");
 
     // Zirkuläre Abhängigkeit prüfen: Kann das aktuelle Ticket (ticketId) den potenziellen Blocker (blockerId) bereits blockieren?
-    if (await IsBlockedByRecursiveAsync(blockerId, ticketId).ConfigureAwait(false))
+    if (await this.IsBlockedByRecursiveAsync(blockerId, ticketId).ConfigureAwait(false))
     {
       throw new InvalidOperationException("Zirkuläre Abhängigkeit erkannt: Das ausgewählte Ticket ist bereits direkt oder indirekt von diesem Ticket abhängig.");
     }
@@ -277,7 +277,7 @@ public class TicketService(
     }
 
     blocker.AddLink(ticketId, TicketsPlease.Domain.Enums.TicketLinkType.Blocks);
-    
+
     // Ensure TenantId is set (Ticket.AddLink only creates the object)
     var newLink = blocker.Blocking.Last();
     newLink.TenantId = blocker.TenantId;
@@ -309,7 +309,7 @@ public class TicketService(
         return true;
       }
 
-      if (await IsBlockedByRecursiveAsync(link.SourceTicketId, targetBlockerId, visited).ConfigureAwait(false))
+      if (await this.IsBlockedByRecursiveAsync(link.SourceTicketId, targetBlockerId, visited).ConfigureAwait(false))
       {
         return true;
       }
@@ -427,7 +427,7 @@ public class TicketService(
 
     var timeLogs = (await timeTrackingService.GetTimeLogsAsync(t.Id).ConfigureAwait(false)).ToList();
     var subTickets = (await subTicketService.GetSubTicketsAsync(t.Id).ConfigureAwait(false)).ToList();
-    var user = await GetCurrentUserAsync().ConfigureAwait(false);
+    var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
     bool isTimerRunning = user != null && await timeTrackingService.IsTimerRunningAsync(t.Id, user.Id).ConfigureAwait(false);
 
     var history = t.History?.OrderByDescending(h => h.ChangedAt).Select(h => new TicketHistoryDto(

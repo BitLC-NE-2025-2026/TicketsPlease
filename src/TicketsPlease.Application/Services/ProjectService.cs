@@ -26,7 +26,7 @@ public class ProjectService(
   /// <inheritdoc/>
   public async Task<IEnumerable<ProjectDto>> GetProjectsAsync()
   {
-    var tenantId = await GetCurrentTenantIdAsync().ConfigureAwait(false);
+    var tenantId = await this.GetCurrentTenantIdAsync().ConfigureAwait(false);
     var projects = await projectRepository.GetAllAsync(tenantId).ConfigureAwait(false);
     return projects.Select(p => new ProjectDto(
         p.Id, p.Title, p.Description, p.StartDate, p.EndDate, p.IsOpen, p.TenantId));
@@ -50,7 +50,7 @@ public class ProjectService(
   {
     ArgumentNullException.ThrowIfNull(dto);
 
-    var tenantId = await GetCurrentTenantIdAsync().ConfigureAwait(false);
+    var tenantId = await this.GetCurrentTenantIdAsync().ConfigureAwait(false);
     var project = new Project(dto.Title, dto.StartDate);
     project.UpdateMetadata(dto.Title, dto.Description);
     project.SetEndDate(dto.EndDate);

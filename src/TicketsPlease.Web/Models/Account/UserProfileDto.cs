@@ -11,7 +11,7 @@ using TicketsPlease.Application.Common.Dtos;
 /// <summary>
 /// DTO für die detaillierte Profilanzeige.
 /// </summary>
-public record UserProfileDto(
+internal record UserProfileDto(
     Guid UserId,
     string Username,
     string Email,
