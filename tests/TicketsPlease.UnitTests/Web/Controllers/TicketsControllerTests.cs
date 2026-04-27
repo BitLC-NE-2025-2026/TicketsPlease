@@ -13,6 +13,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 using TicketsPlease.Infrastructure.Persistence;
+using TicketsPlease.Web.Controllers;
 
 public class TicketsControllerTests : IDisposable
 {

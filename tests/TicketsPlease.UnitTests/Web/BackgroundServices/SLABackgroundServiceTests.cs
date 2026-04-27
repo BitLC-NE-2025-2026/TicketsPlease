@@ -1,4 +1,6 @@
-namespace TicketsPlease.UnitTests.Web.BackgroundServices;
+﻿namespace TicketsPlease.UnitTests.Web.BackgroundServices;
+
+using TicketsPlease.Web.BackgroundServices;
 
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;

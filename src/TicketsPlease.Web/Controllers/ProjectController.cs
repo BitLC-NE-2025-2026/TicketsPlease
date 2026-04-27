@@ -1,4 +1,4 @@
-// <copyright file="ProjectController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="ProjectController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -12,10 +12,10 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// Controller fÃ¼r die Projektverwaltung (CRUD fÃ¼r Admins).
+/// Controller fÃƒÂ¼r die Projektverwaltung (CRUD fÃƒÂ¼r Admins).
 /// </summary>
 [Authorize(Roles = "Admin,ProductOwner,Stakeholder")]
-internal sealed class ProjectController : Controller
+public class ProjectController : Controller
 {
   private readonly IProjectService projectService;
   private readonly ITicketService ticketService;
@@ -23,8 +23,8 @@ internal sealed class ProjectController : Controller
   /// <summary>
   /// Initializes a new instance of the <see cref="ProjectController"/> class.
   /// </summary>
-  /// <param name="projectService">Der Dienst fÃ¼r Projektoperationen.</param>
-  /// <param name="ticketService">Der Dienst fÃ¼r Ticketoperationen.</param>
+  /// <param name="projectService">Der Dienst fÃƒÂ¼r Projektoperationen.</param>
+  /// <param name="ticketService">Der Dienst fÃƒÂ¼r Ticketoperationen.</param>
   public ProjectController(IProjectService projectService, ITicketService ticketService)
   {
     this.projectService = projectService;
@@ -131,9 +131,9 @@ internal sealed class ProjectController : Controller
   }
 
   /// <summary>
-  /// LÃ¶scht ein Projekt.
+  /// LÃƒÂ¶scht ein Projekt.
   /// </summary>
-  /// <param name="id">Die ID des zu lÃ¶schenden Projekts.</param>
+  /// <param name="id">Die ID des zu lÃƒÂ¶schenden Projekts.</param>
   /// <returns>Ein Redirect auf die Index-Seite.</returns>
   [Authorize(Roles = "Admin")]
   [HttpPost]
@@ -144,3 +144,7 @@ internal sealed class ProjectController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 }
+
+
+
+

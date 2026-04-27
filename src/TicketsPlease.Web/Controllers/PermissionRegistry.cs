@@ -1,4 +1,4 @@
-// <copyright file="PermissionRegistry.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="PermissionRegistry.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -7,10 +7,10 @@ namespace TicketsPlease.Web.Controllers;
 using System.Collections.Generic;
 
 /// <summary>
-/// Zentrales Register aller verfÃ¼gbaren Berechtigungen.
+/// Zentrales Register aller verfÃƒÂ¼gbaren Berechtigungen.
 /// Berechtigungen werden als Claims vom Typ "Permission" in IdentityRoleClaims gespeichert.
 /// </summary>
-internal static class PermissionRegistry
+public static class PermissionRegistry
 {
   // --- Page Access Permissions ---
   public const string PageDashboard = "Pages.Dashboard";
@@ -56,7 +56,7 @@ internal static class PermissionRegistry
   public const string ReportsExport = "Reports.Export";
 
   /// <summary>
-  /// Gets alle verfÃ¼gbaren Berechtigungen, gruppiert nach Modul.
+  /// Gets alle verfÃƒÂ¼gbaren Berechtigungen, gruppiert nach Modul.
   /// </summary>
   public static Dictionary<string, List<PermissionDefinition>> AllPermissions => new()
   {
@@ -112,10 +112,5 @@ internal static class PermissionRegistry
   };
 }
 
-/// <summary>
-/// Definition einer einzelnen Berechtigung.
-/// </summary>
-/// <param name="Key">Der eindeutige SchlÃ¼ssel (Claim-Wert).</param>
-/// <param name="DisplayName">Der Anzeigename.</param>
-/// <param name="Description">Eine Beschreibung der Berechtigung.</param>
-internal record PermissionDefinition(string Key, string DisplayName, string Description);
+
+

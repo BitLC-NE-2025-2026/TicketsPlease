@@ -11,6 +11,7 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
+using TicketsPlease.Web.Controllers;
 
 public class MessagesControllerTests : IDisposable
 {

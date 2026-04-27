@@ -1,4 +1,4 @@
-// <copyright file="AdminTemplatesController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="AdminTemplatesController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -13,10 +13,10 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller fÃ¼r die Verwaltung von Ticket-Vorlagen im Admin-Bereich.
+/// Controller fÃƒÂ¼r die Verwaltung von Ticket-Vorlagen im Admin-Bereich.
 /// </summary>
 [Authorize(Roles = "Admin")]
-internal sealed class AdminTemplatesController : Controller
+public class AdminTemplatesController : Controller
 {
   private readonly ITicketTemplateService templateService;
   private readonly ITicketRepository ticketRepository;
@@ -26,7 +26,7 @@ internal sealed class AdminTemplatesController : Controller
   /// Initializes a new instance of the <see cref="AdminTemplatesController"/> class.
   /// </summary>
   /// <param name="templateService">Der Vorlagen-Dienst.</param>
-  /// <param name="ticketRepository">Das Ticket-Repository (fÃ¼r PrioritÃ¤ten).</param>
+  /// <param name="ticketRepository">Das Ticket-Repository (fÃƒÂ¼r PrioritÃƒÂ¤ten).</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
   public AdminTemplatesController(
       ITicketTemplateService templateService,
@@ -41,7 +41,7 @@ internal sealed class AdminTemplatesController : Controller
   /// <summary>
   /// Listet alle Vorlagen auf.
   /// </summary>
-  /// <returns>Die Ãœbersichtsview.</returns>
+  /// <returns>Die ÃƒÅ“bersichtsview.</returns>
   [HttpGet]
   public async Task<IActionResult> Index()
   {
@@ -82,7 +82,7 @@ internal sealed class AdminTemplatesController : Controller
   }
 
   /// <summary>
-  /// LÃ¶scht eine Vorlage.
+  /// LÃƒÂ¶scht eine Vorlage.
   /// </summary>
   /// <param name="id">Die ID.</param>
   /// <returns>Redirect.</returns>
@@ -100,3 +100,7 @@ internal sealed class AdminTemplatesController : Controller
     this.ViewBag.Priorities = new SelectList(priorities, "Id", "Name");
   }
 }
+
+
+
+

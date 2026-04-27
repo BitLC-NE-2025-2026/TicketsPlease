@@ -1,4 +1,4 @@
-// <copyright file="ChatController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="ChatController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -12,10 +12,10 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller fÃ¼r die Chat-FunktionalitÃ¤t (HQ &amp; Team).
+/// Controller fÃƒÂ¼r die Chat-FunktionalitÃƒÂ¤t (HQ &amp; Team).
 /// </summary>
 [Authorize]
-internal class ChatController : Controller
+public class ChatController : Controller
 {
   private readonly IMessageService messageService;
   private readonly UserManager<User> userManager;
@@ -23,7 +23,7 @@ internal class ChatController : Controller
   /// <summary>
   /// Initializes a new instance of the <see cref="ChatController"/> class.
   /// </summary>
-  /// <param name="messageService">Der Dienst fÃ¼r Nachrichten.</param>
+  /// <param name="messageService">Der Dienst fÃƒÂ¼r Nachrichten.</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
   public ChatController(IMessageService messageService, UserManager<User> userManager)
   {
@@ -73,3 +73,7 @@ internal class ChatController : Controller
     return this.Ok(result);
   }
 }
+
+
+
+

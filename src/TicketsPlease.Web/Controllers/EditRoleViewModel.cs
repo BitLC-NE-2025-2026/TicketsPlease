@@ -1,4 +1,4 @@
-// <copyright file="EditRoleViewModel.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="EditRoleViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 /// <summary>
 /// ViewModel zum Bearbeiten/Erstellen einer Rolle.
 /// </summary>
-internal class EditRoleViewModel
+public class EditRoleViewModel
 {
   /// <summary>
   /// Gets or sets die Rollen-ID.
@@ -32,17 +32,17 @@ internal class EditRoleViewModel
   public string? Description { get; set; }
 
   /// <summary>
-  /// Gets or sets die ausgewählten Berechtigungen.
+  /// Gets or sets die ausgewÃ¤hlten Berechtigungen.
   /// </summary>
   public List<string> SelectedPermissions { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets alle verfügbaren Berechtigungen (gruppiert).
+  /// Gets or sets alle verfÃ¼gbaren Berechtigungen (gruppiert).
   /// </summary>
   public Dictionary<string, List<PermissionDefinition>> AllPermissions { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets a value indicating whether dies eine Systemrolle ist (Name nicht änderbar).
+  /// Gets or sets a value indicating whether dies eine Systemrolle ist (Name nicht Ã¤nderbar).
   /// </summary>
   public bool IsSystemRole { get; set; }
 
@@ -51,3 +51,4 @@ internal class EditRoleViewModel
   /// </summary>
   public List<RoleUserViewModel> UsersInRole { get; set; } = new();
 }
+

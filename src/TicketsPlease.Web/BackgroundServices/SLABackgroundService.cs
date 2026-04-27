@@ -1,4 +1,4 @@
-// <copyright file="SLABackgroundService.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="SLABackgroundService.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -18,7 +18,7 @@ using TicketsPlease.Domain.Entities;
 /// Background service for enterprise SLA automation.
 /// Checks active organizations for SLA breaches and triggers notifications.
 /// </summary>
-internal sealed partial class SLABackgroundService : BackgroundService
+public sealed partial class SLABackgroundService : BackgroundService
 {
   private readonly IServiceProvider serviceProvider;
   private readonly ILogger<SLABackgroundService> logger;
@@ -184,7 +184,7 @@ internal sealed partial class SLABackgroundService : BackgroundService
     }
 
     var message = $"SLA Breach ({type}): Ticket '{ticket.Title}' (ID: {ticket.Id}) has exceeded its deadline.";
-    var title = "âš ï¸ SLA BREACH!";
+    var title = "Ã¢Å¡Â Ã¯Â¸Â SLA BREACH!";
 
     // Notify Organization (All) or specific PO/Admins? Requirement says "notifications for all"
     await notificationService.SendNotificationToAllAsync(title, message).ConfigureAwait(false);

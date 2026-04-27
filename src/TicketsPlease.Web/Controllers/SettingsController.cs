@@ -1,4 +1,4 @@
-// <copyright file="SettingsController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="SettingsController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -13,10 +13,10 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller fÃ¼r die persÃ¶nlichen Benutzereinstellungen (Performance, TÃ¶ne).
+/// Controller fÃƒÂ¼r die persÃƒÂ¶nlichen Benutzereinstellungen (Performance, TÃƒÂ¶ne).
 /// </summary>
 [Authorize]
-internal sealed class SettingsController : Controller
+public class SettingsController : Controller
 {
   private readonly UserManager<User> userManager;
   private readonly IUserRepository userRepository;
@@ -56,7 +56,7 @@ internal sealed class SettingsController : Controller
   }
 
   /// <summary>
-  /// Speichert die persÃ¶nlichen Einstellungen.
+  /// Speichert die persÃƒÂ¶nlichen Einstellungen.
   /// </summary>
   /// <param name="kanbanUpdateIntervalMs">Das Intervall.</param>
   /// <param name="reduceAnimations">Animationen reduzieren?.</param>
@@ -85,3 +85,7 @@ internal sealed class SettingsController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 }
+
+
+
+

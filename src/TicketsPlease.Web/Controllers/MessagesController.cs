@@ -1,4 +1,4 @@
-// <copyright file="MessagesController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="MessagesController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -18,10 +18,10 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Controller fÃ¼r das Messaging-System (F9).
+/// Controller fÃƒÂ¼r das Messaging-System (F9).
 /// </summary>
 [Authorize]
-internal sealed class MessagesController : Controller
+public sealed class MessagesController : Controller
 {
   private readonly IMessageService messageService;
   private readonly UserManager<User> userManager;
@@ -30,9 +30,9 @@ internal sealed class MessagesController : Controller
   /// <summary>
   /// Initializes a new instance of the <see cref="MessagesController"/> class.
   /// </summary>
-  /// <param name="messageService">Der Dienst fÃ¼r Nachrichtenoperationen.</param>
+  /// <param name="messageService">Der Dienst fÃƒÂ¼r Nachrichtenoperationen.</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
-  /// <param name="context">Der Datenbankkontext fÃ¼r Benutzer-Lookups.</param>
+  /// <param name="context">Der Datenbankkontext fÃƒÂ¼r Benutzer-Lookups.</param>
   public MessagesController(IMessageService messageService, UserManager<User> userManager, AppDbContext context)
   {
     this.messageService = messageService;
@@ -41,7 +41,7 @@ internal sealed class MessagesController : Controller
   }
 
   /// <summary>
-  /// Zeigt die NachrichtenÃ¼bersicht des Benutzers an (F9).
+  /// Zeigt die NachrichtenÃƒÂ¼bersicht des Benutzers an (F9).
   /// </summary>
   /// <returns>Die Index-View.</returns>
   [HttpGet]
@@ -102,7 +102,7 @@ internal sealed class MessagesController : Controller
   /// <summary>
   /// Zeigt die Konversation mit einem bestimmten Benutzer an (F9).
   /// </summary>
-  /// <param name="userId">Die ID des GesprÃ¤chspartners.</param>
+  /// <param name="userId">Die ID des GesprÃƒÂ¤chspartners.</param>
   /// <returns>Die Conversation-View.</returns>
   [HttpGet]
   public async Task<IActionResult> Conversation(Guid? userId)
@@ -153,3 +153,6 @@ internal sealed class MessagesController : Controller
     this.ViewBag.Users = new SelectList(users, "Id", "UserName");
   }
 }
+
+
+

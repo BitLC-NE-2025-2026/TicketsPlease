@@ -1,4 +1,4 @@
-// <copyright file="SocialController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="SocialController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -22,10 +22,10 @@ using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Web.Hubs;
 
 /// <summary>
-/// Controller fÃ¼r das tenant-Ã¼bergreifende Social Feed System.
+/// Controller fÃƒÂ¼r das tenant-ÃƒÂ¼bergreifende Social Feed System.
 /// </summary>
 [Authorize]
-internal class SocialController : Controller
+public class SocialController : Controller
 {
   private readonly AppDbContext context;
   private readonly UserManager<User> userManager;
@@ -61,7 +61,7 @@ internal class SocialController : Controller
   }
 
   /// <summary>
-  /// LÃ¤dt die letzten Feed-Nachrichten.
+  /// LÃƒÂ¤dt die letzten Feed-Nachrichten.
   /// </summary>
   /// <returns>Eine Liste von SocialMessageDto.</returns>
   [HttpGet]
@@ -198,7 +198,7 @@ internal class SocialController : Controller
   }
 
   /// <summary>
-  /// LÃ¶scht eine Nachricht via Soft-Delete.
+  /// LÃƒÂ¶scht eine Nachricht via Soft-Delete.
   /// </summary>
   /// <param name="id">Die ID der Nachricht.</param>
   /// <returns>Ein OK Resultat.</returns>
@@ -230,7 +230,7 @@ internal class SocialController : Controller
   }
 
   /// <summary>
-  /// LÃ¤dt ein File hoch fÃ¼r Social Attachments.
+  /// LÃƒÂ¤dt ein File hoch fÃƒÂ¼r Social Attachments.
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpPost("Social/Upload")]
@@ -267,7 +267,7 @@ internal class SocialController : Controller
   }
 
   /// <summary>
-  /// LÃ¶st ein Ticket-Preview auf, nur wenn der User im selben Tenant ist.
+  /// LÃƒÂ¶st ein Ticket-Preview auf, nur wenn der User im selben Tenant ist.
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpGet("Social/TicketPreview/{id}")]
@@ -309,7 +309,7 @@ internal class SocialController : Controller
   /// <summary>
   /// Request DTO.
   /// </summary>
-  internal class PostMessageRequest
+  public class PostMessageRequest
   {
     /// <summary>
     /// Gets or sets the message content.
@@ -322,3 +322,7 @@ internal class SocialController : Controller
     public string? AttachmentUrl { get; set; }
   }
 }
+
+
+
+

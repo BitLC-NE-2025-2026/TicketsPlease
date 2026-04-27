@@ -1,4 +1,4 @@
-// <copyright file="StakeholderController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="StakeholderController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -12,10 +12,10 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller fÃ¼r das Stakeholder-Reporting-Dashboard.
+/// Controller fÃƒÂ¼r das Stakeholder-Reporting-Dashboard.
 /// </summary>
 [Authorize(Roles = "Admin,ProductOwner,Stakeholder")]
-internal sealed class StakeholderController : Controller
+public class StakeholderController : Controller
 {
   private readonly IReportingService reportingService;
   private readonly UserManager<User> userManager;
@@ -48,3 +48,7 @@ internal sealed class StakeholderController : Controller
     return this.View(dashboardData);
   }
 }
+
+
+
+

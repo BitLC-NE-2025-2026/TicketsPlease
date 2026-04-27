@@ -10,6 +10,7 @@ using Moq;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
+using TicketsPlease.Web.Controllers;
 
 public class TeamsControllerTests
 {

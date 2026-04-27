@@ -1,4 +1,4 @@
-// <copyright file="AdminWorkspacesController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="AdminWorkspacesController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -10,10 +10,10 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// Controller fÃ¼r die Verwaltung von Workspaces (Organisationen) im Admin-Bereich.
+/// Controller fÃƒÂ¼r die Verwaltung von Workspaces (Organisationen) im Admin-Bereich.
 /// </summary>
 [Authorize(Roles = "Admin")]
-internal sealed class AdminWorkspacesController : Controller
+public class AdminWorkspacesController : Controller
 {
   private readonly IOrganizationService organizationService;
 
@@ -29,7 +29,7 @@ internal sealed class AdminWorkspacesController : Controller
   /// <summary>
   /// Listet alle Workspaces auf.
   /// </summary>
-  /// <returns>Die Ãœbersichtsview.</returns>
+  /// <returns>Die ÃƒÅ“bersichtsview.</returns>
   [HttpGet]
   public async Task<IActionResult> Index()
   {
@@ -115,3 +115,7 @@ internal sealed class AdminWorkspacesController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 }
+
+
+
+

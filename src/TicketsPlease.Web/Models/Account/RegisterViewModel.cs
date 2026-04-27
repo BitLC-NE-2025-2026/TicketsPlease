@@ -1,4 +1,4 @@
-// <copyright file="RegisterViewModel.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="RegisterViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -7,9 +7,9 @@ namespace TicketsPlease.Web.Models.Account;
 using System.ComponentModel.DataAnnotations;
 
 /// <summary>
-/// Das ViewModel fÃ¼r die Registrierung.
+/// Das ViewModel fÃƒÂ¼r die Registrierung.
 /// </summary>
-internal class RegisterViewModel
+public class RegisterViewModel
 {
   /// <summary>
   /// Gets or sets den Benutzernamen.
@@ -36,7 +36,7 @@ internal class RegisterViewModel
   public string Password { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die Passwort-BestÃ¤tigung.
+  /// Gets or sets die Passwort-BestÃƒÂ¤tigung.
   /// </summary>
   [DataType(DataType.Password)]
   [Display(Name = "Confirm password")]
@@ -64,7 +64,7 @@ internal class RegisterViewModel
   public string? TechStack { get; set; }
 
   /// <summary>
-  /// Gets or sets die StraÃŸe.
+  /// Gets or sets die StraÃƒÅ¸e.
   /// </summary>
   [Required(ErrorMessage = "The Street field is required.")]
   [Display(Name = "Street")]

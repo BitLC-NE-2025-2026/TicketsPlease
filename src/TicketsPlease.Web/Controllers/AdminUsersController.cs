@@ -1,4 +1,4 @@
-// <copyright file="AdminUsersController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="AdminUsersController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -16,10 +16,10 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Controller fÃ¼r die Benutzerverwaltung im Administrationsbereich (F2).
+/// Controller fÃƒÂ¼r die Benutzerverwaltung im Administrationsbereich (F2).
 /// </summary>
 [Authorize(Roles = "Admin")]
-internal class AdminUsersController : Controller
+public class AdminUsersController : Controller
 {
   private readonly UserManager<User> userManager;
   private readonly RoleManager<Role> roleManager;
@@ -163,7 +163,7 @@ internal class AdminUsersController : Controller
   }
 
   /// <summary>
-  /// Speichert die Ã„nderungen an einem Benutzer.
+  /// Speichert die Ãƒâ€žnderungen an einem Benutzer.
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpPost]
@@ -240,3 +240,7 @@ internal class AdminUsersController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 }
+
+
+
+

@@ -1,4 +1,4 @@
-// <copyright file="CommentController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="CommentController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -12,17 +12,17 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// Controller fÃ¼r die Kommentarverwaltung (F5).
+/// Controller fÃƒÂ¼r die Kommentarverwaltung (F5).
 /// </summary>
 [Authorize]
-internal sealed class CommentController : Controller
+public class CommentController : Controller
 {
   private readonly ICommentService commentService;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="CommentController"/> class.
   /// </summary>
-  /// <param name="commentService">Der Dienst fÃ¼r Kommentare.</param>
+  /// <param name="commentService">Der Dienst fÃƒÂ¼r Kommentare.</param>
   public CommentController(ICommentService commentService)
   {
     this.commentService = commentService;
@@ -55,3 +55,7 @@ internal sealed class CommentController : Controller
     return this.RedirectToAction("Details", "Tickets", new { id = dto.TicketId });
   }
 }
+
+
+
+

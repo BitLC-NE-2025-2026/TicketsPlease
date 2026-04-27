@@ -1,4 +1,4 @@
-// <copyright file="EditProfileViewModel.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="EditProfileViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 /// <summary>
 /// ViewModel zum Bearbeiten des eigenen Benutzerprofils.
 /// </summary>
-internal class EditProfileViewModel
+public class EditProfileViewModel
 {
   /// <summary>
   /// Gets or sets den Benutzernamen.
@@ -23,7 +23,7 @@ internal class EditProfileViewModel
   /// Gets or sets die E-Mail-Adresse.
   /// </summary>
   [Required(ErrorMessage = "E-Mail ist erforderlich")]
-  [EmailAddress(ErrorMessage = "UngÃ¼ltige E-Mail-Adresse")]
+  [EmailAddress(ErrorMessage = "UngÃƒÂ¼ltige E-Mail-Adresse")]
   [Display(Name = "E-Mail")]
   public string Email { get; set; } = string.Empty;
 
@@ -59,11 +59,11 @@ internal class EditProfileViewModel
   public string? NewPassword { get; set; }
 
   /// <summary>
-  /// Gets or sets die PasswortbestÃ¤tigung.
+  /// Gets or sets die PasswortbestÃƒÂ¤tigung.
   /// </summary>
   [DataType(DataType.Password)]
-  [Display(Name = "Passwort bestÃ¤tigen")]
-  [Compare("NewPassword", ErrorMessage = "Die PasswÃ¶rter stimmen nicht Ã¼berein.")]
+  [Display(Name = "Passwort bestÃƒÂ¤tigen")]
+  [Compare("NewPassword", ErrorMessage = "Die PasswÃƒÂ¶rter stimmen nicht ÃƒÂ¼berein.")]
   public string? ConfirmPassword { get; set; }
 
   /// <summary>
@@ -79,9 +79,9 @@ internal class EditProfileViewModel
   public string? TechStack { get; set; }
 
   /// <summary>
-  /// Gets or sets die StraÃŸe.
+  /// Gets or sets die StraÃƒÅ¸e.
   /// </summary>
-  [Display(Name = "StraÃŸe")]
+  [Display(Name = "StraÃƒÅ¸e")]
   public string? Street { get; set; }
 
   /// <summary>

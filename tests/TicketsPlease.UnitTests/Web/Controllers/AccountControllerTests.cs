@@ -1,5 +1,5 @@
-namespace TicketsPlease.UnitTests.Web.Controllers;
-
+﻿
+using TicketsPlease.Web.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -84,3 +84,4 @@ public class AccountControllerTests
     result.Should().BeOfType<ViewResult>();
   }
 }
+

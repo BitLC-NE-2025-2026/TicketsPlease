@@ -1,7 +1,7 @@
 # TODO List
 
-- src\TicketsPlease.Web\Views\Shared\_CookieBanner.cshtml div id="cookie-banner" ist auf jeder seite/view und blockiert den inhalt der seite,
-  muss nach zustimmung verschwinden
+- src\TicketsPlease.Web\Views\Shared\_CookieBanner.cshtml div id="cookie-banner" ist auf jeder seite/view
+  und blockiert den inhalt der seite, muss nach zustimmung verschwinden
 - in src\TicketsPlease.Web\Views\Messages\Conversation.cshtml ist die klasse:
   class="h-14 w-14 rounded-full bg-gradient-to-br from-brand-primary
   to-brand-accent flex items-center justify-center text-white text-xl
@@ -73,6 +73,7 @@ openPerformanceDetail @ dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3
 await in openPerformanceDetail
 onclick @ (index):572
 ```
+
 Als PO im kommt es zu folgendem Fehler:
 ```text
 signalr.min.js:1 [2026-04-16T09:05:08.855Z] Information: Normalizing '/notificationHub' to 'https://localhost:7209/notificationHub'.

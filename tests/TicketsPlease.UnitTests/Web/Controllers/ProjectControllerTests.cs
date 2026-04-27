@@ -1,5 +1,5 @@
-namespace TicketsPlease.UnitTests.Web.Controllers;
-
+﻿
+using TicketsPlease.Web.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -60,3 +60,4 @@ public class ProjectControllerTests
     ((ProjectDto)viewResult!.Model!).Id.Should().Be(projectId);
   }
 }
+

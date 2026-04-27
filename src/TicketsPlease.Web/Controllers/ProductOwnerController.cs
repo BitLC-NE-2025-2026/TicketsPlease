@@ -1,4 +1,4 @@
-// <copyright file="ProductOwnerController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="ProductOwnerController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -13,10 +13,10 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller fÃ¼r ProductOwner-spezifische Aufgaben (Workspace Settings, Invites).
+/// Controller fÃƒÂ¼r ProductOwner-spezifische Aufgaben (Workspace Settings, Invites).
 /// </summary>
 [Authorize(Roles = "Admin,ProductOwner")]
-internal sealed class ProductOwnerController : Controller
+public class ProductOwnerController : Controller
 {
   private readonly IOrganizationInviteService inviteService;
   private readonly IOrganizationService organizationService;
@@ -129,7 +129,7 @@ internal sealed class ProductOwnerController : Controller
   }
 
   /// <summary>
-  /// Entfernt (hier: deaktiviert) den SLA-Schwellenwert fÃ¼r alle Profile (Legacy-Check, jetzt via Organization-Settings).
+  /// Entfernt (hier: deaktiviert) den SLA-Schwellenwert fÃƒÂ¼r alle Profile (Legacy-Check, jetzt via Organization-Settings).
   /// </summary>
   /// <returns>Ein Redirect.</returns>
   [HttpPost]
@@ -140,3 +140,7 @@ internal sealed class ProductOwnerController : Controller
     return this.RedirectToAction(nameof(this.Settings));
   }
 }
+
+
+
+

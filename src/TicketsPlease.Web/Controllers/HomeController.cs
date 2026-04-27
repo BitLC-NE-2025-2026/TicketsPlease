@@ -1,4 +1,4 @@
-// <copyright file="HomeController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="HomeController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -11,9 +11,9 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Web.Models;
 
 /// <summary>
-/// Der Standard-Controller fÃ¼r die Startseite und allgemeine Seiten.
+/// Der Standard-Controller fÃƒÂ¼r die Startseite und allgemeine Seiten.
 /// </summary>
-internal sealed class HomeController : Controller
+public class HomeController : Controller
 {
   private readonly IDashboardService dashboardService;
 
@@ -59,7 +59,7 @@ internal sealed class HomeController : Controller
   }
 
   /// <summary>
-  /// Zeigt die Fehlerseite fÃ¼r HTTP-Fehler an.
+  /// Zeigt die Fehlerseite fÃƒÂ¼r HTTP-Fehler an.
   /// </summary>
   /// <returns>Die Error-View mit Anforderungs-ID.</returns>
   [HttpGet]
@@ -69,3 +69,7 @@ internal sealed class HomeController : Controller
     return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
   }
 }
+
+
+
+

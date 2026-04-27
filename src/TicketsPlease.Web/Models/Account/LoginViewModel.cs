@@ -1,4 +1,4 @@
-// <copyright file="LoginViewModel.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="LoginViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -7,9 +7,9 @@ namespace TicketsPlease.Web.Models.Account;
 using System.ComponentModel.DataAnnotations;
 
 /// <summary>
-/// Das ViewModel fÃ¼r den Login.
+/// Das ViewModel fÃƒÂ¼r den Login.
 /// </summary>
-internal class LoginViewModel
+public class LoginViewModel
 {
   /// <summary>
   /// Gets or sets die E-Mail-Adresse.

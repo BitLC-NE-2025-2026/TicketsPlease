@@ -10,7 +10,7 @@ using System.Collections.Generic;
 /// <summary>
 /// ViewModel zum Bearbeiten eines Benutzers im Administrationsbereich.
 /// </summary>
-internal class EditUserViewModel
+public class EditUserViewModel
 {
   /// <summary>
   /// Gets or sets die Benutzer-ID.
@@ -33,12 +33,12 @@ internal class EditUserViewModel
   public List<string> UserRoles { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets alle verfÃ¼gbaren Rollen.
+  /// Gets or sets alle verfÃƒÂ¼gbaren Rollen.
   /// </summary>
   public List<string> AllRoles { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets die ausgewÃ¤hlten Rollen.
+  /// Gets or sets die ausgewÃƒÂ¤hlten Rollen.
   /// </summary>
   public List<string> SelectedRoles { get; set; } = new();
 
@@ -65,12 +65,13 @@ internal class EditUserViewModel
   public List<Guid> SelectedTeamIds { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets die verfÃ¼gbaren Tenants.
+  /// Gets or sets die verfÃƒÂ¼gbaren Tenants.
   /// </summary>
   public Dictionary<Guid, string> AvailableTenants { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets die verfÃ¼gbaren Teams.
+  /// Gets or sets die verfÃƒÂ¼gbaren Teams.
   /// </summary>
   public Dictionary<Guid, string> AvailableTeams { get; set; } = new();
 }
+

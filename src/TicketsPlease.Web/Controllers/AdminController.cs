@@ -1,4 +1,4 @@
-// <copyright file="AdminController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="AdminController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using TicketsPlease.Infrastructure.Services;
 
 /// <summary>
-/// Haupt-Controller fÃ¼r den Administrationsbereich.
+/// Haupt-Controller fÃƒÂ¼r den Administrationsbereich.
 /// Erfordert die Admin-Rolle.
 /// </summary>
 [Authorize(Roles = "Admin")]
-internal sealed class AdminController : Controller
+public class AdminController : Controller
 {
   private readonly SystemMaintenanceService maintenanceService;
 
@@ -38,7 +38,7 @@ internal sealed class AdminController : Controller
   }
 
   /// <summary>
-  /// Leitet zur tatsÃ¤chlichen Benutzerverwaltung weiter.
+  /// Leitet zur tatsÃƒÂ¤chlichen Benutzerverwaltung weiter.
   /// </summary>
   /// <returns>Ein Redirect auf die Benutzerliste.</returns>
   [HttpGet]
@@ -58,7 +58,7 @@ internal sealed class AdminController : Controller
   }
 
   /// <summary>
-  /// FÃ¼hrt einen kompletten Datenbank-Wipe aus.
+  /// FÃƒÂ¼hrt einen kompletten Datenbank-Wipe aus.
   /// </summary>
   /// <param name="confirmPhrase">Die Sicherheitsphrase.</param>
   /// <returns>Ein Task.</returns>
@@ -68,12 +68,12 @@ internal sealed class AdminController : Controller
   {
     if (confirmPhrase != "DELETE CONFIRM")
     {
-      this.ModelState.AddModelError(string.Empty, "UngÃ¼ltige Sicherheitsphrase.");
+      this.ModelState.AddModelError(string.Empty, "UngÃƒÂ¼ltige Sicherheitsphrase.");
       return this.View("Settings");
     }
 
     await this.maintenanceService.WipeDatabaseAsync().ConfigureAwait(false);
-    this.TempData["StatusMessage"] = "Datenbank wurde erfolgreich zurÃ¼ckgesetzt. Bitte fÃ¼hren Sie ein Re-Seeding durch.";
+    this.TempData["StatusMessage"] = "Datenbank wurde erfolgreich zurÃƒÂ¼ckgesetzt. Bitte fÃƒÂ¼hren Sie ein Re-Seeding durch.";
     return this.RedirectToAction(nameof(this.Settings));
   }
 
@@ -89,7 +89,7 @@ internal sealed class AdminController : Controller
   {
     if (confirmPhrase != "DELETE CONFIRM")
     {
-      this.ModelState.AddModelError(string.Empty, "UngÃ¼ltige Sicherheitsphrase.");
+      this.ModelState.AddModelError(string.Empty, "UngÃƒÂ¼ltige Sicherheitsphrase.");
       return this.View("Settings");
     }
 
@@ -106,3 +106,7 @@ internal sealed class AdminController : Controller
     return this.RedirectToAction(nameof(this.Settings));
   }
 }
+
+
+
+

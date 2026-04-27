@@ -1,10 +1,10 @@
-namespace TicketsPlease.UnitTests.Infrastructure;
+﻿namespace TicketsPlease.UnitTests.Infrastructure;
 
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Infrastructure.Persistence;
 
-internal abstract class InfrastructureTestBase : IDisposable
+public abstract class InfrastructureTestBase : IDisposable
 {
   private readonly SqliteConnection _connection;
   protected readonly AppDbContext Context;
@@ -14,7 +14,7 @@ internal abstract class InfrastructureTestBase : IDisposable
     _connection = new SqliteConnection("DataSource=:memory:");
     _connection.Open();
 
-    // Foreign Keys deaktivieren fÃ¼r Infrastruktur-Unit-Tests, um Setup-KomplexitÃ¤t zu reduzieren
+    // Foreign Keys deaktivieren fÃƒÂ¼r Infrastruktur-Unit-Tests, um Setup-KomplexitÃƒÂ¤t zu reduzieren
     using (var command = _connection.CreateCommand())
     {
       command.CommandText = "PRAGMA foreign_keys = OFF;";

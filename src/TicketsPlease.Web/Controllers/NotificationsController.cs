@@ -1,4 +1,4 @@
-// <copyright file="NotificationsController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="NotificationsController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -16,7 +16,7 @@ using TicketsPlease.Web.Models;
 /// Controller for viewing in-app notifications.
 /// </summary>
 [Authorize]
-internal sealed class NotificationsController : Controller
+public sealed class NotificationsController : Controller
 {
   private readonly INotificationService notificationService;
 
@@ -87,3 +87,6 @@ internal sealed class NotificationsController : Controller
     return Guid.TryParse(userIdClaim, out var guid) ? guid : Guid.Empty;
   }
 }
+
+
+

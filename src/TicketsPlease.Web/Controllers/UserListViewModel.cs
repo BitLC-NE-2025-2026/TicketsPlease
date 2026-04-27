@@ -1,4 +1,4 @@
-// <copyright file="UserListViewModel.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="UserListViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// ViewModel fÃ¼r die BenutzerÃ¼bersicht im Administrationsbereich.
+/// ViewModel fÃƒÂ¼r die BenutzerÃƒÂ¼bersicht im Administrationsbereich.
 /// </summary>
 internal class UserListViewModel
 {
@@ -38,7 +38,7 @@ internal class UserListViewModel
   public bool IsActive { get; set; }
 
   /// <summary>
-  /// Gets or sets a value indicating whether der Benutzer gelÃ¶scht wurde.
+  /// Gets or sets a value indicating whether der Benutzer gelÃƒÂ¶scht wurde.
   /// </summary>
   public bool IsDeleted { get; set; }
 
@@ -52,3 +52,4 @@ internal class UserListViewModel
   /// </summary>
   public Guid TenantId { get; set; }
 }
+

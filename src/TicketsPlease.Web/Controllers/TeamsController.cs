@@ -1,4 +1,4 @@
-// <copyright file="TeamsController.cs" company="BitLC-NE-2025-2026">
+﻿// <copyright file="TeamsController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -14,10 +14,10 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller fÃ¼r das Teammanagement.
+/// Controller fÃƒÂ¼r das Teammanagement.
 /// </summary>
 [Authorize]
-internal sealed class TeamsController : Controller
+public sealed class TeamsController : Controller
 {
   private readonly ITeamService teamService;
   private readonly UserManager<User> userManager;
@@ -78,7 +78,7 @@ internal sealed class TeamsController : Controller
   }
 
   /// <summary>
-  /// Zeigt die Management-OberflÃ¤che fÃ¼r Teams an.
+  /// Zeigt die Management-OberflÃƒÂ¤che fÃƒÂ¼r Teams an.
   /// </summary>
   /// <returns>Die Management-View.</returns>
   [HttpGet]
@@ -117,7 +117,7 @@ internal sealed class TeamsController : Controller
   }
 
   /// <summary>
-  /// Sendet eine Beitrittsanfrage fÃ¼r ein Team.
+  /// Sendet eine Beitrittsanfrage fÃƒÂ¼r ein Team.
   /// </summary>
   /// <param name="teamId">ID des Teams.</param>
   /// <returns>Redirect zur Index-View.</returns>
@@ -163,7 +163,7 @@ internal sealed class TeamsController : Controller
   }
 
   /// <summary>
-  /// Entscheidet Ã¼ber eine Beitrittsanfrage.
+  /// Entscheidet ÃƒÂ¼ber eine Beitrittsanfrage.
   /// </summary>
   /// <param name="requestId">ID der Anfrage.</param>
   /// <param name="approve">Ob die Anfrage angenommen werden soll.</param>
@@ -185,3 +185,6 @@ internal sealed class TeamsController : Controller
     return this.RedirectToAction(nameof(this.Management));
   }
 }
+
+
+
