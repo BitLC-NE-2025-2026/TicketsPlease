@@ -1,4 +1,4 @@
-﻿// <copyright file="CommentController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="CommentController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -15,7 +15,7 @@ using TicketsPlease.Application.Common.Interfaces;
 /// Controller fÃƒÂ¼r die Kommentarverwaltung (F5).
 /// </summary>
 [Authorize]
-public class CommentController : Controller
+internal class CommentController : Controller
 {
   private readonly ICommentService commentService;
 
@@ -55,7 +55,3 @@ public class CommentController : Controller
     return this.RedirectToAction("Details", "Tickets", new { id = dto.TicketId });
   }
 }
-
-
-
-

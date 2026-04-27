@@ -1,4 +1,4 @@
-﻿// <copyright file="RoleListViewModel.cs" company="BitLC-NE-2025-2026">
+// <copyright file="RoleListViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 /// <summary>
 /// ViewModel fÃ¼r die RollenÃ¼bersicht im Administrationsbereich.
 /// </summary>
-public class RoleListViewModel
+internal class RoleListViewModel
 {
   /// <summary>
   /// Gets or sets die Rollen-ID.
@@ -42,4 +42,3 @@ public class RoleListViewModel
   /// </summary>
   public bool IsSystemRole { get; set; }
 }
-

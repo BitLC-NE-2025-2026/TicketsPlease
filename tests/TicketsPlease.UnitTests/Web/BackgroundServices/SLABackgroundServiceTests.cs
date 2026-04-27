@@ -1,7 +1,5 @@
 namespace TicketsPlease.UnitTests.Web.BackgroundServices;
 
-using TicketsPlease.Web.BackgroundServices;
-
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -9,6 +7,7 @@ using Moq;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
+using TicketsPlease.Web.BackgroundServices;
 
 public class SLABackgroundServiceTests
 {

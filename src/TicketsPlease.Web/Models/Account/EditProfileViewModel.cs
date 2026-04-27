@@ -1,4 +1,4 @@
-﻿// <copyright file="EditProfileViewModel.cs" company="BitLC-NE-2025-2026">
+// <copyright file="EditProfileViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 /// <summary>
 /// ViewModel zum Bearbeiten des eigenen Benutzerprofils.
 /// </summary>
-public class EditProfileViewModel
+internal class EditProfileViewModel
 {
   /// <summary>
   /// Gets or sets den Benutzernamen.

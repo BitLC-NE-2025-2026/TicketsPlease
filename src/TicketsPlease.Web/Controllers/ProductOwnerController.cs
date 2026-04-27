@@ -1,4 +1,4 @@
-﻿// <copyright file="ProductOwnerController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="ProductOwnerController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -16,7 +16,7 @@ using TicketsPlease.Domain.Entities;
 /// Controller fÃƒÂ¼r ProductOwner-spezifische Aufgaben (Workspace Settings, Invites).
 /// </summary>
 [Authorize(Roles = "Admin,ProductOwner")]
-public class ProductOwnerController : Controller
+internal class ProductOwnerController : Controller
 {
   private readonly IOrganizationInviteService inviteService;
   private readonly IOrganizationService organizationService;
@@ -140,7 +140,3 @@ public class ProductOwnerController : Controller
     return this.RedirectToAction(nameof(this.Settings));
   }
 }
-
-
-
-

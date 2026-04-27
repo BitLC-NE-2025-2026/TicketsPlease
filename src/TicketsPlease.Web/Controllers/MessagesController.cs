@@ -1,4 +1,4 @@
-﻿// <copyright file="MessagesController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="MessagesController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -21,7 +21,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller fÃƒÂ¼r das Messaging-System (F9).
 /// </summary>
 [Authorize]
-public sealed class MessagesController : Controller
+internal sealed class MessagesController : Controller
 {
   private readonly IMessageService messageService;
   private readonly UserManager<User> userManager;
@@ -153,6 +153,3 @@ public sealed class MessagesController : Controller
     this.ViewBag.Users = new SelectList(users, "Id", "UserName");
   }
 }
-
-
-

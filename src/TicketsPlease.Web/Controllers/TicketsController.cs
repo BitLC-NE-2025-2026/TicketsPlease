@@ -1,4 +1,4 @@
-﻿// <copyright file="TicketsController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="TicketsController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -22,7 +22,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller fÃƒÂ¼r das Ticket-Handling und das Kanban-Board.
 /// </summary>
 [Authorize]
-public sealed class TicketsController : Controller
+internal sealed class TicketsController : Controller
 {
   private readonly ITicketService ticketService;
   private readonly IProjectService projectService;
@@ -471,7 +471,7 @@ public sealed class TicketsController : Controller
   /// <summary>
   /// Request DTO fÃƒÂ¼r Tag-Erstellung.
   /// </summary>
-  public class CreateTagRequest
+  internal class CreateTagRequest
   {
     /// <summary>Gets or sets Name.</summary>
     public string Name { get; set; } = string.Empty;
@@ -514,6 +514,3 @@ public sealed class TicketsController : Controller
     this.ViewBag.Templates = templates;
   }
 }
-
-
-

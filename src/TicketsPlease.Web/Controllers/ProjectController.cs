@@ -1,4 +1,4 @@
-﻿// <copyright file="ProjectController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="ProjectController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -15,7 +15,7 @@ using TicketsPlease.Application.Common.Interfaces;
 /// Controller fÃƒÂ¼r die Projektverwaltung (CRUD fÃƒÂ¼r Admins).
 /// </summary>
 [Authorize(Roles = "Admin,ProductOwner,Stakeholder")]
-public class ProjectController : Controller
+internal class ProjectController : Controller
 {
   private readonly IProjectService projectService;
   private readonly ITicketService ticketService;
@@ -144,7 +144,3 @@ public class ProjectController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 }
-
-
-
-

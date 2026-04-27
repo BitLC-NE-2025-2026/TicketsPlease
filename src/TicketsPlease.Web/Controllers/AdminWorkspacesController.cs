@@ -1,4 +1,4 @@
-﻿// <copyright file="AdminWorkspacesController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="AdminWorkspacesController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -13,7 +13,7 @@ using TicketsPlease.Application.Common.Interfaces;
 /// Controller fÃƒÂ¼r die Verwaltung von Workspaces (Organisationen) im Admin-Bereich.
 /// </summary>
 [Authorize(Roles = "Admin")]
-public class AdminWorkspacesController : Controller
+internal class AdminWorkspacesController : Controller
 {
   private readonly IOrganizationService organizationService;
 
@@ -115,7 +115,3 @@ public class AdminWorkspacesController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 }
-
-
-
-

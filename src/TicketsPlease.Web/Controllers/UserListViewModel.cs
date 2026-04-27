@@ -1,4 +1,4 @@
-﻿// <copyright file="UserListViewModel.cs" company="BitLC-NE-2025-2026">
+// <copyright file="UserListViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -52,4 +52,3 @@ internal class UserListViewModel
   /// </summary>
   public Guid TenantId { get; set; }
 }
-

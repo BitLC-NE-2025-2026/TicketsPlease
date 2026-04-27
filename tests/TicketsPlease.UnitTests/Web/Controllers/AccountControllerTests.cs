@@ -1,6 +1,5 @@
 namespace TicketsPlease.UnitTests.Web.Controllers;
 
-using TicketsPlease.Web.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
+using TicketsPlease.Web.Controllers;
 
 public class AccountControllerTests
 {
@@ -85,4 +85,3 @@ public class AccountControllerTests
     result.Should().BeOfType<ViewResult>();
   }
 }
-

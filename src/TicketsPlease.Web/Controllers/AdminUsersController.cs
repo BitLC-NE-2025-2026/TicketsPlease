@@ -1,4 +1,4 @@
-﻿// <copyright file="AdminUsersController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="AdminUsersController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -19,7 +19,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller fÃƒÂ¼r die Benutzerverwaltung im Administrationsbereich (F2).
 /// </summary>
 [Authorize(Roles = "Admin")]
-public class AdminUsersController : Controller
+internal class AdminUsersController : Controller
 {
   private readonly UserManager<User> userManager;
   private readonly RoleManager<Role> roleManager;
@@ -240,7 +240,3 @@ public class AdminUsersController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 }
-
-
-
-

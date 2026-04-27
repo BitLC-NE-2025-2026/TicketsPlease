@@ -1,4 +1,4 @@
-﻿// <copyright file="SettingsController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="SettingsController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -16,7 +16,7 @@ using TicketsPlease.Domain.Entities;
 /// Controller fÃƒÂ¼r die persÃƒÂ¶nlichen Benutzereinstellungen (Performance, TÃƒÂ¶ne).
 /// </summary>
 [Authorize]
-public class SettingsController : Controller
+internal class SettingsController : Controller
 {
   private readonly UserManager<User> userManager;
   private readonly IUserRepository userRepository;
@@ -85,7 +85,3 @@ public class SettingsController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 }
-
-
-
-

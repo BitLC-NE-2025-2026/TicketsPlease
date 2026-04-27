@@ -1,4 +1,4 @@
-﻿// <copyright file="AdminTemplatesController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="AdminTemplatesController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -16,7 +16,7 @@ using TicketsPlease.Domain.Entities;
 /// Controller fÃƒÂ¼r die Verwaltung von Ticket-Vorlagen im Admin-Bereich.
 /// </summary>
 [Authorize(Roles = "Admin")]
-public class AdminTemplatesController : Controller
+internal class AdminTemplatesController : Controller
 {
   private readonly ITicketTemplateService templateService;
   private readonly ITicketRepository ticketRepository;
@@ -100,7 +100,3 @@ public class AdminTemplatesController : Controller
     this.ViewBag.Priorities = new SelectList(priorities, "Id", "Name");
   }
 }
-
-
-
-

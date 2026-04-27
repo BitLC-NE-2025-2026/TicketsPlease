@@ -1,4 +1,4 @@
-﻿// <copyright file="EditRoleViewModel.cs" company="BitLC-NE-2025-2026">
+// <copyright file="EditRoleViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 /// <summary>
 /// ViewModel zum Bearbeiten/Erstellen einer Rolle.
 /// </summary>
-public class EditRoleViewModel
+internal class EditRoleViewModel
 {
   /// <summary>
   /// Gets or sets die Rollen-ID.
@@ -51,4 +51,3 @@ public class EditRoleViewModel
   /// </summary>
   public List<RoleUserViewModel> UsersInRole { get; set; } = new();
 }
-

@@ -1,10 +1,10 @@
-﻿namespace TicketsPlease.UnitTests.Infrastructure;
+namespace TicketsPlease.UnitTests.Infrastructure;
 
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Infrastructure.Persistence;
 
-public abstract class InfrastructureTestBase : IDisposable
+internal abstract class InfrastructureTestBase : IDisposable
 {
   private readonly SqliteConnection _connection;
   protected readonly AppDbContext Context;

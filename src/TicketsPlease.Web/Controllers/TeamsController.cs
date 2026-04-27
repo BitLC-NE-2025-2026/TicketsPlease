@@ -1,4 +1,4 @@
-﻿// <copyright file="TeamsController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="TeamsController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -17,7 +17,7 @@ using TicketsPlease.Domain.Entities;
 /// Controller fÃƒÂ¼r das Teammanagement.
 /// </summary>
 [Authorize]
-public sealed class TeamsController : Controller
+internal sealed class TeamsController : Controller
 {
   private readonly ITeamService teamService;
   private readonly UserManager<User> userManager;
@@ -185,6 +185,3 @@ public sealed class TeamsController : Controller
     return this.RedirectToAction(nameof(this.Management));
   }
 }
-
-
-

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 /// <summary>
 /// ViewModel zum Bearbeiten eines Benutzers im Administrationsbereich.
 /// </summary>
-public class EditUserViewModel
+internal class EditUserViewModel
 {
   /// <summary>
   /// Gets or sets die Benutzer-ID.
@@ -74,4 +74,3 @@ public class EditUserViewModel
   /// </summary>
   public Dictionary<Guid, string> AvailableTeams { get; set; } = new();
 }
-

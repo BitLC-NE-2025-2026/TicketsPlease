@@ -1,4 +1,4 @@
-﻿// <copyright file="SLABackgroundService.cs" company="BitLC-NE-2025-2026">
+// <copyright file="SLABackgroundService.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -18,7 +18,7 @@ using TicketsPlease.Domain.Entities;
 /// Background service for enterprise SLA automation.
 /// Checks active organizations for SLA breaches and triggers notifications.
 /// </summary>
-public sealed partial class SLABackgroundService : BackgroundService
+internal sealed partial class SLABackgroundService : BackgroundService
 {
   private readonly IServiceProvider serviceProvider;
   private readonly ILogger<SLABackgroundService> logger;

@@ -1,4 +1,4 @@
-﻿// <copyright file="AdminRolesController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="AdminRolesController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -21,7 +21,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Bietet vollstÃƒÂ¤ndige RBAC-FunktionalitÃƒÂ¤t inkl. Permission-Management.
 /// </summary>
 [Authorize(Roles = "Admin")]
-public class AdminRolesController : Controller
+internal class AdminRolesController : Controller
 {
   private readonly RoleManager<Role> roleManager;
   private readonly UserManager<User> userManager;
@@ -301,6 +301,3 @@ public class AdminRolesController : Controller
     return roleName is "Admin" or "Developer" or "Tester" or "ProductOwner" or "Stakeholder";
   }
 }
-
-
-

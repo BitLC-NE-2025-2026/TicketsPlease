@@ -1,4 +1,4 @@
-﻿// <copyright file="PermissionRegistry.cs" company="BitLC-NE-2025-2026">
+// <copyright file="PermissionRegistry.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 /// Zentrales Register aller verfÃƒÂ¼gbaren Berechtigungen.
 /// Berechtigungen werden als Claims vom Typ "Permission" in IdentityRoleClaims gespeichert.
 /// </summary>
-public static class PermissionRegistry
+internal static class PermissionRegistry
 {
   // --- Page Access Permissions ---
   public const string PageDashboard = "Pages.Dashboard";
@@ -111,6 +111,3 @@ public static class PermissionRegistry
     },
   };
 }
-
-
-

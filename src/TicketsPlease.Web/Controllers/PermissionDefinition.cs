@@ -1,4 +1,4 @@
-﻿// <copyright file="PermissionDefinition.cs" company="BitLC-NE-2025-2026">
+// <copyright file="PermissionDefinition.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -10,5 +10,4 @@ namespace TicketsPlease.Web.Controllers;
 /// <param name="Key">Der eindeutige Schlüssel (Claim-Wert).</param>
 /// <param name="DisplayName">Der Anzeigename.</param>
 /// <param name="Description">Eine Beschreibung der Berechtigung.</param>
-public record PermissionDefinition(string Key, string DisplayName, string Description);
-
+internal record PermissionDefinition(string Key, string DisplayName, string Description);

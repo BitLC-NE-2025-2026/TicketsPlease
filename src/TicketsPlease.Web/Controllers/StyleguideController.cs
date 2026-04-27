@@ -1,4 +1,4 @@
-﻿// <copyright file="StyleguideController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="StyleguideController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 /// Controller fÃƒÂ¼r den UI-Styleguide.
 /// Dient als Referenz fÃƒÂ¼r Entwickler, um einheitliche UI-Komponenten zu verwenden.
 /// </summary>
-public class StyleguideController : Controller
+internal class StyleguideController : Controller
 {
   /// <summary>
   /// Zeigt die ÃƒÅ“bersicht aller UI-Komponenten und Design-Tokens an.
@@ -22,7 +22,3 @@ public class StyleguideController : Controller
     return this.View();
   }
 }
-
-
-
-

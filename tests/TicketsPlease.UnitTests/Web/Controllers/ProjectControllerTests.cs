@@ -1,11 +1,11 @@
 namespace TicketsPlease.UnitTests.Web.Controllers;
 
-using TicketsPlease.Web.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
+using TicketsPlease.Web.Controllers;
 
 public class ProjectControllerTests
 {
@@ -61,4 +61,3 @@ public class ProjectControllerTests
     ((ProjectDto)viewResult!.Model!).Id.Should().Be(projectId);
   }
 }
-

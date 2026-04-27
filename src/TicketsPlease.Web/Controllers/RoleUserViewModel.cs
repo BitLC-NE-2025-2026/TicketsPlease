@@ -1,4 +1,4 @@
-﻿// <copyright file="RoleUserViewModel.cs" company="BitLC-NE-2025-2026">
+// <copyright file="RoleUserViewModel.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -9,7 +9,7 @@ using System;
 /// <summary>
 /// ViewModel fÃ¼r einen Benutzer innerhalb einer Rolle.
 /// </summary>
-public class RoleUserViewModel
+internal class RoleUserViewModel
 {
   /// <summary>
   /// Gets or sets die Benutzer-ID.
@@ -26,4 +26,3 @@ public class RoleUserViewModel
   /// </summary>
   public string Email { get; set; } = string.Empty;
 }
-

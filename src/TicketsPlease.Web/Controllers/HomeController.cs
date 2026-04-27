@@ -1,4 +1,4 @@
-﻿// <copyright file="HomeController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="HomeController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -13,7 +13,7 @@ using TicketsPlease.Web.Models;
 /// <summary>
 /// Der Standard-Controller fÃƒÂ¼r die Startseite und allgemeine Seiten.
 /// </summary>
-public class HomeController : Controller
+internal class HomeController : Controller
 {
   private readonly IDashboardService dashboardService;
 
@@ -69,7 +69,3 @@ public class HomeController : Controller
     return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
   }
 }
-
-
-
-

@@ -1,4 +1,4 @@
-﻿// <copyright file="AccountController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="AccountController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -16,7 +16,7 @@ using TicketsPlease.Web.Models.Account;
 /// <summary>
 /// Controller fÃƒÂ¼r die Benutzerverwaltung (Login, Registrierung, Profil).
 /// </summary>
-public class AccountController : Controller
+internal class AccountController : Controller
 {
   private readonly SignInManager<User> signInManager;
   private readonly UserManager<User> userManager;
@@ -387,7 +387,3 @@ public class AccountController : Controller
     return this.View();
   }
 }
-
-
-
-

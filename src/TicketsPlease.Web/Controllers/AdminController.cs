@@ -1,4 +1,4 @@
-﻿// <copyright file="AdminController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="AdminController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -14,7 +14,7 @@ using TicketsPlease.Infrastructure.Services;
 /// Erfordert die Admin-Rolle.
 /// </summary>
 [Authorize(Roles = "Admin")]
-public class AdminController : Controller
+internal class AdminController : Controller
 {
   private readonly SystemMaintenanceService maintenanceService;
 
@@ -106,7 +106,3 @@ public class AdminController : Controller
     return this.RedirectToAction(nameof(this.Settings));
   }
 }
-
-
-
-

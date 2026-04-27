@@ -1,4 +1,4 @@
-﻿// <copyright file="SocialController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="SocialController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -25,7 +25,7 @@ using TicketsPlease.Web.Hubs;
 /// Controller fÃƒÂ¼r das tenant-ÃƒÂ¼bergreifende Social Feed System.
 /// </summary>
 [Authorize]
-public class SocialController : Controller
+internal class SocialController : Controller
 {
   private readonly AppDbContext context;
   private readonly UserManager<User> userManager;
@@ -309,7 +309,7 @@ public class SocialController : Controller
   /// <summary>
   /// Request DTO.
   /// </summary>
-  public class PostMessageRequest
+  internal class PostMessageRequest
   {
     /// <summary>
     /// Gets or sets the message content.
@@ -322,7 +322,3 @@ public class SocialController : Controller
     public string? AttachmentUrl { get; set; }
   }
 }
-
-
-
-

@@ -1,4 +1,4 @@
-﻿// <copyright file="ChatController.cs" company="BitLC-NE-2025-2026">
+// <copyright file="ChatController.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Entities;
 /// Controller fÃƒÂ¼r die Chat-FunktionalitÃƒÂ¤t (HQ &amp; Team).
 /// </summary>
 [Authorize]
-public class ChatController : Controller
+internal class ChatController : Controller
 {
   private readonly IMessageService messageService;
   private readonly UserManager<User> userManager;
@@ -73,7 +73,3 @@ public class ChatController : Controller
     return this.Ok(result);
   }
 }
-
-
-
-
