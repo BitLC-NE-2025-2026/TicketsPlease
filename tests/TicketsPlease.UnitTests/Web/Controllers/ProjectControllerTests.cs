@@ -1,4 +1,5 @@
-﻿
+namespace TicketsPlease.UnitTests.Web.Controllers;
+
 using TicketsPlease.Web.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
