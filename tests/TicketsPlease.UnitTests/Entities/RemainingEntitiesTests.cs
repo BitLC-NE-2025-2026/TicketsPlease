@@ -9,7 +9,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-public class RemainingEntitiesTests
+internal class RemainingEntitiesTests
 {
   [Fact]
   public void Role_Properties_ShouldBeSettable()

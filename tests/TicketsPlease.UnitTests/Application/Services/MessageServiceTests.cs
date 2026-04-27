@@ -5,7 +5,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Application.Services;
 using TicketsPlease.Domain.Entities;
 
-public class MessageServiceTests
+internal class MessageServiceTests
 {
   private readonly Mock<IMessageRepository> _mockMessageRepo;
   private readonly Mock<IFileAssetRepository> _mockFileRepo;

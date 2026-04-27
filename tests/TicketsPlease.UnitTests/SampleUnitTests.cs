@@ -10,7 +10,7 @@ using Xunit;
 /// <summary>
 /// Eine Beispiel-Testklasse zur Validierung der Testumgebung.
 /// </summary>
-public class SampleUnitTests
+internal class SampleUnitTests
 {
   /// <summary>
   /// Ein einfacher Test, der sicherstellt, dass FluentAssertions funktioniert.
