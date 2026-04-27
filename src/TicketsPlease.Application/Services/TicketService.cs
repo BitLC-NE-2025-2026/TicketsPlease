@@ -285,39 +285,6 @@ public class TicketService(
     _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
   }
 
-  private async Task<bool> IsBlockedByRecursiveAsync(Guid currentTicketId, Guid targetBlockerId, HashSet<Guid>? visited = null)
-  {
-    visited ??= new HashSet<Guid>();
-    if (visited.Contains(currentTicketId))
-    {
-      return false;
-    }
-
-    visited.Add(currentTicketId);
-
-    var ticket = await ticketRepository.GetByIdAsync(currentTicketId).ConfigureAwait(false);
-    if (ticket == null)
-    {
-      return false;
-    }
-
-    // PrÃ¼fen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
-    foreach (var link in ticket.BlockedBy.Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks))
-    {
-      if (link.SourceTicketId == targetBlockerId)
-      {
-        return true;
-      }
-
-      if (await this.IsBlockedByRecursiveAsync(link.SourceTicketId, targetBlockerId, visited).ConfigureAwait(false))
-      {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   /// <inheritdoc/>
   public async Task RemoveDependencyAsync(Guid sourceId, Guid targetId)
   {
@@ -386,6 +353,39 @@ public class TicketService(
       await ticketRepository.RemoveUpvoteAsync(id, user.Id).ConfigureAwait(false);
       _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
+  }
+
+  private async Task<bool> IsBlockedByRecursiveAsync(Guid currentTicketId, Guid targetBlockerId, HashSet<Guid>? visited = null)
+  {
+    visited ??= new HashSet<Guid>();
+    if (visited.Contains(currentTicketId))
+    {
+      return false;
+    }
+
+    visited.Add(currentTicketId);
+
+    var ticket = await ticketRepository.GetByIdAsync(currentTicketId).ConfigureAwait(false);
+    if (ticket == null)
+    {
+      return false;
+    }
+
+    // PrÃ¼fen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
+    foreach (var link in ticket.BlockedBy.Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks))
+    {
+      if (link.SourceTicketId == targetBlockerId)
+      {
+        return true;
+      }
+
+      if (await this.IsBlockedByRecursiveAsync(link.SourceTicketId, targetBlockerId, visited).ConfigureAwait(false))
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private async Task<TicketDto> MapToDtoAsync(Ticket t)
@@ -477,6 +477,12 @@ public class TicketService(
 
   private async Task<User?> GetCurrentUserAsync()
   {
-    return await userManager.GetUserAsync(httpContextAccessor.HttpContext!.User).ConfigureAwait(false);
+    var context = httpContextAccessor.HttpContext;
+    if (context == null)
+    {
+      return null;
+    }
+
+    return await userManager.GetUserAsync(context.User).ConfigureAwait(false);
   }
 }

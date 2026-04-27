@@ -24,7 +24,7 @@ public class SocialMessageDto
   /// <summary>
   /// Gets or sets the URL of an attachment associated with the message.
   /// </summary>
-  public string? AttachmentUrl { get; set; }
+  public Uri? AttachmentUrl { get; set; }
 
   /// <summary>
   /// Gets or sets the date and time when the message was created.
@@ -39,7 +39,7 @@ public class SocialMessageDto
   /// <summary>
   /// Gets or sets the URL of the author's avatar.
   /// </summary>
-  public string AuthorAvatarUrl { get; set; } = string.Empty;
+  public Uri AuthorAvatarUrl { get; set; } = new Uri("about:blank");
 
   /// <summary>
   /// Gets or sets the username of the author.

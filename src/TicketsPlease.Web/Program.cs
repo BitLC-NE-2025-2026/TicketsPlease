@@ -120,7 +120,7 @@ builder.Services.AddScoped<IAuditLogService, AuditLogService>();
 builder.Services.AddScoped<SystemMaintenanceService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHostedService<TicketCleanupWorker>();
-builder.Services.AddHostedService<SLABackgroundService>();
+builder.Services.AddHostedService<SlaBackgroundService>();
 
 // Database Configuration with Resilience
 

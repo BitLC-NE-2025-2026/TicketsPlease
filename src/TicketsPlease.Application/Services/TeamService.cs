@@ -124,25 +124,6 @@ public class TeamService(ITeamRepository teamRepository) : ITeamService
     }
   }
 
-  private static TeamDto MapToDto(Team team) => MapToDto(team, null);
-
-  private static TeamDto MapToDto(Team team, Guid? currentUserId)
-  {
-    return new TeamDto(
-        team.Id,
-        team.Name,
-        team.Description ?? string.Empty,
-        team.ColorCode ?? "#ccc",
-        team.CreatedAt,
-        team.Members.Count,
-        team.Members.Select(m => new TeamMemberDto(
-            m.UserId,
-            m.User?.UserName ?? "Unknown",
-            m.JoinedAt,
-            m.IsTeamLead)),
-        currentUserId.HasValue && team.Members.Any(m => m.UserId == currentUserId.Value));
-  }
-
   /// <inheritdoc/>
   public async Task<Guid> RequestJoinAsync(Guid teamId, Guid userId, CancellationToken cancellationToken = default)
   {
@@ -216,5 +197,24 @@ public class TeamService(ITeamRepository teamRepository) : ITeamService
         r.User?.UserName ?? "Unknown User",
         r.Status,
         r.RequestedAt));
+  }
+
+  private static TeamDto MapToDto(Team team) => MapToDto(team, null);
+
+  private static TeamDto MapToDto(Team team, Guid? currentUserId)
+  {
+    return new TeamDto(
+        team.Id,
+        team.Name,
+        team.Description ?? string.Empty,
+        team.ColorCode ?? "#ccc",
+        team.CreatedAt,
+        team.Members.Count,
+        team.Members.Select(m => new TeamMemberDto(
+            m.UserId,
+            m.User?.UserName ?? "Unknown",
+            m.JoinedAt,
+            m.IsTeamLead)),
+        currentUserId.HasValue && team.Members.Any(m => m.UserId == currentUserId.Value));
   }
 }

@@ -1,4 +1,4 @@
-// <copyright file="SLABackgroundService.cs" company="BitLC-NE-2025-2026">
+// <copyright file="SlaBackgroundService.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
@@ -18,17 +18,17 @@ using TicketsPlease.Domain.Entities;
 /// Background service for enterprise SLA automation.
 /// Checks active organizations for SLA breaches and triggers notifications.
 /// </summary>
-internal sealed partial class SLABackgroundService : BackgroundService
+internal sealed partial class SlaBackgroundService : BackgroundService
 {
   private readonly IServiceProvider serviceProvider;
-  private readonly ILogger<SLABackgroundService> logger;
+  private readonly ILogger<SlaBackgroundService> logger;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="SLABackgroundService"/> class.
+  /// Initializes a new instance of the <see cref="SlaBackgroundService"/> class.
   /// </summary>
   /// <param name="serviceProvider">The service provider.</param>
   /// <param name="logger">The logger.</param>
-  public SLABackgroundService(IServiceProvider serviceProvider, ILogger<SLABackgroundService> logger)
+  public SlaBackgroundService(IServiceProvider serviceProvider, ILogger<SlaBackgroundService> logger)
   {
     this.serviceProvider = serviceProvider;
     this.logger = logger;
@@ -37,7 +37,7 @@ internal sealed partial class SLABackgroundService : BackgroundService
   /// <inheritdoc/>
   protected override async Task ExecuteAsync(CancellationToken stoppingToken)
   {
-    this.logger.LogInformation("SLABackgroundService is starting.");
+    this.logger.LogInformation("SlaBackgroundService is starting.");
 
     while (!stoppingToken.IsCancellationRequested)
     {
@@ -58,7 +58,7 @@ internal sealed partial class SLABackgroundService : BackgroundService
       await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken).ConfigureAwait(false);
     }
 
-    this.logger.LogInformation("SLABackgroundService is stopping.");
+    this.logger.LogInformation("SlaBackgroundService is stopping.");
   }
 
   private async Task ProcessAllOrganizationsAsync(CancellationToken stoppingToken)

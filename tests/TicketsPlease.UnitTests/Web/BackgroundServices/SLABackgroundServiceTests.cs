@@ -9,7 +9,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 using TicketsPlease.Web.BackgroundServices;
 
-public class SLABackgroundServiceTests
+public class SlaBackgroundServiceTests
 {
   private readonly Mock<IServiceProvider> _serviceProviderMock;
   private readonly Mock<IServiceScopeFactory> _serviceScopeFactoryMock;
@@ -17,9 +17,9 @@ public class SLABackgroundServiceTests
   private readonly Mock<IOrganizationRepository> _orgRepositoryMock;
   private readonly Mock<ITicketRepository> _ticketRepositoryMock;
   private readonly Mock<INotificationService> _notificationServiceMock;
-  private readonly Mock<ILogger<SLABackgroundService>> _loggerMock;
+  private readonly Mock<ILogger<SlaBackgroundService>> _loggerMock;
 
-  public SLABackgroundServiceTests()
+  public SlaBackgroundServiceTests()
   {
     _serviceProviderMock = new Mock<IServiceProvider>();
     _serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
@@ -28,7 +28,7 @@ public class SLABackgroundServiceTests
     _orgRepositoryMock = new Mock<IOrganizationRepository>();
     _ticketRepositoryMock = new Mock<ITicketRepository>();
     _notificationServiceMock = new Mock<INotificationService>();
-    _loggerMock = new Mock<ILogger<SLABackgroundService>>();
+    _loggerMock = new Mock<ILogger<SlaBackgroundService>>();
 
     _serviceProviderMock.Setup(x => x.GetService(typeof(IServiceScopeFactory))).Returns(_serviceScopeFactoryMock.Object);
     _serviceScopeFactoryMock.Setup(x => x.CreateScope()).Returns(_serviceScopeMock.Object);
