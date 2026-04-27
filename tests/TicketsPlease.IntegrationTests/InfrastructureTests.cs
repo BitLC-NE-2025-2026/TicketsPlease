@@ -29,6 +29,7 @@ public class InfrastructureTests : IntegrationTestBase
   public InfrastructureTests()
   {
   }
+
   /// <summary>
   /// Tests GetByIdAsync.
   /// </summary>
@@ -178,7 +179,7 @@ public class InfrastructureTests : IntegrationTestBase
 
     // Delete static seeded states to test fallback
     // We do this in a separate transaction or just rely on class-level isolation.
-    // Since we are using class-level isolation, this will break other tests in the class 
+    // Since we are using class-level isolation, this will break other tests in the class
     // unless we are careful. We'll add them back or use a different check.
     var states = await db.WorkflowStates.IgnoreQueryFilters().ToListAsync();
     db.WorkflowStates.RemoveRange(states);

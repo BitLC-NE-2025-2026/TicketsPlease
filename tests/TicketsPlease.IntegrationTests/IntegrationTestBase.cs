@@ -72,7 +72,7 @@ public sealed class TestWebApplicationFactory : WebApplicationFactory<Program>
       services.AddDbContext<AppDbContext>(options =>
       {
         options.UseSqlite(this.connection);
-        options.EnableServiceProviderCaching(false); 
+        options.EnableServiceProviderCaching(false);
       });
 
       // 4. Fake Authentication & Antiforgery
@@ -107,7 +107,9 @@ internal sealed class FakeAntiforgery : Microsoft.AspNetCore.Antiforgery.IAntifo
 
   public Task<bool> IsRequestValidAsync(HttpContext httpContext) => Task.FromResult(true);
 
-  public void SetCookieTokenAndHeader(HttpContext httpContext) { }
+  public void SetCookieTokenAndHeader(HttpContext httpContext)
+  {
+  }
 
   public Task ValidateRequestAsync(HttpContext httpContext) => Task.CompletedTask;
 }
@@ -182,12 +184,12 @@ public abstract class IntegrationTestBase : IDisposable
   {
     ArgumentNullException.ThrowIfNull(services);
     var httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
-    
+
     var claims = new[]
     {
       new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
       new Claim(ClaimTypes.Role, role),
-      new Claim("TenantId", tenantId.ToString())
+      new Claim("TenantId", tenantId.ToString()),
     };
 
     var identity = new ClaimsIdentity(claims, "Test");
@@ -195,7 +197,7 @@ public abstract class IntegrationTestBase : IDisposable
 
     httpContextAccessor.HttpContext = new DefaultHttpContext
     {
-      User = principal
+      User = principal,
     };
   }
 
@@ -230,26 +232,26 @@ public abstract class IntegrationTestBase : IDisposable
       await db.WorkflowStates.AddAsync(new WorkflowState { Id = todoStateId, Name = "Todo", WorkflowId = workflow.Id, TenantId = TestTenantId }).ConfigureAwait(false);
       await db.WorkflowStates.AddAsync(new WorkflowState { Id = doneStateId, Name = "Done", WorkflowId = workflow.Id, TenantId = TestTenantId, IsTerminalState = true }).ConfigureAwait(false);
 
-      await db.WorkflowTransitions.AddAsync(new WorkflowTransition 
-      { 
-        Id = Guid.NewGuid(), 
-        FromStateId = todoStateId, 
-        ToStateId = doneStateId, 
-        TenantId = TestTenantId 
+      await db.WorkflowTransitions.AddAsync(new WorkflowTransition
+      {
+        Id = Guid.NewGuid(),
+        FromStateId = todoStateId,
+        ToStateId = doneStateId,
+        TenantId = TestTenantId,
       }).ConfigureAwait(false);
 
-      await db.Users.AddAsync(new User 
-      { 
-        Id = TestUserId, 
-        UserName = "testadmin", 
-        Email = "admin@test.com", 
+      await db.Users.AddAsync(new User
+      {
+        Id = TestUserId,
+        UserName = "testadmin",
+        Email = "admin@test.com",
         TenantId = TestTenantId,
         RoleId = role.Id,
         NormalizedEmail = "ADMIN@TEST.COM",
         NormalizedUserName = "TESTADMIN",
         EmailConfirmed = true,
         SecurityStamp = Guid.NewGuid().ToString(),
-        Profile = new UserProfile { UserId = TestUserId, FirstName = "Test", LastName = "Admin", TenantId = TestTenantId }
+        Profile = new UserProfile { UserId = TestUserId, FirstName = "Test", LastName = "Admin", TenantId = TestTenantId },
       }).ConfigureAwait(false);
 
       await db.SaveChangesAsync().ConfigureAwait(false);

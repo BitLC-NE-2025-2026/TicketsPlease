@@ -28,6 +28,7 @@ public class RelationshipTests : IntegrationTestBase
   public RelationshipTests()
   {
   }
+
   /// <summary>
   /// Prüft, ob ein Ticket einem Benutzer korrekt zugewiesen werden kann und die Beziehung persistiert wird.
   /// </summary>

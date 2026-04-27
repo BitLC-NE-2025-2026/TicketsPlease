@@ -128,7 +128,7 @@ public class ControllerTests : IntegrationTestBase
         new KeyValuePair<string, string>("Description", "Some Description"),
         new KeyValuePair<string, string>("ProjectId", project.Id.ToString()),
         new KeyValuePair<string, string>("PriorityId", this.priorityId.ToString()),
-        new KeyValuePair<string, string>("ChilliesDifficulty", "3")
+        new KeyValuePair<string, string>("ChilliesDifficulty", "3"),
     });
 
     // Act
@@ -140,7 +140,7 @@ public class ControllerTests : IntegrationTestBase
       var errorContent = await response.Content.ReadAsStringAsync();
       throw new Xunit.Sdk.XunitException($"Expected Redirect but got {response.StatusCode}. Content: {errorContent}");
     }
-    
+
     using (var verifyScope = this.Factory.Services.CreateScope())
     {
       var verifyDb = verifyScope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -208,7 +208,7 @@ public class ControllerTests : IntegrationTestBase
 
     // Assert
     response.StatusCode.Should().Be(HttpStatusCode.Redirect);
-    
+
     using (var verifyScope = this.Factory.Services.CreateScope())
     {
       var verifyDb = verifyScope.ServiceProvider.GetRequiredService<AppDbContext>();
