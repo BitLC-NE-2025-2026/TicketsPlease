@@ -20,6 +20,7 @@ using TicketsPlease.Web.Hubs;
 using TicketsPlease.Web.Services;
 
 [assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
+[assembly: InternalsVisibleTo("TicketsPlease.UnitTests")]
 
 var builder = WebApplication.CreateBuilder(args);
 

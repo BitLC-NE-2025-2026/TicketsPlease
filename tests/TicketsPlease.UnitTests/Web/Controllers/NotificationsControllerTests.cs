@@ -8,6 +8,7 @@ using Moq;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Web.Controllers;
+using TicketsPlease.Web.Models;
 
 public class NotificationsControllerTests
 {
