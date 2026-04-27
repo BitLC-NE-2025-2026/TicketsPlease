@@ -7,12 +7,12 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für Dateianhänge.
+/// DatenÃ¼bertragungsobjekt fÃ¼r DateianhÃ¤nge.
 /// </summary>
 /// <param name="Id">Die ID der Datei.</param>
-/// <param name="FileName">Der ursprüngliche Dateiname.</param>
+/// <param name="FileName">Der ursprÃ¼ngliche Dateiname.</param>
 /// <param name="ContentType">Der MIME-Typ.</param>
-/// <param name="SizeBytes">Die Größe in Bytes.</param>
+/// <param name="SizeBytes">Die GrÃ¶ÃŸe in Bytes.</param>
 /// <param name="UploadedAt">Der Zeitpunkt des Uploads.</param>
 /// <param name="UploadedUserName">Der Name des Urhebers.</param>
 public record FileAssetDto(

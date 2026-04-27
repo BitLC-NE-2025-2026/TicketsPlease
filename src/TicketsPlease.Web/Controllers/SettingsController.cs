@@ -13,7 +13,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller für die persönlichen Benutzereinstellungen (Performance, Töne).
+/// Controller fÃ¼r die persÃ¶nlichen Benutzereinstellungen (Performance, TÃ¶ne).
 /// </summary>
 [Authorize]
 internal sealed class SettingsController : Controller
@@ -56,7 +56,7 @@ internal sealed class SettingsController : Controller
   }
 
   /// <summary>
-  /// Speichert die persönlichen Einstellungen.
+  /// Speichert die persÃ¶nlichen Einstellungen.
   /// </summary>
   /// <param name="kanbanUpdateIntervalMs">Das Intervall.</param>
   /// <param name="reduceAnimations">Animationen reduzieren?.</param>

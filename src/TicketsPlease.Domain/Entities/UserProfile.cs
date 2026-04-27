@@ -8,17 +8,17 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert das detaillierte Profil eines Benutzers mit persönlichen Daten.
+/// ReprÃ¤sentiert das detaillierte Profil eines Benutzers mit persÃ¶nlichen Daten.
 /// </summary>
 public class UserProfile : BaseAuditableEntity
 {
   /// <summary>
-  /// Gets or sets die ID des zugehörigen Benutzers.
+  /// Gets or sets die ID des zugehÃ¶rigen Benutzers.
   /// </summary>
   public Guid UserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den zugehörigen Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den zugehÃ¶rigen Benutzer.
   /// </summary>
   public virtual User? User { get; set; }
 
@@ -33,7 +33,7 @@ public class UserProfile : BaseAuditableEntity
   public string LastName { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets den vollständigen Namen des Benutzers.
+  /// Gets den vollstÃ¤ndigen Namen des Benutzers.
   /// </summary>
   public string FullName => $"{this.FirstName} {this.LastName}".Trim();
 
@@ -58,7 +58,7 @@ public class UserProfile : BaseAuditableEntity
   public Guid? AvatarImageId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das Profilbild als FileAsset.
+  /// Gets or sets das Navigation-Property fÃ¼r das Profilbild als FileAsset.
   /// </summary>
   public FileAsset? AvatarImage { get; set; }
 
@@ -73,7 +73,7 @@ public class UserProfile : BaseAuditableEntity
   public string? TechStack { get; set; }
 
   /// <summary>
-  /// Gets or sets die Straße der Anschrift.
+  /// Gets or sets die StraÃŸe der Anschrift.
   /// </summary>
   public string? Street { get; set; }
 
@@ -93,7 +93,7 @@ public class UserProfile : BaseAuditableEntity
   public string? Country { get; set; }
 
   /// <summary>
-  /// Gets or sets das Aktualisierungsintervall für das Kanban-Board in Millisekunden.
+  /// Gets or sets das Aktualisierungsintervall fÃ¼r das Kanban-Board in Millisekunden.
   /// </summary>
   public int KanbanUpdateIntervalMs { get; set; } = 30000;
 
@@ -103,7 +103,7 @@ public class UserProfile : BaseAuditableEntity
   public bool ReduceAnimations { get; set; }
 
   /// <summary>
-  /// Gets or sets den Namen des ausgewählten Benachrichtigungstons.
+  /// Gets or sets den Namen des ausgewÃ¤hlten Benachrichtigungstons.
   /// </summary>
   public string NotificationSound { get; set; } = "Default";
 
@@ -113,7 +113,7 @@ public class UserProfile : BaseAuditableEntity
   public bool EmailNotificationsEnabled { get; set; } = true;
 
   /// <summary>
-  /// Gets or sets den SLA-Schwellenwert in Stunden für dieses Profil/Organisation-Kontext.
+  /// Gets or sets den SLA-Schwellenwert in Stunden fÃ¼r dieses Profil/Organisation-Kontext.
   /// </summary>
   public int SlaThresholdHours { get; set; } = 4;
 }

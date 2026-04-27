@@ -9,13 +9,13 @@ using Microsoft.Playwright.Xunit;
 using Xunit;
 
 /// <summary>
-/// Basis-E2E-Tests zur Überprüfung der grundlegenden Frontend-Funktionalität.
-/// Nutzt Playwright für Browser-Automatisierung.
+/// Basis-E2E-Tests zur ÃœberprÃ¼fung der grundlegenden Frontend-FunktionalitÃ¤t.
+/// Nutzt Playwright fÃ¼r Browser-Automatisierung.
 /// </summary>
 public class BasicE2ETests : PageTest
 {
   /// <summary>
-  /// Überprüft, ob die Startseite den korrekten Titel hat.
+  /// ÃœberprÃ¼ft, ob die Startseite den korrekten Titel hat.
   /// </summary>
   [Fact]
   [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test naming convention")]

@@ -7,7 +7,7 @@ namespace TicketsPlease.Domain.Common;
 using System;
 
 /// <summary>
-/// Erweitert <see cref="BaseEntity"/> um Felder für die automatische Überprüfung (Auditing).
+/// Erweitert <see cref="BaseEntity"/> um Felder fÃ¼r die automatische ÃœberprÃ¼fung (Auditing).
 /// </summary>
 public abstract class BaseAuditableEntity : BaseEntity
 {
@@ -17,17 +17,17 @@ public abstract class BaseAuditableEntity : BaseEntity
   public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
   /// <summary>
-  /// Gets or sets die ID oder den Namen des Benutzers, der die Entität erstellt hat.
+  /// Gets or sets die ID oder den Namen des Benutzers, der die EntitÃ¤t erstellt hat.
   /// </summary>
   public string? CreatedBy { get; set; }
 
   /// <summary>
-  /// Gets or sets den Zeitpunkt der letzten Änderung.
+  /// Gets or sets den Zeitpunkt der letzten Ã„nderung.
   /// </summary>
   public DateTime? UpdatedAt { get; set; }
 
   /// <summary>
-  /// Gets or sets die ID oder den Namen des Benutzers, der die letzte Änderung vorgenommen hat.
+  /// Gets or sets die ID oder den Namen des Benutzers, der die letzte Ã„nderung vorgenommen hat.
   /// </summary>
   public string? UpdatedBy { get; set; }
 }

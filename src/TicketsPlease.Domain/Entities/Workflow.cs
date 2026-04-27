@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen Workflow (Status-Reihe), den ein Ticket annehmen kann.
+/// ReprÃ¤sentiert einen Workflow (Status-Reihe), den ein Ticket annehmen kann.
 /// (Pflicht F8).
 /// </summary>
 public class Workflow : BaseEntity
@@ -19,7 +19,7 @@ public class Workflow : BaseEntity
   public string Name { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets die Liste der Status, die zu diesem Workflow gehören.
+  /// Gets die Liste der Status, die zu diesem Workflow gehÃ¶ren.
   /// </summary>
   public virtual ICollection<WorkflowState> States { get; } = new List<WorkflowState>();
 

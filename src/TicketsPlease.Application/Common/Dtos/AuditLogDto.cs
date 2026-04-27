@@ -7,12 +7,12 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// DTO für einen Audit-Log-Eintrag.
+/// DTO fÃ¼r einen Audit-Log-Eintrag.
 /// </summary>
 /// <param name="Timestamp">Zeitpunkt der Aktion.</param>
-/// <param name="ActorUserName">Name des ausführenden Benutzers.</param>
+/// <param name="ActorUserName">Name des ausfÃ¼hrenden Benutzers.</param>
 /// <param name="ActionType">Typ der Aktion.</param>
-/// <param name="Description">Beschreibung der Änderungen.</param>
+/// <param name="Description">Beschreibung der Ã„nderungen.</param>
 public record AuditLogDto(
     DateTime Timestamp,
     string ActorUserName,

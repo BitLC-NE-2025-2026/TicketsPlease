@@ -12,12 +12,12 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// Implementierung des ReportingService für Stakeholder-Auswertungen.
+/// Implementierung des ReportingService fÃ¼r Stakeholder-Auswertungen.
 /// </summary>
-/// <param name="projectRepository">Das Repository für Projekte.</param>
-/// <param name="ticketRepository">Das Repository für Tickets.</param>
-/// <param name="teamRepository">Das Repository für Teams.</param>
-/// <param name="userRepository">Das Repository für Benutzer.</param>
+/// <param name="projectRepository">Das Repository fÃ¼r Projekte.</param>
+/// <param name="ticketRepository">Das Repository fÃ¼r Tickets.</param>
+/// <param name="teamRepository">Das Repository fÃ¼r Teams.</param>
+/// <param name="userRepository">Das Repository fÃ¼r Benutzer.</param>
 public class ReportingService(
   IProjectRepository projectRepository,
   ITicketRepository ticketRepository,

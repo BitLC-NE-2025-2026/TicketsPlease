@@ -17,8 +17,8 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Controller für die Rollenverwaltung im Administrationsbereich.
-/// Bietet vollständige RBAC-Funktionalität inkl. Permission-Management.
+/// Controller fÃ¼r die Rollenverwaltung im Administrationsbereich.
+/// Bietet vollstÃ¤ndige RBAC-FunktionalitÃ¤t inkl. Permission-Management.
 /// </summary>
 [Authorize(Roles = "Admin")]
 internal class AdminRolesController : Controller
@@ -44,7 +44,7 @@ internal class AdminRolesController : Controller
   }
 
   /// <summary>
-  /// Listet alle Rollen mit zugehörigen Berechtigungen und Benutzeranzahl auf.
+  /// Listet alle Rollen mit zugehÃ¶rigen Berechtigungen und Benutzeranzahl auf.
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpGet]
@@ -91,7 +91,7 @@ internal class AdminRolesController : Controller
   }
 
   /// <summary>
-  /// Erstellt eine neue Rolle mit den ausgewählten Berechtigungen.
+  /// Erstellt eine neue Rolle mit den ausgewÃ¤hlten Berechtigungen.
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpPost]
@@ -133,7 +133,7 @@ internal class AdminRolesController : Controller
   }
 
   /// <summary>
-  /// Zeigt das Bearbeitungsformular für eine bestehende Rolle.
+  /// Zeigt das Bearbeitungsformular fÃ¼r eine bestehende Rolle.
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpGet]
@@ -173,7 +173,7 @@ internal class AdminRolesController : Controller
   }
 
   /// <summary>
-  /// Speichert die Änderungen an einer Rolle und deren Berechtigungen.
+  /// Speichert die Ã„nderungen an einer Rolle und deren Berechtigungen.
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpPost]
@@ -230,7 +230,7 @@ internal class AdminRolesController : Controller
   }
 
   /// <summary>
-  /// Löscht eine Rolle (nur nicht-Systemrollen).
+  /// LÃ¶scht eine Rolle (nur nicht-Systemrollen).
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpPost]
@@ -252,7 +252,7 @@ internal class AdminRolesController : Controller
     var usersInRole = await this.userManager.GetUsersInRoleAsync(role.Name!).ConfigureAwait(false);
     if (usersInRole.Count > 0)
     {
-      this.TempData["Notification"] = $"Cannot delete role \"{role.Name}\" — {usersInRole.Count} users are still assigned.";
+      this.TempData["Notification"] = $"Cannot delete role \"{role.Name}\" â€” {usersInRole.Count} users are still assigned.";
       return this.RedirectToAction(nameof(this.Index));
     }
 

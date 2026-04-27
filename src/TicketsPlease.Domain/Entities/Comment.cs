@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen Kommentar zu einem Ticket (F5).
+/// ReprÃ¤sentiert einen Kommentar zu einem Ticket (F5).
 /// </summary>
 public class Comment : BaseAuditableEntity
 {
@@ -16,7 +16,7 @@ public class Comment : BaseAuditableEntity
   /// Initializes a new instance of the <see cref="Comment"/> class.
   /// </summary>
   /// <param name="content">Der Inhalt des Kommentars.</param>
-  /// <param name="ticketId">Die ID des zugehörigen Tickets.</param>
+  /// <param name="ticketId">Die ID des zugehÃ¶rigen Tickets.</param>
   /// <param name="authorId">Die ID des Erstellers.</param>
   public Comment(string content, Guid ticketId, Guid authorId)
   {
@@ -44,12 +44,12 @@ public class Comment : BaseAuditableEntity
   public string Content { get; private set; } = string.Empty;
 
   /// <summary>
-  /// Gets die ID des zugehörigen Tickets.
+  /// Gets die ID des zugehÃ¶rigen Tickets.
   /// </summary>
   public Guid TicketId { get; private set; }
 
   /// <summary>
-  /// Gets das zugehörige Ticket.
+  /// Gets das zugehÃ¶rige Ticket.
   /// </summary>
   public Ticket? Ticket { get; }
 

@@ -12,7 +12,7 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// Controller für die Kommentarverwaltung (F5).
+/// Controller fÃ¼r die Kommentarverwaltung (F5).
 /// </summary>
 [Authorize]
 internal sealed class CommentController : Controller
@@ -22,7 +22,7 @@ internal sealed class CommentController : Controller
   /// <summary>
   /// Initializes a new instance of the <see cref="CommentController"/> class.
   /// </summary>
-  /// <param name="commentService">Der Dienst für Kommentare.</param>
+  /// <param name="commentService">Der Dienst fÃ¼r Kommentare.</param>
   public CommentController(ICommentService commentService)
   {
     this.commentService = commentService;

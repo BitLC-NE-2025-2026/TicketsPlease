@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Erweiterung der Standard-Claims-Generierung, um den TenantId-Claim hinzuzufügen.
+/// Erweiterung der Standard-Claims-Generierung, um den TenantId-Claim hinzuzufÃ¼gen.
 /// </summary>
 internal class CustomUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<User, Role>
 {

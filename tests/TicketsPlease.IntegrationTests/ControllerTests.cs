@@ -19,11 +19,11 @@ using TicketsPlease.Infrastructure.Persistence;
 using Xunit;
 
 /// <summary>
-/// Integrations-Tests für die Web-Controller.
+/// Integrations-Tests fÃ¼r die Web-Controller.
 /// </summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test naming convention")]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2007:Consider calling ConfigureAwait", Justification = "xUnit tests should not use ConfigureAwait(false)")]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Objekte verwerfen, bevor der Gültigkeitsbereich verloren geht", Justification = "Disposed by HttpClient or not critical for short-lived tests")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Objekte verwerfen, bevor der GÃ¼ltigkeitsbereich verloren geht", Justification = "Disposed by HttpClient or not critical for short-lived tests")]
 public class ControllerTests : IntegrationTestBase
 {
   private readonly Guid adminId = IntegrationTestBase.TestUserId;

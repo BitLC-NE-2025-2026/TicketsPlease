@@ -1,9 +1,9 @@
-﻿namespace TicketsPlease.UnitTests.Infrastructure.Services;
+namespace TicketsPlease.UnitTests.Infrastructure.Services;
 
 using FluentAssertions;
 using TicketsPlease.Infrastructure.Services;
 
-internal class DefaultCorporateSkinProviderTests
+public class DefaultCorporateSkinProviderTests
 {
   [Fact]
   public void GetColors_ShouldReturnDefaults()

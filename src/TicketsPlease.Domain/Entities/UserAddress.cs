@@ -8,22 +8,22 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert die postalische Adresse eines Benutzers.
+/// ReprÃ¤sentiert die postalische Adresse eines Benutzers.
 /// </summary>
 public class UserAddress : BaseAuditableEntity
 {
   /// <summary>
-  /// Gets or sets die ID des zugehörigen Benutzers.
+  /// Gets or sets die ID des zugehÃ¶rigen Benutzers.
   /// </summary>
   public Guid UserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den zugehörigen Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den zugehÃ¶rigen Benutzer.
   /// </summary>
   public User? User { get; set; }
 
   /// <summary>
-  /// Gets or sets den Namen der Straße / Hausnummer.
+  /// Gets or sets den Namen der StraÃŸe / Hausnummer.
   /// </summary>
   public string Street { get; set; } = string.Empty;
 

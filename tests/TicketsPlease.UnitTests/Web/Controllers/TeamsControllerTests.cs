@@ -1,4 +1,4 @@
-﻿namespace TicketsPlease.UnitTests.Web.Controllers;
+namespace TicketsPlease.UnitTests.Web.Controllers;
 
 using System.Security.Claims;
 using FluentAssertions;
@@ -11,7 +11,7 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
-internal class TeamsControllerTests
+public class TeamsControllerTests
 {
   private readonly Mock<ITeamService> _teamServiceMock = new();
   private readonly Mock<UserManager<User>> _userManagerMock;
@@ -35,11 +35,12 @@ internal class TeamsControllerTests
         _localizerMock.Object);
 
     var user = new ClaimsPrincipal(new ClaimsIdentity(
-      new[]
-    {
+        new[]
+        {
             new Claim(ClaimTypes.NameIdentifier, _currentUser.Id.ToString()),
-            new Claim("TenantId", _currentUser.TenantId.ToString())
-    }, "TestAuth"));
+            new Claim("TenantId", _currentUser.TenantId.ToString()),
+        },
+        "TestAuth"));
 
     _controller.ControllerContext = new ControllerContext
     {

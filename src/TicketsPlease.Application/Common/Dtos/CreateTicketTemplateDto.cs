@@ -11,7 +11,7 @@ using System;
 /// </summary>
 /// <param name="Name">Name der Vorlage.</param>
 /// <param name="DescriptionMarkdownTemplate">Der Markdown-Body.</param>
-/// <param name="DefaultPriorityId">Optionale Priorität.</param>
+/// <param name="DefaultPriorityId">Optionale PrioritÃ¤t.</param>
 public record CreateTicketTemplateDto(
     string Name,
     string DescriptionMarkdownTemplate,

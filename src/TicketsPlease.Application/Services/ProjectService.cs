@@ -15,8 +15,8 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Implementierung des Projektdienstes für die Verwaltung von Projekten.
-/// Berücksichtigt Mandantentrennung (Multi-Tenancy).
+/// Implementierung des Projektdienstes fÃ¼r die Verwaltung von Projekten.
+/// BerÃ¼cksichtigt Mandantentrennung (Multi-Tenancy).
 /// </summary>
 public class ProjectService(
   IProjectRepository projectRepository,

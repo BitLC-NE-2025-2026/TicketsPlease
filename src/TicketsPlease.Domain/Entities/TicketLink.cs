@@ -9,7 +9,7 @@ using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Enums;
 
 /// <summary>
-/// Repräsentiert eine gerichtete Verknüpfung zwischen zwei Tickets (z.B. "Ticket A blockiert Ticket B").
+/// ReprÃ¤sentiert eine gerichtete VerknÃ¼pfung zwischen zwei Tickets (z.B. "Ticket A blockiert Ticket B").
 /// </summary>
 public class TicketLink : BaseEntity
 {
@@ -18,7 +18,7 @@ public class TicketLink : BaseEntity
   /// </summary>
   /// <param name="sourceTicketId">Das Quell-Ticket.</param>
   /// <param name="targetTicketId">Das Ziel-Ticket.</param>
-  /// <param name="linkType">Der Typ der Verknüpfung.</param>
+  /// <param name="linkType">Der Typ der VerknÃ¼pfung.</param>
   public TicketLink(Guid sourceTicketId, Guid targetTicketId, TicketLinkType linkType)
   {
     this.SourceTicketId = sourceTicketId;
@@ -55,7 +55,7 @@ public class TicketLink : BaseEntity
   public Ticket? TargetTicket { get; }
 
   /// <summary>
-  /// Gets den Typ der Verknüpfung.
+  /// Gets den Typ der VerknÃ¼pfung.
   /// </summary>
   public TicketLinkType LinkType { get; private set; }
 }

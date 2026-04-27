@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert die Mitgliedschaft eines Benutzers in einem spezifischen Team.
+/// ReprÃ¤sentiert die Mitgliedschaft eines Benutzers in einem spezifischen Team.
 /// </summary>
 public class TeamMember : BaseEntity
 {
@@ -18,7 +18,7 @@ public class TeamMember : BaseEntity
   public Guid TeamId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das zugehörige Team.
+  /// Gets or sets das Navigation-Property fÃ¼r das zugehÃ¶rige Team.
   /// </summary>
   public Team? Team { get; set; }
 
@@ -28,7 +28,7 @@ public class TeamMember : BaseEntity
   public Guid UserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den zugeordneten Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den zugeordneten Benutzer.
   /// </summary>
   public User? User { get; set; }
 

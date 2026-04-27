@@ -10,7 +10,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Implementiert den Datenzugriff für Ticket-Vorlagen.
+/// Implementiert den Datenzugriff fÃ¼r Ticket-Vorlagen.
 /// </summary>
 public class TicketTemplateRepository : ITicketTemplateRepository
 {

@@ -20,12 +20,12 @@ public enum TicketType
   Bug = 1,
 
   /// <summary>
-  /// Eine neue Funktionalität.
+  /// Eine neue FunktionalitÃ¤t.
   /// </summary>
   Feature = 2,
 
   /// <summary>
-  /// Ein übergeordnetes Thema (Epic), das mehrere Untertickets enthalten kann.
+  /// Ein Ã¼bergeordnetes Thema (Epic), das mehrere Untertickets enthalten kann.
   /// </summary>
   Epic = 3,
 }

@@ -7,12 +7,12 @@ namespace TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Service Interface für die Geschäftslogik von Ticket-Vorlagen.
+/// Service Interface fÃ¼r die GeschÃ¤ftslogik von Ticket-Vorlagen.
 /// </summary>
 public interface ITicketTemplateService
 {
   /// <summary>
-  /// Ruft alle verfügbaren Vorlagen ab.
+  /// Ruft alle verfÃ¼gbaren Vorlagen ab.
   /// </summary>
   /// <param name="ct">Abbruchsignal.</param>
   /// <returns>Liste von DTOs.</returns>
@@ -28,7 +28,7 @@ public interface ITicketTemplateService
   public Task<TicketTemplateDto> CreateTemplateAsync(Guid creatorId, CreateTicketTemplateDto dto, CancellationToken ct = default);
 
   /// <summary>
-  /// Löscht eine Vorlage.
+  /// LÃ¶scht eine Vorlage.
   /// </summary>
   /// <param name="id">Die ID.</param>
   /// <param name="ct">Abbruchsignal.</param>

@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// DTO für eine Organisation/Workspace.
+/// DTO fÃ¼r eine Organisation/Workspace.
 /// </summary>
 /// <param name="Id">Die ID.</param>
 /// <param name="Name">Der Name.</param>

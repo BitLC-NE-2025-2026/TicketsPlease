@@ -10,7 +10,7 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// Controller für die Verwaltung von Workspaces (Organisationen) im Admin-Bereich.
+/// Controller fÃ¼r die Verwaltung von Workspaces (Organisationen) im Admin-Bereich.
 /// </summary>
 [Authorize(Roles = "Admin")]
 internal sealed class AdminWorkspacesController : Controller
@@ -29,7 +29,7 @@ internal sealed class AdminWorkspacesController : Controller
   /// <summary>
   /// Listet alle Workspaces auf.
   /// </summary>
-  /// <returns>Die Übersichtsview.</returns>
+  /// <returns>Die Ãœbersichtsview.</returns>
   [HttpGet]
   public async Task<IActionResult> Index()
   {

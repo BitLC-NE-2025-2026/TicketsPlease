@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Repository-Implementierung für den Datenzugriff auf Teams.
+/// Repository-Implementierung fÃ¼r den Datenzugriff auf Teams.
 /// </summary>
 public class TeamRepository : ITeamRepository
 {

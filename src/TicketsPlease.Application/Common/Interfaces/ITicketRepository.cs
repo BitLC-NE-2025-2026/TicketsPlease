@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Definiert die Datenzugriffsschicht für <see cref="Ticket"/> Entitäten.
+/// Definiert die Datenzugriffsschicht fÃ¼r <see cref="Ticket"/> EntitÃ¤ten.
 /// </summary>
 public interface ITicketRepository
 {
@@ -20,14 +20,14 @@ public interface ITicketRepository
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
   /// <param name="ct">Das Abbruchsignal (CancellationToken).</param>
-  /// <returns>Die asynchrone Operation, die das gefundene Ticket oder null zurückgibt.</returns>
+  /// <returns>Die asynchrone Operation, die das gefundene Ticket oder null zurÃ¼ckgibt.</returns>
   public Task<Ticket?> GetByIdAsync(Guid id, CancellationToken ct = default);
 
   /// <summary>
   /// Ruft alle aktiven Tickets ab (Read-only Optimierung).
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
-  /// <returns>Die asynchrone Operation, die eine Liste von Tickets zurückgibt.</returns>
+  /// <returns>Die asynchrone Operation, die eine Liste von Tickets zurÃ¼ckgibt.</returns>
   public Task<List<Ticket>> GetAllActiveAsync(CancellationToken ct = default);
 
   /// <summary>
@@ -37,7 +37,7 @@ public interface ITicketRepository
   /// <param name="assignedUserId">Die ID des zugewiesenen Benutzers.</param>
   /// <param name="creatorId">Die ID des Erstellers.</param>
   /// <param name="status">Der Ticket-Status.</param>
-  /// <param name="priorityId">Die Prioritäts-ID.</param>
+  /// <param name="priorityId">Die PrioritÃ¤ts-ID.</param>
   /// <param name="fromDate">Startdatum.</param>
   /// <param name="toDate">Enddatum.</param>
   /// <param name="searchString">Der Suchbegriff.</param>
@@ -57,7 +57,7 @@ public interface ITicketRepository
       CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt ein neues Ticket hinzu.
+  /// FÃ¼gt ein neues Ticket hinzu.
   /// </summary>
   /// <param name="ticket">Das zu speichernde Ticket.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
@@ -65,10 +65,10 @@ public interface ITicketRepository
   public Task AddAsync(Ticket ticket, CancellationToken ct = default);
 
   /// <summary>
-  /// Speichert sämtliche Änderungen im Kontext persistent ab.
+  /// Speichert sÃ¤mtliche Ã„nderungen im Kontext persistent ab.
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
-  /// <returns>Die asynchrone Operation, die die Anzahl der betroffenen Datensätze zurückgibt.</returns>
+  /// <returns>Die asynchrone Operation, die die Anzahl der betroffenen DatensÃ¤tze zurÃ¼ckgibt.</returns>
   public Task<int> SaveChangesAsync(CancellationToken ct = default);
 
   /// <summary>
@@ -87,38 +87,38 @@ public interface ITicketRepository
   public Task<WorkflowState?> GetWorkflowStateByNameAsync(string name, CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft einen Workflow-Übergang ab.
+  /// Ruft einen Workflow-Ãœbergang ab.
   /// </summary>
   /// <param name="fromStateId">Ausgangszustand.</param>
   /// <param name="toStateId">Zielzustand.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
-  /// <returns>Der Übergang oder null.</returns>
+  /// <returns>Der Ãœbergang oder null.</returns>
   public Task<WorkflowTransition?> GetTransitionAsync(Guid fromStateId, Guid toStateId, CancellationToken ct = default);
 
   /// <summary>
-  /// Entfernt eine Ticket-Verknüpfung.
+  /// Entfernt eine Ticket-VerknÃ¼pfung.
   /// </summary>
-  /// <param name="linkId">Die ID der Verknüpfung.</param>
+  /// <param name="linkId">Die ID der VerknÃ¼pfung.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Ein Task.</returns>
   public Task RemoveLinkAsync(Guid linkId, CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft alle verfügbaren Tags ab.
+  /// Ruft alle verfÃ¼gbaren Tags ab.
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Eine Liste von Tags.</returns>
   public Task<List<Tag>> GetAllTagsAsync(CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt einen Eintrag in die Historie hinzu.
+  /// FÃ¼gt einen Eintrag in die Historie hinzu.
   /// </summary>
   /// <param name="history">Der Historien-Eintrag.</param>
   /// <returns>Ein Task.</returns>
   public Task AddHistoryAsync(TicketHistory history);
 
   /// <summary>
-  /// Fügt einen Upvote hinzu.
+  /// FÃ¼gt einen Upvote hinzu.
   /// </summary>
   /// <param name="upvote">Der Upvote.</param>
   /// <returns>Ein Task.</returns>
@@ -133,7 +133,7 @@ public interface ITicketRepository
   public Task RemoveUpvoteAsync(Guid ticketId, Guid userId);
 
   /// <summary>
-  /// Prüft ob ein User bereits gevotet hat.
+  /// PrÃ¼ft ob ein User bereits gevotet hat.
   /// </summary>
   /// <param name="ticketId">Die Ticket-ID.</param>
   /// <param name="userId">Die User-ID.</param>
@@ -141,35 +141,35 @@ public interface ITicketRepository
   public Task<bool> UserHasUpvotedAsync(Guid ticketId, Guid userId);
 
   /// <summary>
-  /// Zählt die Upvotes.
+  /// ZÃ¤hlt die Upvotes.
   /// </summary>
   /// <param name="ticketId">Die Ticket-ID.</param>
   /// <returns>Ein Task.</returns>
   public Task<int> GetUpvoteCountAsync(Guid ticketId);
 
   /// <summary>
-  /// Ruft alle verfügbaren Prioritäten ab.
+  /// Ruft alle verfÃ¼gbaren PrioritÃ¤ten ab.
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
-  /// <returns>Eine Liste von Prioritäten.</returns>
+  /// <returns>Eine Liste von PrioritÃ¤ten.</returns>
   public Task<List<TicketPriority>> GetPrioritiesAsync(CancellationToken ct = default);
 
   /// <summary>
-  /// Setzt die ursprüngliche RowVersion für die Nebenläufigkeitsprüfung.
+  /// Setzt die ursprÃ¼ngliche RowVersion fÃ¼r die NebenlÃ¤ufigkeitsprÃ¼fung.
   /// </summary>
   /// <param name="ticket">Das Ticket.</param>
   /// <param name="rowVersion">Die zu vergleichende Zeilenversion.</param>
   public void SetOriginalRowVersion(Ticket ticket, byte[] rowVersion);
 
   /// <summary>
-  /// Fügt einen Workflow-Übergang hinzu.
+  /// FÃ¼gt einen Workflow-Ãœbergang hinzu.
   /// </summary>
-  /// <param name="transition">Der Übergang.</param>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <param name="transition">Der Ãœbergang.</param>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   public Task AddWorkflowTransitionAsync(WorkflowTransition transition);
 
   /// <summary>
-  /// Ruft alle Tickets eines Tenants ab (für Reporting).
+  /// Ruft alle Tickets eines Tenants ab (fÃ¼r Reporting).
   /// </summary>
   /// <param name="tenantId">Die Mandanten-ID.</param>
   /// <returns>Liste der Tickets.</returns>

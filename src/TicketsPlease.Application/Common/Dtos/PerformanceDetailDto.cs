@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System.Collections.Generic;
 
 /// <summary>
-/// DTO für detaillierte Performance-Daten (für Charts und Profile).
+/// DTO fÃ¼r detaillierte Performance-Daten (fÃ¼r Charts und Profile).
 /// </summary>
 public record PerformanceDetailDto(
     string Name,

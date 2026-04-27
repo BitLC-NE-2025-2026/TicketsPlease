@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// ViewModel für die Benutzerübersicht im Administrationsbereich.
+/// ViewModel fÃ¼r die BenutzerÃ¼bersicht im Administrationsbereich.
 /// </summary>
 internal class UserListViewModel
 {
@@ -38,7 +38,7 @@ internal class UserListViewModel
   public bool IsActive { get; set; }
 
   /// <summary>
-  /// Gets or sets a value indicating whether der Benutzer gelöscht wurde.
+  /// Gets or sets a value indicating whether der Benutzer gelÃ¶scht wurde.
   /// </summary>
   public bool IsDeleted { get; set; }
 

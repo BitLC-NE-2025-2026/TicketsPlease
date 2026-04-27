@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für einen Zeiterfassungseintrag.
+/// DatenÃ¼bertragungsobjekt fÃ¼r einen Zeiterfassungseintrag.
 /// </summary>
 /// <param name="Id">Die ID des Eintrags.</param>
 /// <param name="UserId">Die ID des Benutzers.</param>

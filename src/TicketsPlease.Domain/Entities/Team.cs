@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert ein Support- oder Bearbeitungsteam zur Gruppierung von Tickets und Agenten.
+/// ReprÃ¤sentiert ein Support- oder Bearbeitungsteam zur Gruppierung von Tickets und Agenten.
 /// </summary>
 public class Team : BaseEntity
 {
@@ -19,12 +19,12 @@ public class Team : BaseEntity
   public string Name { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die Beschreibung der Zuständigkeiten des Teams.
+  /// Gets or sets die Beschreibung der ZustÃ¤ndigkeiten des Teams.
   /// </summary>
   public string Description { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets den spezifischen Farbcode des Teams für Dashboards und UI.
+  /// Gets or sets den spezifischen Farbcode des Teams fÃ¼r Dashboards und UI.
   /// </summary>
   public string ColorCode { get; set; } = string.Empty;
 
@@ -39,7 +39,7 @@ public class Team : BaseEntity
   public Guid CreatedByUserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den Benutzer, der das Team angelegt hat.
+  /// Gets or sets das Navigation-Property fÃ¼r den Benutzer, der das Team angelegt hat.
   /// </summary>
   public User? CreatedByUser { get; set; }
 

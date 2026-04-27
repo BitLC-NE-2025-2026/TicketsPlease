@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Vorlage zur schnelleren Erstellung von standardisierten Tickets.
+/// ReprÃ¤sentiert eine Vorlage zur schnelleren Erstellung von standardisierten Tickets.
 /// </summary>
 public class TicketTemplate : BaseEntity
 {
@@ -18,17 +18,17 @@ public class TicketTemplate : BaseEntity
   public string Name { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die Markdown-Vorlage für die Beschreibung des Tickets.
+  /// Gets or sets die Markdown-Vorlage fÃ¼r die Beschreibung des Tickets.
   /// </summary>
   public string DescriptionMarkdownTemplate { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die (optionale) Standard-Prioritäts-ID für Tickets, die aus dieser Vorlage erstellt werden.
+  /// Gets or sets die (optionale) Standard-PrioritÃ¤ts-ID fÃ¼r Tickets, die aus dieser Vorlage erstellt werden.
   /// </summary>
   public Guid? DefaultPriorityId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für die Standard-Priorität.
+  /// Gets or sets das Navigation-Property fÃ¼r die Standard-PrioritÃ¤t.
   /// </summary>
   public TicketPriority? DefaultPriority { get; set; }
 
@@ -38,7 +38,7 @@ public class TicketTemplate : BaseEntity
   public Guid CreatorId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den Ersteller der Vorlage.
+  /// Gets or sets das Navigation-Property fÃ¼r den Ersteller der Vorlage.
   /// </summary>
   public User? Creator { get; set; }
 }

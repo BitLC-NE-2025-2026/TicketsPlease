@@ -5,8 +5,8 @@
 namespace TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Eine Markierungsschnittstelle für Aggregate-Roots.
-/// Hilft bei der Identifizierung von Einstiegspunkten für Repository-Operationen.
+/// Eine Markierungsschnittstelle fÃ¼r Aggregate-Roots.
+/// Hilft bei der Identifizierung von Einstiegspunkten fÃ¼r Repository-Operationen.
 /// </summary>
 #pragma warning disable CA1040 // Avoid empty interfaces
 public interface IAggregateRoot

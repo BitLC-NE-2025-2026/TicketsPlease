@@ -9,7 +9,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-internal class UserMetadataTests
+public class UserMetadataTests
 {
   [Fact]
   public void UserAddress_Properties_ShouldBeSettable()

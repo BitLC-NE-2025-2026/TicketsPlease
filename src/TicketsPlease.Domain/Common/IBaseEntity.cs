@@ -8,24 +8,24 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// Definiert die Basiseigenschaften für alle Domänen-Entitäten.
-/// Ermöglicht eine konsistente Behandlung von Entitäten, auch wenn diese
-/// von externen Klassen (wie IdentityUser) erben müssen.
+/// Definiert die Basiseigenschaften fÃ¼r alle DomÃ¤nen-EntitÃ¤ten.
+/// ErmÃ¶glicht eine konsistente Behandlung von EntitÃ¤ten, auch wenn diese
+/// von externen Klassen (wie IdentityUser) erben mÃ¼ssen.
 /// </summary>
 public interface IBaseEntity
 {
   /// <summary>
-  /// Gets die eindeutige Identität der Entität.
+  /// Gets die eindeutige IdentitÃ¤t der EntitÃ¤t.
   /// </summary>
   public Guid Id { get; }
 
   /// <summary>
-  /// Gets die Mandanten-ID, zu der diese Entität gehört.
+  /// Gets die Mandanten-ID, zu der diese EntitÃ¤t gehÃ¶rt.
   /// </summary>
   public Guid TenantId { get; }
 
   /// <summary>
-  /// Gets a value indicating whether die Entität gelöscht wurde.
+  /// Gets a value indicating whether die EntitÃ¤t gelÃ¶scht wurde.
   /// </summary>
   public bool IsDeleted { get; }
 
@@ -35,31 +35,31 @@ public interface IBaseEntity
   public DateTime? DeletedAt { get; }
 
   /// <summary>
-  /// Gets die Version für die Nebenläufigkeitskontrolle.
+  /// Gets die Version fÃ¼r die NebenlÃ¤ufigkeitskontrolle.
   /// </summary>
 #pragma warning disable CA1819 // Properties should not return arrays
   public byte[] RowVersion { get; }
 #pragma warning restore CA1819 // Properties should not return arrays
 
   /// <summary>
-  /// Gets die Liste der Domänenereignisse.
+  /// Gets die Liste der DomÃ¤nenereignisse.
   /// </summary>
   public IReadOnlyCollection<IDomainEvent> DomainEvents { get; }
 
   /// <summary>
-  /// Fügt ein Domänenereignis hinzu.
+  /// FÃ¼gt ein DomÃ¤nenereignis hinzu.
   /// </summary>
   /// <param name="domainEvent">Das Ereignis.</param>
   public void AddDomainEvent(IDomainEvent domainEvent);
 
   /// <summary>
-  /// Entfernt ein Domänenereignis.
+  /// Entfernt ein DomÃ¤nenereignis.
   /// </summary>
   /// <param name="domainEvent">Das Ereignis.</param>
   public void RemoveDomainEvent(IDomainEvent domainEvent);
 
   /// <summary>
-  /// Leert die Domänenereignisse.
+  /// Leert die DomÃ¤nenereignisse.
   /// </summary>
   public void ClearDomainEvents();
 }

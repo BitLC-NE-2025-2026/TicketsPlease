@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Chat-Nachricht oder einen Kommentar zu einem Ticket, an ein Team oder einen direkten Benutzer.
+/// ReprÃ¤sentiert eine Chat-Nachricht oder einen Kommentar zu einem Ticket, an ein Team oder einen direkten Benutzer.
 /// </summary>
 public class Message : BaseEntity
 {
@@ -18,7 +18,7 @@ public class Message : BaseEntity
   public Guid SenderUserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den Absender-Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den Absender-Benutzer.
   /// </summary>
   public User? SenderUser { get; set; }
 
@@ -28,7 +28,7 @@ public class Message : BaseEntity
   public Guid? TicketId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für ein zugehöriges Ticket.
+  /// Gets or sets das Navigation-Property fÃ¼r ein zugehÃ¶riges Ticket.
   /// </summary>
   public Ticket? Ticket { get; set; }
 
@@ -38,17 +38,17 @@ public class Message : BaseEntity
   public Guid? TeamId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für ein zugehöriges Team.
+  /// Gets or sets das Navigation-Property fÃ¼r ein zugehÃ¶riges Team.
   /// </summary>
   public Team? Team { get; set; }
 
   /// <summary>
-  /// Gets or sets die (optionale) Empfänger-ID, falls es sich um eine direkte Nachricht handelt.
+  /// Gets or sets die (optionale) EmpfÃ¤nger-ID, falls es sich um eine direkte Nachricht handelt.
   /// </summary>
   public Guid? ReceiverUserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für einen direkten Empfänger-Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r einen direkten EmpfÃ¤nger-Benutzer.
   /// </summary>
   public User? ReceiverUser { get; set; }
 
@@ -68,7 +68,7 @@ public class Message : BaseEntity
   public bool IsEdited { get; set; }
 
   /// <summary>
-  /// Gets die Liste der Dateianhänge dieser Nachricht.
+  /// Gets die Liste der DateianhÃ¤nge dieser Nachricht.
   /// </summary>
   public virtual ICollection<FileAsset> Attachments { get; } = new List<FileAsset>();
 }

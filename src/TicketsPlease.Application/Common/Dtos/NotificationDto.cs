@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für eine Benachrichtigung.
+/// DatenÃ¼bertragungsobjekt fÃ¼r eine Benachrichtigung.
 /// </summary>
 public class NotificationDto
 {

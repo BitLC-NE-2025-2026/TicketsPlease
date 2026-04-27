@@ -1,4 +1,4 @@
-﻿namespace TicketsPlease.UnitTests.Web.Controllers;
+namespace TicketsPlease.UnitTests.Web.Controllers;
 
 using System.Security.Claims;
 using FluentAssertions;
@@ -14,7 +14,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 using TicketsPlease.Infrastructure.Persistence;
 
-internal class TicketsControllerTests : IDisposable
+public class TicketsControllerTests : IDisposable
 {
   private readonly AppDbContext _context;
   private readonly Mock<ITicketService> _ticketServiceMock = new();
@@ -56,11 +56,12 @@ internal class TicketsControllerTests : IDisposable
         _localizerMock.Object);
 
     var user = new ClaimsPrincipal(new ClaimsIdentity(
-      new[]
-    {
+        new[]
+        {
             new Claim(ClaimTypes.NameIdentifier, _currentUser.Id.ToString()),
-            new Claim("TenantId", _currentUser.TenantId.ToString())
-    }, "TestAuth"));
+            new Claim("TenantId", _currentUser.TenantId.ToString()),
+        },
+        "TestAuth"));
 
     _controller.ControllerContext = new ControllerContext
     {
@@ -73,9 +74,15 @@ internal class TicketsControllerTests : IDisposable
   {
     // Arrange
     _ticketServiceMock.Setup(x => x.GetFilteredTicketsAsync(
-        It.IsAny<Guid?>(), It.IsAny<Guid?>(), It.IsAny<Guid?>(),
-        It.IsAny<string?>(), It.IsAny<Guid?>(), It.IsAny<DateTime?>(),
-        It.IsAny<DateTime?>(), It.IsAny<string?>(), It.IsAny<Guid?>()))
+        It.IsAny<Guid?>(),
+        It.IsAny<Guid?>(),
+        It.IsAny<Guid?>(),
+        It.IsAny<string?>(),
+        It.IsAny<Guid?>(),
+        It.IsAny<DateTime?>(),
+        It.IsAny<DateTime?>(),
+        It.IsAny<string?>(),
+        It.IsAny<Guid?>()))
         .ReturnsAsync(new List<TicketDto>());
 
     // Act
@@ -98,14 +105,33 @@ internal class TicketsControllerTests : IDisposable
   [Fact]
   public async Task Details_TicketExists_ReturnsViewResult()
   {
-    // Arrange
     var ticketId = Guid.NewGuid();
     var ticketDto = new TicketDto(
-        ticketId, "Test Ticket", "Desc", "Todo", Guid.NewGuid(), "Proj", null, "User",
-        TicketType.Task, new TicketPriorityDto(Guid.NewGuid(), "High", "#FF0000"),
-        DateTime.UtcNow, 5, 3, new List<TagDto>(), new List<TimeLogDto>(), new List<SubTicketDto>(),
-        false, new List<CommentDto>(), new List<TicketLinkDto>(), new List<TicketLinkDto>(),
-        new List<FileAssetDto>(), new List<TicketHistoryDto>(), 0, false, new byte[8]);
+        ticketId,
+        "Test Ticket",
+        "Desc",
+        "Todo",
+        Guid.NewGuid(),
+        "Proj",
+        null,
+        "User",
+        TicketType.Task,
+        new TicketPriorityDto(Guid.NewGuid(), "High", "#FF0000"),
+        DateTime.UtcNow,
+        5,
+        3,
+        new List<TagDto>(),
+        new List<TimeLogDto>(),
+        new List<SubTicketDto>(),
+        false,
+        new List<CommentDto>(),
+        new List<TicketLinkDto>(),
+        new List<TicketLinkDto>(),
+        new List<FileAssetDto>(),
+        new List<TicketHistoryDto>(),
+        0,
+        false,
+        new byte[8]);
 
     _ticketServiceMock.Setup(x => x.GetTicketAsync(ticketId)).ReturnsAsync(ticketDto);
 

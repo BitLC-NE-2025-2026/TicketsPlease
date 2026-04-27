@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Repository-Implementierung für den Zugriff auf <see cref="Notification"/>-Entitäten mit EF Core.
+/// Repository-Implementierung fÃ¼r den Zugriff auf <see cref="Notification"/>-EntitÃ¤ten mit EF Core.
 /// </summary>
 public class NotificationRepository : INotificationRepository
 {

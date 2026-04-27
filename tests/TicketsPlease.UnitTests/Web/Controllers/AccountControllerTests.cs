@@ -1,4 +1,4 @@
-﻿namespace TicketsPlease.UnitTests.Web.Controllers;
+namespace TicketsPlease.UnitTests.Web.Controllers;
 
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +8,7 @@ using Moq;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
-internal class AccountControllerTests
+public class AccountControllerTests
 {
   private readonly Mock<SignInManager<User>> _signInManagerMock;
   private readonly Mock<UserManager<User>> _userManagerMock;

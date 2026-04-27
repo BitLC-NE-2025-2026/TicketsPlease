@@ -25,7 +25,7 @@ internal sealed partial class TicketCleanupWorker : BackgroundService
   /// <summary>
   /// Initializes a new instance of the <see cref="TicketCleanupWorker"/> class.
   /// </summary>
-  /// <param name="serviceProvider">Der ServiceProvider für Scoped-Services.</param>
+  /// <param name="serviceProvider">Der ServiceProvider fÃ¼r Scoped-Services.</param>
   /// <param name="logger">Der Logger.</param>
   public TicketCleanupWorker(IServiceProvider serviceProvider, ILogger<TicketCleanupWorker> logger)
   {

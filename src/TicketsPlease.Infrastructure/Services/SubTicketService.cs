@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Implementierung des Unterticket-Services für Checklisten.
+/// Implementierung des Unterticket-Services fÃ¼r Checklisten.
 /// </summary>
 public class SubTicketService : ISubTicketService
 {

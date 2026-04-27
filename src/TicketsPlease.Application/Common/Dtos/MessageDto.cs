@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für Nachrichten.
+/// DatenÃ¼bertragungsobjekt fÃ¼r Nachrichten.
 /// </summary>
 public record MessageDto(
     Guid Id,

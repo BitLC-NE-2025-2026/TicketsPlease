@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt zum Erstellen einer Nachricht.
+/// DatenÃ¼bertragungsobjekt zum Erstellen einer Nachricht.
 /// </summary>
 public record CreateMessageDto(
     string BodyMarkdown,

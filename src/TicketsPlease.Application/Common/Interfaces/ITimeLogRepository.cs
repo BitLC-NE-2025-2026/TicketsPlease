@@ -11,19 +11,19 @@ using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Definiert die Datenzugriffsschicht für <see cref="TimeLog"/> Entitäten.
+/// Definiert die Datenzugriffsschicht fÃ¼r <see cref="TimeLog"/> EntitÃ¤ten.
 /// </summary>
 public interface ITimeLogRepository
 {
   /// <summary>
-  /// Ruft alle Zeiterfassungseinträge ab.
+  /// Ruft alle ZeiterfassungseintrÃ¤ge ab.
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Eine Liste von TimeLogs.</returns>
   public Task<List<TimeLog>> GetAllAsync(CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft alle Zeiterfassungseinträge für einen Tenant ab.
+  /// Ruft alle ZeiterfassungseintrÃ¤ge fÃ¼r einen Tenant ab.
   /// </summary>
   /// <param name="tenantId">Die ID des Mandanten.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
@@ -31,7 +31,7 @@ public interface ITimeLogRepository
   public Task<List<TimeLog>> GetByTenantAsync(Guid tenantId, CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft alle Zeiterfassungseinträge für einen bestimmten Benutzer ab.
+  /// Ruft alle ZeiterfassungseintrÃ¤ge fÃ¼r einen bestimmten Benutzer ab.
   /// </summary>
   /// <param name="userId">Die ID des Benutzers.</param>
   /// <param name="ct">Das Abbruchsignal.</param>

@@ -1,10 +1,10 @@
-﻿namespace TicketsPlease.UnitTests.Infrastructure.Repositories;
+namespace TicketsPlease.UnitTests.Infrastructure.Repositories;
 
 using FluentAssertions;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Repositories;
 
-internal class NotificationRepositoryTests : InfrastructureTestBase
+public class NotificationRepositoryTests : InfrastructureTestBase
 {
   private readonly NotificationRepository _repository;
 

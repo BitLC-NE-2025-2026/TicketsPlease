@@ -11,12 +11,12 @@ using Microsoft.AspNetCore.Http;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Definiert die Geschäftslogik für das Ticket-Management (Kanban).
+/// Definiert die GeschÃ¤ftslogik fÃ¼r das Ticket-Management (Kanban).
 /// </summary>
 public interface ITicketService
 {
   /// <summary>
-  /// Ruft alle aktiven Tickets für den aktuellen Mandanten ab.
+  /// Ruft alle aktiven Tickets fÃ¼r den aktuellen Mandanten ab.
   /// </summary>
   /// <returns>Eine Liste von <see cref="TicketDto"/>.</returns>
   public Task<IEnumerable<TicketDto>> GetActiveTicketsAsync();
@@ -28,10 +28,10 @@ public interface ITicketService
   /// <param name="assignedUserId">Optionale Zuweisungs-ID.</param>
   /// <param name="creatorId">Optionale Ersteller-ID.</param>
   /// <param name="status">Optionaler Status (z.B. Todo, Doing).</param>
-  /// <param name="priorityId">Optionale Prioritäts-ID.</param>
+  /// <param name="priorityId">Optionale PrioritÃ¤ts-ID.</param>
   /// <param name="fromDate">Optionales Startdatum.</param>
   /// <param name="toDate">Optionales Enddatum.</param>
-  /// <param name="searchString">Optionaler Suchstring für Titel/Beschreibung.</param>
+  /// <param name="searchString">Optionaler Suchstring fÃ¼r Titel/Beschreibung.</param>
   /// <param name="tagId">Optionale Tag-ID.</param>
   /// <returns>Eine Liste von <see cref="TicketDto"/>.</returns>
   public Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(
@@ -56,14 +56,14 @@ public interface ITicketService
   /// Erstellt ein neues Ticket.
   /// </summary>
   /// <param name="dto">Die Ticketdaten.</param>
-  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  /// <returns>Ein Task fÃ¼r die asynchrone Operation.</returns>
   public Task CreateTicketAsync(CreateTicketDto dto);
 
   /// <summary>
   /// Aktualisiert ein bestehendes Ticket.
   /// </summary>
   /// <param name="dto">Die aktualisierten Daten.</param>
-  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  /// <returns>Ein Task fÃ¼r die asynchrone Operation.</returns>
   public Task UpdateTicketAsync(UpdateTicketDto dto);
 
   /// <summary>
@@ -71,35 +71,35 @@ public interface ITicketService
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
   /// <param name="newStatus">Der Zielstatus.</param>
-  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  /// <returns>Ein Task fÃ¼r die asynchrone Operation.</returns>
   public Task MoveTicketAsync(Guid id, string newStatus);
 
   /// <summary>
-  /// Schließt ein Ticket endgültig (F3.4).
-  /// Berücksichtigt Abhängigkeiten (Blocker) (F7).
+  /// SchlieÃŸt ein Ticket endgÃ¼ltig (F3.4).
+  /// BerÃ¼cksichtigt AbhÃ¤ngigkeiten (Blocker) (F7).
   /// </summary>
-  /// <param name="id">Die ID des zu schließenden Tickets.</param>
-  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  /// <param name="id">Die ID des zu schlieÃŸenden Tickets.</param>
+  /// <returns>Ein Task fÃ¼r die asynchrone Operation.</returns>
   public Task CloseTicketAsync(Guid id);
 
   /// <summary>
-  /// Fügt eine Abhängigkeit hinzu (F7).
+  /// FÃ¼gt eine AbhÃ¤ngigkeit hinzu (F7).
   /// </summary>
   /// <param name="ticketId">Das blockierte Ticket (Nachfolger).</param>
-  /// <param name="blockerId">Das blockierende Ticket (Vorgänger).</param>
-  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  /// <param name="blockerId">Das blockierende Ticket (VorgÃ¤nger).</param>
+  /// <returns>Ein Task fÃ¼r die asynchrone Operation.</returns>
   public Task AddDependencyAsync(Guid ticketId, Guid blockerId);
 
   /// <summary>
-  /// Entfernt eine Abhängigkeit zwischen zwei Tickets.
+  /// Entfernt eine AbhÃ¤ngigkeit zwischen zwei Tickets.
   /// </summary>
   /// <param name="sourceId">Das Master-Ticket.</param>
-  /// <param name="targetId">Das abhängige Ticket.</param>
+  /// <param name="targetId">Das abhÃ¤ngige Ticket.</param>
   /// <returns>Ein Task.</returns>
   public Task RemoveDependencyAsync(Guid sourceId, Guid targetId);
 
   /// <summary>
-  /// Lädt eine Datei als Anhang für ein Ticket hoch.
+  /// LÃ¤dt eine Datei als Anhang fÃ¼r ein Ticket hoch.
   /// </summary>
   /// <param name="ticketId">Die Ticket-ID.</param>
   /// <param name="file">Die Datei.</param>
@@ -107,13 +107,13 @@ public interface ITicketService
   public Task UploadAttachmentAsync(Guid ticketId, IFormFile file);
 
   /// <summary>
-  /// Ruft alle verfügbaren Tags ab.
+  /// Ruft alle verfÃ¼gbaren Tags ab.
   /// </summary>
   /// <returns>Eine Liste von Tag-DTOs.</returns>
   public Task<IEnumerable<TagDto>> GetAllTagsAsync();
 
   /// <summary>
-  /// Gibt einen Upvote für ein Ticket ab (Phase 2 Enterprise).
+  /// Gibt einen Upvote fÃ¼r ein Ticket ab (Phase 2 Enterprise).
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
   /// <returns>Ein Task.</returns>

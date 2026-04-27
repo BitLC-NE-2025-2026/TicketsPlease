@@ -14,13 +14,13 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Implementiert die Geschäftslogik für die Nachrichtenverwaltung.
+/// Implementiert die GeschÃ¤ftslogik fÃ¼r die Nachrichtenverwaltung.
 /// </summary>
 /// <param name="messageRepository">Das injizierte Repository.</param>
 /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
-/// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
+/// <param name="fileAssetRepository">Das Repository fÃ¼r Datei-Metadaten.</param>
 /// <param name="notificationService">Der Benachrichtigungsdienst.</param>
-/// <param name="userRepository">Das Repository für Benutzer.</param>
+/// <param name="userRepository">Das Repository fÃ¼r Benutzer.</param>
 public class MessageService(
   IMessageRepository messageRepository,
   IFileStorageService fileStorageService,

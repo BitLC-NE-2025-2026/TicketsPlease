@@ -12,28 +12,28 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 /// <summary>
-/// Ein Authentifizierungs-Handler für Tests, der eine Identität basierend auf Header-Werten simuliert.
+/// Ein Authentifizierungs-Handler fÃ¼r Tests, der eine IdentitÃ¤t basierend auf Header-Werten simuliert.
 /// </summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Instantiated by DI in IntegrationTestBase")]
 internal sealed class TestAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
   /// <summary>
-  /// Der Name des Authentifizierungsschemas für Tests.
+  /// Der Name des Authentifizierungsschemas fÃ¼r Tests.
   /// </summary>
   public const string AuthenticationScheme = "TestAuth";
 
   /// <summary>
-  /// Header-Name für die Benutzer-ID.
+  /// Header-Name fÃ¼r die Benutzer-ID.
   /// </summary>
   public const string UserIdHeader = "X-Test-UserId";
 
   /// <summary>
-  /// Header-Name für den Rollennamen.
+  /// Header-Name fÃ¼r den Rollennamen.
   /// </summary>
   public const string RoleHeader = "X-Test-Role";
 
   /// <summary>
-  /// Header-Name für die Tenant-ID.
+  /// Header-Name fÃ¼r die Tenant-ID.
   /// </summary>
   public const string TenantIdHeader = "X-Test-TenantId";
 

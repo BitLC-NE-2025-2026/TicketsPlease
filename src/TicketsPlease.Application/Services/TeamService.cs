@@ -14,7 +14,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Service-Implementierung für das Management von Teams.
+/// Service-Implementierung fÃ¼r das Management von Teams.
 /// </summary>
 public class TeamService(ITeamRepository teamRepository) : ITeamService
 {

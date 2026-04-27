@@ -30,9 +30,9 @@ public class RelationshipTests : IntegrationTestBase
   }
 
   /// <summary>
-  /// Prüft, ob ein Ticket einem Benutzer korrekt zugewiesen werden kann und die Beziehung persistiert wird.
+  /// PrÃ¼ft, ob ein Ticket einem Benutzer korrekt zugewiesen werden kann und die Beziehung persistiert wird.
   /// </summary>
-  /// <returns>Ein <see cref="Task"/>, der die asynchrone Testausführung repräsentiert.</returns>
+  /// <returns>Ein <see cref="Task"/>, der die asynchrone TestausfÃ¼hrung reprÃ¤sentiert.</returns>
   [Fact]
   public async Task Ticket_Should_Be_Correctly_Assigned_To_User()
   {
@@ -64,7 +64,7 @@ public class RelationshipTests : IntegrationTestBase
     await db.SaveChangesAsync();
 
     var ticket = new Ticket("Beziehungs-Test", TicketType.Task, project.Id, user.Id, workflowStateId, "Todo", "127.0.0.1");
-    ticket.UpdateDescription("Testet die FK-Integrität", "Testet die FK-Integrität");
+    ticket.UpdateDescription("Testet die FK-IntegritÃ¤t", "Testet die FK-IntegritÃ¤t");
     ticket.SetPriority(priorityId);
     ticket.AssignUser(user.Id);
     ticket.SetTenantId(project.TenantId);
@@ -87,10 +87,10 @@ public class RelationshipTests : IntegrationTestBase
   }
 
   /// <summary>
-  /// Verifiziert, dass das Löschverhalten (DeleteBehavior.Restrict) eingehalten wird.
-  /// Ein Benutzer darf nicht gelöscht werden, wenn ihm noch Tickets zugewiesen sind.
+  /// Verifiziert, dass das LÃ¶schverhalten (DeleteBehavior.Restrict) eingehalten wird.
+  /// Ein Benutzer darf nicht gelÃ¶scht werden, wenn ihm noch Tickets zugewiesen sind.
   /// </summary>
-  /// <returns>Ein <see cref="Task"/>, der die asynchrone Testausführung repräsentiert.</returns>
+  /// <returns>Ein <see cref="Task"/>, der die asynchrone TestausfÃ¼hrung reprÃ¤sentiert.</returns>
   [Fact]
   public async Task Deleting_User_With_Tickets_Should_Fail_Due_To_Restrict_Behavior()
   {
@@ -136,6 +136,6 @@ public class RelationshipTests : IntegrationTestBase
       await db.SaveChangesAsync();
     };
 
-    await act.Should().ThrowAsync<Exception>(); // SQLite oder EF Core wirft hier eine DbUpdateException oder ähnliches
+    await act.Should().ThrowAsync<Exception>(); // SQLite oder EF Core wirft hier eine DbUpdateException oder Ã¤hnliches
   }
 }

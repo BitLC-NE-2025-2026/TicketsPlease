@@ -7,11 +7,11 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für Ticket-Prioritäten.
+/// DatenÃ¼bertragungsobjekt fÃ¼r Ticket-PrioritÃ¤ten.
 /// </summary>
-/// <param name="Id">Die ID der Priorität.</param>
+/// <param name="Id">Die ID der PrioritÃ¤t.</param>
 /// <param name="Name">Der Anzeigename.</param>
-/// <param name="ColorHex">Der Hex-Farbcode für die UI.</param>
+/// <param name="ColorHex">Der Hex-Farbcode fÃ¼r die UI.</param>
 public record TicketPriorityDto(
     Guid Id,
     string Name,

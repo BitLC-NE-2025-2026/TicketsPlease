@@ -9,7 +9,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Implementiert die Logik für das Organisations-Management.
+/// Implementiert die Logik fÃ¼r das Organisations-Management.
 /// </summary>
 /// <param name="repository">Das injizierte Repository.</param>
 /// <param name="inviteService">Der Einladungs-Service.</param>

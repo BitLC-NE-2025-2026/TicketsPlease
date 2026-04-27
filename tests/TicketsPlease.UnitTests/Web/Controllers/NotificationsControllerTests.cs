@@ -1,4 +1,4 @@
-﻿namespace TicketsPlease.UnitTests.Web.Controllers;
+namespace TicketsPlease.UnitTests.Web.Controllers;
 
 using System.Security.Claims;
 using FluentAssertions;
@@ -8,7 +8,7 @@ using Moq;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
-internal class NotificationsControllerTests
+public class NotificationsControllerTests
 {
   private readonly Mock<INotificationService> _notificationServiceMock = new();
   private readonly NotificationsController _controller;
@@ -19,10 +19,11 @@ internal class NotificationsControllerTests
     _controller = new NotificationsController(_notificationServiceMock.Object);
 
     var user = new ClaimsPrincipal(new ClaimsIdentity(
-      new[]
-    {
-            new Claim(ClaimTypes.NameIdentifier, _userId.ToString())
-    }, "TestAuth"));
+        new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, _userId.ToString()),
+        },
+        "TestAuth"));
 
     _controller.ControllerContext = new ControllerContext
     {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 /// <summary>
-/// SignalR Hub für Echtzeit-Benachrichtigungen und Kollaboration.
+/// SignalR Hub fÃ¼r Echtzeit-Benachrichtigungen und Kollaboration.
 /// </summary>
 [Authorize]
 internal class NotificationHub : Hub
@@ -71,7 +71,7 @@ internal class NotificationHub : Hub
   }
 
   /// <summary>
-  /// Tritt einer Gruppe für ein spezifisches Ticket bei (für Live-Updates/Präsenz).
+  /// Tritt einer Gruppe fÃ¼r ein spezifisches Ticket bei (fÃ¼r Live-Updates/PrÃ¤senz).
   /// </summary>
   /// <param name="ticketId">Die Ticket-ID.</param>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -91,7 +91,7 @@ internal class NotificationHub : Hub
   }
 
   /// <summary>
-  /// Verlässt die Gruppe für ein spezifisches Ticket.
+  /// VerlÃ¤sst die Gruppe fÃ¼r ein spezifisches Ticket.
   /// </summary>
   /// <param name="ticketId">Die Ticket-ID.</param>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>

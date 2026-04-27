@@ -9,7 +9,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-internal class TicketUpvoteTests
+public class TicketUpvoteTests
 {
   [Fact]
   public void Properties_ShouldBeSettable()

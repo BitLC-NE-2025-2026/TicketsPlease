@@ -14,7 +14,7 @@ internal abstract class InfrastructureTestBase : IDisposable
     _connection = new SqliteConnection("DataSource=:memory:");
     _connection.Open();
 
-    // Foreign Keys deaktivieren für Infrastruktur-Unit-Tests, um Setup-Komplexität zu reduzieren
+    // Foreign Keys deaktivieren fÃ¼r Infrastruktur-Unit-Tests, um Setup-KomplexitÃ¤t zu reduzieren
     using (var command = _connection.CreateCommand())
     {
       command.CommandText = "PRAGMA foreign_keys = OFF;";

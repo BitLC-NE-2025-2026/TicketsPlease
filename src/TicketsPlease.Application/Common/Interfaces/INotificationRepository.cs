@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Repository-Interface für den Zugriff auf <see cref="Notification"/>-Entitäten.
+/// Repository-Interface fÃ¼r den Zugriff auf <see cref="Notification"/>-EntitÃ¤ten.
 /// </summary>
 public interface INotificationRepository
 {
   /// <summary>
-  /// Ruft Benachrichtigungen für einen Benutzer ab.
+  /// Ruft Benachrichtigungen fÃ¼r einen Benutzer ab.
   /// </summary>
   /// <param name="userId">Die Benutzer-ID.</param>
   /// <param name="limit">Maximalanzahl.</param>
-  /// <param name="offset">Offset für Paging.</param>
+  /// <param name="offset">Offset fÃ¼r Paging.</param>
   /// <param name="ct">CancellationToken.</param>
   /// <returns>Eine Liste von Benachrichtigungen.</returns>
   public Task<List<Notification>> GetByUserIdAsync(Guid userId, int limit = 20, int offset = 0, CancellationToken ct = default);
@@ -34,14 +34,14 @@ public interface INotificationRepository
   public Task<Notification?> GetByIdAsync(Guid id, CancellationToken ct = default);
 
   /// <summary>
-  /// Speichert Änderungen im Kontext.
+  /// Speichert Ã„nderungen im Kontext.
   /// </summary>
   /// <param name="ct">CancellationToken.</param>
   /// <returns>Anzahl der betroffenen Zeilen.</returns>
   public Task<int> SaveChangesAsync(CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt eine neue Benachrichtigung hinzu.
+  /// FÃ¼gt eine neue Benachrichtigung hinzu.
   /// </summary>
   /// <param name="notification">Die Benachrichtigung.</param>
   /// <param name="ct">CancellationToken.</param>

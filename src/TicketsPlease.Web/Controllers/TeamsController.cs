@@ -14,7 +14,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller für das Teammanagement.
+/// Controller fÃ¼r das Teammanagement.
 /// </summary>
 [Authorize]
 internal sealed class TeamsController : Controller
@@ -78,7 +78,7 @@ internal sealed class TeamsController : Controller
   }
 
   /// <summary>
-  /// Zeigt die Management-Oberfläche für Teams an.
+  /// Zeigt die Management-OberflÃ¤che fÃ¼r Teams an.
   /// </summary>
   /// <returns>Die Management-View.</returns>
   [HttpGet]
@@ -117,7 +117,7 @@ internal sealed class TeamsController : Controller
   }
 
   /// <summary>
-  /// Sendet eine Beitrittsanfrage für ein Team.
+  /// Sendet eine Beitrittsanfrage fÃ¼r ein Team.
   /// </summary>
   /// <param name="teamId">ID des Teams.</param>
   /// <returns>Redirect zur Index-View.</returns>
@@ -163,7 +163,7 @@ internal sealed class TeamsController : Controller
   }
 
   /// <summary>
-  /// Entscheidet über eine Beitrittsanfrage.
+  /// Entscheidet Ã¼ber eine Beitrittsanfrage.
   /// </summary>
   /// <param name="requestId">ID der Anfrage.</param>
   /// <param name="approve">Ob die Anfrage angenommen werden soll.</param>

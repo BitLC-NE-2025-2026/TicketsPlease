@@ -11,8 +11,8 @@ using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Enums;
 
 /// <summary>
-/// Repräsentiert ein Ticket (Aufgabe) im Kanban-System.
-/// Erbt von <see cref="BaseEntity"/> für die ID und Nebenläufigkeitskontrolle.
+/// ReprÃ¤sentiert ein Ticket (Aufgabe) im Kanban-System.
+/// Erbt von <see cref="BaseEntity"/> fÃ¼r die ID und NebenlÃ¤ufigkeitskontrolle.
 /// </summary>
 public class Ticket : BaseAuditableEntity
 {
@@ -25,7 +25,7 @@ public class Ticket : BaseAuditableEntity
   /// <param name="creatorId">Die ID des Erstellers.</param>
   /// <param name="workflowStateId">Die ID des initialen Status.</param>
   /// <param name="statusName">Der Name des initialen Status.</param>
-  /// <param name="geoIpTimestamp">Der GeoIP-Zeitstempel für Audits.</param>
+  /// <param name="geoIpTimestamp">Der GeoIP-Zeitstempel fÃ¼r Audits.</param>
   public Ticket(string title, TicketType type, Guid projectId, Guid creatorId, Guid workflowStateId, string statusName, string geoIpTimestamp)
   {
     if (string.IsNullOrWhiteSpace(title))
@@ -78,12 +78,12 @@ public class Ticket : BaseAuditableEntity
   public string Status { get; private set; } = "Todo";
 
   /// <summary>
-  /// Gets die ID der Priorität.
+  /// Gets die ID der PrioritÃ¤t.
   /// </summary>
   public Guid PriorityId { get; private set; }
 
   /// <summary>
-  /// Gets das Navigation-Property zur Priorität.
+  /// Gets das Navigation-Property zur PrioritÃ¤t.
   /// </summary>
   public TicketPriority? Priority { get; }
 
@@ -93,7 +93,7 @@ public class Ticket : BaseAuditableEntity
   public int ChilliesDifficulty { get; private set; }
 
   /// <summary>
-  /// Gets den GeoIP-Zeitstempel für Audits.
+  /// Gets den GeoIP-Zeitstempel fÃ¼r Audits.
   /// </summary>
   public string GeoIpTimestamp { get; private set; } = string.Empty;
 
@@ -153,22 +153,22 @@ public class Ticket : BaseAuditableEntity
   public TicketType Type { get; private set; }
 
   /// <summary>
-  /// Gets die geschätzte Größe des Tickets.
+  /// Gets die geschÃ¤tzte GrÃ¶ÃŸe des Tickets.
   /// </summary>
   public TicketSize Size { get; private set; }
 
   /// <summary>
-  /// Gets die geschätzten Story Points.
+  /// Gets die geschÃ¤tzten Story Points.
   /// </summary>
   public int? EstimatePoints { get; private set; }
 
   /// <summary>
-  /// Gets die ID des übergeordneten Tickets (für Epics/Hierarchien).
+  /// Gets die ID des Ã¼bergeordneten Tickets (fÃ¼r Epics/Hierarchien).
   /// </summary>
   public Guid? ParentTicketId { get; private set; }
 
   /// <summary>
-  /// Gets das übergeordnete Ticket.
+  /// Gets das Ã¼bergeordnete Ticket.
   /// </summary>
   public Ticket? ParentTicket { get; }
 
@@ -183,7 +183,7 @@ public class Ticket : BaseAuditableEntity
   public ICollection<Ticket> Children { get; private set; } = new List<Ticket>();
 
   /// <summary>
-  /// Gets die Liste der Untertickets (Checklisteneinträge).
+  /// Gets die Liste der Untertickets (ChecklisteneintrÃ¤ge).
   /// </summary>
   public ICollection<SubTicket> SubTickets { get; private set; } = new List<SubTicket>();
 
@@ -203,7 +203,7 @@ public class Ticket : BaseAuditableEntity
   public ICollection<TicketLink> Blocking { get; private set; } = new List<TicketLink>();
 
   /// <summary>
-  /// Gets die Liste der Dateianhänge des Tickets.
+  /// Gets die Liste der DateianhÃ¤nge des Tickets.
   /// </summary>
   public ICollection<FileAsset> Attachments { get; private set; } = new List<FileAsset>();
 
@@ -213,7 +213,7 @@ public class Ticket : BaseAuditableEntity
   public ICollection<TicketHistory> History { get; private set; } = new List<TicketHistory>();
 
   /// <summary>
-  /// Gets die Liste der Upvotes für dieses Ticket.
+  /// Gets die Liste der Upvotes fÃ¼r dieses Ticket.
   /// </summary>
   public ICollection<TicketUpvote> Upvotes { get; private set; } = new List<TicketUpvote>();
 
@@ -253,18 +253,18 @@ public class Ticket : BaseAuditableEntity
   public DateTime? ResolutionDeadline { get; private set; }
 
   /// <summary>
-  /// Gets den Zeitpunkt der letzten Antwort (für Response-SLA).
+  /// Gets den Zeitpunkt der letzten Antwort (fÃ¼r Response-SLA).
   /// </summary>
   public DateTime? LastRespondedAt { get; private set; }
 
   /// <summary>
-  /// Prüft, ob das Ticket geschlossen werden kann (F7).
-  /// Ein Ticket kann nicht geschlossen werden, wenn es noch offene Abhängigkeiten (Vorgänger) hat.
+  /// PrÃ¼ft, ob das Ticket geschlossen werden kann (F7).
+  /// Ein Ticket kann nicht geschlossen werden, wenn es noch offene AbhÃ¤ngigkeiten (VorgÃ¤nger) hat.
   /// </summary>
   /// <returns>True, wenn keine offenen Blocker existieren.</returns>
   public bool CanBeClosed()
   {
-    // Ein Ticket ist blockiert, wenn einer seiner Vorgänger (BlockedBy -> SourceTicket) nicht geschlossen ist.
+    // Ein Ticket ist blockiert, wenn einer seiner VorgÃ¤nger (BlockedBy -> SourceTicket) nicht geschlossen ist.
     return !this.BlockedBy.Any(d => d.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks && d.SourceTicket != null && d.SourceTicket.Status != "Done");
   }
 
@@ -322,9 +322,9 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Setzt die Priorität des Tickets.
+  /// Setzt die PrioritÃ¤t des Tickets.
   /// </summary>
-  /// <param name="priorityId">Die ID der Priorität.</param>
+  /// <param name="priorityId">Die ID der PrioritÃ¤t.</param>
   public void SetPriority(Guid priorityId)
   {
     this.PriorityId = priorityId;
@@ -332,8 +332,8 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Schließt das Ticket.
-  /// (Regel F3.4: Nur Admin, Ersteller oder Zugewiesener dürfen schließen).
+  /// SchlieÃŸt das Ticket.
+  /// (Regel F3.4: Nur Admin, Ersteller oder Zugewiesener dÃ¼rfen schlieÃŸen).
   /// </summary>
   /// <param name="actorId">Die ID des handelnden Benutzers.</param>
   /// <param name="isAdmin">Gibt an, ob der Benutzer Admin-Rechte hat.</param>
@@ -342,7 +342,7 @@ public class Ticket : BaseAuditableEntity
   {
     if (!isAdmin && actorId != this.CreatorId && actorId != this.AssignedUserId)
     {
-      throw new InvalidOperationException("Nur der Admin, der Ersteller oder der zugewiesene Benutzer dürfen das Ticket schließen.");
+      throw new InvalidOperationException("Nur der Admin, der Ersteller oder der zugewiesene Benutzer dÃ¼rfen das Ticket schlieÃŸen.");
     }
 
     this.ClosedAt = DateTime.UtcNow;
@@ -392,9 +392,9 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Setzt die Größe des Tickets.
+  /// Setzt die GrÃ¶ÃŸe des Tickets.
   /// </summary>
-  /// <param name="size">Die geschätzte Größe.</param>
+  /// <param name="size">Die geschÃ¤tzte GrÃ¶ÃŸe.</param>
   public void SetSize(TicketSize size)
   {
     this.Size = size;
@@ -402,7 +402,7 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Setzt die geschätzten Story Points.
+  /// Setzt die geschÃ¤tzten Story Points.
   /// </summary>
   /// <param name="points">Die Punkte.</param>
   public void SetEstimatePoints(int? points)
@@ -412,7 +412,7 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Setzt das übergeordnete Ticket.
+  /// Setzt das Ã¼bergeordnete Ticket.
   /// </summary>
   /// <param name="parentId">Die ID des Eltern-Tickets.</param>
   public void SetParent(Guid? parentId)
@@ -427,15 +427,15 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Fügt eine Verknüpfung zu einem anderen Ticket hinzu.
+  /// FÃ¼gt eine VerknÃ¼pfung zu einem anderen Ticket hinzu.
   /// </summary>
   /// <param name="targetId">Das Ziel-Ticket.</param>
-  /// <param name="linkType">Der Typ der Verknüpfung.</param>
+  /// <param name="linkType">Der Typ der VerknÃ¼pfung.</param>
   public void AddLink(Guid targetId, TicketLinkType linkType)
   {
     if (targetId == this.Id)
     {
-      throw new InvalidOperationException("Ein Ticket kann nicht mit sich selbst verknüpft werden.");
+      throw new InvalidOperationException("Ein Ticket kann nicht mit sich selbst verknÃ¼pft werden.");
     }
 
     this.Blocking.Add(new TicketLink(this.Id, targetId, linkType));
@@ -457,7 +457,7 @@ public class Ticket : BaseAuditableEntity
       this.Tags.Remove(tt);
     }
 
-    // Füge neue Tags hinzu
+    // FÃ¼ge neue Tags hinzu
     foreach (var tagId in tagIds.Where(tagId => !this.Tags.Any(tt => tt.TagId == tagId)))
     {
       this.Tags.Add(new TicketTag { TicketId = this.Id, TagId = tagId });
@@ -467,7 +467,7 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Berechnet den Fortschritt in Prozent basierend auf den Untertickets (Checklisteneinträgen).
+  /// Berechnet den Fortschritt in Prozent basierend auf den Untertickets (ChecklisteneintrÃ¤gen).
   /// </summary>
   /// <returns>Ein Wert zwischen 0 und 100.</returns>
   public int GetProgressPercentage()
@@ -482,10 +482,10 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Setzt die SLA-Deadlines (Antwort und Lösung).
+  /// Setzt die SLA-Deadlines (Antwort und LÃ¶sung).
   /// </summary>
-  /// <param name="responseLimit">Das Zeitlimit für die erste Antwort.</param>
-  /// <param name="resolutionLimit">Das Zeitlimit für die Lösung.</param>
+  /// <param name="responseLimit">Das Zeitlimit fÃ¼r die erste Antwort.</param>
+  /// <param name="resolutionLimit">Das Zeitlimit fÃ¼r die LÃ¶sung.</param>
   public void SetSLA(TimeSpan responseLimit, TimeSpan resolutionLimit)
   {
     this.ResponseDeadline = this.CreatedAt.Add(responseLimit);
@@ -494,7 +494,7 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Markiert, dass auf das Ticket reagiert wurde (Response-SLA erfüllt).
+  /// Markiert, dass auf das Ticket reagiert wurde (Response-SLA erfÃ¼llt).
   /// </summary>
   public void RecordResponse()
   {
@@ -507,7 +507,7 @@ public class Ticket : BaseAuditableEntity
 
   private string GenerateDomainHash()
   {
-    // SHA256 Hash für den Domain Hash (64 Zeichen Hex)
+    // SHA256 Hash fÃ¼r den Domain Hash (64 Zeichen Hex)
     var raw = $"{this.ProjectId}-{this.CreatorId}-{this.CreatedAt.Ticks}-{Guid.NewGuid()}";
     var hashBytes = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(raw));
     return Convert.ToHexString(hashBytes).ToUpperInvariant();

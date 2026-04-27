@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Implementiert den Datenzugriff für Kommentare unter Verwendung von Entity Framework Core.
+/// Implementiert den Datenzugriff fÃ¼r Kommentare unter Verwendung von Entity Framework Core.
 /// </summary>
 public class CommentRepository : ICommentRepository
 {

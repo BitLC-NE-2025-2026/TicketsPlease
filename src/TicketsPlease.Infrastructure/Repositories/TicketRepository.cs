@@ -15,8 +15,8 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Implementiert den Datenzugriff für Tickets unter Verwendung von Entity Framework Core.
-/// Berücksichtigt Performance-Optimierungen wie AsNoTracking für Leseabfragen.
+/// Implementiert den Datenzugriff fÃ¼r Tickets unter Verwendung von Entity Framework Core.
+/// BerÃ¼cksichtigt Performance-Optimierungen wie AsNoTracking fÃ¼r Leseabfragen.
 /// </summary>
 public class TicketRepository : ITicketRepository
 {
@@ -34,7 +34,7 @@ public class TicketRepository : ITicketRepository
   /// <inheritdoc />
   public async Task<Ticket?> GetByIdAsync(Guid id, CancellationToken ct = default)
   {
-    // Wir nutzen hier kein AsNoTracking, da das Objekt evtl. bearbeitet werden soll (Tracking benötig).
+    // Wir nutzen hier kein AsNoTracking, da das Objekt evtl. bearbeitet werden soll (Tracking benÃ¶tig).
     return await this.context.Tickets
         .Include(t => t.AssignedUser)
         .Include(t => t.Project)
@@ -58,7 +58,7 @@ public class TicketRepository : ITicketRepository
   /// <inheritdoc />
   public async Task<List<Ticket>> GetAllActiveAsync(CancellationToken ct = default)
   {
-    // Enterprise Pattern: Reine Leseabfragen strikt mit AsNoTracking ausführen
+    // Enterprise Pattern: Reine Leseabfragen strikt mit AsNoTracking ausfÃ¼hren
     return await this.context.Tickets
         .AsNoTracking()
         .Include(t => t.AssignedUser)
@@ -76,7 +76,7 @@ public class TicketRepository : ITicketRepository
   /// <param name="assignedUserId">Die ID des zugewiesenen Benutzers.</param>
   /// <param name="creatorId">Die ID des Erstellers.</param>
   /// <param name="status">Der Ticket-Status.</param>
-  /// <param name="priorityId">Die Prioritäts-ID.</param>
+  /// <param name="priorityId">Die PrioritÃ¤ts-ID.</param>
   /// <param name="fromDate">Startdatum.</param>
   /// <param name="toDate">Enddatum.</param>
   /// <param name="searchString">Der Suchbegriff.</param>
@@ -164,7 +164,7 @@ public class TicketRepository : ITicketRepository
   /// <inheritdoc />
   public async Task<int> SaveChangesAsync(CancellationToken ct = default)
   {
-    // EF Core führt hier automatisch die Nebenläufigkeitsprüfung (RowVersion) durch
+    // EF Core fÃ¼hrt hier automatisch die NebenlÃ¤ufigkeitsprÃ¼fung (RowVersion) durch
     return await this.context.SaveChangesAsync(ct).ConfigureAwait(false);
   }
 

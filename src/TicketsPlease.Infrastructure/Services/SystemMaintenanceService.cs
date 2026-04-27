@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Dienst für systemkritische Wartungsarbeiten wie das Löschen der Datenbank oder einzelner Tabellen.
+/// Dienst fÃ¼r systemkritische Wartungsarbeiten wie das LÃ¶schen der Datenbank oder einzelner Tabellen.
 /// </summary>
 public class SystemMaintenanceService
 {
@@ -30,19 +30,19 @@ public class SystemMaintenanceService
   }
 
   /// <summary>
-  /// Löscht alle Daten aus einer spezifischen Tabelle.
+  /// LÃ¶scht alle Daten aus einer spezifischen Tabelle.
   /// </summary>
   /// <param name="tableName">Der Name der Tabelle.</param>
   /// <returns>Ein Task.</returns>
   public async Task TruncateTableAsync(string tableName)
   {
-    this.logger.LogWarning("Manuelle Tabellenlöschung angefordert: {TableName}", tableName);
+    this.logger.LogWarning("Manuelle TabellenlÃ¶schung angefordert: {TableName}", tableName);
 
-    // Einfache SQL-Safe-Prüfung (nur bekannte Tabellennamen erlauben)
+    // Einfache SQL-Safe-PrÃ¼fung (nur bekannte Tabellennamen erlauben)
     var allowedTables = new[] { "Tickets", "Tasks", "Comments", "TimeLogs", "Notifications", "Messages", "Teams", "TeamMembers", "SubTickets" };
     if (!System.Linq.Enumerable.Contains(allowedTables, tableName))
     {
-      throw new InvalidOperationException($"Tabelle '{tableName}' ist nicht für automatisierte Löschung freigegeben.");
+      throw new InvalidOperationException($"Tabelle '{tableName}' ist nicht fÃ¼r automatisierte LÃ¶schung freigegeben.");
     }
 
     var sql = $"DELETE FROM [{tableName}]";
@@ -51,7 +51,7 @@ public class SystemMaintenanceService
   }
 
   /// <summary>
-  /// Löscht die gesamte Datenbank und erstellt das Schema neu (Wipe).
+  /// LÃ¶scht die gesamte Datenbank und erstellt das Schema neu (Wipe).
   /// </summary>
   /// <returns>Ein Task.</returns>
   public async Task WipeDatabaseAsync()

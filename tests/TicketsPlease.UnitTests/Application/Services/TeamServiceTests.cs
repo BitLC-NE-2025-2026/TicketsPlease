@@ -7,7 +7,7 @@ using TicketsPlease.Application.Services;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-internal class TeamServiceTests
+public class TeamServiceTests
 {
   private readonly Mock<ITeamRepository> _teamRepoMock;
   private readonly TeamService _teamService;

@@ -1,4 +1,4 @@
-﻿namespace TicketsPlease.UnitTests.Web.Controllers;
+namespace TicketsPlease.UnitTests.Web.Controllers;
 
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +6,7 @@ using Moq;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
-internal class ProjectControllerTests
+public class ProjectControllerTests
 {
   private readonly Mock<IProjectService> _projectServiceMock = new();
   private readonly Mock<ITicketService> _ticketServiceMock = new();

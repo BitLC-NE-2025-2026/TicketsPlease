@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// Datenübertragungsobjekt für ein Team.
+/// DatenÃ¼bertragungsobjekt fÃ¼r ein Team.
 /// </summary>
 /// <param name="Id">Die ID des Teams.</param>
 /// <param name="Name">Der Name des Teams.</param>

@@ -10,13 +10,13 @@ using Microsoft.AspNetCore.Identity;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen Benutzer im Ticketsystem.
-/// Erbt von <see cref="IdentityUser{TKey}"/> für ASP.NET Core Identity Integration.
+/// ReprÃ¤sentiert einen Benutzer im Ticketsystem.
+/// Erbt von <see cref="IdentityUser{TKey}"/> fÃ¼r ASP.NET Core Identity Integration.
 /// </summary>
 public class User : IdentityUser<Guid>, IBaseEntity
 {
   /// <summary>
-  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
+  /// Eine Liste von Domain-Events, die von dieser EntitÃ¤t ausgelÃ¶st wurden.
   /// </summary>
   private readonly List<IDomainEvent> domainEvents = new();
 
@@ -47,12 +47,12 @@ public class User : IdentityUser<Guid>, IBaseEntity
   public bool IsOnline { get; set; }
 
   /// <summary>
-  /// Gets or sets den Fremdschlüssel zur Organisation (Mandantenfähigkeit).
+  /// Gets or sets den FremdschlÃ¼ssel zur Organisation (MandantenfÃ¤higkeit).
   /// </summary>
   public Guid TenantId { get; set; }
 
   /// <summary>
-  /// Gets or sets a value indicating whether die Entität gelöscht wurde (Soft-Delete).
+  /// Gets or sets a value indicating whether die EntitÃ¤t gelÃ¶scht wurde (Soft-Delete).
   /// </summary>
   public bool IsDeleted { get; set; }
 
@@ -62,7 +62,7 @@ public class User : IdentityUser<Guid>, IBaseEntity
   public DateTime? DeletedAt { get; set; }
 
   /// <summary>
-  /// Gets or sets die Version für die Nebenläufigkeitskontrolle.
+  /// Gets or sets die Version fÃ¼r die NebenlÃ¤ufigkeitskontrolle.
   /// </summary>
 #pragma warning disable CA1819 // Properties should not return arrays
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
@@ -79,7 +79,7 @@ public class User : IdentityUser<Guid>, IBaseEntity
   public Role? Role { get; set; }
 
   /// <summary>
-  /// Gets or sets das zugehörige Benutzerprofil (1:1).
+  /// Gets or sets das zugehÃ¶rige Benutzerprofil (1:1).
   /// </summary>
   public virtual UserProfile? Profile { get; set; }
 
@@ -89,9 +89,9 @@ public class User : IdentityUser<Guid>, IBaseEntity
   public IReadOnlyCollection<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
 
   /// <summary>
-  /// Fügt ein Domain-Event hinzu.
+  /// FÃ¼gt ein Domain-Event hinzu.
   /// </summary>
-  /// <param name="domainEvent">Das hinzuzufügende Event.</param>
+  /// <param name="domainEvent">Das hinzuzufÃ¼gende Event.</param>
   public void AddDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Add(domainEvent);
 
   /// <summary>

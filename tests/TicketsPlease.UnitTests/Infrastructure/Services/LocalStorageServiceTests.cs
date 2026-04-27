@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Moq;
 using TicketsPlease.Infrastructure.Services;
 
-internal class LocalStorageServiceTests
+public class LocalStorageServiceTests
 {
   private readonly Mock<IWebHostEnvironment> _mockEnv;
   private readonly string _contentRootPath;

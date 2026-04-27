@@ -7,7 +7,7 @@ namespace TicketsPlease.Web.Models.Account;
 using System.ComponentModel.DataAnnotations;
 
 /// <summary>
-/// Das ViewModel für die Registrierung.
+/// Das ViewModel fÃ¼r die Registrierung.
 /// </summary>
 internal class RegisterViewModel
 {
@@ -36,7 +36,7 @@ internal class RegisterViewModel
   public string Password { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die Passwort-Bestätigung.
+  /// Gets or sets die Passwort-BestÃ¤tigung.
   /// </summary>
   [DataType(DataType.Password)]
   [Display(Name = "Confirm password")]
@@ -64,7 +64,7 @@ internal class RegisterViewModel
   public string? TechStack { get; set; }
 
   /// <summary>
-  /// Gets or sets die Straße.
+  /// Gets or sets die StraÃŸe.
   /// </summary>
   [Required(ErrorMessage = "The Street field is required.")]
   [Display(Name = "Street")]

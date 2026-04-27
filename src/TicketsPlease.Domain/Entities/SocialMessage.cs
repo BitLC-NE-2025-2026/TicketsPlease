@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Nachricht im tenant-übergreifenden Social/Feed-System.
+/// ReprÃ¤sentiert eine Nachricht im tenant-Ã¼bergreifenden Social/Feed-System.
 /// </summary>
 public class SocialMessage : BaseAuditableEntity
 {

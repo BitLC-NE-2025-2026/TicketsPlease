@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Definiert die Geschäftslogik für das Teammanagement.
+/// Definiert die GeschÃ¤ftslogik fÃ¼r das Teammanagement.
 /// </summary>
 public interface ITeamService
 {
@@ -36,7 +36,7 @@ public interface ITeamService
   /// </summary>
   /// <param name="currentUserId">Optionale ID des aktuellen Benutzers zur Markierung der Mitgliedschaft.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   public Task<IEnumerable<TeamDto>> GetAllTeamsAsync(Guid? currentUserId = null, CancellationToken cancellationToken = default);
 
   /// <summary>
@@ -59,12 +59,12 @@ public interface ITeamService
   public Task<Guid> CreateTeamAsync(string name, string description, string colorCode, Guid creatorUserId, CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Fügt ein Mitglied zu einem Team hinzu.
+  /// FÃ¼gt ein Mitglied zu einem Team hinzu.
   /// </summary>
   /// <param name="teamId">Die ID des Teams.</param>
   /// <param name="userId">Die ID des Benutzers.</param>
   /// <param name="isTeamLead">Gibt an, ob das Mitglied als Leiter fungiert.</param>
-  /// <param name="saveChanges">Ob Änderungen sofort gespeichert werden sollen.</param>
+  /// <param name="saveChanges">Ob Ã„nderungen sofort gespeichert werden sollen.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
   /// <returns>Die asynchrone Operation.</returns>
   public Task AddMemberAsync(Guid teamId, Guid userId, bool isTeamLead = false, bool saveChanges = true, CancellationToken cancellationToken = default);
@@ -79,14 +79,14 @@ public interface ITeamService
   public Task RemoveMemberAsync(Guid teamId, Guid userId, CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Markiert ein Team als gelöscht.
+  /// Markiert ein Team als gelÃ¶scht.
   /// </summary>
   /// <param name="teamId">Die ID des Teams.</param>
   /// <returns>Die asynchrone Operation.</returns>
   public Task DeleteTeamAsync(Guid teamId);
 
   /// <summary>
-  /// Sendet eine Beitrittsanfrage für ein Team.
+  /// Sendet eine Beitrittsanfrage fÃ¼r ein Team.
   /// </summary>
   /// <param name="teamId">Die ID des Teams.</param>
   /// <param name="userId">Die ID des Benutzers.</param>
@@ -95,7 +95,7 @@ public interface ITeamService
   public Task<Guid> RequestJoinAsync(Guid teamId, Guid userId, CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Entscheidet über eine Beitrittsanfrage (Annehmen oder Ablehnen).
+  /// Entscheidet Ã¼ber eine Beitrittsanfrage (Annehmen oder Ablehnen).
   /// </summary>
   /// <param name="requestId">Die ID der Anfrage.</param>
   /// <param name="decidedByUserId">Die ID des Entscheiders.</param>
@@ -105,7 +105,7 @@ public interface ITeamService
   public Task DecideJoinRequestAsync(Guid requestId, Guid decidedByUserId, bool approve, CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Ruft alle Beitrittsanfragen für ein Team ab.
+  /// Ruft alle Beitrittsanfragen fÃ¼r ein Team ab.
   /// </summary>
   /// <param name="teamId">Die ID des Teams.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>

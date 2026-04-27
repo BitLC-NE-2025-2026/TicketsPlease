@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Implementierung des ITimeLogRepository für den Zugriff auf Zeiterfassungsdaten.
+/// Implementierung des ITimeLogRepository fÃ¼r den Zugriff auf Zeiterfassungsdaten.
 /// </summary>
 public class TimeLogRepository : ITimeLogRepository
 {

@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen erlaubten Zustandsübergang in einem Ticket-Workflow.
+/// ReprÃ¤sentiert einen erlaubten ZustandsÃ¼bergang in einem Ticket-Workflow.
 /// </summary>
 public class WorkflowTransition : BaseEntity
 {
@@ -18,7 +18,7 @@ public class WorkflowTransition : BaseEntity
   public Guid FromStateId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den Ausgangszustand.
+  /// Gets or sets das Navigation-Property fÃ¼r den Ausgangszustand.
   /// </summary>
   public WorkflowState? FromState { get; set; }
 
@@ -28,17 +28,17 @@ public class WorkflowTransition : BaseEntity
   public Guid ToStateId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den Zielzustand.
+  /// Gets or sets das Navigation-Property fÃ¼r den Zielzustand.
   /// </summary>
   public WorkflowState? ToState { get; set; }
 
   /// <summary>
-  /// Gets or sets die (optionale) Rollen-ID, um den Übergang auf eine bestimmte Rolle zu beschränken.
+  /// Gets or sets die (optionale) Rollen-ID, um den Ãœbergang auf eine bestimmte Rolle zu beschrÃ¤nken.
   /// </summary>
   public Guid? AllowedRoleId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für die erlaubte Rolle.
+  /// Gets or sets das Navigation-Property fÃ¼r die erlaubte Rolle.
   /// </summary>
   public Role? AllowedRole { get; set; }
 }

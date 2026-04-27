@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert ein Projekt, dem Tickets zugeordnet werden können.
+/// ReprÃ¤sentiert ein Projekt, dem Tickets zugeordnet werden kÃ¶nnen.
 /// (Pflicht F2.2).
 /// </summary>
 public class Project : BaseEntity
@@ -61,7 +61,7 @@ public class Project : BaseEntity
 
   /// <summary>
   /// Gets a value indicating whether das Projekt offen ist.
-  /// Nur offene Projekte können Tickets zugeordnet werden.
+  /// Nur offene Projekte kÃ¶nnen Tickets zugeordnet werden.
   /// </summary>
   public bool IsOpen { get; private set; } = true;
 
@@ -107,7 +107,7 @@ public class Project : BaseEntity
   }
 
   /// <summary>
-  /// Schließt das Projekt.
+  /// SchlieÃŸt das Projekt.
   /// </summary>
   public void Close()
   {
@@ -116,7 +116,7 @@ public class Project : BaseEntity
   }
 
   /// <summary>
-  /// Öffnet das Projekt wieder.
+  /// Ã–ffnet das Projekt wieder.
   /// </summary>
   public void Open()
   {
@@ -143,7 +143,7 @@ public class Project : BaseEntity
   }
 
   /// <summary>
-  /// Führt einen Soft-Delete des Projekts aus.
+  /// FÃ¼hrt einen Soft-Delete des Projekts aus.
   /// </summary>
   public void SoftDelete()
   {

@@ -8,17 +8,17 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen Zeiterfassungseintrag für die Arbeit an einem Ticket.
+/// ReprÃ¤sentiert einen Zeiterfassungseintrag fÃ¼r die Arbeit an einem Ticket.
 /// </summary>
 public class TimeLog : BaseEntity
 {
   /// <summary>
-  /// Gets or sets die ID des zugehörigen Tickets.
+  /// Gets or sets die ID des zugehÃ¶rigen Tickets.
   /// </summary>
   public Guid TicketId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das zugehörige Ticket.
+  /// Gets or sets das Navigation-Property fÃ¼r das zugehÃ¶rige Ticket.
   /// </summary>
   public Ticket? Ticket { get; set; }
 
@@ -28,7 +28,7 @@ public class TimeLog : BaseEntity
   public Guid UserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den Benutzer, der die Zeit erfasst hat.
+  /// Gets or sets das Navigation-Property fÃ¼r den Benutzer, der die Zeit erfasst hat.
   /// </summary>
   public User? User { get; set; }
 

@@ -18,7 +18,7 @@ using TicketsPlease.Infrastructure.Persistence;
 using Xunit;
 
 /// <summary>
-/// Integrations-Tests für die Service-Layer (TicketService, etc.).
+/// Integrations-Tests fÃ¼r die Service-Layer (TicketService, etc.).
 /// </summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test naming convention")]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2007:Consider calling ConfigureAwait", Justification = "xUnit tests should not use ConfigureAwait(false)")]

@@ -5,7 +5,7 @@
 namespace TicketsPlease.Web.Models;
 
 /// <summary>
-/// Modell für die Anzeige von Fehlermeldungen.
+/// Modell fÃ¼r die Anzeige von Fehlermeldungen.
 /// </summary>
 internal sealed class ErrorViewModel
 {

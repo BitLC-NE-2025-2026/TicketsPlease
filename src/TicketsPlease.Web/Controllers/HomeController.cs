@@ -11,7 +11,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Web.Models;
 
 /// <summary>
-/// Der Standard-Controller für die Startseite und allgemeine Seiten.
+/// Der Standard-Controller fÃ¼r die Startseite und allgemeine Seiten.
 /// </summary>
 internal sealed class HomeController : Controller
 {
@@ -59,7 +59,7 @@ internal sealed class HomeController : Controller
   }
 
   /// <summary>
-  /// Zeigt die Fehlerseite für HTTP-Fehler an.
+  /// Zeigt die Fehlerseite fÃ¼r HTTP-Fehler an.
   /// </summary>
   /// <returns>Die Error-View mit Anforderungs-ID.</returns>
   [HttpGet]

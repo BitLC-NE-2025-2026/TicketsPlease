@@ -10,7 +10,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Implementiert den Datenzugriff für Organisationen.
+/// Implementiert den Datenzugriff fÃ¼r Organisationen.
 /// </summary>
 public class OrganizationRepository : IOrganizationRepository
 {
@@ -47,7 +47,7 @@ public class OrganizationRepository : IOrganizationRepository
   }
 
   /// <summary>
-  /// Speichert Änderungen.
+  /// Speichert Ã„nderungen.
   /// </summary>
   /// <param name="ct">Abbruchsignal.</param>
   /// <returns>Task.</returns>

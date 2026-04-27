@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für einen Kommentar (F5).
+/// DatenÃ¼bertragungsobjekt fÃ¼r einen Kommentar (F5).
 /// </summary>
 /// <param name="Id">Die ID des Kommentars.</param>
 /// <param name="Content">Der Inhalt.</param>

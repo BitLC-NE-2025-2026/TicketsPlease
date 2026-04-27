@@ -17,15 +17,15 @@ using TicketsPlease.Domain.Entities;
 /// <summary>
 /// Implementierung des Ticket-Services zur Steuerung des Kanban-Boards.
 /// </summary>
-/// <param name="ticketRepository">Das Repository für Tickets.</param>
+/// <param name="ticketRepository">Das Repository fÃ¼r Tickets.</param>
 /// <param name="userManager">Die Benutzerverwaltung.</param>
 /// <param name="roleManager">Die Rollenverwaltung.</param>
 /// <param name="httpContextAccessor">Zugriff auf den HTTP-Kontext.</param>
-/// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
+/// <param name="fileAssetRepository">Das Repository fÃ¼r Datei-Metadaten.</param>
 /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
-/// <param name="timeTrackingService">Der Dienst für Zeiterfassung.</param>
-/// <param name="subTicketService">Der Dienst für Untertickets.</param>
-/// <param name="notificationService">Der Dienst für Benachrichtigungen.</param>
+/// <param name="timeTrackingService">Der Dienst fÃ¼r Zeiterfassung.</param>
+/// <param name="subTicketService">Der Dienst fÃ¼r Untertickets.</param>
+/// <param name="notificationService">Der Dienst fÃ¼r Benachrichtigungen.</param>
 public class TicketService(
     ITicketRepository ticketRepository,
     UserManager<User> userManager,
@@ -193,27 +193,27 @@ public class TicketService(
       throw new KeyNotFoundException(TicketNotFoundMessage);
     }
 
-    var targetState = await ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false) ?? throw new ArgumentException($"Ungültiger Status: {newStatus}");
+    var targetState = await ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false) ?? throw new ArgumentException($"UngÃ¼ltiger Status: {newStatus}");
 
-    // Übergangsregel prüfen (F8)
-    var transition = await ticketRepository.GetTransitionAsync(ticket.WorkflowStateId, targetState.Id).ConfigureAwait(false) ?? throw new InvalidOperationException($"Der Übergang von '{ticket.Status}' nach '{newStatus}' ist nicht erlaubt.");
+    // Ãœbergangsregel prÃ¼fen (F8)
+    var transition = await ticketRepository.GetTransitionAsync(ticket.WorkflowStateId, targetState.Id).ConfigureAwait(false) ?? throw new InvalidOperationException($"Der Ãœbergang von '{ticket.Status}' nach '{newStatus}' ist nicht erlaubt.");
 
-    // Rollenprüfung falls eingeschränkt
+    // RollenprÃ¼fung falls eingeschrÃ¤nkt
     if (transition.AllowedRoleId.HasValue)
     {
       var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
 
-      // Wir gehen davon aus, dass wir die Rollen-Namen prüfen oder die ID vergleichen müssen.
-      // Da wir in der Transition die RoleId haben, prüfen wir ob der User diese Rolle hat.
+      // Wir gehen davon aus, dass wir die Rollen-Namen prÃ¼fen oder die ID vergleichen mÃ¼ssen.
+      // Da wir in der Transition die RoleId haben, prÃ¼fen wir ob der User diese Rolle hat.
       // Besser: roleManager nutzen oder rollen-Strings vergleichen.
-      // Einfachere Lösung für MVVM: User-Rollen gegen Namen prüfen wenn Role-ID bekannt ist.
-      // Da wir statische IDs haben, können wir es hardcoden oder sauber auflösen.
+      // Einfachere LÃ¶sung fÃ¼r MVVM: User-Rollen gegen Namen prÃ¼fen wenn Role-ID bekannt ist.
+      // Da wir statische IDs haben, kÃ¶nnen wir es hardcoden oder sauber auflÃ¶sen.
 
-      // Suche Rolle Name für ID
+      // Suche Rolle Name fÃ¼r ID
       var role = await roleManager.FindByIdAsync(transition.AllowedRoleId.Value.ToString()).ConfigureAwait(false);
       if (role != null && !roles.Contains(role.Name!))
       {
-        throw new UnauthorizedAccessException($"Dieser Übergang ist nur für die Rolle '{role.Name}' erlaubt.");
+        throw new UnauthorizedAccessException($"Dieser Ãœbergang ist nur fÃ¼r die Rolle '{role.Name}' erlaubt.");
       }
     }
 
@@ -243,7 +243,7 @@ public class TicketService(
 
     if (!ticket.CanBeClosed())
     {
-      throw new InvalidOperationException("Das Ticket kann nicht geschlossen werden, da es noch offene Abhängigkeiten (Vorgänger) hat.");
+      throw new InvalidOperationException("Das Ticket kann nicht geschlossen werden, da es noch offene AbhÃ¤ngigkeiten (VorgÃ¤nger) hat.");
     }
 
     var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
@@ -258,16 +258,16 @@ public class TicketService(
   {
     if (ticketId == blockerId)
     {
-      throw new InvalidOperationException("Ein Ticket kann nicht von sich selbst abhängig sein.");
+      throw new InvalidOperationException("Ein Ticket kann nicht von sich selbst abhÃ¤ngig sein.");
     }
 
     _ = await ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Ticket {ticketId} nicht gefunden.");
     var blocker = await ticketRepository.GetByIdAsync(blockerId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Blocker-Ticket {blockerId} nicht gefunden.");
 
-    // Zirkuläre Abhängigkeit prüfen: Kann das aktuelle Ticket (ticketId) den potenziellen Blocker (blockerId) bereits blockieren?
+    // ZirkulÃ¤re AbhÃ¤ngigkeit prÃ¼fen: Kann das aktuelle Ticket (ticketId) den potenziellen Blocker (blockerId) bereits blockieren?
     if (await this.IsBlockedByRecursiveAsync(blockerId, ticketId).ConfigureAwait(false))
     {
-      throw new InvalidOperationException("Zirkuläre Abhängigkeit erkannt: Das ausgewählte Ticket ist bereits direkt oder indirekt von diesem Ticket abhängig.");
+      throw new InvalidOperationException("ZirkulÃ¤re AbhÃ¤ngigkeit erkannt: Das ausgewÃ¤hlte Ticket ist bereits direkt oder indirekt von diesem Ticket abhÃ¤ngig.");
     }
 
     // Check for existing link
@@ -301,7 +301,7 @@ public class TicketService(
       return false;
     }
 
-    // Prüfen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
+    // PrÃ¼fen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
     foreach (var link in ticket.BlockedBy.Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks))
     {
       if (link.SourceTicketId == targetBlockerId)
@@ -441,7 +441,7 @@ public class TicketService(
     int upvoteCount = t.Upvotes?.Count ?? 0;
     bool hasUpvoted = user != null && (t.Upvotes?.Any(u => u.UserId == user.Id) ?? false);
 
-    // Concurrency Token direkt aus der Entität (automatisch gefüllt durch EF)
+    // Concurrency Token direkt aus der EntitÃ¤t (automatisch gefÃ¼llt durch EF)
     byte[] rowVersion = t.RowVersion ?? [];
 
     return new TicketDto(

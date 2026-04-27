@@ -15,12 +15,12 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Implementiert die Geschäftslogik für Kommentare (F5).
+/// Implementiert die GeschÃ¤ftslogik fÃ¼r Kommentare (F5).
 /// </summary>
-/// <param name="commentRepository">Das Repository für Kommentare.</param>
-/// <param name="ticketRepository">Das Repository für Tickets.</param>
+/// <param name="commentRepository">Das Repository fÃ¼r Kommentare.</param>
+/// <param name="ticketRepository">Das Repository fÃ¼r Tickets.</param>
 /// <param name="userManager">Der Identity UserManager.</param>
-/// <param name="httpContextAccessor">Der Accessor für den aktuellen HttpContext.</param>
+/// <param name="httpContextAccessor">Der Accessor fÃ¼r den aktuellen HttpContext.</param>
 /// <param name="notificationService">Der Benachrichtigungsdienst.</param>
 public class CommentService(
   ICommentRepository commentRepository,

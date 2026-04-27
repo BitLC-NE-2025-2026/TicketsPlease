@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datentransferobjekt für eine Organisationseinladung.
+/// Datentransferobjekt fÃ¼r eine Organisationseinladung.
 /// </summary>
 public record OrganizationInviteDto(
     Guid Token,

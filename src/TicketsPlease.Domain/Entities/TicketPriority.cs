@@ -7,22 +7,22 @@ namespace TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert die Priorität eines Tickets, z.B. Hoch, Mittel, Niedrig.
+/// ReprÃ¤sentiert die PrioritÃ¤t eines Tickets, z.B. Hoch, Mittel, Niedrig.
 /// </summary>
 public class TicketPriority : BaseEntity
 {
   /// <summary>
-  /// Gets or sets den Namen der Priorität.
+  /// Gets or sets den Namen der PrioritÃ¤t.
   /// </summary>
   public string Name { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die Gewichtung der Priorität zur Sortierung (höhere Zahl = wichtiger).
+  /// Gets or sets die Gewichtung der PrioritÃ¤t zur Sortierung (hÃ¶here Zahl = wichtiger).
   /// </summary>
   public int LevelWeight { get; set; }
 
   /// <summary>
-  /// Gets or sets den Hexadezimal-Farbcode der Priorität für die UI-Darstellung.
+  /// Gets or sets den Hexadezimal-Farbcode der PrioritÃ¤t fÃ¼r die UI-Darstellung.
   /// </summary>
   public string ColorHex { get; set; } = string.Empty;
 }

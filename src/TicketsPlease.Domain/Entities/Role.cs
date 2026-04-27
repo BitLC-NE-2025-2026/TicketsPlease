@@ -9,13 +9,13 @@ using Microsoft.AspNetCore.Identity;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Benutzerrolle im System zur Berechtigungssteuerung.
-/// Erbt von <see cref="IdentityRole{TKey}"/> für ASP.NET Core Identity Integration.
+/// ReprÃ¤sentiert eine Benutzerrolle im System zur Berechtigungssteuerung.
+/// Erbt von <see cref="IdentityRole{TKey}"/> fÃ¼r ASP.NET Core Identity Integration.
 /// </summary>
 public class Role : IdentityRole<Guid>, IBaseEntity
 {
   /// <summary>
-  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
+  /// Eine Liste von Domain-Events, die von dieser EntitÃ¤t ausgelÃ¶st wurden.
   /// </summary>
   private readonly List<IDomainEvent> domainEvents = new();
 
@@ -30,7 +30,7 @@ public class Role : IdentityRole<Guid>, IBaseEntity
   public Guid TenantId { get; set; }
 
   /// <summary>
-  /// Gets or sets a value indicating whether die Entität gelöscht wurde (Soft Delete).
+  /// Gets or sets a value indicating whether die EntitÃ¤t gelÃ¶scht wurde (Soft Delete).
   /// </summary>
   public bool IsDeleted { get; set; }
 
@@ -40,7 +40,7 @@ public class Role : IdentityRole<Guid>, IBaseEntity
   public DateTime? DeletedAt { get; set; }
 
   /// <summary>
-  /// Gets or sets die Version für die Nebenläufigkeitskontrolle.
+  /// Gets or sets die Version fÃ¼r die NebenlÃ¤ufigkeitskontrolle.
   /// </summary>
 #pragma warning disable CA1819 // Properties should not return arrays
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
@@ -52,9 +52,9 @@ public class Role : IdentityRole<Guid>, IBaseEntity
   public IReadOnlyCollection<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
 
   /// <summary>
-  /// Fügt ein Domain-Event hinzu.
+  /// FÃ¼gt ein Domain-Event hinzu.
   /// </summary>
-  /// <param name="domainEvent">Das hinzuzufügende Event.</param>
+  /// <param name="domainEvent">Das hinzuzufÃ¼gende Event.</param>
   public void AddDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Add(domainEvent);
 
   /// <summary>

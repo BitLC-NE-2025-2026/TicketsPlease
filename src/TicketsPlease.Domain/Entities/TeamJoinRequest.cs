@@ -9,7 +9,7 @@ using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Enums;
 
 /// <summary>
-/// Repräsentiert eine Anfrage eines Benutzers, einem Team beizutreten.
+/// ReprÃ¤sentiert eine Anfrage eines Benutzers, einem Team beizutreten.
 /// </summary>
 public class TeamJoinRequest : BaseEntity
 {
@@ -19,7 +19,7 @@ public class TeamJoinRequest : BaseEntity
   public Guid TeamId { get; set; }
 
   /// <summary>
-  /// Gets or sets das zugehörige Team.
+  /// Gets or sets das zugehÃ¶rige Team.
   /// </summary>
   public Team? Team { get; set; }
 

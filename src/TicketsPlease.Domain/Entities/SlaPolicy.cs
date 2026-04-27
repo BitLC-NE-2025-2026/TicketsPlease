@@ -8,17 +8,17 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Service-Level-Agreement (SLA) Richtlinie für bestimmte Ticket-Prioritäten.
+/// ReprÃ¤sentiert eine Service-Level-Agreement (SLA) Richtlinie fÃ¼r bestimmte Ticket-PrioritÃ¤ten.
 /// </summary>
 public class SlaPolicy : BaseEntity
 {
   /// <summary>
-  /// Gets or sets die ID der zugehörigen Ticket-Priorität.
+  /// Gets or sets die ID der zugehÃ¶rigen Ticket-PrioritÃ¤t.
   /// </summary>
   public Guid PriorityId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für die verknüpfte Ticket-Priorität.
+  /// Gets or sets das Navigation-Property fÃ¼r die verknÃ¼pfte Ticket-PrioritÃ¤t.
   /// </summary>
   public TicketPriority? Priority { get; set; }
 
@@ -28,7 +28,7 @@ public class SlaPolicy : BaseEntity
   public int ResponseTimeHours { get; set; }
 
   /// <summary>
-  /// Gets or sets die definierte Lösungszeit in Stunden.
+  /// Gets or sets die definierte LÃ¶sungszeit in Stunden.
   /// </summary>
   public int ResolutionTimeHours { get; set; }
 }

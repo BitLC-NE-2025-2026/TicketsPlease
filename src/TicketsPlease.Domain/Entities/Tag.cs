@@ -7,7 +7,7 @@ namespace TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert ein Schlagwort (Tag) zur Kategorisierung von Tickets.
+/// ReprÃ¤sentiert ein Schlagwort (Tag) zur Kategorisierung von Tickets.
 /// </summary>
 public class Tag : BaseEntity
 {
@@ -17,7 +17,7 @@ public class Tag : BaseEntity
   public string Name { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets den Hexadezimal-Farbcode des Tags für die UI-Darstellung.
+  /// Gets or sets den Hexadezimal-Farbcode des Tags fÃ¼r die UI-Darstellung.
   /// </summary>
   public string ColorHex { get; set; } = string.Empty;
 

@@ -7,7 +7,7 @@ namespace TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert die Definition eines benutzerdefinierten Feldes für Tickets.
+/// ReprÃ¤sentiert die Definition eines benutzerdefinierten Feldes fÃ¼r Tickets.
 /// </summary>
 public class CustomFieldDefinition : BaseEntity
 {
@@ -22,7 +22,7 @@ public class CustomFieldDefinition : BaseEntity
   public string FieldType { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die (optionale) JSON-Konfiguration für das Feld, z.B. Auswahlmöglichkeiten für Listen.
+  /// Gets or sets die (optionale) JSON-Konfiguration fÃ¼r das Feld, z.B. AuswahlmÃ¶glichkeiten fÃ¼r Listen.
   /// </summary>
   public string? ConfigurationJson { get; set; }
 }

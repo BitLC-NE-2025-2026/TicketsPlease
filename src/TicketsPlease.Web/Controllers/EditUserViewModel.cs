@@ -33,12 +33,12 @@ internal class EditUserViewModel
   public List<string> UserRoles { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets alle verfügbaren Rollen.
+  /// Gets or sets alle verfÃ¼gbaren Rollen.
   /// </summary>
   public List<string> AllRoles { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets die ausgewählten Rollen.
+  /// Gets or sets die ausgewÃ¤hlten Rollen.
   /// </summary>
   public List<string> SelectedRoles { get; set; } = new();
 
@@ -65,12 +65,12 @@ internal class EditUserViewModel
   public List<Guid> SelectedTeamIds { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets die verfügbaren Tenants.
+  /// Gets or sets die verfÃ¼gbaren Tenants.
   /// </summary>
   public Dictionary<Guid, string> AvailableTenants { get; set; } = new();
 
   /// <summary>
-  /// Gets or sets die verfügbaren Teams.
+  /// Gets or sets die verfÃ¼gbaren Teams.
   /// </summary>
   public Dictionary<Guid, string> AvailableTeams { get; set; } = new();
 }

@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System.Collections.ObjectModel;
 
 /// <summary>
-/// Zusammenfassendes DTO für das Stakeholder Dashboard.
+/// Zusammenfassendes DTO fÃ¼r das Stakeholder Dashboard.
 /// </summary>
 /// <param name="SlaCompliance">SLA Einhaltung.</param>
 /// <param name="TeamThroughput">Team Durchsatz.</param>

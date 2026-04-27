@@ -7,12 +7,12 @@ namespace TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Definiert die Geschäftslogik für die Nachrichtenverwaltung.
+/// Definiert die GeschÃ¤ftslogik fÃ¼r die Nachrichtenverwaltung.
 /// </summary>
 public interface IMessageService
 {
   /// <summary>
-  /// Ruft alle Nachrichten für den aktuellen Benutzer ab.
+  /// Ruft alle Nachrichten fÃ¼r den aktuellen Benutzer ab.
   /// </summary>
   /// <param name="userId">Die ID des Benutzers.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
@@ -20,7 +20,7 @@ public interface IMessageService
   public Task<List<MessageDto>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft die neuesten Nachrichten für den aktuellen Benutzer ab.
+  /// Ruft die neuesten Nachrichten fÃ¼r den aktuellen Benutzer ab.
   /// </summary>
   /// <param name="userId">Die ID des Benutzers.</param>
   /// <param name="limit">Die maximale Anzahl der Nachrichten.</param>
@@ -38,7 +38,7 @@ public interface IMessageService
   public Task<MessageDto> SendMessageAsync(Guid senderId, CreateMessageDto dto, CancellationToken ct = default);
 
   /// <summary>
-  /// Lädt einen Anhang für eine Nachricht hoch.
+  /// LÃ¤dt einen Anhang fÃ¼r eine Nachricht hoch.
   /// </summary>
   /// <param name="messageId">Die ID der Nachricht.</param>
   /// <param name="file">Die hochzuladende Datei.</param>

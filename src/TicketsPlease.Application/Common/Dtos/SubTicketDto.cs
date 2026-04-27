@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für ein Unterticket (Checklisten-Task).
+/// DatenÃ¼bertragungsobjekt fÃ¼r ein Unterticket (Checklisten-Task).
 /// </summary>
 /// <param name="Id">Die ID des Untertickets.</param>
 /// <param name="Title">Der Titel / die Aufgabe.</param>

@@ -5,7 +5,7 @@
 namespace TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Datentransferobjekt für den Projekt-Gesundheitsstatus.
+/// Datentransferobjekt fÃ¼r den Projekt-Gesundheitsstatus.
 /// </summary>
 /// <param name="ProjectName">Name des Projekts.</param>
 /// <param name="OpenTickets">Offene Tickets.</param>

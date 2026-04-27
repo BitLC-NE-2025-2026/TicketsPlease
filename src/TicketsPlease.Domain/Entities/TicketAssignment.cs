@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert die Zuweisung eines Tickets an einen bestimmten Benutzer oder ein Team.
+/// ReprÃ¤sentiert die Zuweisung eines Tickets an einen bestimmten Benutzer oder ein Team.
 /// </summary>
 public class TicketAssignment : BaseEntity
 {
@@ -18,7 +18,7 @@ public class TicketAssignment : BaseEntity
   public Guid TicketId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das zugewiesene Ticket.
+  /// Gets or sets das Navigation-Property fÃ¼r das zugewiesene Ticket.
   /// </summary>
   public Ticket? Ticket { get; set; }
 
@@ -28,7 +28,7 @@ public class TicketAssignment : BaseEntity
   public Guid? UserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den zugewiesenen Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den zugewiesenen Benutzer.
   /// </summary>
   public User? User { get; set; }
 
@@ -38,7 +38,7 @@ public class TicketAssignment : BaseEntity
   public Guid? TeamId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das zugewiesene Team.
+  /// Gets or sets das Navigation-Property fÃ¼r das zugewiesene Team.
   /// </summary>
   public Team? Team { get; set; }
 

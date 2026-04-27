@@ -14,7 +14,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Implementierung des IUserRepository für EF Core.
+/// Implementierung des IUserRepository fÃ¼r EF Core.
 /// </summary>
 public class UserRepository : IUserRepository
 {

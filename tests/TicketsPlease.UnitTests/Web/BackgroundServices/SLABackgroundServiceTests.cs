@@ -8,7 +8,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 
-internal class SLABackgroundServiceTests
+public class SLABackgroundServiceTests
 {
   private readonly Mock<IServiceProvider> _serviceProviderMock;
   private readonly Mock<IServiceScopeFactory> _serviceScopeFactoryMock;
@@ -98,7 +98,7 @@ internal class SLABackgroundServiceTests
     _notificationServiceMock.Verify(
       x =>
         x.SendNotificationToAllAsync(It.Is<string>(s => s.Contains("SLA BREACH")), It.IsAny<string>()),
-        Times.Once);
+      Times.Once);
   }
 
   [Fact]
@@ -146,6 +146,6 @@ internal class SLABackgroundServiceTests
     _notificationServiceMock.Verify(
       x =>
         x.SendNotificationToAllAsync(It.IsAny<string>(), It.IsAny<string>()),
-        Times.Never);
+      Times.Never);
   }
 }

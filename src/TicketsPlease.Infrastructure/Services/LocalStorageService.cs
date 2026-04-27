@@ -22,12 +22,12 @@ public class LocalStorageService : IFileStorageService
   /// <summary>
   /// Initializes a new instance of the <see cref="LocalStorageService"/> class.
   /// </summary>
-  /// <param name="env">Die WebHostEnvironment für Pfade.</param>
+  /// <param name="env">Die WebHostEnvironment fÃ¼r Pfade.</param>
   public LocalStorageService(IWebHostEnvironment env)
   {
     ArgumentNullException.ThrowIfNull(env);
 
-    // Wir speichern außerhalb von wwwroot für bessere Zugriffskontrolle
+    // Wir speichern auÃŸerhalb von wwwroot fÃ¼r bessere Zugriffskontrolle
     this.storageRoot = Path.Combine(env.ContentRootPath, "App_Data", "Uploads");
 
     if (!Directory.Exists(this.storageRoot))

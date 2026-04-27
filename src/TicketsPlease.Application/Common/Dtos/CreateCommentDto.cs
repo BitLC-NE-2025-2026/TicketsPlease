@@ -9,7 +9,7 @@ using System;
 /// <summary>
 /// DTO zum Erstellen eines neuen Kommentars (F5).
 /// </summary>
-/// <param name="TicketId">Die ID des zugehörigen Tickets.</param>
+/// <param name="TicketId">Die ID des zugehÃ¶rigen Tickets.</param>
 /// <param name="Content">Der Inhalt des Kommentars.</param>
 public record CreateCommentDto(
     Guid TicketId,

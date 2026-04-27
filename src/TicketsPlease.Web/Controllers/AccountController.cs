@@ -14,7 +14,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Web.Models.Account;
 
 /// <summary>
-/// Controller für die Benutzerverwaltung (Login, Registrierung, Profil).
+/// Controller fÃ¼r die Benutzerverwaltung (Login, Registrierung, Profil).
 /// </summary>
 internal sealed class AccountController : Controller
 {
@@ -87,7 +87,7 @@ internal sealed class AccountController : Controller
         }
       }
 
-      this.ModelState.AddModelError(string.Empty, "Ungültiger Login-Versuch.");
+      this.ModelState.AddModelError(string.Empty, "UngÃ¼ltiger Login-Versuch.");
     }
 
     return this.View(model);
@@ -114,7 +114,7 @@ internal sealed class AccountController : Controller
     var invite = await this.organizationService.ValidateInviteTokenAsync(token).ConfigureAwait(false);
     if (invite == null)
     {
-      this.TempData["ErrorMessage"] = "Ungültiger oder abgelaufener Einladungs-Token.";
+      this.TempData["ErrorMessage"] = "UngÃ¼ltiger oder abgelaufener Einladungs-Token.";
       return this.RedirectToAction(nameof(this.Register));
     }
 
@@ -143,7 +143,7 @@ internal sealed class AccountController : Controller
 
     if (this.ModelState.IsValid)
     {
-      // Standardmäßig die "User"-Rolle zuweisen
+      // StandardmÃ¤ÃŸig die "User"-Rolle zuweisen
       var defaultRole = await this.roleManager.FindByNameAsync("User").ConfigureAwait(false);
       var defaultRoleId = defaultRole?.Id ?? Guid.Empty;
 
@@ -353,7 +353,7 @@ internal sealed class AccountController : Controller
   }
 
   /// <summary>
-  /// Lädt den Avatar des Benutzers herunter.
+  /// LÃ¤dt den Avatar des Benutzers herunter.
   /// </summary>
   /// <param name="path">Der Pfad zum Avatar im Storage.</param>
   /// <returns>Das Bild als FileStream.</returns>
@@ -378,7 +378,7 @@ internal sealed class AccountController : Controller
   }
 
   /// <summary>
-  /// Zeigt die Seite für verweigerten Zugriff an.
+  /// Zeigt die Seite fÃ¼r verweigerten Zugriff an.
   /// </summary>
   /// <returns>Die AccessDenied-View.</returns>
   [HttpGet]

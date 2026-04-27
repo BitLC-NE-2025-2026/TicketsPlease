@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System.Collections.Generic;
 
 /// <summary>
-/// DTO für die Dashboard-Statistiken (F4).
+/// DTO fÃ¼r die Dashboard-Statistiken (F4).
 /// </summary>
 public record DashboardStatsDto(
     int TotalTickets,

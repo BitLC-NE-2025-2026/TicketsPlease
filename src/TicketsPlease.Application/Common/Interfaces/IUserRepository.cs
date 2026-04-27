@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Interface für erweiterte Benutzer-Datenbankoperationen.
+/// Interface fÃ¼r erweiterte Benutzer-Datenbankoperationen.
 /// </summary>
 public interface IUserRepository
 {
@@ -36,14 +36,14 @@ public interface IUserRepository
   public Task<UserProfile> GetOrCreateProfileAsync(Guid userId);
 
   /// <summary>
-  /// Speichert Profiländerungen.
+  /// Speichert ProfilÃ¤nderungen.
   /// </summary>
   /// <param name="profile">Das zu speichernde Profil.</param>
   /// <returns>Ein Task.</returns>
   public Task UpdateProfileAsync(UserProfile profile);
 
   /// <summary>
-  /// Zählt die aktiven Benutzer eines Tenants.
+  /// ZÃ¤hlt die aktiven Benutzer eines Tenants.
   /// </summary>
   /// <param name="tenantId">Die Mandanten-ID.</param>
   /// <returns>Die Anzahl.</returns>

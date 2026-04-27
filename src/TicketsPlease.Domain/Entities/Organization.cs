@@ -7,7 +7,7 @@ namespace TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Kundenorganisation oder ein Mandantenunternehmen.
+/// ReprÃ¤sentiert eine Kundenorganisation oder ein Mandantenunternehmen.
 /// </summary>
 public class Organization : BaseAuditableEntity
 {
@@ -27,7 +27,7 @@ public class Organization : BaseAuditableEntity
   public bool IsActive { get; set; } = true;
 
   /// <summary>
-  /// Gets or sets das Intervall für SLA-Prüfungen in Minuten.
+  /// Gets or sets das Intervall fÃ¼r SLA-PrÃ¼fungen in Minuten.
   /// </summary>
   public int SlaCheckIntervalMinutes { get; set; } = 15;
 
@@ -47,22 +47,22 @@ public class Organization : BaseAuditableEntity
   public string TimeZoneId { get; set; } = "UTC";
 
   /// <summary>
-  /// Gets or sets a value indicating whether bei Low-Priorität benachrichtigt werden soll.
+  /// Gets or sets a value indicating whether bei Low-PrioritÃ¤t benachrichtigt werden soll.
   /// </summary>
   public bool NotifyOnLow { get; set; } = true;
 
   /// <summary>
-  /// Gets or sets a value indicating whether bei Medium-Priorität benachrichtigt werden soll.
+  /// Gets or sets a value indicating whether bei Medium-PrioritÃ¤t benachrichtigt werden soll.
   /// </summary>
   public bool NotifyOnMedium { get; set; } = true;
 
   /// <summary>
-  /// Gets or sets a value indicating whether bei High-Priorität benachrichtigt werden soll.
+  /// Gets or sets a value indicating whether bei High-PrioritÃ¤t benachrichtigt werden soll.
   /// </summary>
   public bool NotifyOnHigh { get; set; } = true;
 
   /// <summary>
-  /// Gets or sets a value indicating whether bei Blocker-Priorität benachrichtigt werden soll.
+  /// Gets or sets a value indicating whether bei Blocker-PrioritÃ¤t benachrichtigt werden soll.
   /// </summary>
   public bool NotifyOnBlocker { get; set; } = true;
 }

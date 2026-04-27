@@ -12,7 +12,7 @@ using TicketsPlease.Domain.Entities;
 
 /// <summary>
 /// Der zentrale Datenbankkontext der Anwendung.
-/// Verwaltet die Persistenz der User- und Ticket-Entitäten.
+/// Verwaltet die Persistenz der User- und Ticket-EntitÃ¤ten.
 /// </summary>
 public class AppDbContext : IdentityDbContext<User, Role, Guid>
 {
@@ -22,8 +22,8 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// Initializes a new instance of the <see cref="AppDbContext"/> class.
   /// Initialisiert eine neue Instanz von <see cref="AppDbContext"/> mit den angegebenen Optionen.
   /// </summary>
-  /// <param name="options">Die Optionen für diesen Kontext.</param>
-  /// <param name="httpContextAccessor">Der HttpContextAccessor für den Zugriff auf den aktuellen Benutzer.</param>
+  /// <param name="options">Die Optionen fÃ¼r diesen Kontext.</param>
+  /// <param name="httpContextAccessor">Der HttpContextAccessor fÃ¼r den Zugriff auf den aktuellen Benutzer.</param>
   public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor? httpContextAccessor = null)
     : base(options)
   {
@@ -54,7 +54,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Benutzeradressen.</summary>
   public DbSet<UserAddress> UserAddresses => this.Set<UserAddress>();
 
-  /// <summary>Gets die Dateianhänge.</summary>
+  /// <summary>Gets die DateianhÃ¤nge.</summary>
   public DbSet<FileAsset> FileAssets => this.Set<FileAsset>();
 
   /// <summary>Gets die Teams.</summary>
@@ -63,10 +63,10 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Teammitglieder.</summary>
   public DbSet<TeamMember> TeamMembers => this.Set<TeamMember>();
 
-  /// <summary>Gets die Beitrittsanfragen für Teams.</summary>
+  /// <summary>Gets die Beitrittsanfragen fÃ¼r Teams.</summary>
   public DbSet<TeamJoinRequest> TeamJoinRequests => this.Set<TeamJoinRequest>();
 
-  /// <summary>Gets die Ticket-Prioritäten.</summary>
+  /// <summary>Gets die Ticket-PrioritÃ¤ten.</summary>
   public DbSet<TicketPriority> TicketPriorities => this.Set<TicketPriority>();
 
   /// <summary>Gets die Sub-Tickets.</summary>
@@ -78,7 +78,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Ticket-Tags.</summary>
   public DbSet<TicketTag> TicketTags => this.Set<TicketTag>();
 
-  /// <summary>Gets die Ticket-Verknüpfungen.</summary>
+  /// <summary>Gets die Ticket-VerknÃ¼pfungen.</summary>
   public DbSet<TicketLink> TicketLinks => this.Set<TicketLink>();
 
   /// <summary>Gets die Ticket-Zuweisungen.</summary>
@@ -87,10 +87,10 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Workflow-Status.</summary>
   public DbSet<WorkflowState> WorkflowStates => this.Set<WorkflowState>();
 
-  /// <summary>Gets die Workflow-Übergänge.</summary>
+  /// <summary>Gets die Workflow-ÃœbergÃ¤nge.</summary>
   public DbSet<WorkflowTransition> WorkflowTransitions => this.Set<WorkflowTransition>();
 
-  /// <summary>Gets die Zeiterfassungseinträge.</summary>
+  /// <summary>Gets die ZeiterfassungseintrÃ¤ge.</summary>
   public DbSet<TimeLog> TimeLogs => this.Set<TimeLog>();
 
   /// <summary>Gets die Ticket-Upvotes.</summary>
@@ -114,7 +114,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Nachrichten.</summary>
   public DbSet<Message> Messages => this.Set<Message>();
 
-  /// <summary>Gets die Lesebestätigungen für Nachrichten.</summary>
+  /// <summary>Gets die LesebestÃ¤tigungen fÃ¼r Nachrichten.</summary>
   public DbSet<MessageReadReceipt> MessageReadReceipts => this.Set<MessageReadReceipt>();
 
   /// <summary>Gets die Social Feed Messages.</summary>
@@ -134,9 +134,9 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
 
   /// <summary>
   /// Konfiguriert das Modell und die Datenbank-Mappings.
-  /// Hier wird die explizite Konfiguration für Nebenläufigkeit und Tabellennamen vorgenommen.
+  /// Hier wird die explizite Konfiguration fÃ¼r NebenlÃ¤ufigkeit und Tabellennamen vorgenommen.
   /// </summary>
-  /// <param name="builder">Der Builder für die Modellkonfiguration.</param>
+  /// <param name="builder">Der Builder fÃ¼r die Modellkonfiguration.</param>
   protected override void OnModelCreating(ModelBuilder builder)
   {
     ArgumentNullException.ThrowIfNull(builder);
@@ -403,9 +403,9 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   }
 
   /// <summary>
-  /// Konfiguriert zusätzliche Optionen wie die Resilience / Retry Strategie.
+  /// Konfiguriert zusÃ¤tzliche Optionen wie die Resilience / Retry Strategie.
   /// </summary>
-  /// <param name="optionsBuilder">Der Builder für die Kontext-Optionen.</param>
+  /// <param name="optionsBuilder">Der Builder fÃ¼r die Kontext-Optionen.</param>
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     ArgumentNullException.ThrowIfNull(optionsBuilder);
@@ -414,13 +414,13 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     // Falls hier konfiguriert wird, stellen wir sicher, dass RetryOnFailure aktiviert ist.
     if (!optionsBuilder.IsConfigured)
     {
-      // Placeholder für lokale Entwicklung oder Fallback
+      // Placeholder fÃ¼r lokale Entwicklung oder Fallback
     }
   }
 
   private static void SeedStaticData(ModelBuilder builder)
   {
-    // Fixe IDs für stabiles Seeding und Referenzierung
+    // Fixe IDs fÃ¼r stabiles Seeding und Referenzierung
     var adminRoleId = new Guid("32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21");
     var teamleadRoleId = new Guid("b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33");
     var userRoleId = new Guid("c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44");

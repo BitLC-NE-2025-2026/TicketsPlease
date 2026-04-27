@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 /// <summary>
-/// Sperrt eine Seite oder Funktion für Benutzer ohne die angegebene Permission.
+/// Sperrt eine Seite oder Funktion fÃ¼r Benutzer ohne die angegebene Permission.
 /// Leitet zur AccessDenied-Seite mit kontextbezogener Fehlermeldung weiter.
 /// Admins werden automatisch durchgelassen.
 /// </summary>
@@ -65,7 +65,7 @@ internal sealed class RequirePermissionAttribute : Attribute, IAuthorizationFilt
       return;
     }
 
-    // Prüfe ob der Benutzer die Permission besitzt
+    // PrÃ¼fe ob der Benutzer die Permission besitzt
     if (!user.HasClaim("Permission", this.Permission))
     {
       var returnUrl = context.HttpContext.Request.Path + context.HttpContext.Request.QueryString;

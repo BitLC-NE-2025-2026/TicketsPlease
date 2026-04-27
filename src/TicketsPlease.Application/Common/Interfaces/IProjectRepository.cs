@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Definiert die Datenzugriffsschicht für Projekte unter Berücksichtigung von Multi-Tenancy.
+/// Definiert die Datenzugriffsschicht fÃ¼r Projekte unter BerÃ¼cksichtigung von Multi-Tenancy.
 /// </summary>
 public interface IProjectRepository
 {
@@ -29,7 +29,7 @@ public interface IProjectRepository
   public Task<IEnumerable<Project>> GetAllAsync(Guid tenantId);
 
   /// <summary>
-  /// Fügt ein neues Projekt hinzu.
+  /// FÃ¼gt ein neues Projekt hinzu.
   /// </summary>
   /// <param name="project">Das zu speichernde Projekt.</param>
   /// <returns>Die asynchrone Operation.</returns>
@@ -43,9 +43,9 @@ public interface IProjectRepository
   public Task UpdateAsync(Project project);
 
   /// <summary>
-  /// Markiert ein Projekt als gelöscht oder entfernt es persistent.
+  /// Markiert ein Projekt als gelÃ¶scht oder entfernt es persistent.
   /// </summary>
-  /// <param name="project">Das zu löschende Projekt.</param>
+  /// <param name="project">Das zu lÃ¶schende Projekt.</param>
   /// <returns>Die asynchrone Operation.</returns>
   public Task DeleteAsync(Project project);
 }

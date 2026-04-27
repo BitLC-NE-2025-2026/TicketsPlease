@@ -10,7 +10,7 @@ using TicketsPlease.Application.Services;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-internal class DashboardServiceTests
+public class DashboardServiceTests
 {
   private readonly Mock<ITicketRepository> _ticketRepoMock;
   private readonly Mock<IProjectRepository> _projectRepoMock;

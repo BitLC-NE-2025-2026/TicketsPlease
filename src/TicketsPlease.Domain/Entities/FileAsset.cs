@@ -8,12 +8,12 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine hochgeladene Datei oder einen Anhang im System.
+/// ReprÃ¤sentiert eine hochgeladene Datei oder einen Anhang im System.
 /// </summary>
 public class FileAsset : BaseEntity
 {
   /// <summary>
-  /// Gets or sets den ursprünglichen Dateinamen.
+  /// Gets or sets den ursprÃ¼nglichen Dateinamen.
   /// </summary>
   public string FileName { get; set; } = string.Empty;
 
@@ -28,7 +28,7 @@ public class FileAsset : BaseEntity
   public string BlobPath { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die Größe der Datei in Bytes.
+  /// Gets or sets die GrÃ¶ÃŸe der Datei in Bytes.
   /// </summary>
   public long SizeBytes { get; set; }
 
@@ -43,7 +43,7 @@ public class FileAsset : BaseEntity
   public Guid UploadedByUserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den Benutzer, der die Datei hochgeladen hat.
+  /// Gets or sets das Navigation-Property fÃ¼r den Benutzer, der die Datei hochgeladen hat.
   /// </summary>
   public User? UploadedByUser { get; set; }
 
@@ -53,7 +53,7 @@ public class FileAsset : BaseEntity
   public Guid? TicketId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das zugeordnete Ticket.
+  /// Gets or sets das Navigation-Property fÃ¼r das zugeordnete Ticket.
   /// </summary>
   public Ticket? Ticket { get; set; }
 
@@ -63,7 +63,7 @@ public class FileAsset : BaseEntity
   public Guid? MessageId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für die zugeordnete Nachricht.
+  /// Gets or sets das Navigation-Property fÃ¼r die zugeordnete Nachricht.
   /// </summary>
   public Message? Message { get; set; }
 }

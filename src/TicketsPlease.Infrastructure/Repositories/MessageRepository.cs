@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Implementiert den Datenzugriff für Nachrichten unter Verwendung von Entity Framework Core.
+/// Implementiert den Datenzugriff fÃ¼r Nachrichten unter Verwendung von Entity Framework Core.
 /// </summary>
 public class MessageRepository : IMessageRepository
 {

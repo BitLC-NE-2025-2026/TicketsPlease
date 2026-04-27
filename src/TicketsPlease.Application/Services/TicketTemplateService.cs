@@ -9,7 +9,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Implementiert die Geschäftslogik für Ticket-Vorlagen.
+/// Implementiert die GeschÃ¤ftslogik fÃ¼r Ticket-Vorlagen.
 /// </summary>
 /// <param name="repository">Das injizierte Repository.</param>
 public class TicketTemplateService(ITicketTemplateRepository repository) : ITicketTemplateService

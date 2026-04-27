@@ -184,7 +184,7 @@ internal sealed partial class SLABackgroundService : BackgroundService
     }
 
     var message = $"SLA Breach ({type}): Ticket '{ticket.Title}' (ID: {ticket.Id}) has exceeded its deadline.";
-    var title = "⚠️ SLA BREACH!";
+    var title = "âš ï¸ SLA BREACH!";
 
     // Notify Organization (All) or specific PO/Admins? Requirement says "notifications for all"
     await notificationService.SendNotificationToAllAsync(title, message).ConfigureAwait(false);

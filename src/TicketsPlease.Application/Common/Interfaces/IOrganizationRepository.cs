@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Repository Interface für die Verwaltung von Organisationen/Workspaces.
+/// Repository Interface fÃ¼r die Verwaltung von Organisationen/Workspaces.
 /// </summary>
 public interface IOrganizationRepository
 {
@@ -27,7 +27,7 @@ public interface IOrganizationRepository
   public Task<Organization?> GetByIdAsync(Guid id, CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt eine Organisation hinzu.
+  /// FÃ¼gt eine Organisation hinzu.
   /// </summary>
   /// <param name="organization">Die Organisation.</param>
   /// <param name="ct">Abbruchsignal.</param>
@@ -35,14 +35,14 @@ public interface IOrganizationRepository
   public Task AddAsync(Organization organization, CancellationToken ct = default);
 
   /// <summary>
-  /// Speichert Änderungen.
+  /// Speichert Ã„nderungen.
   /// </summary>
   /// <param name="ct">Abbruchsignal.</param>
   /// <returns>Task.</returns>
   public Task SaveChangesAsync(CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt ein Audit-Log hinzu.
+  /// FÃ¼gt ein Audit-Log hinzu.
   /// </summary>
   /// <param name="log">Das Log-Objekt.</param>
   /// <param name="ct">Abbruchsignal.</param>
@@ -50,7 +50,7 @@ public interface IOrganizationRepository
   public Task AddAuditLogAsync(AuditLog log, CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft Audit-Logs für eine Organisation ab.
+  /// Ruft Audit-Logs fÃ¼r eine Organisation ab.
   /// </summary>
   /// <param name="organizationId">ID der Organisation.</param>
   /// <param name="ct">Abbruchsignal.</param>
@@ -58,7 +58,7 @@ public interface IOrganizationRepository
   public Task<List<AuditLog>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt eine Einladung hinzu.
+  /// FÃ¼gt eine Einladung hinzu.
   /// </summary>
   /// <param name="invite">Die Einladung.</param>
   /// <param name="ct">Abbruchsignal.</param>

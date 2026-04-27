@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für ein Teammitglied.
+/// DatenÃ¼bertragungsobjekt fÃ¼r ein Teammitglied.
 /// </summary>
 /// <param name="UserId">Die ID des Benutzers.</param>
 /// <param name="UserName">Der Name des Benutzers.</param>

@@ -18,7 +18,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Controller für das Messaging-System (F9).
+/// Controller fÃ¼r das Messaging-System (F9).
 /// </summary>
 [Authorize]
 internal sealed class MessagesController : Controller
@@ -30,9 +30,9 @@ internal sealed class MessagesController : Controller
   /// <summary>
   /// Initializes a new instance of the <see cref="MessagesController"/> class.
   /// </summary>
-  /// <param name="messageService">Der Dienst für Nachrichtenoperationen.</param>
+  /// <param name="messageService">Der Dienst fÃ¼r Nachrichtenoperationen.</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
-  /// <param name="context">Der Datenbankkontext für Benutzer-Lookups.</param>
+  /// <param name="context">Der Datenbankkontext fÃ¼r Benutzer-Lookups.</param>
   public MessagesController(IMessageService messageService, UserManager<User> userManager, AppDbContext context)
   {
     this.messageService = messageService;
@@ -41,7 +41,7 @@ internal sealed class MessagesController : Controller
   }
 
   /// <summary>
-  /// Zeigt die Nachrichtenübersicht des Benutzers an (F9).
+  /// Zeigt die NachrichtenÃ¼bersicht des Benutzers an (F9).
   /// </summary>
   /// <returns>Die Index-View.</returns>
   [HttpGet]
@@ -102,7 +102,7 @@ internal sealed class MessagesController : Controller
   /// <summary>
   /// Zeigt die Konversation mit einem bestimmten Benutzer an (F9).
   /// </summary>
-  /// <param name="userId">Die ID des Gesprächspartners.</param>
+  /// <param name="userId">Die ID des GesprÃ¤chspartners.</param>
   /// <returns>Die Conversation-View.</returns>
   [HttpGet]
   public async Task<IActionResult> Conversation(Guid? userId)

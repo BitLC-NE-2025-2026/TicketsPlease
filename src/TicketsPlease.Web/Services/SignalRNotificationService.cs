@@ -75,7 +75,7 @@ internal class SignalRNotificationService : INotificationService
   public async Task NotifyNewMessageAsync(Guid receiverUserId, MessageDto message)
   {
     // Wir senden die Nachricht direkt an den spezifischen User (SignalR User ID = Identity Name)
-    // Hinweis: Standardmäßig nutzt SignalR ClaimsTypes.NameIdentifier oder Name
+    // Hinweis: StandardmÃ¤ÃŸig nutzt SignalR ClaimsTypes.NameIdentifier oder Name
     await this.hubContext.Clients.User(receiverUserId.ToString()).SendAsync("ReceiveMessage", message).ConfigureAwait(false);
   }
 

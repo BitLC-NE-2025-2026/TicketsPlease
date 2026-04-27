@@ -13,12 +13,12 @@ using System;
 /// <param name="Title">Der neue Titel.</param>
 /// <param name="Description">Die neue Beschreibung.</param>
 /// <param name="Status">Der neue Status (z.B. To-Do, Doing, Closed).</param>
-/// <param name="PriorityId">Die ID der neuen Priorität.</param>
-/// <param name="AssignedUserId">Die ID des neuen Zuständigen.</param>
+/// <param name="PriorityId">Die ID der neuen PrioritÃ¤t.</param>
+/// <param name="AssignedUserId">Die ID des neuen ZustÃ¤ndigen.</param>
 /// <param name="EstimatePoints">Die aktualisierten Story Points.</param>
 /// <param name="ChilliesDifficulty">Die neue Schwierigkeit (1-5 Chilis).</param>
 /// <param name="TagIds">Die neuen IDs der zuzuordnenden Tags.</param>
-/// <param name="RowVersion">Die aktuelle RowVersion für Optimistic Concurrency Checks.</param>
+/// <param name="RowVersion">Die aktuelle RowVersion fÃ¼r Optimistic Concurrency Checks.</param>
 #pragma warning disable CA1819 // Properties should not return arrays (RowVersion for EF Core)
 public record UpdateTicketDto(
     Guid Id,

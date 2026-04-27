@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Lesebestätigung (Read Receipt) für eine Nachricht.
+/// ReprÃ¤sentiert eine LesebestÃ¤tigung (Read Receipt) fÃ¼r eine Nachricht.
 /// </summary>
 public class MessageReadReceipt : BaseEntity
 {
@@ -18,7 +18,7 @@ public class MessageReadReceipt : BaseEntity
   public Guid MessageId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für die gelesene Nachricht.
+  /// Gets or sets das Navigation-Property fÃ¼r die gelesene Nachricht.
   /// </summary>
   public Message? Message { get; set; }
 
@@ -28,7 +28,7 @@ public class MessageReadReceipt : BaseEntity
   public Guid UserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den Benutzer, der die Nachricht gelesen hat.
+  /// Gets or sets das Navigation-Property fÃ¼r den Benutzer, der die Nachricht gelesen hat.
   /// </summary>
   public User? User { get; set; }
 

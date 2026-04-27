@@ -12,7 +12,7 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// Controller für die Projektverwaltung (CRUD für Admins).
+/// Controller fÃ¼r die Projektverwaltung (CRUD fÃ¼r Admins).
 /// </summary>
 [Authorize(Roles = "Admin,ProductOwner,Stakeholder")]
 internal sealed class ProjectController : Controller
@@ -23,8 +23,8 @@ internal sealed class ProjectController : Controller
   /// <summary>
   /// Initializes a new instance of the <see cref="ProjectController"/> class.
   /// </summary>
-  /// <param name="projectService">Der Dienst für Projektoperationen.</param>
-  /// <param name="ticketService">Der Dienst für Ticketoperationen.</param>
+  /// <param name="projectService">Der Dienst fÃ¼r Projektoperationen.</param>
+  /// <param name="ticketService">Der Dienst fÃ¼r Ticketoperationen.</param>
   public ProjectController(IProjectService projectService, ITicketService ticketService)
   {
     this.projectService = projectService;
@@ -131,9 +131,9 @@ internal sealed class ProjectController : Controller
   }
 
   /// <summary>
-  /// Löscht ein Projekt.
+  /// LÃ¶scht ein Projekt.
   /// </summary>
-  /// <param name="id">Die ID des zu löschenden Projekts.</param>
+  /// <param name="id">Die ID des zu lÃ¶schenden Projekts.</param>
   /// <returns>Ein Redirect auf die Index-Seite.</returns>
   [Authorize(Roles = "Admin")]
   [HttpPost]

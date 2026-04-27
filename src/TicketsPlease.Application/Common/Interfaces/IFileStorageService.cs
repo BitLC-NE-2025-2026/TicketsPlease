@@ -9,15 +9,15 @@ using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
-/// Definiert den Dienst für die physische Speicherung von Dateien.
+/// Definiert den Dienst fÃ¼r die physische Speicherung von Dateien.
 /// </summary>
 public interface IFileStorageService
 {
   /// <summary>
-  /// Speichert eine Datei und gibt den Pfad/Key zurück.
+  /// Speichert eine Datei und gibt den Pfad/Key zurÃ¼ck.
   /// </summary>
   /// <param name="content">Der Datenstrom der Datei.</param>
-  /// <param name="fileName">Der gewünschte Dateiname (zur Erweiterungsprüfung).</param>
+  /// <param name="fileName">Der gewÃ¼nschte Dateiname (zur ErweiterungsprÃ¼fung).</param>
   /// <param name="ct">Abbruchtoken.</param>
   /// <returns>Der Speicherpfad (BlobPath).</returns>
   public Task<string> SaveFileAsync(Stream content, string fileName, CancellationToken ct = default);
@@ -31,7 +31,7 @@ public interface IFileStorageService
   public Task<Stream> GetFileAsync(string blobPath, CancellationToken ct = default);
 
   /// <summary>
-  /// Löscht eine Datei.
+  /// LÃ¶scht eine Datei.
   /// </summary>
   /// <param name="blobPath">Der Speicherpfad.</param>
   /// <param name="ct">Abbruchtoken.</param>

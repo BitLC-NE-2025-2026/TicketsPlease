@@ -13,7 +13,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller für die Verwaltung von Ticket-Vorlagen im Admin-Bereich.
+/// Controller fÃ¼r die Verwaltung von Ticket-Vorlagen im Admin-Bereich.
 /// </summary>
 [Authorize(Roles = "Admin")]
 internal sealed class AdminTemplatesController : Controller
@@ -26,7 +26,7 @@ internal sealed class AdminTemplatesController : Controller
   /// Initializes a new instance of the <see cref="AdminTemplatesController"/> class.
   /// </summary>
   /// <param name="templateService">Der Vorlagen-Dienst.</param>
-  /// <param name="ticketRepository">Das Ticket-Repository (für Prioritäten).</param>
+  /// <param name="ticketRepository">Das Ticket-Repository (fÃ¼r PrioritÃ¤ten).</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
   public AdminTemplatesController(
       ITicketTemplateService templateService,
@@ -41,7 +41,7 @@ internal sealed class AdminTemplatesController : Controller
   /// <summary>
   /// Listet alle Vorlagen auf.
   /// </summary>
-  /// <returns>Die Übersichtsview.</returns>
+  /// <returns>Die Ãœbersichtsview.</returns>
   [HttpGet]
   public async Task<IActionResult> Index()
   {
@@ -82,7 +82,7 @@ internal sealed class AdminTemplatesController : Controller
   }
 
   /// <summary>
-  /// Löscht eine Vorlage.
+  /// LÃ¶scht eine Vorlage.
   /// </summary>
   /// <param name="id">Die ID.</param>
   /// <returns>Redirect.</returns>

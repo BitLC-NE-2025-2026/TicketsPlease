@@ -22,7 +22,7 @@ using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Web.Hubs;
 
 /// <summary>
-/// Controller für das tenant-übergreifende Social Feed System.
+/// Controller fÃ¼r das tenant-Ã¼bergreifende Social Feed System.
 /// </summary>
 [Authorize]
 internal class SocialController : Controller
@@ -61,13 +61,13 @@ internal class SocialController : Controller
   }
 
   /// <summary>
-  /// Lädt die letzten Feed-Nachrichten.
+  /// LÃ¤dt die letzten Feed-Nachrichten.
   /// </summary>
   /// <returns>Eine Liste von SocialMessageDto.</returns>
   [HttpGet]
   public async Task<IActionResult> GetFeed()
   {
-    var messages = await context.SocialMessages
+    var messages = await this.context.SocialMessages
         .Include(m => m.Author)
             .ThenInclude(u => u.Profile)
         .OrderByDescending(m => m.CreatedAt)
@@ -77,7 +77,7 @@ internal class SocialController : Controller
     var isAdminOrPo = this.User.IsInRole("Admin") || this.User.IsInRole("ProductOwner");
 
     var organizationIds = messages.Select(m => m.Author?.TenantId).Where(id => id.HasValue).Distinct().Cast<Guid>().ToList();
-    var orgs = await context.Organizations.Where(o => organizationIds.Contains(o.Id)).ToDictionaryAsync(o => o.Id, o => o.Name).ConfigureAwait(false);
+    var orgs = await this.context.Organizations.Where(o => organizationIds.Contains(o.Id)).ToDictionaryAsync(o => o.Id, o => o.Name).ConfigureAwait(false);
 
     var dtos = messages.Select(m => new SocialMessageDto
     {
@@ -130,10 +130,10 @@ internal class SocialController : Controller
     };
 
     this.context.SocialMessages.Add(message);
-    await context.SaveChangesAsync().ConfigureAwait(false);
+    await this.context.SaveChangesAsync().ConfigureAwait(false);
 
     // Reload with includes
-    var savedMessage = await context.SocialMessages
+    var savedMessage = await this.context.SocialMessages
         .Include(m => m.Author)
             .ThenInclude(u => u.Profile)
         .FirstOrDefaultAsync(m => m.Id == message.Id).ConfigureAwait(false);
@@ -143,7 +143,7 @@ internal class SocialController : Controller
     var orgName = savedMessage.Author?.TenantId.ToString() ?? string.Empty;
     if (savedMessage.Author != null && savedMessage.Author.TenantId != Guid.Empty)
     {
-      var org = await context.Organizations.FindAsync(savedMessage.Author.TenantId).ConfigureAwait(false);
+      var org = await this.context.Organizations.FindAsync(savedMessage.Author.TenantId).ConfigureAwait(false);
       if (org != null)
       {
         orgName = org.Name;
@@ -172,7 +172,7 @@ internal class SocialController : Controller
     foreach (Match match in matches)
     {
       var mentionedUsername = match.Groups[1].Value;
-      var mentionedUser = await userManager.FindByNameAsync(mentionedUsername).ConfigureAwait(false);
+      var mentionedUser = await this.userManager.FindByNameAsync(mentionedUsername).ConfigureAwait(false);
       if (mentionedUser != null && mentionedUser.Id != userId)
       {
         var notification = new Notification
@@ -185,20 +185,20 @@ internal class SocialController : Controller
           CreatedAt = DateTime.UtcNow,
         };
         this.context.Notifications.Add(notification);
-        await hubContext.Clients.User(mentionedUser.Id.ToString()).SendAsync("ReceiveNotification", notification.Title).ConfigureAwait(false);
+        await this.hubContext.Clients.User(mentionedUser.Id.ToString()).SendAsync("ReceiveNotification", notification.Title).ConfigureAwait(false);
       }
     }
 
-    await context.SaveChangesAsync().ConfigureAwait(false);
+    await this.context.SaveChangesAsync().ConfigureAwait(false);
 
     // Broadcast to SignalR -> ReceiveSocialMessage
-    await hubContext.Clients.All.SendAsync("ReceiveSocialMessage", dto).ConfigureAwait(false);
+    await this.hubContext.Clients.All.SendAsync("ReceiveSocialMessage", dto).ConfigureAwait(false);
 
     return this.Ok(dto);
   }
 
   /// <summary>
-  /// Löscht eine Nachricht via Soft-Delete.
+  /// LÃ¶scht eine Nachricht via Soft-Delete.
   /// </summary>
   /// <param name="id">Die ID der Nachricht.</param>
   /// <returns>Ein OK Resultat.</returns>
@@ -206,7 +206,7 @@ internal class SocialController : Controller
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> DeleteMessage(Guid id)
   {
-    var message = await context.SocialMessages.FindAsync(id).ConfigureAwait(false);
+    var message = await this.context.SocialMessages.FindAsync(id).ConfigureAwait(false);
     if (message == null)
     {
       return this.NotFound();
@@ -222,17 +222,17 @@ internal class SocialController : Controller
 
     // ChangeTracker triggers soft delete
     this.context.SocialMessages.Remove(message);
-    await context.SaveChangesAsync().ConfigureAwait(false);
+    await this.context.SaveChangesAsync().ConfigureAwait(false);
 
-    await hubContext.Clients.All.SendAsync("SocialMessageDeleted", id).ConfigureAwait(false);
+    await this.hubContext.Clients.All.SendAsync("SocialMessageDeleted", id).ConfigureAwait(false);
 
     return this.Ok();
   }
 
   /// <summary>
-  /// Lädt ein File hoch für Social Attachments.
+  /// LÃ¤dt ein File hoch fÃ¼r Social Attachments.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpPost("Social/Upload")]
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> UploadAttachment(IFormFile file)
@@ -267,9 +267,9 @@ internal class SocialController : Controller
   }
 
   /// <summary>
-  /// Löst ein Ticket-Preview auf, nur wenn der User im selben Tenant ist.
+  /// LÃ¶st ein Ticket-Preview auf, nur wenn der User im selben Tenant ist.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpGet("Social/TicketPreview/{id}")]
   public async Task<IActionResult> GetTicketPreview(Guid id)
   {
@@ -279,13 +279,13 @@ internal class SocialController : Controller
       return this.Unauthorized();
     }
 
-    var user = await userManager.FindByIdAsync(userIdStr).ConfigureAwait(false);
+    var user = await this.userManager.FindByIdAsync(userIdStr).ConfigureAwait(false);
     if (user == null)
     {
       return this.Unauthorized();
     }
 
-    var ticket = await context.Tickets.FirstOrDefaultAsync(t => t.Id == id).ConfigureAwait(false);
+    var ticket = await this.context.Tickets.FirstOrDefaultAsync(t => t.Id == id).ConfigureAwait(false);
     if (ticket == null)
     {
       return this.NotFound(new { error = "Ticket nicht gefunden" });

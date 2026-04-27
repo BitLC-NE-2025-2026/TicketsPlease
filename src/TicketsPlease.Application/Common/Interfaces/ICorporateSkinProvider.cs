@@ -5,21 +5,21 @@
 namespace TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// Definiert die Schnittstelle für den Corporate Skin Provider.
-/// Ermöglicht das Abrufen von branding-spezifischen Informationen wie Farben und Logos.
+/// Definiert die Schnittstelle fÃ¼r den Corporate Skin Provider.
+/// ErmÃ¶glicht das Abrufen von branding-spezifischen Informationen wie Farben und Logos.
 /// </summary>
 public interface ICorporateSkinProvider
 {
   /// <summary>
-  /// Ruft die Primärfarbe für das Branding ab (hexadezimal oder CSS-Variable).
+  /// Ruft die PrimÃ¤rfarbe fÃ¼r das Branding ab (hexadezimal oder CSS-Variable).
   /// </summary>
-  /// <returns>Die Primärfarbe als String.</returns>
+  /// <returns>Die PrimÃ¤rfarbe als String.</returns>
   public string GetPrimaryColor();
 
   /// <summary>
-  /// Ruft die Sekundärfarbe für das Branding ab.
+  /// Ruft die SekundÃ¤rfarbe fÃ¼r das Branding ab.
   /// </summary>
-  /// <returns>Die Sekundärfarbe als String.</returns>
+  /// <returns>Die SekundÃ¤rfarbe als String.</returns>
   public string GetSecondaryColor();
 
   /// <summary>

@@ -9,7 +9,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-internal class WorkflowTests
+public class WorkflowTests
 {
   [Fact]
   public void Workflow_Properties_ShouldBeSettable()

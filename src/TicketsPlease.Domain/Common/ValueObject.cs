@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// Die Basisklasse für alle ValueObjects in der Domäne.
+/// Die Basisklasse fÃ¼r alle ValueObjects in der DomÃ¤ne.
 /// Implementiert die wertbasierte Gleichheit (Structural Equality).
 /// </summary>
 public abstract class ValueObject
@@ -34,8 +34,8 @@ public abstract class ValueObject
   }
 
   /// <summary>
-  /// Gets die Komponenten, die für den Gleichheitsvergleich herangezogen werden.
+  /// Gets die Komponenten, die fÃ¼r den Gleichheitsvergleich herangezogen werden.
   /// </summary>
-  /// <returns>Eine Aufzählung der Komponenten.</returns>
+  /// <returns>Eine AufzÃ¤hlung der Komponenten.</returns>
   protected abstract IEnumerable<object?> GetEqualityComponents();
 }

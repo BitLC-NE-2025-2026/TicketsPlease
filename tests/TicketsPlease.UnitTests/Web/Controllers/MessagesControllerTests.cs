@@ -1,4 +1,4 @@
-﻿namespace TicketsPlease.UnitTests.Web.Controllers;
+namespace TicketsPlease.UnitTests.Web.Controllers;
 
 using System.Security.Claims;
 using FluentAssertions;
@@ -12,7 +12,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
-internal class MessagesControllerTests : IDisposable
+public class MessagesControllerTests : IDisposable
 {
   private readonly AppDbContext _context;
   private readonly Mock<IMessageService> _messageServiceMock = new();
@@ -37,10 +37,11 @@ internal class MessagesControllerTests : IDisposable
     _controller = new MessagesController(_messageServiceMock.Object, _userManagerMock.Object, _context);
 
     var user = new ClaimsPrincipal(new ClaimsIdentity(
-      new[]
-    {
-            new Claim(ClaimTypes.NameIdentifier, _currentUser.Id.ToString())
-    }, "TestAuth"));
+        new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, _currentUser.Id.ToString()),
+        },
+        "TestAuth"));
 
     _controller.ControllerContext = new ControllerContext
     {

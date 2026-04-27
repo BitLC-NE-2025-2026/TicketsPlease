@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using TicketsPlease.Infrastructure.Services;
 
 /// <summary>
-/// Haupt-Controller für den Administrationsbereich.
+/// Haupt-Controller fÃ¼r den Administrationsbereich.
 /// Erfordert die Admin-Rolle.
 /// </summary>
 [Authorize(Roles = "Admin")]
@@ -38,7 +38,7 @@ internal sealed class AdminController : Controller
   }
 
   /// <summary>
-  /// Leitet zur tatsächlichen Benutzerverwaltung weiter.
+  /// Leitet zur tatsÃ¤chlichen Benutzerverwaltung weiter.
   /// </summary>
   /// <returns>Ein Redirect auf die Benutzerliste.</returns>
   [HttpGet]
@@ -58,7 +58,7 @@ internal sealed class AdminController : Controller
   }
 
   /// <summary>
-  /// Führt einen kompletten Datenbank-Wipe aus.
+  /// FÃ¼hrt einen kompletten Datenbank-Wipe aus.
   /// </summary>
   /// <param name="confirmPhrase">Die Sicherheitsphrase.</param>
   /// <returns>Ein Task.</returns>
@@ -68,12 +68,12 @@ internal sealed class AdminController : Controller
   {
     if (confirmPhrase != "DELETE CONFIRM")
     {
-      this.ModelState.AddModelError(string.Empty, "Ungültige Sicherheitsphrase.");
+      this.ModelState.AddModelError(string.Empty, "UngÃ¼ltige Sicherheitsphrase.");
       return this.View("Settings");
     }
 
     await this.maintenanceService.WipeDatabaseAsync().ConfigureAwait(false);
-    this.TempData["StatusMessage"] = "Datenbank wurde erfolgreich zurückgesetzt. Bitte führen Sie ein Re-Seeding durch.";
+    this.TempData["StatusMessage"] = "Datenbank wurde erfolgreich zurÃ¼ckgesetzt. Bitte fÃ¼hren Sie ein Re-Seeding durch.";
     return this.RedirectToAction(nameof(this.Settings));
   }
 
@@ -89,7 +89,7 @@ internal sealed class AdminController : Controller
   {
     if (confirmPhrase != "DELETE CONFIRM")
     {
-      this.ModelState.AddModelError(string.Empty, "Ungültige Sicherheitsphrase.");
+      this.ModelState.AddModelError(string.Empty, "UngÃ¼ltige Sicherheitsphrase.");
       return this.View("Settings");
     }
 

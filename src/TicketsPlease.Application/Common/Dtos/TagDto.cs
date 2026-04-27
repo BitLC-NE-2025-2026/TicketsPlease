@@ -7,9 +7,9 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für einen Tag (Schlagwort).
+/// DatenÃ¼bertragungsobjekt fÃ¼r einen Tag (Schlagwort).
 /// </summary>
 /// <param name="Id">Die ID des Tags.</param>
 /// <param name="Name">Der Name des Tags.</param>
-/// <param name="ColorHex">Die Hex-Farbe für die Anzeige.</param>
+/// <param name="ColorHex">Die Hex-Farbe fÃ¼r die Anzeige.</param>
 public record TagDto(Guid Id, string Name, string ColorHex);

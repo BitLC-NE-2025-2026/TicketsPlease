@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Definiert die Geschäftslogik für Untertickets / Checklisten (F2.1.7).
+/// Definiert die GeschÃ¤ftslogik fÃ¼r Untertickets / Checklisten (F2.1.7).
 /// </summary>
 public interface ISubTicketService
 {
   /// <summary>
-  /// Fügt ein neues Unterticket hinzu.
+  /// FÃ¼gt ein neues Unterticket hinzu.
   /// </summary>
   /// <param name="ticketId">Hauptticket-ID.</param>
   /// <param name="title">Titel der Teilaufgabe.</param>
@@ -31,14 +31,14 @@ public interface ISubTicketService
   public Task ToggleSubTicketAsync(Guid subTicketId);
 
   /// <summary>
-  /// Löscht ein Unterticket.
+  /// LÃ¶scht ein Unterticket.
   /// </summary>
   /// <param name="subTicketId">ID des Untertickets.</param>
   /// <returns>Ein Task.</returns>
   public Task DeleteSubTicketAsync(Guid subTicketId);
 
   /// <summary>
-  /// Holt alle Untertickets für ein Hauptticket.
+  /// Holt alle Untertickets fÃ¼r ein Hauptticket.
   /// </summary>
   /// <param name="ticketId">Hauptticket-ID.</param>
   /// <returns>Liste von Untertickets.</returns>

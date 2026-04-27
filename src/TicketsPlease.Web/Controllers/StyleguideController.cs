@@ -7,13 +7,13 @@ namespace TicketsPlease.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
-/// Controller für den UI-Styleguide.
-/// Dient als Referenz für Entwickler, um einheitliche UI-Komponenten zu verwenden.
+/// Controller fÃ¼r den UI-Styleguide.
+/// Dient als Referenz fÃ¼r Entwickler, um einheitliche UI-Komponenten zu verwenden.
 /// </summary>
 internal sealed class StyleguideController : Controller
 {
   /// <summary>
-  /// Zeigt die Übersicht aller UI-Komponenten und Design-Tokens an.
+  /// Zeigt die Ãœbersicht aller UI-Komponenten und Design-Tokens an.
   /// </summary>
   /// <returns>Die Styleguide-View.</returns>
   [HttpGet]

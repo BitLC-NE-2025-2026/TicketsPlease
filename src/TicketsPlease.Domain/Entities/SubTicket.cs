@@ -8,17 +8,17 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert ein Unterticket (Teilaufgabe), das einem Hauptticket zugeordnet ist.
+/// ReprÃ¤sentiert ein Unterticket (Teilaufgabe), das einem Hauptticket zugeordnet ist.
 /// </summary>
 public class SubTicket : BaseEntity
 {
   /// <summary>
-  /// Gets or sets die ID des übergeordneten Haupttickets.
+  /// Gets or sets die ID des Ã¼bergeordneten Haupttickets.
   /// </summary>
   public Guid TicketId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das Hauptticket.
+  /// Gets or sets das Navigation-Property fÃ¼r das Hauptticket.
   /// </summary>
   public Ticket? Ticket { get; set; }
 
@@ -43,7 +43,7 @@ public class SubTicket : BaseEntity
   public Guid CreatorId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den ersteller-Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den ersteller-Benutzer.
   /// </summary>
   public User? Creator { get; set; }
 }

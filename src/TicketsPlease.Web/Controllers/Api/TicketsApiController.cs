@@ -7,8 +7,8 @@ namespace TicketsPlease.Web.Controllers.Api;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
-/// API für die Verwaltung von Tickets.
-/// Diese API wird über Scalar dokumentiert.
+/// API fÃ¼r die Verwaltung von Tickets.
+/// Diese API wird Ã¼ber Scalar dokumentiert.
 /// </summary>
 [ApiController]
 [Route("api/v1/tickets")]

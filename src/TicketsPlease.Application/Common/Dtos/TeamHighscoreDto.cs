@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// DTO für die Team-Performance im Highscore-Board.
+/// DTO fÃ¼r die Team-Performance im Highscore-Board.
 /// </summary>
 public record TeamHighscoreDto(
     Guid TeamId,

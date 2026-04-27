@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Repository für den Zugriff auf Datei-Metadaten.
+/// Repository fÃ¼r den Zugriff auf Datei-Metadaten.
 /// </summary>
 public interface IFileAssetRepository
 {
@@ -21,21 +21,21 @@ public interface IFileAssetRepository
   public Task<FileAsset?> GetByIdAsync(Guid id);
 
   /// <summary>
-  /// Fügt eine neue Datei hinzu.
+  /// FÃ¼gt eine neue Datei hinzu.
   /// </summary>
   /// <param name="fileAsset">Die Datei.</param>
   /// <returns>Ein Task.</returns>
   public Task AddAsync(FileAsset fileAsset);
 
   /// <summary>
-  /// Löscht eine Datei aus der DB.
+  /// LÃ¶scht eine Datei aus der DB.
   /// </summary>
-  /// <param name="fileAsset">Die zu löschende Datei.</param>
+  /// <param name="fileAsset">Die zu lÃ¶schende Datei.</param>
   /// <returns>Ein Task.</returns>
   public Task DeleteAsync(FileAsset fileAsset);
 
   /// <summary>
-  /// Speichert Änderungen.
+  /// Speichert Ã„nderungen.
   /// </summary>
   /// <returns>Ein Task.</returns>
   public Task SaveChangesAsync();

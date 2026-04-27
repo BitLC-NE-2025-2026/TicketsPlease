@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Definiert die Datenzugriffsschicht für das Teammanagement.
+/// Definiert die Datenzugriffsschicht fÃ¼r das Teammanagement.
 /// </summary>
 public interface ITeamRepository
 {
@@ -32,18 +32,18 @@ public interface ITeamRepository
   public Task<IEnumerable<Team>> GetTeamsByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Ruft alle im System verfügbaren Teams ab.
+  /// Ruft alle im System verfÃ¼gbaren Teams ab.
   /// </summary>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
   /// <returns>Eine Liste von Teams.</returns>
   public Task<IEnumerable<Team>> GetAllTeamsAsync(CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Fügt ein neues Team hinzu.
+  /// FÃ¼gt ein neues Team hinzu.
   /// </summary>
   /// <param name="team">Das Teamobjekt.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
-  /// <returns>Das hinzugefügte Team.</returns>
+  /// <returns>Das hinzugefÃ¼gte Team.</returns>
   public Task AddAsync(Team team, CancellationToken cancellationToken = default);
 
   /// <summary>
@@ -62,7 +62,7 @@ public interface ITeamRepository
   public Task DeleteAsync(Team team);
 
   /// <summary>
-  /// Fügt eine Beitrittsanfrage hinzu.
+  /// FÃ¼gt eine Beitrittsanfrage hinzu.
   /// </summary>
   /// <param name="request">Das Anfrageobjekt.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
@@ -86,7 +86,7 @@ public interface ITeamRepository
   public Task<TeamJoinRequest?> GetJoinRequestByIdAsync(Guid requestId, CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Ruft alle Beitrittsanfragen für ein Team ab.
+  /// Ruft alle Beitrittsanfragen fÃ¼r ein Team ab.
   /// </summary>
   /// <param name="teamId">Die ID des Teams.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
@@ -94,7 +94,7 @@ public interface ITeamRepository
   public Task<IEnumerable<TeamJoinRequest>> GetJoinRequestsByTeamIdAsync(Guid teamId, CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Speichert alle Änderungen asynchron.
+  /// Speichert alle Ã„nderungen asynchron.
   /// </summary>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
   /// <returns>Die Anzahl der betroffenen Zeilen.</returns>

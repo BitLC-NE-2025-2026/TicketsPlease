@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen Upvote (Zustimmung/Unterstützung) eines Benutzers für ein Ticket (z.B. Feature Request).
+/// ReprÃ¤sentiert einen Upvote (Zustimmung/UnterstÃ¼tzung) eines Benutzers fÃ¼r ein Ticket (z.B. Feature Request).
 /// </summary>
 public class TicketUpvote : BaseEntity
 {
@@ -18,7 +18,7 @@ public class TicketUpvote : BaseEntity
   public Guid TicketId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das Ticket.
+  /// Gets or sets das Navigation-Property fÃ¼r das Ticket.
   /// </summary>
   public Ticket? Ticket { get; set; }
 
@@ -28,7 +28,7 @@ public class TicketUpvote : BaseEntity
   public Guid UserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den abstimmenden Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den abstimmenden Benutzer.
   /// </summary>
   public User? User { get; set; }
 

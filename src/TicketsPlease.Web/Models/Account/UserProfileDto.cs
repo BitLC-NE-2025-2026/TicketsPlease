@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// DTO für die detaillierte Profilanzeige.
+/// DTO fÃ¼r die detaillierte Profilanzeige.
 /// </summary>
 internal record UserProfileDto(
     Guid UserId,

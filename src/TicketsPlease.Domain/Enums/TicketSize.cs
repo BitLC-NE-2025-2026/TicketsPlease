@@ -5,7 +5,7 @@
 namespace TicketsPlease.Domain.Enums;
 
 /// <summary>
-/// Definiert die geschätzte Größe eines Tickets (T-Shirt Sizes / Story Points).
+/// Definiert die geschÃ¤tzte GrÃ¶ÃŸe eines Tickets (T-Shirt Sizes / Story Points).
 /// </summary>
 public enum TicketSize
 {
@@ -25,12 +25,12 @@ public enum TicketSize
   M = 2,
 
   /// <summary>
-  /// Groß.
+  /// GroÃŸ.
   /// </summary>
   L = 3,
 
   /// <summary>
-  /// Sehr groß.
+  /// Sehr groÃŸ.
   /// </summary>
   XL = 4,
 }

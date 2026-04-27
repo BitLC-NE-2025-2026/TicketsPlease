@@ -7,8 +7,8 @@ namespace TicketsPlease.Domain.Common;
 using System;
 
 /// <summary>
-/// Definiert die Schnittstelle für alle Domänenereignisse.
-/// Domänenereignisse stellen wichtige Änderungen im Geschäftszustand dar.
+/// Definiert die Schnittstelle fÃ¼r alle DomÃ¤nenereignisse.
+/// DomÃ¤nenereignisse stellen wichtige Ã„nderungen im GeschÃ¤ftszustand dar.
 /// </summary>
 public interface IDomainEvent
 {

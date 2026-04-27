@@ -22,7 +22,7 @@ using TicketsPlease.Domain.Enums;
 #pragma warning disable CA1848 // Use the LoggerMessage delegates
 public static class DbInitialiser
 {
-  // Statische IDs (Übereinstimmend mit AppDbContext.SeedStaticData)
+  // Statische IDs (Ãœbereinstimmend mit AppDbContext.SeedStaticData)
   private static readonly Guid AdminRoleId = new("32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21");
   private static readonly Guid TeamleadRoleId = new("b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33");
   private static readonly Guid UserRoleId = new("c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44");
@@ -41,10 +41,10 @@ public static class DbInitialiser
   private static readonly Guid DoneStateId = new("589c891c-0584-57d8-456c-c8a589168833");
 
   /// <summary>
-  /// Führt das Seeding der Datenbank asynchron aus, falls diese leer ist.
+  /// FÃ¼hrt das Seeding der Datenbank asynchron aus, falls diese leer ist.
   /// </summary>
   /// <param name="serviceProvider">Der Service-Provider zum Abrufen des Datenbankkontexts.</param>
-  /// <returns>Ein Task, der den asynchronen Vorgang repräsentiert.</returns>
+  /// <returns>Ein Task, der den asynchronen Vorgang reprÃ¤sentiert.</returns>
   public static async Task SeedAsync(IServiceProvider serviceProvider)
   {
     using var scope = serviceProvider.CreateScope();
@@ -60,7 +60,7 @@ public static class DbInitialiser
 
       if (await context.Users.AnyAsync().ConfigureAwait(false))
       {
-        logger.LogInformation("Datenbank enthält bereits dynamische Testdaten. Seeding wird übersprungen.");
+        logger.LogInformation("Datenbank enthÃ¤lt bereits dynamische Testdaten. Seeding wird Ã¼bersprungen.");
         return;
       }
 
@@ -106,7 +106,7 @@ public static class DbInitialiser
       foreach (var org in orgs)
       {
         var p1 = new Project($"{org.Name} - Main Development", DateTime.UtcNow.AddMonths(-2));
-        p1.UpdateMetadata(p1.Title, $"Zentrales Projekt für {org.Name}");
+        p1.UpdateMetadata(p1.Title, $"Zentrales Projekt fÃ¼r {org.Name}");
         p1.AssignWorkflow(WorkflowId);
         p1.SetTenantId(org.Id);
         projects.Add(p1);
@@ -177,7 +177,7 @@ public static class DbInitialiser
 
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 5. Profiles & Addresses (Vollständig)
+      // 5. Profiles & Addresses (VollstÃ¤ndig)
       var techStacks = new[] { ".NET, C#, SQL Server", "Frontend, React, Tailwind", "DevOps, Azure, Docker", "QA, Selenium, Playwright", "Management, Agile, Scrum" };
       var positions = new[] { "Senior Developer", "Junior Developer", "DevOps Engineer", "Project Manager", "Team Lead", "Quality Engineer" };
 
@@ -233,7 +233,7 @@ public static class DbInitialiser
         var team = new Team
         {
           Name = teamNames[i],
-          Description = $"Das Team für {teamNames[i]} bei {org.Name}.",
+          Description = $"Das Team fÃ¼r {teamNames[i]} bei {org.Name}.",
           ColorCode = faker.Internet.Color(),
           CreatedByUserId = creator.Id,
           TenantId = org.Id,
@@ -250,7 +250,7 @@ public static class DbInitialiser
       }
       else
       {
-        logger.LogWarning("Keine Teams erstellt, da keine Benutzer für die Organisationen gefunden wurden.");
+        logger.LogWarning("Keine Teams erstellt, da keine Benutzer fÃ¼r die Organisationen gefunden wurden.");
       }
 
       // Team Members
@@ -410,7 +410,7 @@ public static class DbInitialiser
         var orgUsers = users.Where(u => u.TenantId == org.Id).ToList();
         if (orgUsers.Count < 2)
         {
-          continue; // Brauchen mindestens 2 User für Chat
+          continue; // Brauchen mindestens 2 User fÃ¼r Chat
         }
 
         for (int i = 0; i < 40; i++)

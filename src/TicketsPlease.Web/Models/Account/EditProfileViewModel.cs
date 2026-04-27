@@ -23,7 +23,7 @@ internal class EditProfileViewModel
   /// Gets or sets die E-Mail-Adresse.
   /// </summary>
   [Required(ErrorMessage = "E-Mail ist erforderlich")]
-  [EmailAddress(ErrorMessage = "Ungültige E-Mail-Adresse")]
+  [EmailAddress(ErrorMessage = "UngÃ¼ltige E-Mail-Adresse")]
   [Display(Name = "E-Mail")]
   public string Email { get; set; } = string.Empty;
 
@@ -59,11 +59,11 @@ internal class EditProfileViewModel
   public string? NewPassword { get; set; }
 
   /// <summary>
-  /// Gets or sets die Passwortbestätigung.
+  /// Gets or sets die PasswortbestÃ¤tigung.
   /// </summary>
   [DataType(DataType.Password)]
-  [Display(Name = "Passwort bestätigen")]
-  [Compare("NewPassword", ErrorMessage = "Die Passwörter stimmen nicht überein.")]
+  [Display(Name = "Passwort bestÃ¤tigen")]
+  [Compare("NewPassword", ErrorMessage = "Die PasswÃ¶rter stimmen nicht Ã¼berein.")]
   public string? ConfirmPassword { get; set; }
 
   /// <summary>
@@ -79,9 +79,9 @@ internal class EditProfileViewModel
   public string? TechStack { get; set; }
 
   /// <summary>
-  /// Gets or sets die Straße.
+  /// Gets or sets die StraÃŸe.
   /// </summary>
-  [Display(Name = "Straße")]
+  [Display(Name = "StraÃŸe")]
   public string? Street { get; set; }
 
   /// <summary>

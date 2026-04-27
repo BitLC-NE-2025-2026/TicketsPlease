@@ -8,47 +8,47 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen Audit-Log-Eintrag für eine Änderung an einem Ticket.
+/// ReprÃ¤sentiert einen Audit-Log-Eintrag fÃ¼r eine Ã„nderung an einem Ticket.
 /// </summary>
 public class TicketHistory : BaseEntity
 {
   /// <summary>
-  /// Gets or sets die ID des geänderten Tickets.
+  /// Gets or sets die ID des geÃ¤nderten Tickets.
   /// </summary>
   public Guid TicketId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das geänderte Ticket.
+  /// Gets or sets das Navigation-Property fÃ¼r das geÃ¤nderte Ticket.
   /// </summary>
   public Ticket? Ticket { get; set; }
 
   /// <summary>
-  /// Gets or sets die ID des Benutzers, der die Änderung vorgenommen hat.
+  /// Gets or sets die ID des Benutzers, der die Ã„nderung vorgenommen hat.
   /// </summary>
   public Guid ActorUserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den agierenden Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den agierenden Benutzer.
   /// </summary>
   public User? ActorUser { get; set; }
 
   /// <summary>
-  /// Gets or sets den Namen des geänderten Feldes (z.B. Status, Priorität, Zuweisung).
+  /// Gets or sets den Namen des geÃ¤nderten Feldes (z.B. Status, PrioritÃ¤t, Zuweisung).
   /// </summary>
   public string FieldName { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets den alten Wert vor der Änderung als String.
+  /// Gets or sets den alten Wert vor der Ã„nderung als String.
   /// </summary>
   public string? OldValue { get; set; }
 
   /// <summary>
-  /// Gets or sets den neuen Wert nach der Änderung als String.
+  /// Gets or sets den neuen Wert nach der Ã„nderung als String.
   /// </summary>
   public string? NewValue { get; set; }
 
   /// <summary>
-  /// Gets or sets den Zeitpunkt (UTC) der Änderung.
+  /// Gets or sets den Zeitpunkt (UTC) der Ã„nderung.
   /// </summary>
   public DateTime ChangedAt { get; set; } = DateTime.UtcNow;
 }

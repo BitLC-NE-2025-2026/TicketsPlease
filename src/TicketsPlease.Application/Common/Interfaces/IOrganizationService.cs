@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Service Interface für Organisations-Management (Workspaces).
+/// Service Interface fÃ¼r Organisations-Management (Workspaces).
 /// </summary>
 public interface IOrganizationService
 {

@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Einladung zu einer Organisation via Token.
+/// ReprÃ¤sentiert eine Einladung zu einer Organisation via Token.
 /// </summary>
 public class OrganizationInvite : BaseAuditableEntity
 {
@@ -23,12 +23,12 @@ public class OrganizationInvite : BaseAuditableEntity
   public Guid OrganizationId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für die Organisation.
+  /// Gets or sets das Navigation-Property fÃ¼r die Organisation.
   /// </summary>
   public virtual Organization? Organization { get; set; }
 
   /// <summary>
-  /// Gets or sets den Zeitpunkt, an dem die Einladung abläuft.
+  /// Gets or sets den Zeitpunkt, an dem die Einladung ablÃ¤uft.
   /// </summary>
   public DateTime ExpiresAt { get; set; }
 
@@ -43,7 +43,7 @@ public class OrganizationInvite : BaseAuditableEntity
   public Guid? UsedByUserId { get; set; }
 
   /// <summary>
-  /// Gets or sets die optionale E-Mail-Adresse, für die die Einladung bestimmt ist.
+  /// Gets or sets die optionale E-Mail-Adresse, fÃ¼r die die Einladung bestimmt ist.
   /// </summary>
   public string? TargetedEmail { get; set; }
 }

@@ -12,8 +12,8 @@ using System;
 /// <param name="Title">Der Titel des Tickets.</param>
 /// <param name="Description">Die Beschreibung des Tasks.</param>
 /// <param name="ProjectId">Die ID des Projekts, dem es zugeordnet wird.</param>
-/// <param name="PriorityId">Die ID der Priorität.</param>
-/// <param name="AssignedUserId">Die ID des zuständigen Benutzers.</param>
+/// <param name="PriorityId">Die ID der PrioritÃ¤t.</param>
+/// <param name="AssignedUserId">Die ID des zustÃ¤ndigen Benutzers.</param>
 /// <param name="EstimatePoints">Die Story Points.</param>
 /// <param name="ChilliesDifficulty">Die Schwierigkeit (1-5 Chilis).</param>
 /// <param name="TagIds">Die IDs der zuzuordnenden Tags.</param>

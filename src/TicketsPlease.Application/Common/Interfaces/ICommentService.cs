@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Definiert die Geschäftslogik für die Kommentarverwaltung (F5).
+/// Definiert die GeschÃ¤ftslogik fÃ¼r die Kommentarverwaltung (F5).
 /// </summary>
 public interface ICommentService
 {
   /// <summary>
-  /// Ruft alle Kommentare für ein spezifisches Ticket ab.
+  /// Ruft alle Kommentare fÃ¼r ein spezifisches Ticket ab.
   /// </summary>
   /// <param name="ticketId">Die ID des Tickets.</param>
   /// <returns>Eine Liste von <see cref="CommentDto"/>.</returns>
@@ -25,6 +25,6 @@ public interface ICommentService
   /// Erstellt einen neuen Kommentar.
   /// </summary>
   /// <param name="dto">Die Kommentardaten.</param>
-  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  /// <returns>Ein Task fÃ¼r die asynchrone Operation.</returns>
   public Task CreateCommentAsync(CreateCommentDto dto);
 }

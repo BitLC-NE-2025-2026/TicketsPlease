@@ -195,7 +195,7 @@ app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
   options
-    .WithTitle("TicketsPlease 🔵 Professional API")
+    .WithTitle("TicketsPlease ðŸ”µ Professional API")
     .WithTheme(ScalarTheme.BluePlanet)
     .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
@@ -210,7 +210,7 @@ app.MapHub<NotificationHub>("/notificationHub");
 await app.RunAsync().ConfigureAwait(false);
 
 /// <summary>
-/// Ermöglicht den Zugriff auf die Program-Klasse für Integrations-Tests.
+/// ErmÃ¶glicht den Zugriff auf die Program-Klasse fÃ¼r Integrations-Tests.
 /// </summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Required for WebApplicationFactory in IntegrationTests")]
 public partial class Program

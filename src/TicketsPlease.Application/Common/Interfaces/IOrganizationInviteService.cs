@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Schnittstelle für den Dienst zur Verwaltung von Organisationseinladungen.
+/// Schnittstelle fÃ¼r den Dienst zur Verwaltung von Organisationseinladungen.
 /// </summary>
 public interface IOrganizationInviteService
 {
   /// <summary>
-  /// Erstellt eine neue Einladung für eine Organisation.
+  /// Erstellt eine neue Einladung fÃ¼r eine Organisation.
   /// </summary>
   /// <param name="organizationId">Die ID der Organisation.</param>
   /// <param name="targetedEmail">Die optionale Ziel-E-Mail.</param>
-  /// <param name="expiryDays">Gültigkeitsdauer in Tagen.</param>
+  /// <param name="expiryDays">GÃ¼ltigkeitsdauer in Tagen.</param>
   /// <returns>Das DTO der erstellten Einladung.</returns>
   public Task<OrganizationInviteDto> CreateInviteAsync(Guid organizationId, string? targetedEmail = null, int expiryDays = 7);
 
@@ -26,7 +26,7 @@ public interface IOrganizationInviteService
   /// Validiert einen Einladungs-Token.
   /// </summary>
   /// <param name="token">Der Token GUID.</param>
-  /// <returns>Das DTO, falls gültig, sonst null.</returns>
+  /// <returns>Das DTO, falls gÃ¼ltig, sonst null.</returns>
   public Task<OrganizationInviteDto?> ValidateTokenAsync(Guid token);
 
   /// <summary>

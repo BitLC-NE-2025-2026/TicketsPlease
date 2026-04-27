@@ -7,7 +7,7 @@ namespace TicketsPlease.Web.Models.Account;
 using System.ComponentModel.DataAnnotations;
 
 /// <summary>
-/// Das ViewModel für den Login.
+/// Das ViewModel fÃ¼r den Login.
 /// </summary>
 internal class LoginViewModel
 {

@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen Log-Eintrag für Governance-Aktionen (PO-Level).
+/// ReprÃ¤sentiert einen Log-Eintrag fÃ¼r Governance-Aktionen (PO-Level).
 /// </summary>
 public class AuditLog : BaseEntity
 {
@@ -36,17 +36,17 @@ public class AuditLog : BaseEntity
   }
 
   /// <summary>
-  /// Gets or sets die ID der Organisation, zu der dieser Log gehört.
+  /// Gets or sets die ID der Organisation, zu der dieser Log gehÃ¶rt.
   /// </summary>
   public Guid OrganizationId { get; set; }
 
   /// <summary>
-  /// Gets or sets die ID des Benutzers, der die Aktion durchgeführt hat.
+  /// Gets or sets die ID des Benutzers, der die Aktion durchgefÃ¼hrt hat.
   /// </summary>
   public Guid ActorUserId { get; set; }
 
   /// <summary>
-  /// Gets or sets den Namen des Akteurs (denormalisiert für schnelles Lesen).
+  /// Gets or sets den Namen des Akteurs (denormalisiert fÃ¼r schnelles Lesen).
   /// </summary>
   public string ActorName { get; set; } = string.Empty;
 
@@ -66,7 +66,7 @@ public class AuditLog : BaseEntity
   public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für die Organisation.
+  /// Gets or sets das Navigation-Property fÃ¼r die Organisation.
   /// </summary>
   public virtual Organization? Organization { get; set; }
 }

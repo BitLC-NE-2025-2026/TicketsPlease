@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Enums;
 
 /// <summary>
-/// Datenübertragungsobjekt für eine Beitrittsanfrage.
+/// DatenÃ¼bertragungsobjekt fÃ¼r eine Beitrittsanfrage.
 /// </summary>
 /// <param name="Id">Die ID der Anfrage.</param>
 /// <param name="TeamId">Die ID des Teams.</param>

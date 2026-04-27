@@ -33,7 +33,7 @@ public class TimeTrackingService : ITimeTrackingService
   /// <inheritdoc/>
   public async Task StartTimeTrackingAsync(Guid ticketId, Guid userId)
   {
-    // Prüfen, ob bereits ein Timer läuft
+    // PrÃ¼fen, ob bereits ein Timer lÃ¤uft
     var existing = await this.context.TimeLogs
         .FirstOrDefaultAsync(l => l.TicketId == ticketId && l.UserId == userId && l.StoppedAt == null)
         .ConfigureAwait(false);

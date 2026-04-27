@@ -13,7 +13,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller für ProductOwner-spezifische Aufgaben (Workspace Settings, Invites).
+/// Controller fÃ¼r ProductOwner-spezifische Aufgaben (Workspace Settings, Invites).
 /// </summary>
 [Authorize(Roles = "Admin,ProductOwner")]
 internal sealed class ProductOwnerController : Controller
@@ -129,7 +129,7 @@ internal sealed class ProductOwnerController : Controller
   }
 
   /// <summary>
-  /// Entfernt (hier: deaktiviert) den SLA-Schwellenwert für alle Profile (Legacy-Check, jetzt via Organization-Settings).
+  /// Entfernt (hier: deaktiviert) den SLA-Schwellenwert fÃ¼r alle Profile (Legacy-Check, jetzt via Organization-Settings).
   /// </summary>
   /// <returns>Ein Redirect.</returns>
   [HttpPost]

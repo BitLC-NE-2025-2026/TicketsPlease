@@ -12,7 +12,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller für das Stakeholder-Reporting-Dashboard.
+/// Controller fÃ¼r das Stakeholder-Reporting-Dashboard.
 /// </summary>
 [Authorize(Roles = "Admin,ProductOwner,Stakeholder")]
 internal sealed class StakeholderController : Controller

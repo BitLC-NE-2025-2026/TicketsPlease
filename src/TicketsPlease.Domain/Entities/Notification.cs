@@ -8,7 +8,7 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert eine Systembenachrichtigung für einen Benutzer.
+/// ReprÃ¤sentiert eine Systembenachrichtigung fÃ¼r einen Benutzer.
 /// </summary>
 public class Notification : BaseEntity
 {
@@ -18,7 +18,7 @@ public class Notification : BaseEntity
   public Guid UserId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für den zu benachrichtigenden Benutzer.
+  /// Gets or sets das Navigation-Property fÃ¼r den zu benachrichtigenden Benutzer.
   /// </summary>
   public User? User { get; set; }
 
@@ -33,7 +33,7 @@ public class Notification : BaseEntity
   public string Content { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die (optionale) Ziel-URL, zu der die Benachrichtigung führen soll.
+  /// Gets or sets die (optionale) Ziel-URL, zu der die Benachrichtigung fÃ¼hren soll.
   /// </summary>
 #pragma warning disable CA1056 // URI-like properties should not be strings
   public string? TargetUrl { get; set; }

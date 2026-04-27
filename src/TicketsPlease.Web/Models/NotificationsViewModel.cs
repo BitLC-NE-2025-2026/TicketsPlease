@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// ViewModel für die Benachrichtigungsübersicht.
+/// ViewModel fÃ¼r die BenachrichtigungsÃ¼bersicht.
 /// </summary>
 internal class NotificationsViewModel
 {

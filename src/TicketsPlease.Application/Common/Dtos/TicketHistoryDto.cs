@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System;
 
 /// <summary>
-/// Datenübertragungsobjekt für einen Eintrag in der Ticket-Historie.
+/// DatenÃ¼bertragungsobjekt fÃ¼r einen Eintrag in der Ticket-Historie.
 /// </summary>
 public record TicketHistoryDto(
     Guid Id,

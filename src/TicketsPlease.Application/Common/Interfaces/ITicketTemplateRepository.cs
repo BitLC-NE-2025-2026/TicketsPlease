@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Repository Interface für die Verwaltung von Ticket-Vorlagen.
+/// Repository Interface fÃ¼r die Verwaltung von Ticket-Vorlagen.
 /// </summary>
 public interface ITicketTemplateRepository
 {
@@ -27,7 +27,7 @@ public interface ITicketTemplateRepository
   public Task<TicketTemplate?> GetByIdAsync(Guid id, CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt eine Vorlage hinzu.
+  /// FÃ¼gt eine Vorlage hinzu.
   /// </summary>
   /// <param name="template">Die Vorlage.</param>
   /// <param name="ct">Abbruchsignal.</param>
@@ -35,7 +35,7 @@ public interface ITicketTemplateRepository
   public Task AddAsync(TicketTemplate template, CancellationToken ct = default);
 
   /// <summary>
-  /// Löscht eine Vorlage.
+  /// LÃ¶scht eine Vorlage.
   /// </summary>
   /// <param name="template">Die Vorlage.</param>
   /// <param name="ct">Abbruchsignal.</param>
@@ -43,7 +43,7 @@ public interface ITicketTemplateRepository
   public Task DeleteAsync(TicketTemplate template, CancellationToken ct = default);
 
   /// <summary>
-  /// Speichert die Änderungen.
+  /// Speichert die Ã„nderungen.
   /// </summary>
   /// <param name="ct">Abbruchsignal.</param>
   /// <returns>Task.</returns>

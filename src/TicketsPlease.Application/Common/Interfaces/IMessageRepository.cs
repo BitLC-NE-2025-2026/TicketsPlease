@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Definiert die Datenzugriffsschicht für <see cref="Message"/> Entitäten.
+/// Definiert die Datenzugriffsschicht fÃ¼r <see cref="Message"/> EntitÃ¤ten.
 /// </summary>
 public interface IMessageRepository
 {
@@ -20,7 +20,7 @@ public interface IMessageRepository
   public Task<Message?> GetByIdAsync(Guid id, CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft alle Nachrichten für einen Benutzer ab (gesendet oder empfangen).
+  /// Ruft alle Nachrichten fÃ¼r einen Benutzer ab (gesendet oder empfangen).
   /// </summary>
   /// <param name="userId">Die ID des Benutzers.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
@@ -28,7 +28,7 @@ public interface IMessageRepository
   public Task<List<Message>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft die neuesten Nachrichten für einen Benutzer ab (gesendet oder empfangen).
+  /// Ruft die neuesten Nachrichten fÃ¼r einen Benutzer ab (gesendet oder empfangen).
   /// </summary>
   /// <param name="userId">Die ID des Benutzers.</param>
   /// <param name="limit">Die maximale Anzahl der Nachrichten.</param>
@@ -46,7 +46,7 @@ public interface IMessageRepository
   public Task<List<Message>> GetConversationAsync(Guid userId, Guid otherUserId, CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt eine neue Nachricht hinzu.
+  /// FÃ¼gt eine neue Nachricht hinzu.
   /// </summary>
   /// <param name="message">Die Nachricht.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
@@ -69,7 +69,7 @@ public interface IMessageRepository
   public Task<List<Message>> GetGlobalMessagesAsync(CancellationToken ct = default);
 
   /// <summary>
-  /// Speichert Änderungen.
+  /// Speichert Ã„nderungen.
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Die asynchrone Operation.</returns>

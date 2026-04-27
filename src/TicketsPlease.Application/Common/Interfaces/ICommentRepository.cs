@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Definiert die Repository-Methoden für Kommentare (F5).
+/// Definiert die Repository-Methoden fÃ¼r Kommentare (F5).
 /// </summary>
 public interface ICommentRepository
 {
   /// <summary>
-  /// Ruft alle Kommentare für ein Ticket ab.
+  /// Ruft alle Kommentare fÃ¼r ein Ticket ab.
   /// </summary>
   /// <param name="ticketId">Die ID des Tickets.</param>
   /// <param name="ct">Das CancellationToken.</param>
@@ -24,17 +24,17 @@ public interface ICommentRepository
   public Task<List<Comment>> GetByTicketIdAsync(Guid ticketId, CancellationToken ct = default);
 
   /// <summary>
-  /// Fügt einen neuen Kommentar hinzu.
+  /// FÃ¼gt einen neuen Kommentar hinzu.
   /// </summary>
   /// <param name="comment">Der Kommentar.</param>
   /// <param name="ct">Das CancellationToken.</param>
-  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  /// <returns>Ein Task fÃ¼r die asynchrone Operation.</returns>
   public Task AddAsync(Comment comment, CancellationToken ct = default);
 
   /// <summary>
-  /// Speichert die Änderungen in der Datenbank.
+  /// Speichert die Ã„nderungen in der Datenbank.
   /// </summary>
   /// <param name="ct">Das CancellationToken.</param>
-  /// <returns>Die Anzahl der betroffenen Datensätze.</returns>
+  /// <returns>Die Anzahl der betroffenen DatensÃ¤tze.</returns>
   public Task<int> SaveChangesAsync(CancellationToken ct = default);
 }

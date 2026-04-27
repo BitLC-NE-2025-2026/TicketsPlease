@@ -8,17 +8,17 @@ using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert die Zuordnung (Many-to-Many) zwischen einem Ticket und einem Tag.
+/// ReprÃ¤sentiert die Zuordnung (Many-to-Many) zwischen einem Ticket und einem Tag.
 /// </summary>
 public class TicketTag : BaseEntity
 {
   /// <summary>
-  /// Gets or sets die ID des zugehörigen Tickets.
+  /// Gets or sets die ID des zugehÃ¶rigen Tickets.
   /// </summary>
   public Guid TicketId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das Ticket.
+  /// Gets or sets das Navigation-Property fÃ¼r das Ticket.
   /// </summary>
   public Ticket? Ticket { get; set; }
 
@@ -28,7 +28,7 @@ public class TicketTag : BaseEntity
   public Guid TagId { get; set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property für das Tag.
+  /// Gets or sets das Navigation-Property fÃ¼r das Tag.
   /// </summary>
   public Tag? Tag { get; set; }
 }

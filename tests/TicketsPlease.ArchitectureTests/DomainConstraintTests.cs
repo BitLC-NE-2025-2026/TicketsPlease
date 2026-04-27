@@ -10,15 +10,15 @@ using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Enthält Architektur-Tests zur Sicherstellung der Datenintegrität und Einhaltung von Domain-Vorgaben.
+/// EnthÃ¤lt Architektur-Tests zur Sicherstellung der DatenintegritÃ¤t und Einhaltung von Domain-Vorgaben.
 /// Nutzt NetArchTest zur statischen Analyse der Assembly-Struktur.
 /// </summary>
 #pragma warning disable CA1707 // Identifiers should not contain underscores
 public class DomainConstraintTests
 {
   /// <summary>
-  /// Prüft, ob alle Entitäten im Domain-Layer von der Klasse <see cref="BaseEntity"/> erben.
-  /// Dies stellt sicher, dass grundlegende Felder wie Id und RowVersion überall vorhanden sind.
+  /// PrÃ¼ft, ob alle EntitÃ¤ten im Domain-Layer von der Klasse <see cref="BaseEntity"/> erben.
+  /// Dies stellt sicher, dass grundlegende Felder wie Id und RowVersion Ã¼berall vorhanden sind.
   /// </summary>
   [Fact]
   public void Entities_Should_Inherit_From_BaseEntity()
@@ -36,13 +36,13 @@ public class DomainConstraintTests
         .Inherit(typeof(BaseEntity))
         .GetResult();
 
-    var failureMessage = "alle Entitäten müssen von BaseEntity erben. Fehlend: " +
+    var failureMessage = "alle EntitÃ¤ten mÃ¼ssen von BaseEntity erben. Fehlend: " +
                          (result.FailingTypeNames != null ? string.Join(", ", result.FailingTypeNames) : "keine");
     result.IsSuccessful.Should().BeTrue(failureMessage);
   }
 
   /// <summary>
-  /// Prüft, ob alle Entitäten im Domain-Namespace liegen.
+  /// PrÃ¼ft, ob alle EntitÃ¤ten im Domain-Namespace liegen.
   /// </summary>
   [Fact]
   public void Entities_Should_Reside_In_Entities_Namespace()
@@ -56,7 +56,7 @@ public class DomainConstraintTests
         .ResideInNamespace("TicketsPlease.Domain.Entities")
         .GetResult();
 
-    result.IsSuccessful.Should().BeTrue("Entitäten sollten in einem spezifischen Namespace gruppiert sein.");
+    result.IsSuccessful.Should().BeTrue("EntitÃ¤ten sollten in einem spezifischen Namespace gruppiert sein.");
   }
 }
 #pragma warning restore CA1707 // Identifiers should not contain underscores

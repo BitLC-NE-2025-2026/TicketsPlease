@@ -8,29 +8,29 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 /// <summary>
-/// Stellt die Basisklasse für alle Domänen-Entitäten dar.
-/// Enthält grundlegende Eigenschaften wie eine eindeutige ID und ein Feld für die Nebenläufigkeitskontrolle.
+/// Stellt die Basisklasse fÃ¼r alle DomÃ¤nen-EntitÃ¤ten dar.
+/// EnthÃ¤lt grundlegende Eigenschaften wie eine eindeutige ID und ein Feld fÃ¼r die NebenlÃ¤ufigkeitskontrolle.
 /// </summary>
 public abstract class BaseEntity : IBaseEntity
 {
   /// <summary>
-  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
+  /// Eine Liste von Domain-Events, die von dieser EntitÃ¤t ausgelÃ¶st wurden.
   /// </summary>
   private readonly List<IDomainEvent> domainEvents = new();
 
   /// <summary>
-  /// Gets or sets die eindeutige Identität der Entität.
+  /// Gets or sets die eindeutige IdentitÃ¤t der EntitÃ¤t.
   /// </summary>
   [Key]
   public Guid Id { get; set; } = Guid.NewGuid();
 
   /// <summary>
-  /// Gets or sets die Mandanten-ID, zu der diese Entität gehört (Multi-Tenancy).
+  /// Gets or sets die Mandanten-ID, zu der diese EntitÃ¤t gehÃ¶rt (Multi-Tenancy).
   /// </summary>
   public Guid TenantId { get; set; }
 
   /// <summary>
-  /// Gets or sets a value indicating whether die Entität gelöscht wurde (Soft-Delete).
+  /// Gets or sets a value indicating whether die EntitÃ¤t gelÃ¶scht wurde (Soft-Delete).
   /// </summary>
   public bool IsDeleted { get; set; }
 
@@ -40,7 +40,7 @@ public abstract class BaseEntity : IBaseEntity
   public DateTime? DeletedAt { get; set; }
 
   /// <summary>
-  /// Gets or sets das Feld zur optimistischen Nebenläufigkeitskontrolle (Concurrency Control).
+  /// Gets or sets das Feld zur optimistischen NebenlÃ¤ufigkeitskontrolle (Concurrency Control).
   /// Dieses Feld wird automatisch von SQL Server aktualisiert (Timestamp/RowVersion).
   /// </summary>
 #pragma warning disable CA1819 // Properties should not return arrays
@@ -54,9 +54,9 @@ public abstract class BaseEntity : IBaseEntity
   public IReadOnlyCollection<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
 
   /// <summary>
-  /// Fügt ein Domain-Event hinzu.
+  /// FÃ¼gt ein Domain-Event hinzu.
   /// </summary>
-  /// <param name="domainEvent">Das hinzuzufügende Event.</param>
+  /// <param name="domainEvent">Das hinzuzufÃ¼gende Event.</param>
   public void AddDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Add(domainEvent);
 
   /// <summary>

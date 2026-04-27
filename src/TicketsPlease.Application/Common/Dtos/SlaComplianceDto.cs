@@ -5,7 +5,7 @@
 namespace TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Datentransferobjekt für den SLA-Status.
+/// Datentransferobjekt fÃ¼r den SLA-Status.
 /// </summary>
 /// <param name="ProjectName">Name des Projekts.</param>
 /// <param name="TotalTickets">Gesamtanzahl Tickets.</param>

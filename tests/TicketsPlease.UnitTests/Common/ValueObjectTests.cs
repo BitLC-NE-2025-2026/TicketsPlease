@@ -9,7 +9,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Common;
 using Xunit;
 
-internal class ValueObjectTests
+public class ValueObjectTests
 {
   [Fact]
   public void Equals_WithSameValues_ShouldReturnTrue()

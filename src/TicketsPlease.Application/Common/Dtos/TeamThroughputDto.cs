@@ -5,7 +5,7 @@
 namespace TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Datentransferobjekt für den Durchsatz eines Teams.
+/// Datentransferobjekt fÃ¼r den Durchsatz eines Teams.
 /// </summary>
 /// <param name="TeamName">Name des Teams.</param>
 /// <param name="TicketsCompleted">Abgeschlossene Tickets.</param>

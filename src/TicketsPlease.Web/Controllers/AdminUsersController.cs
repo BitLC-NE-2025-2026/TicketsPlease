@@ -16,7 +16,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Controller für die Benutzerverwaltung im Administrationsbereich (F2).
+/// Controller fÃ¼r die Benutzerverwaltung im Administrationsbereich (F2).
 /// </summary>
 [Authorize(Roles = "Admin")]
 internal class AdminUsersController : Controller
@@ -163,7 +163,7 @@ internal class AdminUsersController : Controller
   }
 
   /// <summary>
-  /// Speichert die Änderungen an einem Benutzer.
+  /// Speichert die Ã„nderungen an einem Benutzer.
   /// </summary>
   /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpPost]

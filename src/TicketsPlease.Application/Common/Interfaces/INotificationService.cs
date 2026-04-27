@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TicketsPlease.Application.Common.Dtos;
 
 /// <summary>
-/// Domain-neutraler Dienst für Echtzeit-Benachrichtigungen.
+/// Domain-neutraler Dienst fÃ¼r Echtzeit-Benachrichtigungen.
 /// </summary>
 public interface INotificationService
 {
@@ -32,7 +32,7 @@ public interface INotificationService
   public Task SendNotificationToAllAsync(string title, string message);
 
   /// <summary>
-  /// Informiert Teilnehmer eines Tickets über eine Aktualisierung.
+  /// Informiert Teilnehmer eines Tickets Ã¼ber eine Aktualisierung.
   /// </summary>
   /// <param name="ticketId">Die ID des Tickets.</param>
   /// <param name="message">Die Update-Nachricht.</param>
@@ -40,7 +40,7 @@ public interface INotificationService
   public Task NotifyTicketUpdateAsync(Guid ticketId, string message);
 
   /// <summary>
-  /// Informiert Teilnehmer eines Tickets über einen neuen Kommentar.
+  /// Informiert Teilnehmer eines Tickets Ã¼ber einen neuen Kommentar.
   /// </summary>
   /// <param name="ticketId">Die ID des Tickets.</param>
   /// <param name="comment">Der neue Kommentar.</param>
@@ -48,15 +48,15 @@ public interface INotificationService
   public Task NotifyNewCommentAsync(Guid ticketId, CommentDto comment);
 
   /// <summary>
-  /// Informiert Teilnehmer eines Tickets über eine neue Privatnachricht.
+  /// Informiert Teilnehmer eines Tickets Ã¼ber eine neue Privatnachricht.
   /// </summary>
-  /// <param name="receiverUserId">Die ID des Empfängers.</param>
+  /// <param name="receiverUserId">Die ID des EmpfÃ¤ngers.</param>
   /// <param name="message">Das Nachrichten-DTO.</param>
   /// <returns>Ein Task.</returns>
   public Task NotifyNewMessageAsync(Guid receiverUserId, MessageDto message);
 
   /// <summary>
-  /// Ruft Benachrichtigungen für einen Benutzer ab.
+  /// Ruft Benachrichtigungen fÃ¼r einen Benutzer ab.
   /// </summary>
   /// <param name="userId">Die Benutzer-ID.</param>
   /// <param name="limit">Maximalanzahl.</param>

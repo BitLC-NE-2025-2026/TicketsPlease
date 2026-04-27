@@ -7,7 +7,7 @@ namespace TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
-/// Repräsentiert einen Zustand innerhalb des Ticket-Workflows (z.B. Offen, In Bearbeitung, Geschlossen).
+/// ReprÃ¤sentiert einen Zustand innerhalb des Ticket-Workflows (z.B. Offen, In Bearbeitung, Geschlossen).
 /// </summary>
 public class WorkflowState : BaseEntity
 {
@@ -17,17 +17,17 @@ public class WorkflowState : BaseEntity
   public string Name { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die Reihenfolgenummer für die logische Anzeige im Kanban-Board.
+  /// Gets or sets die Reihenfolgenummer fÃ¼r die logische Anzeige im Kanban-Board.
   /// </summary>
   public int OrderIndex { get; set; }
 
   /// <summary>
-  /// Gets or sets den Hexadezimal-Farbcode des Zustands für die UI-Darstellung.
+  /// Gets or sets den Hexadezimal-Farbcode des Zustands fÃ¼r die UI-Darstellung.
   /// </summary>
   public string ColorHex { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die ID des zugehörigen Workflows.
+  /// Gets or sets die ID des zugehÃ¶rigen Workflows.
   /// </summary>
   public Guid WorkflowId { get; set; }
 

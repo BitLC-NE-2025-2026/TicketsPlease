@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
-/// API-Controller für Dashboard-Daten und Performance-Details.
+/// API-Controller fÃ¼r Dashboard-Daten und Performance-Details.
 /// </summary>
 [Authorize]
 [ApiController]
@@ -31,7 +31,7 @@ internal sealed class DashboardApiController : ControllerBase
   }
 
   /// <summary>
-  /// Ruft Performance-Details für einen Benutzer ab.
+  /// Ruft Performance-Details fÃ¼r einen Benutzer ab.
   /// </summary>
   /// <param name="id">Die Benutzer-ID.</param>
   /// <returns>Detaillierte Statistiken.</returns>
@@ -51,7 +51,7 @@ internal sealed class DashboardApiController : ControllerBase
   }
 
   /// <summary>
-  /// Ruft Performance-Details für ein Team ab.
+  /// Ruft Performance-Details fÃ¼r ein Team ab.
   /// </summary>
   /// <param name="id">Die Team-ID.</param>
   /// <returns>Detaillierte Statistiken.</returns>

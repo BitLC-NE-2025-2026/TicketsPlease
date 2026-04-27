@@ -7,7 +7,7 @@ namespace TicketsPlease.Web.Controllers;
 using System.Collections.Generic;
 
 /// <summary>
-/// Zentrales Register aller verfügbaren Berechtigungen.
+/// Zentrales Register aller verfÃ¼gbaren Berechtigungen.
 /// Berechtigungen werden als Claims vom Typ "Permission" in IdentityRoleClaims gespeichert.
 /// </summary>
 internal static class PermissionRegistry
@@ -56,7 +56,7 @@ internal static class PermissionRegistry
   public const string ReportsExport = "Reports.Export";
 
   /// <summary>
-  /// Gets alle verfügbaren Berechtigungen, gruppiert nach Modul.
+  /// Gets alle verfÃ¼gbaren Berechtigungen, gruppiert nach Modul.
   /// </summary>
   public static Dictionary<string, List<PermissionDefinition>> AllPermissions => new()
   {
@@ -115,7 +115,7 @@ internal static class PermissionRegistry
 /// <summary>
 /// Definition einer einzelnen Berechtigung.
 /// </summary>
-/// <param name="Key">Der eindeutige Schlüssel (Claim-Wert).</param>
+/// <param name="Key">Der eindeutige SchlÃ¼ssel (Claim-Wert).</param>
 /// <param name="DisplayName">Der Anzeigename.</param>
 /// <param name="Description">Eine Beschreibung der Berechtigung.</param>
 internal record PermissionDefinition(string Key, string DisplayName, string Description);

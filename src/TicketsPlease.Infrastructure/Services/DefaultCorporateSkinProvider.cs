@@ -8,8 +8,8 @@ using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
 /// Standard-Implementierung des <see cref="ICorporateSkinProvider"/>.
-/// Liefert initiale Standard-Branding-Werte. In einer Multi-Tenant-Umgebung würde dies
-/// kontextabhängig (z.B. über die Subdomain oder User-Settings) agieren.
+/// Liefert initiale Standard-Branding-Werte. In einer Multi-Tenant-Umgebung wÃ¼rde dies
+/// kontextabhÃ¤ngig (z.B. Ã¼ber die Subdomain oder User-Settings) agieren.
 /// </summary>
 public class DefaultCorporateSkinProvider : ICorporateSkinProvider
 {

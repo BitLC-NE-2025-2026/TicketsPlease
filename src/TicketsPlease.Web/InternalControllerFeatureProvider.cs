@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
 /// <summary>
-/// Ein benutzerdefinierter <see cref="ControllerFeatureProvider"/>, der auch interne Klassen als Controller zulässt.
+/// Ein benutzerdefinierter <see cref="ControllerFeatureProvider"/>, der auch interne Klassen als Controller zulÃ¤sst.
 /// Dies ist notwendig, wenn Controller als 'internal sealed' markiert sind (z. B. zur Einhaltung von CA1515).
 /// </summary>
 internal sealed class InternalControllerFeatureProvider : ControllerFeatureProvider
@@ -33,7 +33,7 @@ internal sealed class InternalControllerFeatureProvider : ControllerFeatureProvi
       return false;
     }
 
-    // Wir erlauben hier auch interne Klassen (im Gegensatz zum Standard-Provider, der nur public Typen prüft).
+    // Wir erlauben hier auch interne Klassen (im Gegensatz zum Standard-Provider, der nur public Typen prÃ¼ft).
     return true;
   }
 }
