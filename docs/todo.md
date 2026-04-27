@@ -58,9 +58,11 @@ Show raw exception details"
 ```
 
 - src\TicketsPlease.Web\Views\Stakeholder\Index.cshtml hat kein i18n in de und en
-- src\TicketsPlease.Web\Views\AdminWorkspaces\Create.cshtml legt nach submit keinen neuen workspace an
+- src\TicketsPlease.Web\Views\AdminWorkspaces\Create.cshtml legt nach submit
+  keinen neuen workspace an
 - src\TicketsPlease.Web\Views\AdminWorkspaces\Edit.cshtml speichert nach submit keine änderungen
-- src\TicketsPlease.Web\Views\Shared\_Navbar.cshtml btn onclick="toggleChat()" ist überflüssig und kann weg
+- src\TicketsPlease.Web\Views\Shared\_Navbar.cshtml btn onclick="toggleChat()"
+  ist überflüssig und kann weg
 - folgende fehler treten auf:
   im haupt dashboard nach der anmeldung
 
