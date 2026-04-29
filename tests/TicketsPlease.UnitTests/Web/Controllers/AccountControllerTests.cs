@@ -9,7 +9,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Web.Controllers;
 
-internal class AccountControllerTests
+public class AccountControllerTests
 {
   private readonly Mock<SignInManager<User>> _signInManagerMock;
   private readonly Mock<UserManager<User>> _userManagerMock;

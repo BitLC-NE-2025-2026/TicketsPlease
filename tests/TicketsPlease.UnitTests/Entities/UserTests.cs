@@ -9,7 +9,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-internal class UserTests
+public class UserTests
 {
   [Fact]
   public void Constructor_ShouldInitializeProperties()

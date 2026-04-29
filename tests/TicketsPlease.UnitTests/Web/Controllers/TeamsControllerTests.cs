@@ -12,7 +12,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Web.Controllers;
 
-internal class TeamsControllerTests
+public class TeamsControllerTests
 {
   private readonly Mock<ITeamService> _teamServiceMock = new();
   private readonly Mock<UserManager<User>> _userManagerMock;

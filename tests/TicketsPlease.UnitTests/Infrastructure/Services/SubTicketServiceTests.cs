@@ -6,7 +6,7 @@ using TicketsPlease.Domain.Enums;
 using TicketsPlease.Infrastructure.Services;
 using Xunit;
 
-internal class SubTicketServiceTests : InfrastructureTestBase
+public class SubTicketServiceTests : InfrastructureTestBase
 {
   private readonly SubTicketService _service;
 

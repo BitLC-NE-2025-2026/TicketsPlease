@@ -8,7 +8,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Common;
 using Xunit;
 
-internal class BaseEntityTests
+public class BaseEntityTests
 {
   [Fact]
   public void Constructor_ShouldInitializeWithNewGuid()

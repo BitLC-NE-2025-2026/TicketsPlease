@@ -7,7 +7,7 @@ using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Web.Controllers;
 
-internal class ProjectControllerTests
+public class ProjectControllerTests
 {
   private readonly Mock<IProjectService> _projectServiceMock = new();
   private readonly Mock<ITicketService> _ticketServiceMock = new();

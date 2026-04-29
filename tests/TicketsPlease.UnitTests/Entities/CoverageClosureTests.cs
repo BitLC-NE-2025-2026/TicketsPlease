@@ -13,7 +13,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 using Xunit;
 
-internal class CoverageClosureTests
+public class CoverageClosureTests
 {
   [Fact]
   public void Comment_Coverage()

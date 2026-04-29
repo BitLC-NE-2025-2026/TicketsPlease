@@ -7,7 +7,7 @@ using TicketsPlease.Domain.Enums;
 using TicketsPlease.Infrastructure.Services;
 using Xunit;
 
-internal class TimeTrackingServiceTests : InfrastructureTestBase
+public class TimeTrackingServiceTests : InfrastructureTestBase
 {
   private readonly TimeTrackingService _service;
 
