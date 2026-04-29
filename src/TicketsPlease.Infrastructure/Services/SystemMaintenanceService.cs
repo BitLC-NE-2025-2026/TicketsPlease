@@ -2,6 +2,8 @@
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
+#pragma warning disable CA1848 // Use the LoggerMessage delegates
+
 namespace TicketsPlease.Infrastructure.Services;
 
 using System;

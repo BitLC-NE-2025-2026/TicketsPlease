@@ -229,7 +229,7 @@ public static class DbInitialiser
           continue;
         }
 
-        var creator = orgUsers.FirstOrDefault(u => u.RoleId != UserRoleId) ?? orgUsers.First();
+        var creator = orgUsers.FirstOrDefault(u => u.RoleId != UserRoleId) ?? orgUsers[0];
         var team = new Team
         {
           Name = teamNames[i],

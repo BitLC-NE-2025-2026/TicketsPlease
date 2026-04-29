@@ -45,62 +45,6 @@ public abstract class IntegrationTestBase : IDisposable
   /// </summary>
   public static readonly Guid DoneStateId = Guid.Parse("00000000-0000-0000-0000-000000000004");
 
-  private bool disposedValue;
-
-  /// <summary>
-  /// Initializes a new instance of the <see cref="IntegrationTestBase"/> class.
-  /// </summary>
-  protected IntegrationTestBase()
-  {
-    this.Factory = new TestWebApplicationFactory();
-
-    // Initialize database
-    using var scope = this.Factory.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated();
-  }
-
-  /// <summary>
-  /// Gets the WebApplicationFactory for the system under test.
-  /// </summary>
-  protected TestWebApplicationFactory Factory { get; }
-
-  /// <inheritdoc/>
-  public void Dispose()
-  {
-    this.Dispose(disposing: true);
-    GC.SuppressFinalize(this);
-  }
-
-  /// <summary>
-  /// Sets a mock HttpContext with the specified user and tenant information in the given service provider.
-  /// This bypasses global query filters and provides identity for services.
-  /// </summary>
-  /// <param name="services">The service provider (usually from a scope).</param>
-  /// <param name="userId">The user ID.</param>
-  /// <param name="tenantId">The tenant ID.</param>
-  /// <param name="role">The user role.</param>
-  protected void SetContext(IServiceProvider services, Guid userId, Guid tenantId, string role = "Admin")
-  {
-    ArgumentNullException.ThrowIfNull(services);
-    var httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
-
-    var claims = new[]
-    {
-      new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-      new Claim(ClaimTypes.Role, role),
-      new Claim("TenantId", tenantId.ToString()),
-    };
-
-    var identity = new ClaimsIdentity(claims, "Test");
-    var principal = new ClaimsPrincipal(identity);
-
-    httpContextAccessor.HttpContext = new DefaultHttpContext
-    {
-      User = principal,
-    };
-  }
-
   /// <summary>
   /// Seeds minimal required data for tests.
   /// </summary>
@@ -157,6 +101,64 @@ public abstract class IntegrationTestBase : IDisposable
       await db.SaveChangesAsync().ConfigureAwait(false);
     }
   }
+
+  private bool disposedValue;
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="IntegrationTestBase"/> class.
+  /// </summary>
+  protected IntegrationTestBase()
+  {
+    this.Factory = new TestWebApplicationFactory();
+
+    // Initialize database
+    using var scope = this.Factory.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+  }
+
+  /// <summary>
+  /// Gets the WebApplicationFactory for the system under test.
+  /// </summary>
+  protected TestWebApplicationFactory Factory { get; }
+
+  /// <inheritdoc/>
+  public void Dispose()
+  {
+    this.Dispose(disposing: true);
+    GC.SuppressFinalize(this);
+  }
+
+  /// <summary>
+  /// Sets a mock HttpContext with the specified user and tenant information in the given service provider.
+  /// This bypasses global query filters and provides identity for services.
+  /// </summary>
+  /// <param name="services">The service provider (usually from a scope).</param>
+  /// <param name="userId">The user ID.</param>
+  /// <param name="tenantId">The tenant ID.</param>
+  /// <param name="role">The user role.</param>
+  protected void SetContext(IServiceProvider services, Guid userId, Guid tenantId, string role = "Admin")
+  {
+    ArgumentNullException.ThrowIfNull(services);
+    var httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
+
+    var claims = new[]
+    {
+      new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+      new Claim(ClaimTypes.Role, role),
+      new Claim("TenantId", tenantId.ToString()),
+    };
+
+    var identity = new ClaimsIdentity(claims, "Test");
+    var principal = new ClaimsPrincipal(identity);
+
+    httpContextAccessor.HttpContext = new DefaultHttpContext
+    {
+      User = principal,
+    };
+  }
+
+
 
   /// <summary>
   /// Disposes resources.

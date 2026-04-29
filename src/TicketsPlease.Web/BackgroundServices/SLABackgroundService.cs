@@ -1,6 +1,10 @@
-// <copyright file="SlaBackgroundService.cs" company="BitLC-NE-2025-2026">
+// <copyright file="SLABackgroundService.cs" company="BitLC-NE-2025-2026">
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
+
+#pragma warning disable CA1031 // Do not catch general exception types
+#pragma warning disable CA1848 // Use the LoggerMessage delegates
+#pragma warning disable S6667 // Logging in a catch clause should pass the caught exception as a parameter.
 
 namespace TicketsPlease.Web.BackgroundServices;
 
