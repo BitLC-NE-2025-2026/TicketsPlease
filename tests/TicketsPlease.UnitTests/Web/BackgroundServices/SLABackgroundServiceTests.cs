@@ -66,7 +66,7 @@ public class SlaBackgroundServiceTests
     _ticketRepositoryMock.Setup(x => x.GetAllActiveAsync(It.IsAny<CancellationToken>()))
         .ReturnsAsync(new List<Ticket> { ticket });
 
-    var service = new SLABackgroundService(_serviceProviderMock.Object, _loggerMock.Object);
+    var service = new SlaBackgroundService(_serviceProviderMock.Object, _loggerMock.Object);
 
     using var cts = new CancellationTokenSource();
     cts.CancelAfter(TimeSpan.FromMilliseconds(50));
@@ -114,7 +114,7 @@ public class SlaBackgroundServiceTests
     _ticketRepositoryMock.Setup(x => x.GetAllActiveAsync(It.IsAny<CancellationToken>()))
         .ReturnsAsync(new List<Ticket> { ticket });
 
-    var service = new SLABackgroundService(_serviceProviderMock.Object, _loggerMock.Object);
+    var service = new SlaBackgroundService(_serviceProviderMock.Object, _loggerMock.Object);
 
     using var cts = new CancellationTokenSource();
     cts.CancelAfter(TimeSpan.FromMilliseconds(50));
@@ -142,11 +142,11 @@ public class SlaBackgroundServiceTests
 
     var field = typeof(T).GetField($"<{propertyName}>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance);
     if (field == null)
-      field = typeof(T).GetField($"_{char.ToLower(propertyName[0])}{propertyName.Substring(1)}", BindingFlags.NonPublic | BindingFlags.Instance);
+      field = typeof(T).GetField($"_{char.ToLowerInvariant(propertyName[0])}{propertyName.Substring(1)}", BindingFlags.NonPublic | BindingFlags.Instance);
 
     if (field != null)
       field.SetValue(instance, value);
     else
-      throw new Exception($"Could not set property or field for {propertyName}");
+      throw new InvalidOperationException($"Could not set property or field for {propertyName}");
   }
 }
