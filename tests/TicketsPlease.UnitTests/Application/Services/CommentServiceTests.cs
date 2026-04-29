@@ -11,7 +11,7 @@ using TicketsPlease.Application.Services;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-public class CommentServiceTests
+internal class CommentServiceTests
 {
   private readonly Mock<ICommentRepository> _commentRepoMock;
   private readonly Mock<ITicketRepository> _ticketRepoMock;

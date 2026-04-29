@@ -4,7 +4,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Repositories;
 
-public class NotificationRepositoryTests : InfrastructureTestBase
+internal class NotificationRepositoryTests : InfrastructureTestBase
 {
   private readonly NotificationRepository _repository;
 

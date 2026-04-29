@@ -65,6 +65,13 @@ public abstract class IntegrationTestBase : IDisposable
   /// </summary>
   protected TestWebApplicationFactory Factory { get; }
 
+  /// <inheritdoc/>
+  public void Dispose()
+  {
+    this.Dispose(disposing: true);
+    GC.SuppressFinalize(this);
+  }
+
   /// <summary>
   /// Seeds minimal required data for tests.
   /// </summary>
@@ -120,13 +127,6 @@ public abstract class IntegrationTestBase : IDisposable
 
       await db.SaveChangesAsync().ConfigureAwait(false);
     }
-  }
-
-  /// <inheritdoc/>
-  public void Dispose()
-  {
-    this.Dispose(disposing: true);
-    GC.SuppressFinalize(this);
   }
 
   /// <summary>

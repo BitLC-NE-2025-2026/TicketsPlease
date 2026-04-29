@@ -65,6 +65,46 @@ internal sealed partial class SlaBackgroundService : BackgroundService
     this.logger.LogInformation("SlaBackgroundService is stopping.");
   }
 
+  private static async Task CheckTicketSlaAsync(Organization org, Ticket ticket, INotificationService notificationService)
+  {
+    var now = DateTime.UtcNow;
+
+    // Response SLA
+    if (ticket.LastRespondedAt == null && ticket.ResponseDeadline.HasValue && now > ticket.ResponseDeadline.Value)
+    {
+      await NotifySlaBreachAsync(org, ticket, "Response", notificationService).ConfigureAwait(false);
+    }
+
+    // Resolution SLA
+    if (ticket.ClosedAt == null && ticket.ResolutionDeadline.HasValue && now > ticket.ResolutionDeadline.Value)
+    {
+      await NotifySlaBreachAsync(org, ticket, "Resolution", notificationService).ConfigureAwait(false);
+    }
+  }
+
+  private static async Task NotifySlaBreachAsync(Organization org, Ticket ticket, string type, INotificationService notificationService)
+  {
+    // Check if notifications are enabled for this priority
+    bool shouldNotify = ticket.Priority?.Name switch
+    {
+      "Low" => org.NotifyOnLow,
+      "Medium" => org.NotifyOnMedium,
+      "High" => org.NotifyOnHigh,
+      "Blocker" => org.NotifyOnBlocker,
+      _ => true,
+    };
+
+    if (!shouldNotify)
+    {
+      return;
+    }
+
+    var message = $"SLA Breach ({type}): Ticket '{ticket.Title}' (ID: {ticket.Id}) has exceeded its deadline.";
+    var title = "⚠️ SLA BREACH!";
+
+    await notificationService.SendNotificationToAllAsync(title, message).ConfigureAwait(false);
+  }
+
   private async Task ProcessAllOrganizationsAsync(CancellationToken stoppingToken)
   {
     using var scope = this.serviceProvider.CreateScope();
@@ -101,15 +141,12 @@ internal sealed partial class SlaBackgroundService : BackgroundService
       return;
     }
 
-    // Logic for interval can be implemented by storing "LastCheckedAt" or similar,
-    // but for this version we run every time the loop hits them.
-    // In a more complex version, we would check if (DateTime.UtcNow - org.LastSlaCheck) > org.SlaCheckInterval.
     var tickets = await ticketRepository.GetAllActiveAsync(ct).ConfigureAwait(false);
     var orgTickets = tickets.Where(t => t.TenantId == org.Id && t.Status != "Done").ToList();
 
     foreach (var ticket in orgTickets)
     {
-      await this.CheckTicketSlaAsync(org, ticket, notificationService).ConfigureAwait(false);
+      await CheckTicketSlaAsync(org, ticket, notificationService).ConfigureAwait(false);
     }
   }
 
@@ -127,9 +164,6 @@ internal sealed partial class SlaBackgroundService : BackgroundService
 
       if (org.QuietHoursStart < org.QuietHoursEnd)
       {
-        // Typical case: e.g., 22:00 to 06:00 (this logic handles 08:00 to 18:00 if they wanted to invert it)
-        // Wait, 22:00 to 06:00 is NOT org.QuietHoursStart < org.QuietHoursEnd.
-        // If Start = 22 and End = 06, then Start > End.
         return localTime >= org.QuietHoursStart && localTime <= org.QuietHoursEnd;
       }
       else
@@ -151,46 +185,5 @@ internal sealed partial class SlaBackgroundService : BackgroundService
         return utcTime >= org.QuietHoursStart || utcTime <= org.QuietHoursEnd;
       }
     }
-  }
-
-  private async Task CheckTicketSlaAsync(Organization org, Ticket ticket, INotificationService notificationService)
-  {
-    var now = DateTime.UtcNow;
-
-    // Response SLA
-    if (ticket.LastRespondedAt == null && ticket.ResponseDeadline.HasValue && now > ticket.ResponseDeadline.Value)
-    {
-      await NotifySlaBreachAsync(org, ticket, "Response", notificationService).ConfigureAwait(false);
-    }
-
-    // Resolution SLA
-    if (ticket.ClosedAt == null && ticket.ResolutionDeadline.HasValue && now > ticket.ResolutionDeadline.Value)
-    {
-      await NotifySlaBreachAsync(org, ticket, "Resolution", notificationService).ConfigureAwait(false);
-    }
-  }
-
-  private static async Task NotifySlaBreachAsync(Organization org, Ticket ticket, string type, INotificationService notificationService)
-  {
-    // Check if notifications are enabled for this priority
-    bool shouldNotify = ticket.Priority?.Name switch
-    {
-      "Low" => org.NotifyOnLow,
-      "Medium" => org.NotifyOnMedium,
-      "High" => org.NotifyOnHigh,
-      "Blocker" => org.NotifyOnBlocker,
-      _ => true, // Default to true for unknown or unassigned priority
-    };
-
-    if (!shouldNotify)
-    {
-      return;
-    }
-
-    var message = $"SLA Breach ({type}): Ticket '{ticket.Title}' (ID: {ticket.Id}) has exceeded its deadline.";
-    var title = "Ã¢Å¡Â Ã¯Â¸Â SLA BREACH!";
-
-    // Notify Organization (All) or specific PO/Admins? Requirement says "notifications for all"
-    await notificationService.SendNotificationToAllAsync(title, message).ConfigureAwait(false);
   }
 }

@@ -448,6 +448,7 @@ internal sealed class TicketsController : Controller
   [HttpPost]
   [IgnoreAntiforgeryToken]
   [Authorize]
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA5391:Use antiforgery tokens in ASP.NET Core MVC controllers", Justification = "JSON API endpoint called via fetch/AJAX")]
   public async Task<IActionResult> CreateTag([FromBody] CreateTagRequest request)
   {
     if (request == null || string.IsNullOrWhiteSpace(request.Name))

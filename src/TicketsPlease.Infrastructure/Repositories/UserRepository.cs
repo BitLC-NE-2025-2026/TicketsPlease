@@ -67,7 +67,7 @@ public class UserRepository : IUserRepository
       {
         // Race condition: another request inserted the profile first.
         // Detach the failed entity and re-query.
-        this.context.Entry(profile).State = EntityState.Detached;
+        this.context.Entry(profile!).State = EntityState.Detached;
         profile = await this.context.UserProfiles
             .FirstAsync(p => p.UserId == userId)
             .ConfigureAwait(false);

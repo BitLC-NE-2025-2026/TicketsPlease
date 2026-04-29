@@ -11,7 +11,7 @@ using TicketsPlease.Application.Services;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-public class ProjectServiceTests
+internal class ProjectServiceTests
 {
   private readonly Mock<IProjectRepository> _projectRepoMock;
   private readonly Mock<UserManager<User>> _userManagerMock;

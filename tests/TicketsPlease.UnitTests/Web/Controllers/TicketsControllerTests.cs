@@ -15,7 +15,7 @@ using TicketsPlease.Domain.Enums;
 using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Web.Controllers;
 
-public class TicketsControllerTests : IDisposable
+internal class TicketsControllerTests : IDisposable
 {
   private readonly AppDbContext _context;
   private readonly Mock<ITicketService> _ticketServiceMock = new();

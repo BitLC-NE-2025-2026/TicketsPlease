@@ -43,15 +43,15 @@ public class TicketTemplateRepository : ITicketTemplateRepository
   }
 
   /// <inheritdoc/>
-  public async Task AddAsync(TicketTemplate template, CancellationToken ct = default)
+  public async Task AddAsync(TicketTemplate ticketTemplate, CancellationToken ct = default)
   {
-    await this.context.TicketTemplates.AddAsync(template, ct).ConfigureAwait(false);
+    await this.context.TicketTemplates.AddAsync(ticketTemplate, ct).ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
-  public async Task DeleteAsync(TicketTemplate template, CancellationToken ct = default)
+  public async Task DeleteAsync(TicketTemplate ticketTemplate, CancellationToken ct = default)
   {
-    this.context.TicketTemplates.Remove(template);
+    this.context.TicketTemplates.Remove(ticketTemplate);
     await Task.CompletedTask.ConfigureAwait(false);
   }
 

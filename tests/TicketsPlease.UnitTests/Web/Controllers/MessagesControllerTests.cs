@@ -13,7 +13,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Web.Controllers;
 
-public class MessagesControllerTests : IDisposable
+internal class MessagesControllerTests : IDisposable
 {
   private readonly AppDbContext _context;
   private readonly Mock<IMessageService> _messageServiceMock = new();

@@ -5,6 +5,7 @@
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+#pragma warning disable CA1861 // Avoid constant arrays as arguments - EF Core migration generated code
 
 namespace TicketsPlease.Infrastructure.Migrations;
 

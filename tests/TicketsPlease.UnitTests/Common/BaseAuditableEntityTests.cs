@@ -9,7 +9,7 @@ using FluentAssertions;
 using TicketsPlease.Domain.Common;
 using Xunit;
 
-public class BaseAuditableEntityTests
+internal class BaseAuditableEntityTests
 {
   [Fact]
   public void Constructor_ShouldInitializeAuditProperties()

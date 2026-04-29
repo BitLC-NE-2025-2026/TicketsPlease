@@ -10,7 +10,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 using Xunit;
 
-public class TicketTests
+internal class TicketTests
 {
   [Fact]
   public void Constructor_WithValidData_ShouldInitializeProperties()

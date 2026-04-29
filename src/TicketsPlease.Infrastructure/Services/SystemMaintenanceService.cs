@@ -3,6 +3,7 @@
 // </copyright>
 
 #pragma warning disable CA1848 // Use the LoggerMessage delegates
+#pragma warning disable CA1873 // Logging arguments are cheap string parameters
 
 namespace TicketsPlease.Infrastructure.Services;
 

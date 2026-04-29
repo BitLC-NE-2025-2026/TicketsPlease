@@ -3,7 +3,7 @@ namespace TicketsPlease.UnitTests.Infrastructure.Services;
 using FluentAssertions;
 using TicketsPlease.Infrastructure.Services;
 
-public class DefaultCorporateSkinProviderTests
+internal class DefaultCorporateSkinProviderTests
 {
   [Fact]
   public void GetColors_ShouldReturnDefaults()

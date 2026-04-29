@@ -9,7 +9,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 using TicketsPlease.Web.BackgroundServices;
 
-public class SlaBackgroundServiceTests
+internal class SlaBackgroundServiceTests
 {
   private readonly Mock<IServiceProvider> _serviceProviderMock;
   private readonly Mock<IServiceScopeFactory> _serviceScopeFactoryMock;

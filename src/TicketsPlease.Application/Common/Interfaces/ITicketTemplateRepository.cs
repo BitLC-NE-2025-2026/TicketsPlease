@@ -29,18 +29,18 @@ public interface ITicketTemplateRepository
   /// <summary>
   /// FÃ¼gt eine Vorlage hinzu.
   /// </summary>
-  /// <param name="template">Die Vorlage.</param>
+  /// <param name="ticketTemplate">Die Vorlage.</param>
   /// <param name="ct">Abbruchsignal.</param>
   /// <returns>Task.</returns>
-  public Task AddAsync(TicketTemplate template, CancellationToken ct = default);
+  public Task AddAsync(TicketTemplate ticketTemplate, CancellationToken ct = default);
 
   /// <summary>
   /// LÃ¶scht eine Vorlage.
   /// </summary>
-  /// <param name="template">Die Vorlage.</param>
+  /// <param name="ticketTemplate">Die Vorlage.</param>
   /// <param name="ct">Abbruchsignal.</param>
   /// <returns>Task.</returns>
-  public Task DeleteAsync(TicketTemplate template, CancellationToken ct = default);
+  public Task DeleteAsync(TicketTemplate ticketTemplate, CancellationToken ct = default);
 
   /// <summary>
   /// Speichert die Ã„nderungen.

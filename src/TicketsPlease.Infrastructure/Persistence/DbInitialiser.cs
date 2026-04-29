@@ -326,8 +326,8 @@ public static class DbInitialiser
       await context.Tickets.AddRangeAsync(tickets).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // Ticket Assignments (Teams)
-      foreach (var ticket in tickets.Take(25)) // Halbe Tickets auch Teams zuweisen
+      // Ticket Assignments (Teams) — assign first half of tickets to teams
+      foreach (var ticket in tickets.Take(25))
       {
         var team = teams.FirstOrDefault(t => t.TenantId == ticket.TenantId);
         if (team != null)
@@ -405,9 +405,9 @@ public static class DbInitialiser
 
       // 9. Messages (Chat)
       var messages = new List<Message>();
-      foreach (var org in orgs)
+      foreach (var orgId in orgs.Select(org => org.Id))
       {
-        var orgUsers = users.Where(u => u.TenantId == org.Id).ToList();
+        var orgUsers = users.Where(u => u.TenantId == orgId).ToList();
         if (orgUsers.Count < 2)
         {
           continue; // Brauchen mindestens 2 User fÃ¼r Chat
@@ -423,7 +423,7 @@ public static class DbInitialiser
             ReceiverUserId = receiver.Id,
             BodyMarkdown = faker.Lorem.Sentence(),
             SentAt = DateTime.UtcNow.AddMinutes(-faker.Random.Int(1, 10000)),
-            TenantId = org.Id,
+            TenantId = orgId,
           });
         }
       }

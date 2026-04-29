@@ -10,7 +10,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Web.Controllers;
 using TicketsPlease.Web.Models;
 
-public class NotificationsControllerTests
+internal class NotificationsControllerTests
 {
   private readonly Mock<INotificationService> _notificationServiceMock = new();
   private readonly NotificationsController _controller;

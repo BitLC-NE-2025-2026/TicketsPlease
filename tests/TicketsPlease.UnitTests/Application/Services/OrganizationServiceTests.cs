@@ -8,7 +8,7 @@ using TicketsPlease.Application.Services;
 using TicketsPlease.Domain.Entities;
 using Xunit;
 
-public class OrganizationServiceTests
+internal class OrganizationServiceTests
 {
   private readonly Mock<IOrganizationRepository> _repositoryMock;
   private readonly Mock<IOrganizationInviteService> _inviteServiceMock;

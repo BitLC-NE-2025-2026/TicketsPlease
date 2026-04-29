@@ -5,7 +5,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 using TicketsPlease.Infrastructure.Repositories;
 
-public class TicketRepositoryTests : InfrastructureTestBase
+internal class TicketRepositoryTests : InfrastructureTestBase
 {
   private readonly TicketRepository _repository;
 

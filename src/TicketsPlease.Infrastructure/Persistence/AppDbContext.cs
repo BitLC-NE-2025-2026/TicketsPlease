@@ -154,6 +154,24 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     }
   }
 
+  /// <inheritdoc/>
+  public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+  {
+    foreach (var entry in this.ChangeTracker.Entries<BaseEntity>())
+    {
+      switch (entry.State)
+      {
+        case EntityState.Deleted:
+          entry.State = EntityState.Modified;
+          entry.Entity.IsDeleted = true;
+          entry.Entity.DeletedAt = DateTime.UtcNow;
+          break;
+      }
+    }
+
+    return base.SaveChangesAsync(cancellationToken);
+  }
+
   /// <summary>
   /// Konfiguriert das Modell und die Datenbank-Mappings.
   /// Hier wird die explizite Konfiguration fÃ¼r NebenlÃ¤ufigkeit und Tabellennamen vorgenommen.
@@ -182,9 +200,11 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
 
       if (typeof(BaseEntity).IsAssignableFrom(type))
       {
+#pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
         var method = typeof(AppDbContext)
           .GetMethod(nameof(this.ApplyGlobalFilter), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
           ?.MakeGenericMethod(type);
+#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
         method?.Invoke(this, new object[] { builder });
       }
     }
@@ -406,28 +426,10 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     SeedStaticData(builder);
   }
 
-  /// <inheritdoc/>
-  public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-  {
-    foreach (var entry in this.ChangeTracker.Entries<BaseEntity>())
-    {
-      switch (entry.State)
-      {
-        case EntityState.Deleted:
-          entry.State = EntityState.Modified;
-          entry.Entity.IsDeleted = true;
-          entry.Entity.DeletedAt = DateTime.UtcNow;
-          break;
-      }
-    }
-
-    return base.SaveChangesAsync(cancellationToken);
-  }
-
   /// <summary>
   /// Konfiguriert zusÃ¤tzliche Optionen wie die Resilience / Retry Strategie.
   /// </summary>
-  /// <param name="optionsBuilder">Der Builder fÃ¼r die Kontext-Optionen.</param>
+  /// <param name="optionsBuilder">Der Builder für die Kontext-Optionen.</param>
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     ArgumentNullException.ThrowIfNull(optionsBuilder);
@@ -436,13 +438,13 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     // Falls hier konfiguriert wird, stellen wir sicher, dass RetryOnFailure aktiviert ist.
     if (!optionsBuilder.IsConfigured)
     {
-      // Placeholder fÃ¼r lokale Entwicklung oder Fallback
+      // Placeholder für lokale Entwicklung oder Fallback
     }
   }
 
   private static void SeedStaticData(ModelBuilder builder)
   {
-    // Fixe IDs fÃ¼r stabiles Seeding und Referenzierung
+    // Fixe IDs für stabiles Seeding und Referenzierung
     var adminRoleId = new Guid("32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21");
     var teamleadRoleId = new Guid("b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33");
     var userRoleId = new Guid("c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44");
