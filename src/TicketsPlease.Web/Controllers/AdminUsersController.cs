@@ -227,12 +227,9 @@ internal class AdminUsersController : Controller
     this.dbContext.TeamMembers.RemoveRange(currentTeamMemberships.Where(tm => !model.SelectedTeamIds.Contains(tm.TeamId)));
 
     var existingTeamIds = currentTeamMemberships.Select(tm => tm.TeamId).ToList();
-    foreach (var teamId in model.SelectedTeamIds)
+    foreach (var teamId in model.SelectedTeamIds.Where(teamId => !existingTeamIds.Contains(teamId)))
     {
-      if (!existingTeamIds.Contains(teamId))
-      {
-        this.dbContext.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), TeamId = teamId, UserId = user.Id, IsTeamLead = false });
-      }
+      this.dbContext.TeamMembers.Add(new TeamMember { Id = Guid.NewGuid(), TeamId = teamId, UserId = user.Id, IsTeamLead = false });
     }
 
     await this.dbContext.SaveChangesAsync().ConfigureAwait(false);

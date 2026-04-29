@@ -19,7 +19,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Controller fÃƒÂ¼r das Ticket-Handling und das Kanban-Board.
+/// Controller für das Ticket-Handling und das Kanban-Board.
 /// </summary>
 [Authorize]
 internal sealed class TicketsController : Controller
@@ -38,16 +38,16 @@ internal sealed class TicketsController : Controller
   /// <summary>
   /// Initializes a new instance of the <see cref="TicketsController"/> class.
   /// </summary>
-  /// <param name="ticketService">Der Dienst fÃƒÂ¼r Ticketoperationen.</param>
-  /// <param name="projectService">Der Dienst fÃƒÂ¼r Projektinformationen.</param>
-  /// <param name="fileAssetRepository">Das Repository fÃƒÂ¼r Dateien.</param>
+  /// <param name="ticketService">Der Dienst für Ticketoperationen.</param>
+  /// <param name="projectService">Der Dienst für Projektinformationen.</param>
+  /// <param name="fileAssetRepository">Das Repository für Dateien.</param>
   /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
-  /// <param name="timeTrackingService">Der Dienst fÃƒÂ¼r Zeiterfassung.</param>
-  /// <param name="subTicketService">Der Dienst fÃƒÂ¼r Untertickets.</param>
-  /// <param name="templateService">Der Dienst fÃƒÂ¼r Ticket-Vorlagen.</param>
+  /// <param name="timeTrackingService">Der Dienst für Zeiterfassung.</param>
+  /// <param name="subTicketService">Der Dienst für Untertickets.</param>
+  /// <param name="templateService">Der Dienst für Ticket-Vorlagen.</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
-  /// <param name="context">Der Datenbankkontext fÃƒÂ¼r Metadata-Lookups.</param>
-  /// <param name="localizer">Der Localizer fÃƒÂ¼r UI-Strings.</param>
+  /// <param name="context">Der Datenbankkontext für Metadata-Lookups.</param>
+  /// <param name="localizer">Der Localizer für UI-Strings.</param>
   [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S107:Methods should not have too many parameters", Justification = "Standard set of dependencies for a primary feature controller.")]
   public TicketsController(
       ITicketService ticketService,
@@ -76,14 +76,14 @@ internal sealed class TicketsController : Controller
   /// <summary>
   /// Zeigt das Kanban-Board an (F3).
   /// </summary>
-  /// <param name="projectId">Der Filter fÃƒÂ¼r das Projekt (F6).</param>
-  /// <param name="assignedUserId">Der Filter fÃƒÂ¼r den zugewiesenen Benutzer (F6).</param>
-  /// <param name="creatorId">Der Filter fÃƒÂ¼r den Ersteller (F6).</param>
+  /// <param name="projectId">Der Filter für das Projekt (F6).</param>
+  /// <param name="assignedUserId">Der Filter für den zugewiesenen Benutzer (F6).</param>
+  /// <param name="creatorId">Der Filter für den Ersteller (F6).</param>
   /// <param name="status">Der Status-Filter.</param>
-  /// <param name="priorityId">Der PrioritÃƒÂ¤ts-Filter.</param>
+  /// <param name="priorityId">Der Prioritäts-Filter.</param>
   /// <param name="fromDate">Startdatum.</param>
   /// <param name="toDate">Enddatum.</param>
-  /// <param name="search">Der Filter fÃƒÂ¼r den Suchbegriff.</param>
+  /// <param name="search">Der Filter für den Suchbegriff.</param>
   /// <param name="tagId">Der Tag-Filter.</param>
   /// <returns>Die Index-View mit allen aktiven Tickets.</returns>
   [HttpGet]
@@ -243,7 +243,7 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// FÃƒÂ¼gt eine AbhÃƒÂ¤ngigkeit hinzu (F7).
+  /// Fügt eine Abhängigkeit hinzu (F7).
   /// </summary>
   /// <param name="id">Die ID des blockierten Tickets.</param>
   /// <param name="blockerId">Die ID des blockierenden Tickets.</param>
@@ -271,10 +271,10 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// Entfernt eine AbhÃƒÂ¤ngigkeit (F7).
+  /// Entfernt eine Abhängigkeit (F7).
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
-  /// <param name="dependencyId">Die ID der VerknÃƒÂ¼pfung.</param>
+  /// <param name="dependencyId">Die ID der Verknüpfung.</param>
   /// <returns>Ein Umleitungsergebnis.</returns>
   [HttpPost]
   [ValidateAntiForgeryToken]
@@ -285,7 +285,7 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// LÃƒÂ¤dt einen Anhang fÃƒÂ¼r das Ticket hoch.
+  /// Lädt einen Anhang für das Ticket hoch.
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
   /// <param name="file">Die hochgeladene Datei.</param>
@@ -303,7 +303,7 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// LÃƒÂ¤dt eine Datei herunter.
+  /// Lädt eine Datei herunter.
   /// </summary>
   /// <param name="id">Die ID der Datei.</param>
   /// <returns>Das Dateiergebnis.</returns>
@@ -321,7 +321,7 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// Startet den Timer fÃƒÂ¼r ein Ticket.
+  /// Startet den Timer für ein Ticket.
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
   /// <returns>Ein Umleitungsergebnis.</returns>
@@ -339,7 +339,7 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// Stoppt den Timer fÃƒÂ¼r ein Ticket.
+  /// Stoppt den Timer für ein Ticket.
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
   /// <returns>Ein Umleitungsergebnis.</returns>
@@ -357,7 +357,7 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// FÃƒÂ¼gt ein Unterticket hinzu.
+  /// Fügt ein Unterticket hinzu.
   /// </summary>
   /// <param name="id">Hauptticket-ID.</param>
   /// <param name="title">Titel der Teilaufgabe.</param>
@@ -381,7 +381,7 @@ internal sealed class TicketsController : Controller
   /// <summary>
   /// Toggelt den Status eines Untertickets.
   /// </summary>
-  /// <param name="id">Hauptticket-ID (fÃƒÂ¼r Redirect).</param>
+  /// <param name="id">Hauptticket-ID (für Redirect).</param>
   /// <param name="subTicketId">ID des Untertickets.</param>
   /// <returns>Ein Umleitungsergebnis.</returns>
   [HttpPost]
@@ -393,9 +393,9 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// LÃƒÂ¶scht ein Unterticket.
+  /// Löscht ein Unterticket.
   /// </summary>
-  /// <param name="id">Hauptticket-ID (fÃƒÂ¼r Redirect).</param>
+  /// <param name="id">Hauptticket-ID (für Redirect).</param>
   /// <param name="subTicketId">ID des Untertickets.</param>
   /// <returns>Ein Umleitungsergebnis.</returns>
   [HttpPost]
@@ -407,10 +407,10 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// Toggelt den Upvote eines Benutzers fÃƒÂ¼r ein Ticket.
+  /// Toggelt den Upvote eines Benutzers für ein Ticket.
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
-  /// <param name="returnUrl">Optionale URL zum ZurÃƒÂ¼ckkehren.</param>
+  /// <param name="returnUrl">Optionale URL zum Zurückkehren.</param>
   /// <returns>Ein Umleitungsergebnis.</returns>
   [HttpPost]
   [ValidateAntiForgeryToken]
@@ -446,6 +446,7 @@ internal sealed class TicketsController : Controller
   /// <param name="request">Tag-Anfrage.</param>
   /// <returns>Die JSON-Antwort.</returns>
   [HttpPost]
+  [IgnoreAntiforgeryToken]
   [Authorize]
   public async Task<IActionResult> CreateTag([FromBody] CreateTagRequest request)
   {
@@ -469,24 +470,9 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// Request DTO fÃƒÂ¼r Tag-Erstellung.
+  /// Bereitet die Dropdown-Listen für die Views vor.
   /// </summary>
-  internal class CreateTagRequest
-  {
-    /// <summary>Gets or sets Name.</summary>
-    public string Name { get; set; } = string.Empty;
-
-    /// <summary>Gets or sets Color.</summary>
-    public string? Color { get; set; }
-
-    /// <summary>Gets or sets Icon.</summary>
-    public string? Icon { get; set; }
-  }
-
-  /// <summary>
-  /// Bereitet die Dropdown-Listen fÃƒÂ¼r die Views vor.
-  /// </summary>
-  /// <returns>Ein Task fÃƒÂ¼r die asynchrone Operation.</returns>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
   private async Task PrepareViewBags(Guid? excludeTicketId = null)
   {
     var projects = await this.projectService.GetProjectsAsync().ConfigureAwait(false);
@@ -512,5 +498,20 @@ internal sealed class TicketsController : Controller
 
     var templates = await this.templateService.GetAllTemplatesAsync().ConfigureAwait(false);
     this.ViewBag.Templates = templates;
+  }
+
+  /// <summary>
+  /// Request DTO für Tag-Erstellung.
+  /// </summary>
+  internal class CreateTagRequest
+  {
+    /// <summary>Gets or sets Name.</summary>
+    public string Name { get; set; } = string.Empty;
+
+    /// <summary>Gets or sets Color.</summary>
+    public string? Color { get; set; }
+
+    /// <summary>Gets or sets Icon.</summary>
+    public string? Icon { get; set; }
   }
 }

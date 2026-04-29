@@ -81,11 +81,9 @@ public class ServiceTests : IntegrationTestBase
     this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
     var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
     var todoStateId = Guid.Parse("00000000-0000-0000-0000-000000000003");
-    var doneStateId = Guid.Parse("00000000-0000-0000-0000-000000000004");
-    var priorityId = Guid.Parse("00000000-0000-0000-0000-000000000002");
 
     var ticket = new Ticket("Transition Test", TicketType.Task, project.Id, IntegrationTestBase.TestUserId, todoStateId, "Todo", string.Empty);
-    ticket.SetPriority(priorityId);
+    ticket.SetPriority(this.priorityId);
     ticket.SetTenantId(IntegrationTestBase.TestTenantId);
 
     await db.Tickets.AddAsync(ticket);
@@ -126,7 +124,6 @@ public class ServiceTests : IntegrationTestBase
 
     // Use seeded state IDs
     var todoStateId = IntegrationTestBase.TodoStateId;
-    var doneStateId = IntegrationTestBase.DoneStateId;
 
     var ticket = new Ticket("Move Test", TicketType.Task, project.Id, this.adminId, todoStateId, "Todo", string.Empty);
     ticket.SetTenantId(project.TenantId);

@@ -27,7 +27,7 @@ public interface ITicketService
   /// <param name="projectId">Optionale Projekt-ID.</param>
   /// <param name="assignedUserId">Optionale Zuweisungs-ID.</param>
   /// <param name="creatorId">Optionale Ersteller-ID.</param>
-  /// <param name="status">Optionaler Status (z.B. Todo, Doing).</param>
+  /// <param name="status">Optionaler Status (z.B. To-Do, Doing).</param>
   /// <param name="priorityId">Optionale PrioritÃ¤ts-ID.</param>
   /// <param name="fromDate">Optionales Startdatum.</param>
   /// <param name="toDate">Optionales Enddatum.</param>

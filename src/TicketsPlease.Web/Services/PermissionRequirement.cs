@@ -12,11 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 internal class PermissionRequirement : IAuthorizationRequirement
 {
   /// <summary>
-  /// Gets die erforderliche Berechtigung.
-  /// </summary>
-  public string Permission { get; }
-
-  /// <summary>
   /// Initializes a new instance of the <see cref="PermissionRequirement"/> class.
   /// </summary>
   /// <param name="permission">Die erforderliche Berechtigung.</param>
@@ -24,4 +19,9 @@ internal class PermissionRequirement : IAuthorizationRequirement
   {
     this.Permission = permission;
   }
+
+  /// <summary>
+  /// Gets die erforderliche Berechtigung.
+  /// </summary>
+  public string Permission { get; }
 }

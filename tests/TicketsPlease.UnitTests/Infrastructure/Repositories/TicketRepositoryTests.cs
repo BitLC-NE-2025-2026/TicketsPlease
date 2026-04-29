@@ -67,7 +67,7 @@ public class TicketRepositoryTests : InfrastructureTestBase
 
     // Assert
     result.Should().HaveCount(1);
-    result.First().Title.Should().Be("SearchableTitle");
+    result[0].Title.Should().Be("SearchableTitle");
   }
 
   [Fact]

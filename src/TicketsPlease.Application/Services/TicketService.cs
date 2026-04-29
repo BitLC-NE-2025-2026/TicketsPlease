@@ -17,15 +17,15 @@ using TicketsPlease.Domain.Entities;
 /// <summary>
 /// Implementierung des Ticket-Services zur Steuerung des Kanban-Boards.
 /// </summary>
-/// <param name="ticketRepository">Das Repository fÃ¼r Tickets.</param>
+/// <param name="ticketRepository">Das Repository für Tickets.</param>
 /// <param name="userManager">Die Benutzerverwaltung.</param>
 /// <param name="roleManager">Die Rollenverwaltung.</param>
 /// <param name="httpContextAccessor">Zugriff auf den HTTP-Kontext.</param>
-/// <param name="fileAssetRepository">Das Repository fÃ¼r Datei-Metadaten.</param>
+/// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
 /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
-/// <param name="timeTrackingService">Der Dienst fÃ¼r Zeiterfassung.</param>
-/// <param name="subTicketService">Der Dienst fÃ¼r Untertickets.</param>
-/// <param name="notificationService">Der Dienst fÃ¼r Benachrichtigungen.</param>
+/// <param name="timeTrackingService">Der Dienst für Zeiterfassung.</param>
+/// <param name="subTicketService">Der Dienst für Untertickets.</param>
+/// <param name="notificationService">Der Dienst für Benachrichtigungen.</param>
 public class TicketService(
     ITicketRepository ticketRepository,
     UserManager<User> userManager,
@@ -193,23 +193,23 @@ public class TicketService(
       throw new KeyNotFoundException(TicketNotFoundMessage);
     }
 
-    var targetState = await ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false) ?? throw new ArgumentException($"UngÃ¼ltiger Status: {newStatus}");
+    var targetState = await ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false) ?? throw new ArgumentException($"Ungültiger Status: {newStatus}");
 
-    // Ãœbergangsregel prÃ¼fen (F8)
-    var transition = await ticketRepository.GetTransitionAsync(ticket.WorkflowStateId, targetState.Id).ConfigureAwait(false) ?? throw new InvalidOperationException($"Der Ãœbergang von '{ticket.Status}' nach '{newStatus}' ist nicht erlaubt.");
+    // Übergangsregel prüfen (F8)
+    var transition = await ticketRepository.GetTransitionAsync(ticket.WorkflowStateId, targetState.Id).ConfigureAwait(false) ?? throw new InvalidOperationException($"Der Übergang von '{ticket.Status}' nach '{newStatus}' ist nicht erlaubt.");
 
-    // RollenprÃ¼fung falls eingeschrÃ¤nkt
+    // Rollenprüfung falls eingeschränkt
     if (transition.AllowedRoleId.HasValue)
     {
       var roles = await userManager.GetRolesAsync(user).ConfigureAwait(false);
 
-      // Wir gehen davon aus, dass wir die Rollen-Namen prÃ¼fen oder die ID vergleichen mÃ¼ssen.
-      // Da wir in der Transition die RoleId haben, prÃ¼fen wir ob der User diese Rolle hat.
+      // Wir gehen davon aus, dass wir die Rollen-Namen prüfen oder die ID vergleichen müssen.
+      // Da wir in der Transition die RoleId haben, prüfen wir ob der User diese Rolle hat.
       // Besser: roleManager nutzen oder rollen-Strings vergleichen.
-      // Einfachere LÃ¶sung fÃ¼r MVVM: User-Rollen gegen Namen prÃ¼fen wenn Role-ID bekannt ist.
-      // Da wir statische IDs haben, kÃ¶nnen wir es hardcoden oder sauber auflÃ¶sen.
+      // Einfachere Lösung für MVVM: User-Rollen gegen Namen prüfen wenn Role-ID bekannt ist.
+      // Da wir statische IDs haben, können wir es hardcoden oder sauber auflösen.
 
-      // Suche Rolle Name fÃ¼r ID
+      // Suche Rolle Name für ID
       var role = await roleManager.FindByIdAsync(transition.AllowedRoleId.Value.ToString()).ConfigureAwait(false);
       if (role != null && !roles.Contains(role.Name!))
       {
@@ -264,10 +264,10 @@ public class TicketService(
     _ = await ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Ticket {ticketId} nicht gefunden.");
     var blocker = await ticketRepository.GetByIdAsync(blockerId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Blocker-Ticket {blockerId} nicht gefunden.");
 
-    // ZirkulÃ¤re AbhÃ¤ngigkeit prÃ¼fen: Kann das aktuelle Ticket (ticketId) den potenziellen Blocker (blockerId) bereits blockieren?
+    // Zirkuläre Abhängigkeit prüfen: Kann das aktuelle Ticket (ticketId) den potenziellen Blocker (blockerId) bereits blockieren?
     if (await this.IsBlockedByRecursiveAsync(blockerId, ticketId).ConfigureAwait(false))
     {
-      throw new InvalidOperationException("ZirkulÃ¤re AbhÃ¤ngigkeit erkannt: Das ausgewÃ¤hlte Ticket ist bereits direkt oder indirekt von diesem Ticket abhÃ¤ngig.");
+      throw new InvalidOperationException("Zirkuläre Abhängigkeit erkannt: Das ausgewählte Ticket ist bereits direkt oder indirekt von diesem Ticket abhängig.");
     }
 
     // Check for existing link
@@ -371,14 +371,19 @@ public class TicketService(
       return false;
     }
 
-    // PrÃ¼fen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
-    foreach (var sourceTicketId in ticket.BlockedBy.Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks).Select(l => l.SourceTicketId))
-    {
-      if (sourceTicketId == targetBlockerId)
-      {
-        return true;
-      }
+    // Prüfen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
+    var sourceTicketIds = ticket.BlockedBy
+        .Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks)
+        .Select(l => l.SourceTicketId)
+        .ToList();
 
+    if (sourceTicketIds.Contains(targetBlockerId))
+    {
+      return true;
+    }
+
+    foreach (var sourceTicketId in sourceTicketIds)
+    {
       if (await this.IsBlockedByRecursiveAsync(sourceTicketId, targetBlockerId, visited).ConfigureAwait(false))
       {
         return true;
@@ -441,7 +446,7 @@ public class TicketService(
     int upvoteCount = t.Upvotes?.Count ?? 0;
     bool hasUpvoted = user != null && (t.Upvotes?.Any(u => u.UserId == user.Id) ?? false);
 
-    // Concurrency Token direkt aus der EntitÃ¤t (automatisch gefÃ¼llt durch EF)
+    // Concurrency Token direkt aus der Entität (automatisch gefüllt durch EF)
     byte[] rowVersion = t.RowVersion ?? [];
 
     return new TicketDto(

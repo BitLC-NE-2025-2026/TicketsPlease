@@ -133,6 +133,28 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   public DbSet<AuditLog> AuditLogs => this.Set<AuditLog>();
 
   /// <summary>
+  /// Gets a value indicating whether the current user is an admin.
+  /// </summary>
+  public bool IsAdmin => this.httpContextAccessor?.HttpContext?.User?.IsInRole("Admin") ?? false;
+
+  /// <summary>
+  /// Gets a value indicating whether the current context is an internal test.
+  /// </summary>
+  public bool IsInternalTest => this.httpContextAccessor?.HttpContext?.User?.Identity?.AuthenticationType is "Test" or "TestServer" or "IntegrationTest";
+
+  /// <summary>
+  /// Gets the current tenant ID.
+  /// </summary>
+  public Guid CurrentTenantId
+  {
+    get
+    {
+      var tenantClaim = this.httpContextAccessor?.HttpContext?.User?.FindFirst("TenantId")?.Value;
+      return Guid.TryParse(tenantClaim, out var parsedId) ? parsedId : Guid.Empty;
+    }
+  }
+
+  /// <summary>
   /// Konfiguriert das Modell und die Datenbank-Mappings.
   /// Hier wird die explizite Konfiguration fÃ¼r NebenlÃ¤ufigkeit und Tabellennamen vorgenommen.
   /// </summary>
@@ -468,27 +490,5 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       where TEntity : BaseEntity
   {
     builder.Entity<TEntity>().HasQueryFilter(e => !e.IsDeleted && (this.IsAdmin || this.IsInternalTest || e.TenantId == this.CurrentTenantId));
-  }
-
-  /// <summary>
-  /// Gets a value indicating whether the current user is an admin.
-  /// </summary>
-  public bool IsAdmin => this.httpContextAccessor?.HttpContext?.User?.IsInRole("Admin") ?? false;
-
-  /// <summary>
-  /// Gets a value indicating whether the current context is an internal test.
-  /// </summary>
-  public bool IsInternalTest => this.httpContextAccessor?.HttpContext?.User?.Identity?.AuthenticationType is "Test" or "TestServer" or "IntegrationTest";
-
-  /// <summary>
-  /// Gets the current tenant ID.
-  /// </summary>
-  public Guid CurrentTenantId
-  {
-    get
-    {
-      var tenantClaim = this.httpContextAccessor?.HttpContext?.User?.FindFirst("TenantId")?.Value;
-      return Guid.TryParse(tenantClaim, out var parsedId) ? parsedId : Guid.Empty;
-    }
   }
 }

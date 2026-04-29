@@ -55,6 +55,7 @@ internal class SocialController : Controller
   /// Zeigt die Social Feed Index-Ansicht an.
   /// </summary>
   /// <returns>Die Index-View.</returns>
+  [HttpGet]
   public IActionResult Index()
   {
     return this.View();

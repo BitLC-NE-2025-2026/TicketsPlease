@@ -25,16 +25,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 internal sealed class RequirePermissionAttribute : Attribute, IAuthorizationFilter
 {
   /// <summary>
-  /// Gets die erforderliche Berechtigung.
-  /// </summary>
-  public string Permission { get; }
-
-  /// <summary>
-  /// Gets die benutzerdefinierte Fehlermeldung.
-  /// </summary>
-  public string? ErrorMessage { get; }
-
-  /// <summary>
   /// Initializes a new instance of the <see cref="RequirePermissionAttribute"/> class.
   /// </summary>
   /// <param name="permission">Die erforderliche Berechtigung (z.B. PermissionRegistry.PageTickets).</param>
@@ -44,6 +34,16 @@ internal sealed class RequirePermissionAttribute : Attribute, IAuthorizationFilt
     this.Permission = permission;
     this.ErrorMessage = errorMessage;
   }
+
+  /// <summary>
+  /// Gets die erforderliche Berechtigung.
+  /// </summary>
+  public string Permission { get; }
+
+  /// <summary>
+  /// Gets die benutzerdefinierte Fehlermeldung.
+  /// </summary>
+  public string? ErrorMessage { get; }
 
   /// <inheritdoc/>
   public void OnAuthorization(AuthorizationFilterContext context)

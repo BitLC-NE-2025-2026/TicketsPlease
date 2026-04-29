@@ -36,7 +36,7 @@ public abstract class IntegrationTestBase : IDisposable
   public static readonly Guid MediumPriorityId = Guid.Parse("00000000-0000-0000-0000-000000000002");
 
   /// <summary>
-  /// Standard Todo State ID seeded in all tests.
+  /// Standard To-Do State ID seeded in all tests.
   /// </summary>
   public static readonly Guid TodoStateId = Guid.Parse("00000000-0000-0000-0000-000000000003");
 
@@ -44,6 +44,26 @@ public abstract class IntegrationTestBase : IDisposable
   /// Standard Done State ID seeded in all tests.
   /// </summary>
   public static readonly Guid DoneStateId = Guid.Parse("00000000-0000-0000-0000-000000000004");
+
+  private bool disposedValue;
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="IntegrationTestBase"/> class.
+  /// </summary>
+  protected IntegrationTestBase()
+  {
+    this.Factory = new TestWebApplicationFactory();
+
+    // Initialize database
+    using var scope = this.Factory.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+  }
+
+  /// <summary>
+  /// Gets the WebApplicationFactory for the system under test.
+  /// </summary>
+  protected TestWebApplicationFactory Factory { get; }
 
   /// <summary>
   /// Seeds minimal required data for tests.
@@ -102,26 +122,6 @@ public abstract class IntegrationTestBase : IDisposable
     }
   }
 
-  private bool disposedValue;
-
-  /// <summary>
-  /// Initializes a new instance of the <see cref="IntegrationTestBase"/> class.
-  /// </summary>
-  protected IntegrationTestBase()
-  {
-    this.Factory = new TestWebApplicationFactory();
-
-    // Initialize database
-    using var scope = this.Factory.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated();
-  }
-
-  /// <summary>
-  /// Gets the WebApplicationFactory for the system under test.
-  /// </summary>
-  protected TestWebApplicationFactory Factory { get; }
-
   /// <inheritdoc/>
   public void Dispose()
   {
@@ -157,8 +157,6 @@ public abstract class IntegrationTestBase : IDisposable
       User = principal,
     };
   }
-
-
 
   /// <summary>
   /// Disposes resources.

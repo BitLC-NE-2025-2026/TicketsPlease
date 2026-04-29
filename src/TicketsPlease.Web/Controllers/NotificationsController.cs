@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Web.Models;
 
@@ -47,7 +48,7 @@ internal sealed class NotificationsController : Controller
       HasMore = notifications.Count > limit,
     };
 
-    if (this.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+    if (this.Request.Headers[HeaderNames.XRequestedWith] == "XMLHttpRequest")
     {
       return this.PartialView("_NotificationList", model);
     }

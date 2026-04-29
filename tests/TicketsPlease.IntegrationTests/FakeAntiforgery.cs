@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 /// <summary>
 /// Fake Antiforgery implementation for tests.
 /// </summary>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Test fake injected via DI")]
 internal sealed class FakeAntiforgery : Microsoft.AspNetCore.Antiforgery.IAntiforgery
 {
   public Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet GetAndStoreTokens(HttpContext httpContext) => new("test", "test", "test", "test");

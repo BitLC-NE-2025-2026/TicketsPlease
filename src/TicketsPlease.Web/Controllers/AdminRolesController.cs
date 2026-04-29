@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Entities;
-using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
 /// Controller fÃƒÂ¼r die Rollenverwaltung im Administrationsbereich.
@@ -25,22 +24,18 @@ internal class AdminRolesController : Controller
 {
   private readonly RoleManager<Role> roleManager;
   private readonly UserManager<User> userManager;
-  private readonly AppDbContext dbContext;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="AdminRolesController"/> class.
   /// </summary>
   /// <param name="roleManager">Die Rollenverwaltung.</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
-  /// <param name="dbContext">Der Datenbankkontext.</param>
   public AdminRolesController(
       RoleManager<Role> roleManager,
-      UserManager<User> userManager,
-      AppDbContext dbContext)
+      UserManager<User> userManager)
   {
     this.roleManager = roleManager;
     this.userManager = userManager;
-    this.dbContext = dbContext;
   }
 
   /// <summary>

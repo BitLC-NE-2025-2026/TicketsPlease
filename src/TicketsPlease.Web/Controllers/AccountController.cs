@@ -104,33 +104,6 @@ internal class AccountController : Controller
   }
 
   /// <summary>
-  /// Zeigt die Registrierungsseite mit einem Einladungs-Token an.
-  /// </summary>
-  /// <param name="token">Der Einladungs-Token.</param>
-  /// <returns>Die Registrierungs-View.</returns>
-  [HttpGet]
-  public async Task<IActionResult> Join(Guid token)
-  {
-    var invite = await this.organizationService.ValidateInviteTokenAsync(token).ConfigureAwait(false);
-    if (invite == null)
-    {
-      this.TempData["ErrorMessage"] = "UngÃƒÂ¼ltiger oder abgelaufener Einladungs-Token.";
-      return this.RedirectToAction(nameof(this.Register));
-    }
-
-    var model = new RegisterViewModel
-    {
-      OrganizationId = invite.OrganizationId,
-      InviteToken = token,
-    };
-
-    this.ViewBag.IsInvite = true;
-    this.ViewBag.OrganizationName = invite.OrganizationName;
-
-    return this.View("Register", model);
-  }
-
-  /// <summary>
   /// Verarbeitet die Benutzerregistrierung.
   /// </summary>
   /// <param name="model">Das Registrierungs-ViewModel.</param>
@@ -187,6 +160,33 @@ internal class AccountController : Controller
     }
 
     return this.View(model);
+  }
+
+  /// <summary>
+  /// Zeigt die Registrierungsseite mit einem Einladungs-Token an.
+  /// </summary>
+  /// <param name="token">Der Einladungs-Token.</param>
+  /// <returns>Die Registrierungs-View.</returns>
+  [HttpGet]
+  public async Task<IActionResult> Join(Guid token)
+  {
+    var invite = await this.organizationService.ValidateInviteTokenAsync(token).ConfigureAwait(false);
+    if (invite == null)
+    {
+      this.TempData["ErrorMessage"] = "UngÃƒÂ¼ltiger oder abgelaufener Einladungs-Token.";
+      return this.RedirectToAction(nameof(this.Register));
+    }
+
+    var model = new RegisterViewModel
+    {
+      OrganizationId = invite.OrganizationId,
+      InviteToken = token,
+    };
+
+    this.ViewBag.IsInvite = true;
+    this.ViewBag.OrganizationName = invite.OrganizationName;
+
+    return this.View("Register", model);
   }
 
   /// <summary>
@@ -336,7 +336,7 @@ internal class AccountController : Controller
     {
       using var stream = model.AvatarFile.OpenReadStream();
       var path = await this.fileStorageService.SaveFileAsync(stream, model.AvatarFile.FileName).ConfigureAwait(false);
-      var escapedPath = Uri.EscapeDataString(path.Replace("\\", "/"));
+      var escapedPath = Uri.EscapeDataString(path.Replace("\\", "/", StringComparison.Ordinal));
       profile.AvatarUrl = new Uri($"/Account/Avatar?path={escapedPath}", UriKind.RelativeOrAbsolute);
     }
 

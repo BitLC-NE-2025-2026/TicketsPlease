@@ -79,10 +79,10 @@ builder.Services.AddAuthorization(options =>
   // Register a policy for each permission in the registry
   foreach (var group in PermissionRegistry.AllPermissions)
   {
-    foreach (var perm in group.Value)
+    foreach (var permKey in group.Value.Select(perm => perm.Key))
     {
-      options.AddPolicy($"Permission.{perm.Key}", policy =>
-          policy.Requirements.Add(new PermissionRequirement(perm.Key)));
+      options.AddPolicy($"Permission.{permKey}", policy =>
+          policy.Requirements.Add(new PermissionRequirement(permKey)));
     }
   }
 });

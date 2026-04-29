@@ -20,6 +20,7 @@ public class MessagesControllerTests : IDisposable
   private readonly Mock<UserManager<User>> _userManagerMock;
   private readonly MessagesController _controller;
   private readonly User _currentUser;
+  private bool _disposedValue;
 
   public MessagesControllerTests()
   {
@@ -76,8 +77,22 @@ public class MessagesControllerTests : IDisposable
 
   public void Dispose()
   {
-    _context.Database.EnsureDeleted();
-    _context.Dispose();
+    Dispose(true);
     GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing)
+  {
+    if (!_disposedValue)
+    {
+      if (disposing)
+      {
+        _context.Database.EnsureDeleted();
+        _context.Dispose();
+        _controller.Dispose();
+      }
+
+      _disposedValue = true;
+    }
   }
 }

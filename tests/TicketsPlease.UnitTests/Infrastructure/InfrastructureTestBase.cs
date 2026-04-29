@@ -4,10 +4,10 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Infrastructure.Persistence;
 
-public abstract class InfrastructureTestBase : IDisposable
+internal abstract class InfrastructureTestBase : IDisposable
 {
   private readonly SqliteConnection _connection;
-  protected readonly AppDbContext Context;
+  private bool _disposedValue;
 
   protected InfrastructureTestBase()
   {
@@ -29,10 +29,26 @@ public abstract class InfrastructureTestBase : IDisposable
     Context.Database.EnsureCreated();
   }
 
+  protected AppDbContext Context { get; }
+
   public void Dispose()
   {
-    Context.Dispose();
-    _connection.Close();
-    _connection.Dispose();
+    Dispose(disposing: true);
+    GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing)
+  {
+    if (!_disposedValue)
+    {
+      if (disposing)
+      {
+        Context.Dispose();
+        _connection.Close();
+        _connection.Dispose();
+      }
+
+      _disposedValue = true;
+    }
   }
 }

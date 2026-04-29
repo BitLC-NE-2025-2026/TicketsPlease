@@ -47,12 +47,9 @@ internal class CustomUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<Use
       if (role != null)
       {
         var roleClaims = await this.RoleManager.GetClaimsAsync(role).ConfigureAwait(false);
-        foreach (var claim in roleClaims)
+        foreach (var claim in roleClaims.Where(claim => !identity.HasClaim(claim.Type, claim.Value)))
         {
-          if (!identity.HasClaim(claim.Type, claim.Value))
-          {
-            identity.AddClaim(claim);
-          }
+          identity.AddClaim(claim);
         }
       }
     }

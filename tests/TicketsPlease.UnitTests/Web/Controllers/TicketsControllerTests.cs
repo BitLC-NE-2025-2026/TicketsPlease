@@ -29,6 +29,7 @@ public class TicketsControllerTests : IDisposable
   private readonly Mock<UserManager<User>> _userManagerMock;
   private readonly TicketsController _controller;
   private readonly User _currentUser;
+  private bool _disposedValue;
 
   public TicketsControllerTests()
   {
@@ -157,8 +158,22 @@ public class TicketsControllerTests : IDisposable
 
   public void Dispose()
   {
-    _context.Database.EnsureDeleted();
-    _context.Dispose();
+    Dispose(true);
     GC.SuppressFinalize(this);
+  }
+
+  protected virtual void Dispose(bool disposing)
+  {
+    if (!_disposedValue)
+    {
+      if (disposing)
+      {
+        _context.Database.EnsureDeleted();
+        _context.Dispose();
+        _controller.Dispose();
+      }
+
+      _disposedValue = true;
+    }
   }
 }
