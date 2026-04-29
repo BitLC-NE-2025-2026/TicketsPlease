@@ -372,14 +372,14 @@ public class TicketService(
     }
 
     // PrÃ¼fen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
-    foreach (var link in ticket.BlockedBy.Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks))
+    foreach (var sourceTicketId in ticket.BlockedBy.Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks).Select(l => l.SourceTicketId))
     {
-      if (link.SourceTicketId == targetBlockerId)
+      if (sourceTicketId == targetBlockerId)
       {
         return true;
       }
 
-      if (await this.IsBlockedByRecursiveAsync(link.SourceTicketId, targetBlockerId, visited).ConfigureAwait(false))
+      if (await this.IsBlockedByRecursiveAsync(sourceTicketId, targetBlockerId, visited).ConfigureAwait(false))
       {
         return true;
       }

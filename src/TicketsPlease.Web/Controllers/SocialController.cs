@@ -242,8 +242,8 @@ internal class SocialController : Controller
       return this.BadRequest("File empty");
     }
 
-    var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".mp4", ".webm", ".mp3", ".wav" };
+    var ext = Path.GetExtension(file.FileName).ToUpperInvariant();
+    var allowedExtensions = new[] { ".JPG", ".JPEG", ".PNG", ".GIF", ".MP4", ".WEBM", ".MP3", ".WAV" };
     if (!allowedExtensions.Contains(ext))
     {
       return this.BadRequest("Invalid file type.");
@@ -274,7 +274,7 @@ internal class SocialController : Controller
   public async Task<IActionResult> GetTicketPreview(Guid id)
   {
     var userIdStr = this.userManager.GetUserId(this.User);
-    if (string.IsNullOrEmpty(userIdStr) || !Guid.TryParse(userIdStr, out var userId))
+    if (string.IsNullOrEmpty(userIdStr) || !Guid.TryParse(userIdStr, out _))
     {
       return this.Unauthorized();
     }

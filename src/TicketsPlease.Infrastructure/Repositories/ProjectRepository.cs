@@ -65,6 +65,7 @@ public class ProjectRepository : IProjectRepository
   /// <inheritdoc/>
   public async Task DeleteAsync(Project project)
   {
+    ArgumentNullException.ThrowIfNull(project);
     project.SoftDelete();
     this.context.Projects.Update(project);
     await this.context.SaveChangesAsync().ConfigureAwait(false);

@@ -66,7 +66,7 @@ public class SlaBackgroundServiceTests
     _ticketRepositoryMock.Setup(x => x.GetAllActiveAsync(It.IsAny<CancellationToken>()))
         .ReturnsAsync(new List<Ticket> { ticket });
 
-    var service = new SlaBackgroundService(_serviceProviderMock.Object, _loggerMock.Object);
+    using var service = new SlaBackgroundService(_serviceProviderMock.Object, _loggerMock.Object);
 
     using var cts = new CancellationTokenSource();
     cts.CancelAfter(TimeSpan.FromMilliseconds(50));
@@ -114,7 +114,7 @@ public class SlaBackgroundServiceTests
     _ticketRepositoryMock.Setup(x => x.GetAllActiveAsync(It.IsAny<CancellationToken>()))
         .ReturnsAsync(new List<Ticket> { ticket });
 
-    var service = new SlaBackgroundService(_serviceProviderMock.Object, _loggerMock.Object);
+    using var service = new SlaBackgroundService(_serviceProviderMock.Object, _loggerMock.Object);
 
     using var cts = new CancellationTokenSource();
     cts.CancelAfter(TimeSpan.FromMilliseconds(50));

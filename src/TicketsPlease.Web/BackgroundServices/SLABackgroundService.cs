@@ -156,17 +156,17 @@ internal sealed partial class SlaBackgroundService : BackgroundService
     // Response SLA
     if (ticket.LastRespondedAt == null && ticket.ResponseDeadline.HasValue && now > ticket.ResponseDeadline.Value)
     {
-      await this.NotifySlaBreachAsync(org, ticket, "Response", notificationService).ConfigureAwait(false);
+      await NotifySlaBreachAsync(org, ticket, "Response", notificationService).ConfigureAwait(false);
     }
 
     // Resolution SLA
     if (ticket.ClosedAt == null && ticket.ResolutionDeadline.HasValue && now > ticket.ResolutionDeadline.Value)
     {
-      await this.NotifySlaBreachAsync(org, ticket, "Resolution", notificationService).ConfigureAwait(false);
+      await NotifySlaBreachAsync(org, ticket, "Resolution", notificationService).ConfigureAwait(false);
     }
   }
 
-  private async Task NotifySlaBreachAsync(Organization org, Ticket ticket, string type, INotificationService notificationService)
+  private static async Task NotifySlaBreachAsync(Organization org, Ticket ticket, string type, INotificationService notificationService)
   {
     // Check if notifications are enabled for this priority
     bool shouldNotify = ticket.Priority?.Name switch

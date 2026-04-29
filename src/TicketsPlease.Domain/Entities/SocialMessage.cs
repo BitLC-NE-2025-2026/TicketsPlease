@@ -22,6 +22,7 @@ public class SocialMessage : BaseAuditableEntity
   /// <summary>
   /// Gets or sets eine optionale Medien-URL oder Dateianhang-URL.
   /// </summary>
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1056:URI-like properties should not be strings", Justification = "EF Core typically maps URLs as strings.")]
   public string? AttachmentUrl { get; set; }
 
   /// <summary>
