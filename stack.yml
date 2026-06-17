@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    image: 127.0.0.1:5000/ticketsplease:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TicketsPlease;User Id=sa;Password=SecurePassword123!;TrustServerCertificate=True;
+    networks:
+      - my-overlay-net
+    depends_on:
+      - db
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=SecurePassword123!
+    networks:
+      - my-overlay-net
+    volumes:
+      - mssql-data:/var/opt/mssql
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  my-overlay-net:
+    external: true
+
+volumes:
+  mssql-data:
