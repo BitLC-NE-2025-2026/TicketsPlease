@@ -32,6 +32,7 @@
                             </div>
                         </div>
                         <div class="relative">
+                            <label for="postContent" class="sr-only">@L["Post content"]</label>
                             <textarea id="postContent" rows="4" class="w-full p-4 resize-none border-none focus:ring-0 text-slate-700 placeholder-slate-400 bg-transparent" placeholder="@L["What's happening in your team?"]"></textarea>
                             <div id="postPreview" class="hidden w-full p-4 min-h-[120px] prose prose-slate prose-sm max-w-none bg-white"></div>
                         </div>
@@ -39,11 +40,13 @@
 
                     <!-- Attachment Input -->
                     <div class="mt-3 flex gap-2 items-center">
+                        <label for="attachmentUrl" class="sr-only">@L["Optional image/media URL"]</label>
                         <input type="url" id="attachmentUrl" class="flex-1 text-sm px-4 py-2 border border-slate-200 rounded-xl focus:ring-brand-primary focus:border-brand-primary text-slate-600 placeholder-slate-400" placeholder="@L["Optional: Add an image/media URL or upload"]" />
                     </div>
 
                     <div class="mt-4 flex justify-between items-center">
                         <div class="flex gap-2">
+                            <label for="fileUpload" class="sr-only">@L["Optional File Upload"]</label>
                             <input type="file" id="fileUpload" accept="image/*,video/*,audio/*" class="hidden" />
                             <button type="button" id="btnUploadAttachment" class="text-slate-400 hover:text-brand-primary p-2 rounded-full hover:bg-brand-primary/5 transition-colors" title="@L["Upload Attachment"]">
                                 <i class="fa-solid fa-paperclip"></i>

@@ -41,11 +41,11 @@
                 <div class="space-y-10">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div class="max-w-md">
-                            <label class="text-lg font-black text-slate-900 block mb-1">@Localizer["KanbanIntervalLabel"]</label>
+                            <label for="kanbanUpdateIntervalMs" class="text-lg font-black text-slate-900 block mb-1">@Localizer["KanbanIntervalLabel"]</label>
                             <p class="text-sm text-slate-500 font-medium">@Localizer["KanbanIntervalDescription"]</p>
                         </div>
                         <div class="flex items-center gap-4">
-                            <input type="range" name="kanbanUpdateIntervalMs" min="1000" max="30000" step="1000" value="@Model.KanbanUpdateIntervalMs"
+                            <input type="range" id="kanbanUpdateIntervalMs" name="kanbanUpdateIntervalMs" min="1000" max="30000" step="1000" value="@Model.KanbanUpdateIntervalMs"
                                    class="w-48 appearance-none bg-slate-100 h-2 rounded-full cursor-pointer accent-brand-primary"
                                    oninput="this.nextElementSibling.innerText = (this.value/1000) + 's'" />
                             <span class="w-12 text-center text-sm font-black text-slate-900 bg-slate-100 py-2 rounded-xl">@(Model.KanbanUpdateIntervalMs / 1000)s</span>
@@ -56,11 +56,11 @@
 
                     <div class="flex items-center justify-between gap-6">
                         <div class="max-w-md">
-                            <label class="text-lg font-black text-slate-900 block mb-1">@Localizer["ReduceAnimationsLabel"]</label>
+                            <label for="reduceAnimations" class="text-lg font-black text-slate-900 block mb-1">@Localizer["ReduceAnimationsLabel"]</label>
                             <p class="text-sm text-slate-500 font-medium">@Localizer["ReduceAnimationsDescription"]</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="reduceAnimations" value="true" class="sr-only peer" @(Model.ReduceAnimations ? "checked" : "") />
+                            <input type="checkbox" id="reduceAnimations" name="reduceAnimations" value="true" class="sr-only peer" @(Model.ReduceAnimations ? "checked" : "") />
                             <div class="w-14 h-8 bg-slate-100 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-brand-primary"></div>
                         </label>
                     </div>
@@ -80,10 +80,10 @@
                 <div class="space-y-10">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div class="max-w-md">
-                            <label class="text-lg font-black text-slate-400 block mb-1">@Localizer["AudioSignatureLabel"]</label>
+                            <label for="notificationSound" class="text-lg font-black text-slate-400 block mb-1">@Localizer["AudioSignatureLabel"]</label>
                             <p class="text-sm text-slate-400 font-medium">@Localizer["AudioSignatureDescription"]</p>
                         </div>
-                        <select name="notificationSound" class="w-48 bg-white/10 border-2 border-gray-400/10 rounded-2xl px-4 py-3 outline-none focus:border-brand-primary transition-all font-bold text-white">
+                        <select id="notificationSound" name="notificationSound" class="w-48 bg-white/10 border-2 border-gray-400/10 rounded-2xl px-4 py-3 outline-none focus:border-brand-primary transition-all font-bold text-white">
                             <option value="classic" selected="@(Model.NotificationSound == "classic")" class="bg-indigo-950">@Localizer["SoundClassic"]</option>
                             <option value="minimal" selected="@(Model.NotificationSound == "minimal")" class="bg-indigo-950">@Localizer["SoundMinimal"]</option>
                             <option value="vibrant" selected="@(Model.NotificationSound == "vibrant")" class="bg-indigo-950">@Localizer["SoundVibrant"]</option>
@@ -95,11 +95,11 @@
 
                     <div class="flex items-center justify-between gap-6">
                         <div class="max-w-md">
-                            <label class="text-lg font-black text-slate-400 block mb-1">@Localizer["EmailRelaysLabel"]</label>
+                            <label for="emailNotificationsEnabled" class="text-lg font-black text-slate-400 block mb-1">@Localizer["EmailRelaysLabel"]</label>
                             <p class="text-sm text-slate-400 font-medium">@Localizer["EmailRelaysDescription"]</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="emailNotificationsEnabled" value="true" class="sr-only peer" @(Model.EmailNotificationsEnabled ? "checked" : "") />
+                            <input type="checkbox" id="emailNotificationsEnabled" name="emailNotificationsEnabled" value="true" class="sr-only peer" @(Model.EmailNotificationsEnabled ? "checked" : "") />
                             <div class="w-14 h-8 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-white/20"></div>
                         </label>
                     </div>

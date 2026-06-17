@@ -1,4 +1,4 @@
-/* 
+/*
  * Empty States Component - Based on Tailwind UI
  * Implementation for _10_Filmdatenbank
  */
@@ -27,7 +27,7 @@
 
     /* Dashed Border Variant */
     .empty-state-dashed {
-        @apply relative block w-full rounded-xl border-2 border-dashed border-border-muted dark:border-dark-border p-12 
+        @apply relative block w-full rounded-xl border-2 border-dashed border-border-muted dark:border-dark-border p-12
                text-center hover:border-text-muted/40 dark:hover:border-dark-text-muted/40 transition-colors
                focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 dark:focus:ring-offset-dark-surface;
     }

@@ -619,20 +619,20 @@
                         <h4 class="text-lg font-bold mb-6">@Localizer["CreateNewTicket"]</h4>
                         <div class="space-y-4 mb-6">
                             <div>
-                                <label class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Title"]</label>
-                                <input type="text" class="form-input" placeholder="Ticket Titel..." />
+                                <label for="mockTitle" class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Title"]</label>
+                                <input type="text" id="mockTitle" class="form-input" placeholder="Ticket Titel..." />
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Priority"]</label>
-                                    <select class="form-select">
+                                    <label for="mockPriority" class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Priority"]</label>
+                                    <select id="mockPriority" class="form-select">
                                         <option>@Localizer["High"]</option>
                                         <option>@Localizer["Medium"]</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Type"]</label>
-                                    <select class="form-select">
+                                    <label for="mockType" class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Type"]</label>
+                                    <select id="mockType" class="form-select">
                                         <option>@Localizer["Bug"]</option>
                                         <option>@Localizer["Feature"]</option>
                                     </select>

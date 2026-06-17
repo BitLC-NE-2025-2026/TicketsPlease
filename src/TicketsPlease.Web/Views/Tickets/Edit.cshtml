@@ -75,8 +75,8 @@
                                 5 => "#e11d48",
                                 _ => "#cbd5e1"
                             };
-                            <label class="cursor-pointer group">
-                                <input type="radio" asp-for="ChilliesDifficulty" value="@i" class="sr-only peer" />
+                            <label class="cursor-pointer group" for="difficulty-@i">
+                                <input type="radio" asp-for="ChilliesDifficulty" id="difficulty-@i" value="@i" class="sr-only peer" />
                                 <i class="fa-solid fa-pepper-hot text-xl transition-all peer-checked:scale-125 text-slate-300 hover:text-rose-300 peer-checked:![color:@color]"></i>
                             </label>
                         }
@@ -120,23 +120,23 @@
 <!-- Tag Modal -->
 <div id="tagModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
     <div class="flex items-center justify-center min-h-screen p-4 text-center">
-        <div class="fixed inset-0 transition-opacity bg-slate-900/60" onclick="closeTagModal()"></div>
+        <div class="fixed inset-0 transition-opacity bg-slate-900/60" onclick="closeTagModal()" onkeydown="if(event.key === 'Enter' || event.key === ' ') { closeTagModal(); event.preventDefault(); }" role="button" tabindex="0"></div>
         <div class="relative w-full max-w-md p-8 bg-white rounded-3xl shadow-2xl animate-in zoom-in-95 duration-200">
             <h3 class="text-xl font-extrabold text-slate-900 mb-6">@L["Create New Tag"]</h3>
 
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Tag Name"]</label>
+                    <label for="newTagName" class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Tag Name"]</label>
                     <input type="text" id="newTagName" placeholder="e.g. UX-Improvement" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-primary/20" />
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Color"]</label>
+                    <label for="newTagColor" class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Color"]</label>
                     <input type="color" id="newTagColor" value="#3B82F6" class="w-full h-12 p-1 border border-slate-300 rounded-xl cursor-pointer" />
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Icon (FontAwesome)"]</label>
+                    <label for="newTagIcon" class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Icon (FontAwesome)"]</label>
                     <input type="text" id="newTagIcon" value="fa-tag" placeholder="fa-bug, fa-star..." class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-primary/20" />
                 </div>
             </div>

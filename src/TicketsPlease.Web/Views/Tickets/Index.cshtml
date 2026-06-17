@@ -31,7 +31,8 @@
                 <input type="hidden" name="assignedUserId" value='@ViewData["CurrentAssignee"]' />
                 <input type="hidden" name="creatorId" value='@ViewData["CurrentCreator"]' />
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
-                <input type="text" name="search" value='@ViewData["CurrentSearch"]' placeholder="@L["Search tickets..."]" class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-brand-primary/20 focus:bg-white w-64 transition-all" />
+                <label for="searchTickets" class="sr-only">@L["Search tickets..."]</label>
+                <input type="text" id="searchTickets" name="search" value='@ViewData["CurrentSearch"]' placeholder="@L["Search tickets..."]" class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-brand-primary/20 focus:bg-white w-64 transition-all" />
             </form>
             <a asp-action="Create" class="inline-flex items-center px-5 py-2.5 rounded-full bg-brand-primary text-white text-sm font-bold hover:bg-brand-secondary hover:shadow-lg hover:shadow-brand-primary/30 transition-all duration-200">
                 <i class="fa-solid fa-plus mr-2"></i>

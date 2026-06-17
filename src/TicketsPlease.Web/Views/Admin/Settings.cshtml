@@ -52,7 +52,8 @@
                     <div class="flex-grow">
                         <h4 class="text-xl font-black text-rose-900 mb-2">Total Database Reset (Wipe)</h4>
                         <p class="text-sm text-rose-700/70 mb-6 font-medium">Deletes the entire database schema and recreates it. ALL DATA WILL BE LOST!</p>
-                        <input type="text" name="confirmPhrase" placeholder="Type 'DELETE CONFIRM' here..." 
+                        <label for="wipeConfirmPhrase" class="sr-only">Wipe Confirmation Phrase</label>
+                        <input type="text" id="wipeConfirmPhrase" name="confirmPhrase" placeholder="Type 'DELETE CONFIRM' here..." 
                                class="w-full bg-white border-2 border-rose-200 rounded-2xl px-6 py-4 outline-none focus:border-rose-500 transition-all font-black text-rose-900 shadow-sm" required />
                     </div>
                     <button type="submit" class="whitespace-nowrap px-10 py-5 bg-rose-600 text-white rounded-2xl font-black text-lg hover:bg-rose-700 active:scale-95 transition-all shadow-xl shadow-rose-200">
@@ -68,14 +69,20 @@
                         <h4 class="text-xl font-black text-slate-900 mb-2">Targeted Table Truncate</h4>
                         <p class="text-sm text-slate-500 mb-6 font-medium">Select a specific table to empty. Other tables remain untouched.</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                             <select name="tableName" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-6 py-4 font-bold text-slate-900" required>
-                                 <option value="Tickets">Tickets (Archive All)</option>
-                                 <option value="Messages">Messages (Clear History)</option>
-                                 <option value="Notifications">Notifications (Clear All)</option>
-                                 <option value="TimeLogs">TimeLogs (Reset Tracking)</option>
-                             </select>
-                             <input type="text" name="confirmPhrase" placeholder="Confirm Phrase..." 
-                                    class="w-full bg-white border-2 border-slate-200 rounded-2xl px-6 py-4 outline-none focus:border-indigo-500 transition-all font-black text-slate-900 shadow-sm" required />
+                             <div>
+                                 <label for="tableNameSelect" class="sr-only">Table Name</label>
+                                 <select id="tableNameSelect" name="tableName" class="w-full bg-white border-2 border-slate-200 rounded-2xl px-6 py-4 font-bold text-slate-900" required>
+                                     <option value="Tickets">Tickets (Archive All)</option>
+                                     <option value="Messages">Messages (Clear History)</option>
+                                     <option value="Notifications">Notifications (Clear All)</option>
+                                     <option value="TimeLogs">TimeLogs (Reset Tracking)</option>
+                                 </select>
+                             </div>
+                             <div>
+                                 <label for="truncateConfirmPhrase" class="sr-only">Truncate Confirmation Phrase</label>
+                                 <input type="text" id="truncateConfirmPhrase" name="confirmPhrase" placeholder="Confirm Phrase..." 
+                                        class="w-full bg-white border-2 border-slate-200 rounded-2xl px-6 py-4 outline-none focus:border-indigo-500 transition-all font-black text-slate-900 shadow-sm" required />
+                             </div>
                         </div>
                     </div>
                     <button type="submit" class="whitespace-nowrap px-10 py-5 bg-slate-900 text-white rounded-2xl font-black text-lg hover:bg-black active:scale-95 transition-all shadow-xl shadow-slate-200">

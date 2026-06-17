@@ -41,7 +41,7 @@
                     <span>@L["Please correct the errors below."]</span>
                 </div>
 
-                @if (ViewBag.IsInvite == true)
+                @if (ViewBag.IsInvite)
                 {
                     <div class="mb-8 p-6 bg-brand-primary/5 border border-brand-primary/20 rounded-3xl flex items-center justify-between group animate-in slide-in-from-right-4">
                         <div class="flex items-center gap-4">
@@ -123,7 +123,7 @@
                 <hr class="border-slate-100 my-6" />
 
                 <!-- Organization & Position -->
-                @if (ViewBag.IsInvite != true)
+                @if (!ViewBag.IsInvite)
                 {
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-2">
@@ -162,11 +162,11 @@
                 else
                 {
                     <div class="space-y-2">
-                        <label asp-for="Position" class="block text-sm font-bold text-slate-800 ml-1">@L["Position"]</label>
+                        <label asp-for="Position" for="PositionInvite" class="block text-sm font-bold text-slate-800 ml-1">@L["Position"]</label>
                         <div class="relative flex items-center">
                             <i class="fa-solid fa-briefcase absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
                             <input asp-for="Position" 
-                                   id="Position"
+                                   id="PositionInvite"
                                    style="padding-left: 2.75rem !important;"
                                    class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
                                    placeholder="@L["Lead Developer"]" />

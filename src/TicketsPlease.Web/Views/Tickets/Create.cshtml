@@ -23,7 +23,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-bold text-slate-700">@L["Use Template (Optional)"]</label>
+                    <label for="TemplateSelector" class="block text-sm font-bold text-slate-700">@L["Use Template (Optional)"]</label>
                     <select id="TemplateSelector" class="mt-1 block w-full px-4 py-3 border border-brand-primary/30 bg-brand-primary/5 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm">
                         <option value="">@L["-- Select a Template --"]</option>
                         @foreach (var t in (IEnumerable<TicketTemplateDto>)ViewBag.Templates)
@@ -81,8 +81,8 @@
                                 5 => "peer-checked:text-[#e11d48]",
                                 _ => "peer-checked:text-[#cbd5e1]"
                             };
-                            <label class="cursor-pointer group">
-                                <input type="radio" asp-for="ChilliesDifficulty" value="@i" class="sr-only peer" />
+                            <label class="cursor-pointer group" for="difficulty-@i">
+                                <input type="radio" asp-for="ChilliesDifficulty" id="difficulty-@i" value="@i" class="sr-only peer" />
                                 <i class="fa-solid fa-pepper-hot text-xl transition-all peer-checked:scale-125 text-slate-300 hover:text-rose-300 @colorClass"></i>
                             </label>
                         }
@@ -90,8 +90,8 @@
                 </div>
 
                 <div class="md:col-span-2">
-                    <label asp-for="TagIds" class="block text-sm font-bold text-slate-700">@L["Tags"]</label>
-                    <select asp-for="TagIds" asp-items="ViewBag.Tags" multiple class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm min-h-[100px]"></select>
+                    <label asp-for="TagIds" for="TagIds" class="block text-sm font-bold text-slate-700">@L["Tags"]</label>
+                    <select asp-for="TagIds" id="TagIds" asp-items="ViewBag.Tags" multiple class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm min-h-[100px]"></select>
                     <p class="text-[10px] text-slate-400 mt-1 font-bold uppercase tracking-wider">@L["Hold Ctrl/Cmd to select multiple"]</p>
                 </div>
             </div>

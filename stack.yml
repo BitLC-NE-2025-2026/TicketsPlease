@@ -12,7 +12,7 @@ services:
       # Definition der Umgebungsvariablen im Key-Value Format
       ASPNETCORE_ENVIRONMENT: "Production"
       # Connection String nutzt den Swarm Service-Namen tickets_db für DNS-Auflösung
-      ConnectionStrings__DefaultConnection: "Server=tickets_db;Database=TicketsPlease;User Id=sa;Password=SecurePassword123!;TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=tickets_db;Database=TicketsPlease;User Id=sa;Password=${MSSQL_SA_PASSWORD};TrustServerCertificate=True;"
     networks:
       - my-overlay-net
     depends_on:
@@ -33,7 +33,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "SecurePassword123!"
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
     networks:
       - my-overlay-net
     volumes:
