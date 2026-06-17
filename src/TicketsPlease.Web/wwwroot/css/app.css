@@ -6624,10 +6624,6 @@
     display: block;
     width: 100%;
     border-radius: var(--radius-xl);
-    border-style: var(--tw-border-style);
-    border-width: 2px;
-    --tw-border-style: dashed;
-    border-style: dashed;
     border-color: var(--color-border-muted);
     padding: calc(var(--spacing) * 12);
     text-align: center;
@@ -6675,6 +6671,8 @@
         --tw-ring-offset-color: var(--color-dark-surface);
       }
     }
+    border-width: 2px;
+    border-style: dashed;
   }
   .empty-state-dashed .empty-state-icon {
     color: var(--color-text-muted);
