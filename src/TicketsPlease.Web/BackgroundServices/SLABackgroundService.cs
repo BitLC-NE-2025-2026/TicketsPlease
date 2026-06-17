@@ -22,7 +22,7 @@ using TicketsPlease.Domain.Entities;
 /// Background service for enterprise SLA automation.
 /// Checks active organizations for SLA breaches and triggers notifications.
 /// </summary>
-public sealed partial class SlaBackgroundService : BackgroundService
+internal sealed partial class SlaBackgroundService : BackgroundService
 {
   private readonly IServiceProvider serviceProvider;
   private readonly ILogger<SlaBackgroundService> logger;

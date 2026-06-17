@@ -22,7 +22,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller für das Ticket-Handling und das Kanban-Board.
 /// </summary>
 [Authorize]
-public sealed class TicketsController : Controller
+internal sealed class TicketsController : Controller
 {
   private readonly ITicketService ticketService;
   private readonly IProjectService projectService;
@@ -504,7 +504,7 @@ public sealed class TicketsController : Controller
   /// <summary>
   /// Request DTO für Tag-Erstellung.
   /// </summary>
-  public class CreateTagRequest
+  internal class CreateTagRequest
   {
     /// <summary>Gets or sets Name.</summary>
     public string Name { get; set; } = string.Empty;
