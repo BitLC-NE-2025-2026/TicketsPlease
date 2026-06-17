@@ -120,6 +120,9 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Social Feed Messages.</summary>
   public DbSet<SocialMessage> SocialMessages => this.Set<SocialMessage>();
 
+  /// <summary>Gets die Likes für Social Feed Messages.</summary>
+  public DbSet<SocialMessageLike> SocialMessageLikes => this.Set<SocialMessageLike>();
+
   /// <summary>Gets die Benachrichtigungen.</summary>
   public DbSet<Notification> Notifications => this.Set<Notification>();
 
@@ -387,6 +390,13 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
 
       // Let SocialMessage be cross-tenant
       entity.HasQueryFilter(e => !e.IsDeleted);
+    });
+
+    builder.Entity<SocialMessageLike>(entity =>
+    {
+      entity.HasKey(e => new { e.SocialMessageId, e.UserId });
+      entity.HasOne(e => e.SocialMessage).WithMany().HasForeignKey(e => e.SocialMessageId).OnDelete(DeleteBehavior.Cascade);
+      entity.HasOne(e => e.User).WithMany().HasForeignKey(e => e.UserId).OnDelete(DeleteBehavior.Cascade);
     });
 
     builder.Entity<FileAsset>(entity =>

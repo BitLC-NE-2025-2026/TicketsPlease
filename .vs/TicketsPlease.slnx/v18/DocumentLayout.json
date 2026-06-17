@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D87626F9-644A-B037-38A4-9D60B130754E}|src\\TicketsPlease.Infrastructure\\TicketsPlease.Infrastructure.csproj|c:\\users\\tobia\\desktop\\csharprepo\\ticketsplease\\src\\ticketsplease.infrastructure\\persistence\\dbinitialiser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D87626F9-644A-B037-38A4-9D60B130754E}|src\\TicketsPlease.Infrastructure\\TicketsPlease.Infrastructure.csproj|solutionrelative:src\\ticketsplease.infrastructure\\persistence\\dbinitialiser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|c:\\users\\tobia\\desktop\\csharprepo\\ticketsplease\\src\\ticketsplease.web\\resources\\views\\account\\edit.de.resx||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|solutionrelative:src\\ticketsplease.web\\resources\\views\\account\\edit.de.resx||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -51,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|solutionrelative:src\\ticketsplease.web\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D87626F9-644A-B037-38A4-9D60B130754E}|src\\TicketsPlease.Infrastructure\\TicketsPlease.Infrastructure.csproj|c:\\users\\tobia\\desktop\\csharprepo\\ticketsplease\\src\\ticketsplease.infrastructure\\persistence\\dbinitialiser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D87626F9-644A-B037-38A4-9D60B130754E}|src\\TicketsPlease.Infrastructure\\TicketsPlease.Infrastructure.csproj|solutionrelative:src\\ticketsplease.infrastructure\\persistence\\dbinitialiser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4331AE3E-C163-5A78-55A5-27672F4788BF}|src\\TicketsPlease.Application\\TicketsPlease.Application.csproj|c:\\users\\tobia\\desktop\\csharprepo\\ticketsplease\\src\\ticketsplease.application\\common\\dtos\\ticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4331AE3E-C163-5A78-55A5-27672F4788BF}|src\\TicketsPlease.Application\\TicketsPlease.Application.csproj|solutionrelative:src\\ticketsplease.application\\common\\dtos\\ticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -66,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,31 +74,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Edit.de.resx",
-              "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Account\\Edit.de.resx",
-              "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\Account\\Edit.de.resx",
-              "ToolTip": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Account\\Edit.de.resx",
-              "RelativeToolTip": "src\\TicketsPlease.Web\\Resources\\Views\\Account\\Edit.de.resx",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAkwDEAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-04-16T11:11:35.854Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Create.en.resx",
-              "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Project\\Create.en.resx",
-              "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\Project\\Create.en.resx",
-              "ToolTip": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Project\\Create.en.resx",
-              "RelativeToolTip": "src\\TicketsPlease.Web\\Resources\\Views\\Project\\Create.en.resx",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-04-16T07:34:35.291Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Settings.de.resx",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\ProductOwner\\Settings.de.resx",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\ProductOwner\\Settings.de.resx",
@@ -110,7 +86,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Settings.de.resx",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\ProductOwner\\Settings.de.resx",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\ProductOwner\\Settings.de.resx",
@@ -121,7 +97,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "GovernanceLog.de.resx",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\ProductOwner\\GovernanceLog.de.resx",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\ProductOwner\\GovernanceLog.de.resx",
@@ -132,7 +108,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Index.de.resx",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\AdminTemplates\\Index.de.resx",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\AdminTemplates\\Index.de.resx",
@@ -143,7 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Create.de.resx",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\AdminTemplates\\Create.de.resx",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\AdminTemplates\\Create.de.resx",
@@ -154,7 +130,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "DashboardServiceTests.cs",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\tests\\TicketsPlease.UnitTests\\Application\\Services\\DashboardServiceTests.cs",
               "RelativeDocumentMoniker": "tests\\TicketsPlease.UnitTests\\Application\\Services\\DashboardServiceTests.cs",
@@ -166,7 +142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "AppDbContextModelSnapshot.cs",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Infrastructure\\Migrations\\AppDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Infrastructure\\Migrations\\AppDbContextModelSnapshot.cs",
@@ -178,7 +154,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Index.de.resx",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Home\\Index.de.resx",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\Home\\Index.de.resx",
@@ -189,7 +165,43 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 0,
+              "Title": "DbInitialiser.cs",
+              "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
+              "ToolTip": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
+              "RelativeToolTip": "src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
+              "ViewState": "AgIAANABAAAAAAAAAAAswNkBAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-11T22:09:55.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Edit.de.resx",
+              "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Account\\Edit.de.resx",
+              "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\Account\\Edit.de.resx",
+              "ToolTip": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Account\\Edit.de.resx",
+              "RelativeToolTip": "src\\TicketsPlease.Web\\Resources\\Views\\Account\\Edit.de.resx",
+              "ViewState": "AgIAACMAAAAAAAAAAAAiwDEAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2026-04-16T11:11:35.854Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Create.en.resx",
+              "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Project\\Create.en.resx",
+              "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Resources\\Views\\Project\\Create.en.resx",
+              "ToolTip": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Resources\\Views\\Project\\Create.en.resx",
+              "RelativeToolTip": "src\\TicketsPlease.Web\\Resources\\Views\\Project\\Create.en.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2026-04-16T07:34:35.291Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": ".vsconfig",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\.vsconfig",
               "RelativeDocumentMoniker": ".vsconfig",
@@ -198,18 +210,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2026-04-12T13:49:40.524Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "DbInitialiser.cs",
-              "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
-              "RelativeDocumentMoniker": "src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
-              "ToolTip": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
-              "RelativeToolTip": "src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
-              "ViewState": "AgIAAHUBAAAAAAAAAABRwGgBAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T22:09:55.732Z"
             },
             {
               "$type": "Document",
@@ -225,7 +225,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "TicketsController.cs",
               "DocumentMoniker": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",

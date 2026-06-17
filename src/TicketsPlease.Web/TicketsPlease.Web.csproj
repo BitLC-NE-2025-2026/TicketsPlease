@@ -29,7 +29,7 @@
     <TailwindInstallPath>$(BaseIntermediateOutputPath)\tailwind-cli\</TailwindInstallPath>
     <TailwindConfigDir>$(MSBuildProjectDirectory)\Tailwind\</TailwindConfigDir>
     <TailwindInputFile>input.css</TailwindInputFile>
-    <TailwindOutputFile>wwwroot\css\app.css</TailwindOutputFile>
+    <TailwindOutputFile>..\wwwroot\css\app.css</TailwindOutputFile>
     <!-- Standardized Build Flags -->
     <TailwindMinify Condition="'$(Configuration)' == 'Release'">true</TailwindMinify>
     <TailwindWatch Condition="'$(BuildingInsideVisualStudio)' == 'true' or '$(DotNetWatchBuild)' == 'true'">true</TailwindWatch>

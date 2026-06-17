@@ -75,4 +75,14 @@ public class SocialMessageDto
   /// Gets or sets a value indicating whether the current user can delete the message.
   /// </summary>
   public bool CanDelete { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Anzahl der Likes für diese Nachricht.
+  /// </summary>
+  public int LikesCount { get; set; }
+
+  /// <summary>
+  /// Gets or sets a value indicating whether the current user has liked this message.
+  /// </summary>
+  public bool IsLikedByCurrentUser { get; set; }
 }

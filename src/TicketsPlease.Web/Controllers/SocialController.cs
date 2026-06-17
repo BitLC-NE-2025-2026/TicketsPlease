@@ -76,6 +76,11 @@ internal class SocialController : Controller
         .ToListAsync().ConfigureAwait(false);
 
     var isAdminOrPo = this.User.IsInRole("Admin") || this.User.IsInRole("ProductOwner");
+    var currentUserId = Guid.Parse(this.userManager.GetUserId(this.User) ?? Guid.Empty.ToString());
+    var messageIds = messages.Select(m => m.Id).ToList();
+    var likes = await this.context.SocialMessageLikes
+        .Where(l => messageIds.Contains(l.SocialMessageId))
+        .ToListAsync().ConfigureAwait(false);
 
     var organizationIds = messages.Select(m => m.Author?.TenantId).Where(id => id.HasValue).Distinct().Cast<Guid>().ToList();
     var orgs = await this.context.Organizations.Where(o => organizationIds.Contains(o.Id)).ToDictionaryAsync(o => o.Id, o => o.Name).ConfigureAwait(false);
@@ -94,7 +99,9 @@ internal class SocialController : Controller
       AuthorCompany = m.Author?.TenantId != null && orgs.ContainsKey(m.Author.TenantId) ? orgs[m.Author.TenantId] : (m.Author?.TenantId.ToString() ?? string.Empty),
       AuthorPosition = m.Author?.Profile?.Position ?? string.Empty,
       AuthorTeam = string.Empty,
-      CanDelete = isAdminOrPo || m.AuthorId == Guid.Parse(this.userManager.GetUserId(this.User) ?? Guid.Empty.ToString()),
+      CanDelete = isAdminOrPo || m.AuthorId == currentUserId,
+      LikesCount = likes.Count(l => l.SocialMessageId == m.Id),
+      IsLikedByCurrentUser = likes.Any(l => l.SocialMessageId == m.Id && l.UserId == currentUserId),
     }).ToList();
 
     return this.Ok(dtos);
@@ -166,6 +173,8 @@ internal class SocialController : Controller
       AuthorPosition = savedMessage.Author?.Profile?.Position ?? string.Empty,
       AuthorTeam = string.Empty,
       CanDelete = isAdminOrPo || savedMessage.AuthorId == userId,
+      LikesCount = 0,
+      IsLikedByCurrentUser = false,
     };
 
     // Parse Mentions
@@ -305,6 +314,56 @@ internal class SocialController : Controller
       status = ticket.Status.ToString(),
       priority = ticket.Priority.ToString(),
     });
+  }
+
+  /// <summary>
+  /// Toggles a like for a social message.
+  /// </summary>
+  /// <param name="id">Die ID der Nachricht.</param>
+  /// <returns>Die aktualisierten Like-Infos.</returns>
+  [HttpPost("Social/ToggleLike/{id}")]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> ToggleLike(Guid id)
+  {
+    var userIdStr = this.userManager.GetUserId(this.User);
+    if (string.IsNullOrEmpty(userIdStr) || !Guid.TryParse(userIdStr, out var userId))
+    {
+      return this.Unauthorized();
+    }
+
+    var messageExists = await this.context.SocialMessages.AnyAsync(m => m.Id == id).ConfigureAwait(false);
+    if (!messageExists)
+    {
+      return this.NotFound();
+    }
+
+    var existingLike = await this.context.SocialMessageLikes
+        .FirstOrDefaultAsync(l => l.SocialMessageId == id && l.UserId == userId).ConfigureAwait(false);
+
+    bool liked;
+    if (existingLike != null)
+    {
+      this.context.SocialMessageLikes.Remove(existingLike);
+      liked = false;
+    }
+    else
+    {
+      var like = new SocialMessageLike
+      {
+        Id = Guid.NewGuid(),
+        SocialMessageId = id,
+        UserId = userId,
+        LikedAt = DateTime.UtcNow
+      };
+      this.context.SocialMessageLikes.Add(like);
+      liked = true;
+    }
+
+    await this.context.SaveChangesAsync().ConfigureAwait(false);
+
+    var count = await this.context.SocialMessageLikes.CountAsync(l => l.SocialMessageId == id).ConfigureAwait(false);
+
+    return this.Ok(new { likesCount = count, isLiked = liked });
   }
 
   /// <summary>
