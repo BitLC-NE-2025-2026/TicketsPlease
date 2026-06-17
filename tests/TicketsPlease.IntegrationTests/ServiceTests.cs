@@ -187,6 +187,7 @@ public class ServiceTests : IntegrationTestBase
         Console.WriteLine($"[DIAGNOSTIC] Original RowVersion: {(entry.OriginalValues.GetValue<byte[]>("RowVersion") != null ? BitConverter.ToString(entry.OriginalValues.GetValue<byte[]>("RowVersion")) : "null")}");
         Console.WriteLine($"[DIAGNOSTIC] Current RowVersion: {(entry.CurrentValues.GetValue<byte[]>("RowVersion") != null ? BitConverter.ToString(entry.CurrentValues.GetValue<byte[]>("RowVersion")) : "null")}");
       }
+
       throw;
     }
 

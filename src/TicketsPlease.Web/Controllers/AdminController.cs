@@ -85,6 +85,7 @@ internal class AdminController : Controller
   /// <returns>Ein Task.</returns>
   [HttpPost]
   [ValidateAntiForgeryToken]
+#pragma warning disable CA1031 // Intentional: admin action shows all exception messages
   public async Task<IActionResult> TruncateTable(string tableName, string confirmPhrase)
   {
     if (confirmPhrase != "DELETE CONFIRM")
@@ -102,6 +103,7 @@ internal class AdminController : Controller
     {
       this.ModelState.AddModelError(string.Empty, ex.Message);
     }
+#pragma warning restore CA1031
 
     return this.RedirectToAction(nameof(this.Settings));
   }

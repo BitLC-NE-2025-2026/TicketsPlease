@@ -183,6 +183,7 @@ public class InfrastructureTests : IntegrationTestBase
     {
       state.IsDeleted = true;
     }
+
     await db.SaveChangesAsync();
 
     // Act
@@ -196,6 +197,7 @@ public class InfrastructureTests : IntegrationTestBase
     {
       state.IsDeleted = false;
     }
+
     await db.SaveChangesAsync();
   }
 
