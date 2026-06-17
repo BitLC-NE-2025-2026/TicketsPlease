@@ -282,6 +282,8 @@ public class TicketService(
     var newLink = blocker.Blocking.Last();
     newLink.TenantId = blocker.TenantId;
 
+    await ticketRepository.AddLinkAsync(newLink).ConfigureAwait(false);
+
     _ = await ticketRepository.SaveChangesAsync().ConfigureAwait(false);
   }
 

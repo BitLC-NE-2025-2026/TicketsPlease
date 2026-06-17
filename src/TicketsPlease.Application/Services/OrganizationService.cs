@@ -64,9 +64,11 @@ public class OrganizationService(
   {
     ArgumentNullException.ThrowIfNull(dto);
 
+    var orgId = Guid.NewGuid();
     var org = new Organization
     {
-      Id = Guid.NewGuid(),
+      Id = orgId,
+      TenantId = orgId,
       Name = dto.Name,
       SubscriptionLevel = dto.SubscriptionLevel,
       IsActive = dto.IsActive,

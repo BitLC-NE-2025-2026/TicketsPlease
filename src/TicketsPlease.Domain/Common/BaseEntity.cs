@@ -44,7 +44,6 @@ public abstract class BaseEntity : IBaseEntity
   /// Dieses Feld wird automatisch von SQL Server aktualisiert (Timestamp/RowVersion).
   /// </summary>
 #pragma warning disable CA1819 // Properties should not return arrays
-  [Timestamp]
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
 #pragma warning restore CA1819 // Properties should not return arrays
 

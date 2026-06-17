@@ -17,7 +17,7 @@ using TicketsPlease.Domain.Entities;
 /// Controller fÃƒÂ¼r das Teammanagement.
 /// </summary>
 [Authorize]
-internal sealed class TeamsController : Controller
+public sealed class TeamsController : Controller
 {
   private readonly ITeamService teamService;
   private readonly UserManager<User> userManager;

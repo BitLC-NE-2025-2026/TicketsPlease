@@ -141,13 +141,16 @@ public class MessageService(
       return new MessageDto(Guid.Empty, Guid.Empty, "System", null, null, null, null, "Error: Message could not be loaded", DateTime.UtcNow, Enumerable.Empty<FileAssetDto>());
     }
 
-    var attachments = m.Attachments?.Select(a => new FileAssetDto(
-        a.Id,
-        a.FileName,
-        a.ContentType ?? "application/octet-stream",
-        a.SizeBytes,
-        a.UploadedAt,
-        a.UploadedByUser?.UserName ?? "Unknown")) ?? Enumerable.Empty<FileAssetDto>();
+    var attachments = (m.Attachments ?? new List<FileAsset>())
+        .Where(a => a != null)
+        .Select(a => new FileAssetDto(
+            a.Id,
+            a.FileName ?? "Unknown",
+            a.ContentType ?? "application/octet-stream",
+            a.SizeBytes,
+            a.UploadedAt,
+            a.UploadedByUser?.UserName ?? "Unknown"))
+        .ToList();
 
     return new MessageDto(
         m.Id,

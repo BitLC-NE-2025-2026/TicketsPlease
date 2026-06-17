@@ -171,13 +171,27 @@ public class TicketRepository : ITicketRepository
   /// <inheritdoc />
   public async Task<WorkflowState?> GetDefaultWorkflowStateAsync(CancellationToken ct = default)
   {
-    return await this.context.WorkflowStates.IgnoreQueryFilters().AsNoTracking().FirstOrDefaultAsync(ct).ConfigureAwait(false);
+    var tenantId = this.context.CurrentTenantId;
+    return await this.context.WorkflowStates
+        .IgnoreQueryFilters()
+        .Where(s => !s.IsDeleted)
+        .OrderByDescending(s => s.TenantId == tenantId)
+        .AsNoTracking()
+        .FirstOrDefaultAsync(ct)
+        .ConfigureAwait(false);
   }
 
   /// <inheritdoc />
   public async Task<WorkflowState?> GetWorkflowStateByNameAsync(string name, CancellationToken ct = default)
   {
-    return await this.context.WorkflowStates.IgnoreQueryFilters().AsNoTracking().FirstOrDefaultAsync(s => s.Name == name, ct).ConfigureAwait(false);
+    var tenantId = this.context.CurrentTenantId;
+    return await this.context.WorkflowStates
+        .IgnoreQueryFilters()
+        .Where(s => !s.IsDeleted && s.Name == name)
+        .OrderByDescending(s => s.TenantId == tenantId)
+        .AsNoTracking()
+        .FirstOrDefaultAsync(ct)
+        .ConfigureAwait(false);
   }
 
   /// <inheritdoc />
@@ -185,6 +199,7 @@ public class TicketRepository : ITicketRepository
   {
     return await this.context.WorkflowTransitions
         .IgnoreQueryFilters()
+        .Where(tr => !tr.IsDeleted)
         .AsNoTracking()
         .FirstOrDefaultAsync(tr => tr.FromStateId == fromStateId && tr.ToStateId == toStateId, ct)
         .ConfigureAwait(false);
@@ -198,6 +213,12 @@ public class TicketRepository : ITicketRepository
     {
       this.context.TicketLinks.Remove(link);
     }
+  }
+
+  /// <inheritdoc />
+  public async Task AddLinkAsync(TicketLink link, CancellationToken ct = default)
+  {
+    await this.context.TicketLinks.AddAsync(link, ct).ConfigureAwait(false);
   }
 
   /// <inheritdoc />

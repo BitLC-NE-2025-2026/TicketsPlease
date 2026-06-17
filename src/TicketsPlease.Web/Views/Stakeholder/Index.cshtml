@@ -78,7 +78,7 @@
                             <span class="text-slate-300 font-bold">@health.ProjectName</span>
                             <div class="flex items-center">
                                 <span class="mr-3 text-xs font-black uppercase tracking-widest @(health.HealthStatus == "Healthy" ? "text-emerald-400" : (health.HealthStatus == "Warning" ? "text-amber-400" : "text-rose-400"))">
-                                    @health.HealthStatus
+                                    @L[health.HealthStatus]
                                 </span>
                                 <div class="h-2 w-2 rounded-full @(health.HealthStatus == "Healthy" ? "bg-emerald-400 shadow-[0_0_8px_#34d399]" : (health.HealthStatus == "Warning" ? "bg-amber-400 shadow-[0_0_8px_#fbbf24]" : "bg-rose-400 shadow-[0_0_8px_#fb7185]"))"></div>
                             </div>

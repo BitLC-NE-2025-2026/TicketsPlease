@@ -170,7 +170,25 @@ public class ServiceTests : IntegrationTestBase
     await db.SaveChangesAsync();
 
     var service = scope.ServiceProvider.GetRequiredService<ITicketService>();
-    await service.AddDependencyAsync(t1.Id, t2.Id);
+    try
+    {
+      await service.AddDependencyAsync(t1.Id, t2.Id);
+    }
+    catch (DbUpdateConcurrencyException ex)
+    {
+      var entry = ex.Entries.FirstOrDefault();
+      if (entry != null)
+      {
+        var entityType = entry.Metadata;
+        var rowVersionProp = entityType.FindProperty("RowVersion");
+        Console.WriteLine($"[DIAGNOSTIC] ENTITY TYPE: {entityType.Name}");
+        Console.WriteLine($"[DIAGNOSTIC] IsConcurrencyToken: {rowVersionProp?.IsConcurrencyToken}");
+        Console.WriteLine($"[DIAGNOSTIC] State: {entry.State}");
+        Console.WriteLine($"[DIAGNOSTIC] Original RowVersion: {(entry.OriginalValues.GetValue<byte[]>("RowVersion") != null ? BitConverter.ToString(entry.OriginalValues.GetValue<byte[]>("RowVersion")) : "null")}");
+        Console.WriteLine($"[DIAGNOSTIC] Current RowVersion: {(entry.CurrentValues.GetValue<byte[]>("RowVersion") != null ? BitConverter.ToString(entry.CurrentValues.GetValue<byte[]>("RowVersion")) : "null")}");
+      }
+      throw;
+    }
 
     // Verify added
     (await db.TicketLinks.CountAsync()).Should().Be(1);

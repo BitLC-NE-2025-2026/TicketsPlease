@@ -99,9 +99,17 @@ public interface ITicketRepository
   /// Entfernt eine Ticket-VerknÃ¼pfung.
   /// </summary>
   /// <param name="linkId">Die ID der VerknÃ¼pfung.</param>
-  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <param name="ct">Das Abbruchsignal (CancellationToken).</param>
   /// <returns>Ein Task.</returns>
   public Task RemoveLinkAsync(Guid linkId, CancellationToken ct = default);
+
+  /// <summary>
+  /// FÃ¼gt eine neue Ticket-VerknÃ¼pfung hinzu.
+  /// </summary>
+  /// <param name="link">Die zu speichernde VerknÃ¼pfung.</param>
+  /// <param name="ct">Das Abbruchsignal (CancellationToken).</param>
+  /// <returns>Die asynchrone Operation.</returns>
+  public Task AddLinkAsync(TicketLink link, CancellationToken ct = default);
 
   /// <summary>
   /// Ruft alle verfÃ¼gbaren Tags ab.

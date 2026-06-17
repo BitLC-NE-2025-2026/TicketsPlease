@@ -4,7 +4,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Infrastructure.Persistence;
 
-internal abstract class InfrastructureTestBase : IDisposable
+public abstract class InfrastructureTestBase : IDisposable
 {
   private readonly SqliteConnection _connection;
   private bool _disposedValue;

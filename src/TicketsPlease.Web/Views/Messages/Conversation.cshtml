@@ -16,16 +16,12 @@
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
             <div class="flex items-center gap-3">
-                @if (!string.IsNullOrEmpty(ViewBag.OtherUserAvatarUrl))
-                {
-                    <img src="@ViewBag.OtherUserAvatarUrl" class="h-14 w-14 rounded-full object-cover border-2 border-white shadow-lg shadow-brand-primary/20 flex-shrink-0" alt="@ViewBag.OtherUserName" />
+                @{
+                    var otherInitials = ViewBag.OtherUserName != null && ((string)ViewBag.OtherUserName).Length >= 2
+                        ? ((string)ViewBag.OtherUserName).Substring(0, 2).ToUpper()
+                        : (((string)ViewBag.OtherUserName)?.ToUpper() ?? "??");
                 }
-                else
-                {
-                    <div class="h-14 w-14 rounded-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white text-xl font-black shadow-lg shadow-brand-primary/20 flex-shrink-0">
-                        @ViewBag.OtherUserName[0].ToString().ToUpper()
-                    </div>
-                }
+                <partial name="_Avatar" model='otherInitials' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-14 w-14 text-xl font-black shadow-lg shadow-brand-primary/20 flex-shrink-0" }, { "AvatarUrl", ViewBag.OtherUserAvatarUrl } }' />
                 <div>
                     <h1 class="text-2xl font-black text-slate-900">@ViewBag.OtherUserName</h1>
                     <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">@L["Direct Messages"]</p>
@@ -113,9 +109,9 @@
             if (this.scrollHeight > 200) {
                 this.style.overflowY = 'auto';
                 this.style.height = '200px';
-            } else {
-                this.style.overflowY = 'hidden';
             }
+        });
+
         // SignalR Real-time Chat
         if (typeof notificationConnection !== 'undefined') {
             notificationConnection.on("ReceiveMessage", (message) => {
@@ -146,11 +142,10 @@
                     if (window.renderMarkdown) {
                         window.renderMarkdown();
                     }
-                } else {
-                    // Falls Nachricht von jemand anderem kommt -> Globaler Toast
-                    enterpriseToast(message.senderUserName, message.bodyMarkdown, "info");
                 }
             });
+        }
+
         // Form AJAX Submission
         const chatForm = document.querySelector('form[action="/Messages/Create"]');
         if (chatForm) {

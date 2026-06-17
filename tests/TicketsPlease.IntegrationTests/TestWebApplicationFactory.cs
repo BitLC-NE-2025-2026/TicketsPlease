@@ -79,6 +79,11 @@ public sealed class TestWebApplicationFactory : WebApplicationFactory<Program>
               .AddScheme<Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions, TestAuthHandler>(
                   TestAuthHandler.AuthenticationScheme, _ => { });
 
+      services.Configure<Microsoft.AspNetCore.Authentication.AuthenticationOptions>(options =>
+      {
+        options.DefaultAuthenticateScheme = TestAuthHandler.AuthenticationScheme;
+      });
+
       services.AddSingleton<Microsoft.AspNetCore.Antiforgery.IAntiforgery, FakeAntiforgery>();
     });
   }

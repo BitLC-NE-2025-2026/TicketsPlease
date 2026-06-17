@@ -1,6 +1,8 @@
 namespace TicketsPlease.UnitTests.Infrastructure.Services;
 
+using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Domain.Enums;
 using TicketsPlease.Infrastructure.Services;
@@ -77,7 +79,7 @@ public class SubTicketServiceTests : InfrastructureTestBase
     await _service.DeleteSubTicketAsync(sub.Id);
 
     // Assert
-    var inDb = await Context.SubTickets.FindAsync(sub.Id);
+    var inDb = await Context.SubTickets.FirstOrDefaultAsync(s => s.Id == sub.Id);
     inDb.Should().BeNull();
   }
 }

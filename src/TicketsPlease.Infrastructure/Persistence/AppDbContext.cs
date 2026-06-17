@@ -191,7 +191,11 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     {
       if (this.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
       {
-        builder.Entity(type).Property("RowVersion").ValueGeneratedNever();
+        var prop = builder.Entity(type).Property("RowVersion");
+        prop.ValueGeneratedNever();
+        prop.IsConcurrencyToken(false);
+        prop.Metadata.IsConcurrencyToken = false;
+        prop.Metadata.ValueGenerated = Microsoft.EntityFrameworkCore.Metadata.ValueGenerated.Never;
       }
       else
       {
@@ -433,13 +437,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     ArgumentNullException.ThrowIfNull(optionsBuilder);
-
-    // Hinweis: Die eigentliche SQL Server Konfiguration erfolgt meist in Program.cs/Startup.cs.
-    // Falls hier konfiguriert wird, stellen wir sicher, dass RetryOnFailure aktiviert ist.
-    if (!optionsBuilder.IsConfigured)
-    {
-      // Placeholder für lokale Entwicklung oder Fallback
-    }
+    optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
   }
 
   private static void SeedStaticData(ModelBuilder builder)

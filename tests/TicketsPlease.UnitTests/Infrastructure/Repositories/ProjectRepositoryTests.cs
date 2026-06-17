@@ -1,6 +1,7 @@
 namespace TicketsPlease.UnitTests.Infrastructure.Repositories;
 
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Repositories;
 
@@ -73,7 +74,7 @@ public class ProjectRepositoryTests : InfrastructureTestBase
 
     // Delete
     await _repository.DeleteAsync(project);
-    var deleted = await Context.Projects.FindAsync(project.Id);
+    var deleted = await Context.Projects.FirstOrDefaultAsync(p => p.Id == project.Id);
     deleted.Should().BeNull();
   }
 }

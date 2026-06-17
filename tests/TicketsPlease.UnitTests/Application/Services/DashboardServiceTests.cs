@@ -63,10 +63,10 @@ public class DashboardServiceTests
             new Ticket("T1", Domain.Enums.TicketType.Task, Guid.NewGuid(), user.Id, Guid.NewGuid(), "Done", "v1") { TenantId = tenantId },
             new Ticket("T2", Domain.Enums.TicketType.Bug, Guid.NewGuid(), user.Id, Guid.NewGuid(), "Todo", "v1") { TenantId = tenantId }
         };
-    _ticketRepoMock.Setup(r => r.GetAllActiveAsync(default)).ReturnsAsync(tickets);
+    _ticketRepoMock.Setup(r => r.GetByTenantAsync(tenantId)).ReturnsAsync(tickets);
     _projectRepoMock.Setup(r => r.GetAllAsync(tenantId)).ReturnsAsync(new List<Project>());
-    _teamRepoMock.Setup(r => r.GetAllTeamsAsync(default)).ReturnsAsync(new List<Team>());
-    _timeLogRepoMock.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<TimeLog>());
+    _teamRepoMock.Setup(r => r.GetTeamsByTenantAsync(tenantId)).ReturnsAsync(new List<Team>());
+    _timeLogRepoMock.Setup(r => r.GetByTenantAsync(tenantId)).ReturnsAsync(new List<TimeLog>());
 
     _userManagerMock.Setup(m => m.Users).Returns(new List<User> { user }.AsQueryable());
     _roleManagerMock.Setup(m => m.Roles).Returns(new List<Role>().AsQueryable());

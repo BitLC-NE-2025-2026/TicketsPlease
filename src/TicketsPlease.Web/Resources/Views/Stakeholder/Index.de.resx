@@ -63,4 +63,16 @@
   <data name="Stakeholder Insights" xml:space="preserve">
     <value>Stakeholder-Einblicke</value>
   </data>
+  <data name="Healthy" xml:space="preserve">
+    <value>Gesund</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warnung</value>
+  </data>
+  <data name="At Risk" xml:space="preserve">
+    <value>Gefährdet</value>
+  </data>
+  <data name="Stakeholder Dashboard" xml:space="preserve">
+    <value>Stakeholder-Dashboard</value>
+  </data>
 </root>

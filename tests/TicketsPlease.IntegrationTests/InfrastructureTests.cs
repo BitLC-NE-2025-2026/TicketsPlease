@@ -177,12 +177,12 @@ public class InfrastructureTests : IntegrationTestBase
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var repo = new TicketRepository(db);
 
-    // Delete static seeded states to test fallback
-    // We do this in a separate transaction or just rely on class-level isolation.
-    // Since we are using class-level isolation, this will break other tests in the class
-    // unless we are careful. We'll add them back or use a different check.
+    // Soft-delete static seeded states to test fallback
     var states = await db.WorkflowStates.IgnoreQueryFilters().ToListAsync();
-    db.WorkflowStates.RemoveRange(states);
+    foreach (var state in states)
+    {
+      state.IsDeleted = true;
+    }
     await db.SaveChangesAsync();
 
     // Act
@@ -192,7 +192,10 @@ public class InfrastructureTests : IntegrationTestBase
     result.Should().BeNull();
 
     // Cleanup: Restore states for other tests in this class to avoid side-effects
-    db.WorkflowStates.AddRange(states);
+    foreach (var state in states)
+    {
+      state.IsDeleted = false;
+    }
     await db.SaveChangesAsync();
   }
 
