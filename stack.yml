@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: 127.0.0.1:5000/ticketsplease:latest
+    image: 172.16.7.42:5000/ticketsplease:latest
     ports:
       - "8080:8080"
     environment:
