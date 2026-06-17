@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-06-17
+
+### Added
+
+- **Persistent Social Likes**: Persistent "Likes" feature for the Social Feed with database modeling, EF Core mapping, AJAX API endpoints, and real-time state feedback.
+- **Dockerization Infrastructure**: Production-ready `Dockerfile` and `docker-compose.yml` to bundle the Web application and a dedicated Microsoft SQL Server database.
+
+### Fixed
+
+- **Workspace Management Binding**: Refactored `UpsertOrganizationDto` with a parameterless constructor to enable binding from HTML forms, fixing creation/edit persistence failures in Admin Workspaces.
+- **Cookie Banner UX**: Corrected animation class clashing and added a `localStorage` fallback check on DOM content load so the banner remains hidden after consent is given.
+- **Dynamic Avatar Fallback**: Redesigned `_Avatar.cshtml` to use a high-end gradient fallback (`bg-gradient-to-br from-brand-primary to-brand-accent`) when no profile image URL is present.
+- **StyleCop Alignment**: Resolved warning `SA1413` by adding trailing commas in multi-line initializers within `SocialController.cs`.
+- **CDN Elimination**: Replaced external marked.js CDN loading with local static assets to comply with security guidelines.
+
 ## [0.14.0-alpha] - 2026-04-14
 
 ### Added
