@@ -9,17 +9,6 @@ using System;
 /// <summary>
 /// DTO zum Erstellen/Bearbeiten einer Organisation.
 /// </summary>
-/// <param name="Name">Name.</param>
-/// <param name="SubscriptionLevel">Level.</param>
-/// <param name="IsActive">Status.</param>
-/// <param name="SlaCheckIntervalMinutes">Check interval in minutes.</param>
-/// <param name="QuietHoursStart">Quiet hours start time.</param>
-/// <param name="QuietHoursEnd">Quiet hours end time.</param>
-/// <param name="TimeZoneId">Organization timezone ID.</param>
-/// <param name="NotifyOnLow">Notify on low priority SLA breaches.</param>
-/// <param name="NotifyOnMedium">Notify on medium priority SLA breaches.</param>
-/// <param name="NotifyOnHigh">Notify on high priority SLA breaches.</param>
-/// <param name="NotifyOnBlocker">Notify on blocker priority SLA breaches.</param>
 public record UpsertOrganizationDto
 {
   /// <summary>
