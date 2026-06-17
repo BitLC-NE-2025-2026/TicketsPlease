@@ -20,7 +20,7 @@ jobs:
               run: dotnet tool restore
 
             - name: Build Architecture Tests
-              run: dotnet build TicketsPlease.slnx
+              run: dotnet build tests/TicketsPlease.ArchitectureTests/TicketsPlease.ArchitectureTests.csproj
 
             - name: Run Architecture Checks
-              run: dotnet test TicketsPlease.slnx --filter FullyQualifiedName~ArchitectureTests
+              run: dotnet test tests/TicketsPlease.ArchitectureTests/TicketsPlease.ArchitectureTests.csproj
