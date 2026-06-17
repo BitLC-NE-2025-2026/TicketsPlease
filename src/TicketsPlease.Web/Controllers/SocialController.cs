@@ -353,7 +353,7 @@ internal class SocialController : Controller
         Id = Guid.NewGuid(),
         SocialMessageId = id,
         UserId = userId,
-        LikedAt = DateTime.UtcNow
+        LikedAt = DateTime.UtcNow,
       };
       this.context.SocialMessageLikes.Add(like);
       liked = true;

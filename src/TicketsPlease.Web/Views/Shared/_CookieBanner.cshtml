@@ -33,13 +33,21 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (localStorage.getItem("cookieConsent")) {
+                const banner = document.getElementById("cookie-banner");
+                if (banner) {
+                    banner.style.display = "none";
+                }
+            }
+        });
+
         function setConsentCookie(value) {
             const d = new Date();
             d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
             const expires = "expires=" + d.toUTCString();
             document.cookie = "cookieConsent=" + value + ";" + expires + ";path=/;SameSite=Lax";
             
-            // backup to localStorage
             try {
                 localStorage.setItem("cookieConsent", value);
             } catch (e) {
@@ -60,6 +68,7 @@
         function hideBanner() {
             const banner = document.getElementById("cookie-banner");
             if (banner) {
+                banner.classList.remove("translate-y-0", "opacity-100");
                 banner.classList.add("translate-y-full", "opacity-0");
                 setTimeout(() => {
                     banner.style.display = "none";
@@ -68,3 +77,4 @@
         }
     </script>
 }
+
