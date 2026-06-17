@@ -9,16 +9,24 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- **Persistent Social Likes**: Persistent "Likes" feature for the Social Feed with database modeling, EF Core mapping, AJAX API endpoints, and real-time state feedback.
-- **Dockerization Infrastructure**: Production-ready `Dockerfile` and `docker-compose.yml` to bundle the Web application and a dedicated Microsoft SQL Server database.
+- **Persistent Social Likes**: Persistent "Likes" feature for the Social Feed with database
+  modeling, EF Core mapping, AJAX API endpoints, and real-time state feedback.
+- **Dockerization Infrastructure**: Production-ready `Dockerfile` and `docker-compose.yml` to
+  bundle the Web application and a dedicated Microsoft SQL Server database.
 
 ### Fixed
 
-- **Workspace Management Binding**: Refactored `UpsertOrganizationDto` with a parameterless constructor to enable binding from HTML forms, fixing creation/edit persistence failures in Admin Workspaces.
-- **Cookie Banner UX**: Corrected animation class clashing and added a `localStorage` fallback check on DOM content load so the banner remains hidden after consent is given.
-- **Dynamic Avatar Fallback**: Redesigned `_Avatar.cshtml` to use a high-end gradient fallback (`bg-gradient-to-br from-brand-primary to-brand-accent`) when no profile image URL is present.
-- **StyleCop Alignment**: Resolved warning `SA1413` by adding trailing commas in multi-line initializers within `SocialController.cs`.
-- **CDN Elimination**: Replaced external marked.js CDN loading with local static assets to comply with security guidelines.
+- **Workspace Management Binding**: Refactored `UpsertOrganizationDto` with a parameterless
+  constructor to enable binding from HTML forms, fixing creation/edit persistence failures in
+  Admin Workspaces.
+- **Cookie Banner UX**: Corrected animation class clashing and added a `localStorage` fallback
+  check on DOM content load so the banner remains hidden after consent is given.
+- **Dynamic Avatar Fallback**: Redesigned `_Avatar.cshtml` to use a high-end gradient fallback
+  (`bg-gradient-to-br from-brand-primary to-brand-accent`) when no profile image URL is present.
+- **StyleCop Alignment**: Resolved warning `SA1413` by adding trailing commas in multi-line
+  initializers within `SocialController.cs`.
+- **CDN Elimination**: Replaced external marked.js CDN loading with local static assets to comply
+  with security guidelines.
 
 ## [0.14.0-alpha] - 2026-04-14
 
@@ -256,6 +264,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Domain Entity**: Removed mutable property setter from Message Attachments collection to fix
   `CA2227`.
 
+[Unreleased]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.14.0-alpha...HEAD
+[0.14.0-alpha]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.13.0-alpha...v0.14.0-alpha
+[0.13.0-alpha]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.12.0-alpha...v0.13.0-alpha
+[0.12.0-alpha]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.11.0-alpha...v0.12.0-alpha
+[0.11.0-alpha]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.10.0-alpha...v0.11.0-alpha
+[0.10.0-alpha]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.9.0-alpha...v0.10.0-alpha
 [0.9.0-alpha]: https://github.com/Tobia/TicketsPlease/releases/tag/v0.9.0
 [2026-03-27]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.2.0...v0.3.0
 [2026-03-26]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.1.0...v0.2.0
