@@ -1,26 +1,35 @@
+# Version der Docker Compose Spezifikation für Swarm
 version: '3.8'
 
 services:
   web:
+    # Verwendet die physische IP des Managers für den Image-Download durch Worker-Nodes
     image: 172.16.7.42:5000/ticketsplease:latest
     ports:
+      # Mappt den Host-Port 8080 auf den Container-Port 8080
       - "8080:8080"
     environment:
+      # Definition der Umgebungsvariablen im Key-Value Format
       ASPNETCORE_ENVIRONMENT: "Production"
+      # Connection String nutzt den Swarm Service-Namen tickets_db für DNS-Auflösung
       ConnectionStrings__DefaultConnection: "Server=tickets_db;Database=TicketsPlease;User Id=sa;Password=SecurePassword123!;TrustServerCertificate=True;"
     networks:
       - my-overlay-net
     depends_on:
       - db
     deploy:
+      # Startet zwei Replikate der Webanwendung für Hochverfügbarkeit
       replicas: 2
       update_config:
         parallelism: 1
         delay: 10s
       restart_policy:
-        condition: on-failure
+        # Bedingung any erzwingt den Neustart auch bei Exit Code 0
+        condition: any
+        delay: 5s
 
   db:
+    # Offizielles SQL Server 2022 Image
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: "Y"
@@ -28,15 +37,19 @@ services:
     networks:
       - my-overlay-net
     volumes:
+      # Bindet das persistente Volume für Datenbankdateien ein
       - mssql-data:/var/opt/mssql
     deploy:
       placement:
         constraints:
+          # Beschränkt die Datenbankausführung ausschließlich auf den Manager-Node
           - node.role == manager
 
 networks:
   my-overlay-net:
+    # Deklariert das existierende attachable Overlay-Netzwerk
     external: true
 
 volumes:
+  # Deklariert das benannte Volume für persistente Datenhaltung
   mssql-data:
