@@ -13,8 +13,6 @@ ASP.NET Core 10.3 und Entity Framework Core**.
 > **Projektphasen:** Da der Auftrag "Einfaches Ticketsystem" lautet, trennen wir strikt zwischen dem
 > **[MVP-Kern](docs/MVP_Roadmap.md)** und der späteren Enterprise-Ausbaustufe! 🛠️ **Schnellstart:**
 > Neu im Projekt? Folge der **[Einrichtungsanleitung für Dummies](docs/dev_setup_guide.md)**! 🤖
-> **AI-gestützte Entwicklung:** Dieses Projekt nutzt **Antigravity AI Skills** zur Automatisierung
-> von Scaffolding, Reviews und Debugging. Siehe **[Antigravity Guide](docs/antigravity-guide.md)**.
 
 ---
 
